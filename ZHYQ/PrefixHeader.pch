@@ -1,0 +1,67 @@
+//
+//  PrefixHeader.pch
+//  ZHYQ
+//
+//  Created by 焦平 on 2017/10/22.
+//  Copyright © 2017年 焦平. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+//全局宏
+#import "UtilsMacros.h"
+#import "URLMacros.h"
+#import "FontAndColorMacros.h"
+#import "ThirdMacros.h"
+
+//第三方
+#import <YYKit.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <MBProgressHUD.h>
+#import <AFNetworking.h>
+#import <MMDrawerController.h>
+#import <UIViewController+MMDrawerController.h>
+#import <CYLTableViewPlaceHolder.h>
+//#import <PNChart.h>
+#import <Masonry.h>
+#import "AAGlobalMacro.h"
+#import "UIViewController+HUD.h"
+#import "Utils.h"
+#import "UIView+YQ.h"
+#import <TZImagePickerController.h>
+#import <FSScrollContentView.h>
+#import <FSSegmentTitleView.h>
+#import "YQSegmentView.h"
+#import "YQSegmentConfigure.h"
+#import "YQPageContentView.h"
+#import "YQPageContentScrollView.h"
+
+#import <UICollectionView+PlaceHolderView.h>
+
+#import "PointViewSelect.h"
+
+#import "UIScrollView+Empty.h"
+
+//基础类
+#import "AppDelegate.h"
+#import "AppDelegate+AppService.h"
+#import "AppDelegate+PushService.h"
+#import "RootViewController.h"
+#import "RootNavigationController.h"
+#import "NoDataView.h"
+
+#import "LogRecordObj.h"
+
+//三方平台接入
+//#import <UMengUShare/UMSocialCore/UMSocialManager.h>
+//#import <UMengUShare/UMSocialCore/UMSocialCore.h>
+
+//网络请求
+#import "NetworkClient.h"
+
+//高德地图
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <MAMapKit/MAMapKit.h>
+
+#endif /* PrefixHeader_pch */

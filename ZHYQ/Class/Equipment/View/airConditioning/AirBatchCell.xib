@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="AirBatchCell">
+            <rect key="frame" x="0.0" y="0.0" width="373" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="373" height="59.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K9n-en-0la">
+                        <rect key="frame" x="342" y="19" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="20" id="DLU-hd-3kS"/>
+                            <constraint firstAttribute="height" constant="20" id="fLo-ll-7jw"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="park_cancel_apt_normal"/>
+                        <state key="selected" backgroundImage="park_cancel_apt_select"/>
+                        <connections>
+                            <action selector="selBt:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jxu-5o-pFT"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="研发楼十一楼" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAt-mh-AaL">
+                        <rect key="frame" x="12" y="19" width="104" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="104" id="3DD-X2-yk6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="301   302   303   304   305" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNg-qn-Jz9">
+                        <rect key="frame" x="121" y="19" width="211" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="jNg-qn-Jz9" firstAttribute="top" secondItem="jAt-mh-AaL" secondAttribute="top" id="01j-CT-rnV"/>
+                    <constraint firstAttribute="trailing" secondItem="K9n-en-0la" secondAttribute="trailing" constant="11" id="CPV-dE-mzv"/>
+                    <constraint firstItem="K9n-en-0la" firstAttribute="leading" secondItem="jNg-qn-Jz9" secondAttribute="trailing" constant="10" id="JBa-ku-mCz"/>
+                    <constraint firstItem="K9n-en-0la" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="TFu-u6-JQf"/>
+                    <constraint firstItem="jAt-mh-AaL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="nHe-eL-wgp"/>
+                    <constraint firstItem="jAt-mh-AaL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="19" id="q9o-pj-Peo"/>
+                    <constraint firstItem="jNg-qn-Jz9" firstAttribute="leading" secondItem="jAt-mh-AaL" secondAttribute="trailing" constant="5" id="rPP-cW-49x"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="_floorLabel" destination="jAt-mh-AaL" id="kuz-cr-wYz"/>
+                <outlet property="_roomLabel" destination="jNg-qn-Jz9" id="trF-yc-iYb"/>
+                <outlet property="_selFlagBt" destination="K9n-en-0la" id="pHw-ja-gHA"/>
+            </connections>
+            <point key="canvasLocation" x="60.5" y="62"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="park_cancel_apt_normal" width="20" height="20"/>
+        <image name="park_cancel_apt_select" width="20" height="20"/>
+    </resources>
+</document>

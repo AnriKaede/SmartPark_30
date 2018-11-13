@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.15" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.9"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="GetMealCell">
+            <rect key="frame" x="0.0" y="0.0" width="116" height="84"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="116" height="84"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2HM-0U-djb">
+                        <rect key="frame" x="0.0" y="0.0" width="116" height="84"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYj-02-Mlm">
+                                <rect key="frame" x="0.0" y="0.0" width="116" height="84"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IYj-02-Mlm" firstAttribute="top" secondItem="2HM-0U-djb" secondAttribute="top" id="GcK-mP-je6"/>
+                            <constraint firstAttribute="bottom" secondItem="IYj-02-Mlm" secondAttribute="bottom" id="GgS-44-NlQ"/>
+                            <constraint firstItem="IYj-02-Mlm" firstAttribute="leading" secondItem="2HM-0U-djb" secondAttribute="leading" id="UTQ-xJ-5Ke"/>
+                            <constraint firstAttribute="trailing" secondItem="IYj-02-Mlm" secondAttribute="trailing" id="asI-rF-iT3"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="2HM-0U-djb" secondAttribute="trailing" id="LQM-Uf-V7T"/>
+                <constraint firstItem="2HM-0U-djb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="VnI-hc-ot9"/>
+                <constraint firstAttribute="bottom" secondItem="2HM-0U-djb" secondAttribute="bottom" id="fmx-IO-Qvv"/>
+                <constraint firstItem="2HM-0U-djb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="jNM-mO-HV9"/>
+            </constraints>
+            <size key="customSize" width="116" height="84"/>
+            <connections>
+                <outlet property="_bgView" destination="2HM-0U-djb" id="vi0-jr-ECY"/>
+                <outlet property="_numLabel" destination="IYj-02-Mlm" id="TLR-xh-FVy"/>
+            </connections>
+            <point key="canvasLocation" x="190.40000000000001" y="169.11544227886057"/>
+        </collectionViewCell>
+    </objects>
+</document>

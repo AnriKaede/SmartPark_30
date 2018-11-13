@@ -1,0 +1,33 @@
+#import <Foundation/Foundation.h>
+NSString *CONTROL_SERVICE_UUID = @"FFF0";
+NSString *WRITE_SERVICE_UUID = @"FFF1";
+NSString *NOTIFICATION_SERVICE_UUID = @"FFF2";
+Byte LOCK_UP[] = {0x02,0x01,0x01,0xfc};
+Byte LOCK_UP_FORCED[] = {0x02,0x01,0x02,0xfb};
+Byte LOCK_DOWN[] = {0x02,0x01,0x00,0xfd};
+Byte LOCK_RESET[] = {0x0B,0x00,0xF5};
+Byte LOCK_SEARCH_KEEP[] = {0x00,0x01,0x01, 0xfe};
+Byte LOCK_SEARCH_LEAVE[] = {0x00,0x01,0x00,0xff};
+Byte PASSWORD_VERIFITY_SUCCESS_STATE[] = {0x04,0x01,0x00,0xfb};
+Byte PASSWORD_VERIFITY_FAIL_STATE[] = {0x04,0x01,0x02,0xf9};
+NSString *LOCK_STATUS_IS_UP = @"已升起";
+NSString *LOCK_STATUS_IS_DOWN = @"已降下";
+NSString *LOCK_STATUS_IS_EXCEPTION = @"请重置";
+NSString *LOCK_STATUS_NO_CAR = @"未停车";
+NSString *LOCK_STATUS_HAS_CAR = @"已停车";
+NSString *LOCK_STATUS_BARRIER = @"02"; 
+NSString *LOCK_STATUS_UP = @"01";
+NSString *LOCK_STATUS_DOWN = @"00";
+NSString *phone = @"phone";
+NSString *password = @"password";
+NSString *secretKey = @"ciXYWvZxgtpCKYPK";
+NSString *shareSuccess = @"shareSuccess";
+NSString *unbindLock = @"unbindLock";
+NSString *bluetoothConnect = @"bluetoothConnect";
+NSString *bluetoothAddLock = @"bluetoothAddLock";
+NSString *userCancelShare = @"userCancelShare";
+NSString *loginOut = @"loginOut";
+NSString *updateUserInfo = @"updateUserMessage";
+NSString *remoteNotification = @"remoteNotification";
+NSString *userAvaterContentUrl = @"/Documents/userAvater.png";
+

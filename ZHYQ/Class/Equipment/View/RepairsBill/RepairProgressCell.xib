@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="109" id="KGk-i7-Jjw" customClass="RepairProgressCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="108.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-01-01 00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAJ-HZ-cmU">
+                        <rect key="frame" x="42" y="10" width="164" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="管理员某某确认路灯已修复，维修 结束" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBH-3T-jS8">
+                        <rect key="frame" x="42" y="48" width="249" height="41"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QHX-ar-pAb">
+                        <rect key="frame" x="22.5" y="28.5" width="1" height="80"/>
+                        <color key="backgroundColor" red="0.52156862749999999" green="0.74509803919999995" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="4i9-NT-GLN"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rKd-FG-cIQ">
+                        <rect key="frame" x="15" y="12.5" width="16" height="16"/>
+                        <color key="backgroundColor" red="0.52156862745098043" green="0.74509803921568629" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="3YM-ZW-MHQ"/>
+                            <constraint firstAttribute="height" constant="16" id="ikJ-j0-sW2"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAn-bi-BMW">
+                        <rect key="frame" x="22.5" y="0.0" width="1" height="12.5"/>
+                        <color key="backgroundColor" red="0.52156862749999999" green="0.74509803919999995" blue="0.92941176469999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="4Zh-b1-R2U"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="WAJ-HZ-cmU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="42" id="59J-kK-ilH"/>
+                    <constraint firstItem="QHX-ar-pAb" firstAttribute="top" secondItem="rKd-FG-cIQ" secondAttribute="bottom" id="78P-RN-tLQ"/>
+                    <constraint firstItem="rKd-FG-cIQ" firstAttribute="centerY" secondItem="WAJ-HZ-cmU" secondAttribute="centerY" id="8YU-C8-uni"/>
+                    <constraint firstItem="LAn-bi-BMW" firstAttribute="centerX" secondItem="rKd-FG-cIQ" secondAttribute="centerX" id="Bis-YP-WWa"/>
+                    <constraint firstItem="LAn-bi-BMW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="DWx-r7-3cr"/>
+                    <constraint firstItem="rKd-FG-cIQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="G6v-w8-d10"/>
+                    <constraint firstItem="gBH-3T-jS8" firstAttribute="leading" secondItem="WAJ-HZ-cmU" secondAttribute="leading" id="Gpf-yR-bte"/>
+                    <constraint firstItem="gBH-3T-jS8" firstAttribute="top" secondItem="WAJ-HZ-cmU" secondAttribute="bottom" constant="17" id="aAY-O0-MEy"/>
+                    <constraint firstAttribute="trailing" secondItem="gBH-3T-jS8" secondAttribute="trailing" constant="29" id="eR8-cp-ofa"/>
+                    <constraint firstItem="QHX-ar-pAb" firstAttribute="centerX" secondItem="rKd-FG-cIQ" secondAttribute="centerX" id="hHv-BM-k0W"/>
+                    <constraint firstAttribute="bottom" secondItem="QHX-ar-pAb" secondAttribute="bottom" id="o2D-Sg-FjG"/>
+                    <constraint firstItem="rKd-FG-cIQ" firstAttribute="top" secondItem="LAn-bi-BMW" secondAttribute="bottom" id="pFC-tV-mYS"/>
+                    <constraint firstItem="WAJ-HZ-cmU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="yRM-NO-Cuu"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="_bottomView" destination="QHX-ar-pAb" id="IJU-xq-gT1"/>
+                <outlet property="_circleView" destination="rKd-FG-cIQ" id="Q9c-q7-qNr"/>
+                <outlet property="_msgLabel" destination="gBH-3T-jS8" id="ED7-LZ-o6m"/>
+                <outlet property="_timeLabel" destination="WAJ-HZ-cmU" id="yc1-RR-3br"/>
+                <outlet property="_topView" destination="LAn-bi-BMW" id="GN3-dX-vbj"/>
+            </connections>
+            <point key="canvasLocation" x="34" y="86.5"/>
+        </tableViewCell>
+    </objects>
+</document>

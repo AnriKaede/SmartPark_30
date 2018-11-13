@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="meQ-xJ-MGO" customClass="WifiAddUserCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="meQ-xJ-MGO" id="U49-ga-poi">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi_add_user_icon" translatesAutoresizingMaskIntoConstraints="NO" id="8EI-p4-eqq">
+                        <rect key="frame" x="173" y="10" width="13" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="SJ2-jC-yve"/>
+                            <constraint firstAttribute="width" constant="13" id="bDH-Fz-ZuP"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gR-xn-VG5">
+                        <rect key="frame" x="194" y="9" width="31.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="8EI-p4-eqq" firstAttribute="top" secondItem="U49-ga-poi" secondAttribute="top" constant="10" id="Ska-Vi-1GQ"/>
+                    <constraint firstItem="7gR-xn-VG5" firstAttribute="centerY" secondItem="8EI-p4-eqq" secondAttribute="centerY" id="XCk-uG-iK4"/>
+                    <constraint firstItem="8EI-p4-eqq" firstAttribute="centerX" secondItem="U49-ga-poi" secondAttribute="centerX" constant="-8" id="gXW-Un-A1v"/>
+                    <constraint firstItem="7gR-xn-VG5" firstAttribute="leading" secondItem="8EI-p4-eqq" secondAttribute="trailing" constant="8" id="pzz-Fq-Kl1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="allUserLabel" destination="7gR-xn-VG5" id="ZtR-Yk-78b"/>
+            </connections>
+            <point key="canvasLocation" x="33" y="14"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="wifi_add_user_icon" width="12.5" height="15"/>
+    </resources>
+</document>

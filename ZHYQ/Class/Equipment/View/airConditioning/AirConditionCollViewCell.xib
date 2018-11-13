@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AirConditionCollViewCell" id="gTV-IL-0wX" customClass="AirConditionCollViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="101房" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymF-vu-Pt2">
+                        <rect key="frame" x="15" y="0.0" width="74" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Zdh-02-QDo"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="icT-Br-Bz3">
+                        <rect key="frame" x="0.0" y="0.0" width="104" height="30"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="6eA-Ib-Y1y"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="room_icon" translatesAutoresizingMaskIntoConstraints="NO" id="ktv-bj-aop">
+                        <rect key="frame" x="3" y="3" width="10" height="10"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="9OL-OM-nVR"/>
+                            <constraint firstAttribute="width" constant="10" id="sO1-Wa-hU1"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aircondition_error" translatesAutoresizingMaskIntoConstraints="NO" id="iW8-2B-GiW">
+                        <rect key="frame" x="10" y="54.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="0O0-lv-HH4"/>
+                            <constraint firstAttribute="width" constant="25" id="HE0-dT-Pgz"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="故障" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HZy-4m-B73">
+                        <rect key="frame" x="37" y="58.5" width="62" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="aircondition_stop" translatesAutoresizingMaskIntoConstraints="NO" id="rRD-X4-QD8">
+                        <rect key="frame" x="20" y="35" width="64" height="64"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="rRD-X4-QD8" secondAttribute="height" multiplier="1:1" id="4ep-Oy-yNr"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="rRD-X4-QD8" firstAttribute="centerX" secondItem="ymF-vu-Pt2" secondAttribute="centerX" id="05o-X9-qpe"/>
+                <constraint firstAttribute="trailing" secondItem="icT-Br-Bz3" secondAttribute="trailing" id="4Ve-7j-PvE"/>
+                <constraint firstItem="ymF-vu-Pt2" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="6vS-kT-a7m"/>
+                <constraint firstItem="rRD-X4-QD8" firstAttribute="centerY" secondItem="iW8-2B-GiW" secondAttribute="centerY" id="D7A-uy-a00"/>
+                <constraint firstItem="ktv-bj-aop" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="3" id="Fka-sW-nn7"/>
+                <constraint firstItem="iW8-2B-GiW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="W2R-0g-HW0"/>
+                <constraint firstAttribute="bottom" secondItem="rRD-X4-QD8" secondAttribute="bottom" constant="5" id="Wgj-sJ-2bL"/>
+                <constraint firstAttribute="trailing" secondItem="HZy-4m-B73" secondAttribute="trailing" constant="5" id="Z3f-hE-8go"/>
+                <constraint firstAttribute="trailing" secondItem="ymF-vu-Pt2" secondAttribute="trailing" constant="15" id="bEb-EB-cSx"/>
+                <constraint firstItem="icT-Br-Bz3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="kQr-IT-oRc"/>
+                <constraint firstItem="ktv-bj-aop" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="3" id="maf-H1-gIz"/>
+                <constraint firstItem="icT-Br-Bz3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="oxa-AQ-bha"/>
+                <constraint firstItem="rRD-X4-QD8" firstAttribute="top" secondItem="ymF-vu-Pt2" secondAttribute="bottom" constant="5" id="rkZ-In-7SB"/>
+                <constraint firstItem="ymF-vu-Pt2" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="tei-e6-4fP"/>
+                <constraint firstItem="HZy-4m-B73" firstAttribute="leading" secondItem="iW8-2B-GiW" secondAttribute="trailing" constant="2" id="vv2-yk-NbX"/>
+                <constraint firstItem="iW8-2B-GiW" firstAttribute="centerY" secondItem="HZy-4m-B73" secondAttribute="centerY" id="xpD-Lr-xQP"/>
+            </constraints>
+            <size key="customSize" width="104" height="104"/>
+            <connections>
+                <outlet property="airconditionView" destination="rRD-X4-QD8" id="4fe-pf-xkf"/>
+                <outlet property="bgView" destination="icT-Br-Bz3" id="WBA-Uq-cx8"/>
+                <outlet property="errorImageView" destination="iW8-2B-GiW" id="4VM-2W-0MQ"/>
+                <outlet property="errorLab" destination="HZy-4m-B73" id="wSy-QR-aLc"/>
+                <outlet property="nameLab" destination="ymF-vu-Pt2" id="SPg-9I-aRN"/>
+            </connections>
+            <point key="canvasLocation" x="61" y="81"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="aircondition_error" width="25" height="25"/>
+        <image name="aircondition_stop" width="51" height="46"/>
+        <image name="room_icon" width="11" height="10"/>
+    </resources>
+</document>

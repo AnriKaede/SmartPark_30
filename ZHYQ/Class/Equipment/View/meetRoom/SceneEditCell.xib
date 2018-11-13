@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="102" id="KGk-i7-Jjw" customClass="SceneEditCell">
+            <rect key="frame" x="0.0" y="0.0" width="395" height="102"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="395" height="101.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scene_edit_mustfill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqh-Xv-0vT">
+                        <rect key="frame" x="11" y="47" width="8" height="8"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="8" id="Etg-C4-uTK"/>
+                            <constraint firstAttribute="width" constant="8" id="XjQ-9T-lfI"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="策略名字: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7kv-dz-2js">
+                        <rect key="frame" x="25" y="40.5" width="78.5" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请填写场景名字" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lht-pD-spd">
+                        <rect key="frame" x="110" y="30" width="274" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="zI1-Yw-icl"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="lht-pD-spd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="1Hd-Wq-51G"/>
+                    <constraint firstItem="Aqh-Xv-0vT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="L5O-Hd-aUT"/>
+                    <constraint firstAttribute="trailing" secondItem="lht-pD-spd" secondAttribute="trailing" constant="11" id="MCs-Ff-cJF"/>
+                    <constraint firstItem="7kv-dz-2js" firstAttribute="leading" secondItem="Aqh-Xv-0vT" secondAttribute="trailing" constant="6" id="qwc-eS-fqq"/>
+                    <constraint firstItem="7kv-dz-2js" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="svG-oF-r2o"/>
+                    <constraint firstItem="Aqh-Xv-0vT" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uNa-os-RsR"/>
+                    <constraint firstItem="lht-pD-spd" firstAttribute="leading" secondItem="7kv-dz-2js" secondAttribute="trailing" constant="6" id="x0p-Qg-Ssf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="_sceneNameTF" destination="lht-pD-spd" id="gss-9w-r9f"/>
+                <outlet property="sceneNameTF" destination="lht-pD-spd" id="fHg-sI-M3b"/>
+            </connections>
+            <point key="canvasLocation" x="71.5" y="83"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="scene_edit_mustfill" width="8" height="8"/>
+    </resources>
+</document>

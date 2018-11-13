@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="76" id="KGk-i7-Jjw" customClass="SimilarValueCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="75.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="相似度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DZp-ye-QYy">
+                        <rect key="frame" x="11" y="27.5" width="53" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="w1f-cE-d3W"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="zQn-TR-W86" customClass="YQSlider">
+                        <rect key="frame" x="92" y="33" width="241" height="11"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="h7v-m2-M3Q"/>
+                        </constraints>
+                    </slider>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clO-T8-AlC">
+                        <rect key="frame" x="80" y="28" width="14" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="14" id="3bR-M4-DFy"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AV6-0s-GJA">
+                        <rect key="frame" x="331" y="27.5" width="31" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="31" id="rGd-Gt-eQg"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="zQn-TR-W86" firstAttribute="leading" secondItem="clO-T8-AlC" secondAttribute="trailing" id="C10-ZN-Xh5"/>
+                    <constraint firstItem="clO-T8-AlC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="DaR-4f-omA"/>
+                    <constraint firstItem="AV6-0s-GJA" firstAttribute="leading" secondItem="zQn-TR-W86" secondAttribute="trailing" id="IWn-5D-UZ7"/>
+                    <constraint firstItem="DZp-ye-QYy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="11" id="JOj-jd-cuj"/>
+                    <constraint firstAttribute="trailing" secondItem="AV6-0s-GJA" secondAttribute="trailing" constant="13" id="MfN-RF-ny5"/>
+                    <constraint firstItem="clO-T8-AlC" firstAttribute="leading" secondItem="DZp-ye-QYy" secondAttribute="trailing" constant="16" id="ixG-d8-u7G"/>
+                    <constraint firstItem="AV6-0s-GJA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nhd-CZ-vRX"/>
+                    <constraint firstItem="DZp-ye-QYy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uE3-8O-LLZ"/>
+                    <constraint firstItem="zQn-TR-W86" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="w3p-WB-CfF"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="similarSlider" destination="zQn-TR-W86" id="D36-X4-bu0"/>
+            </connections>
+            <point key="canvasLocation" x="96.5" y="70"/>
+        </tableViewCell>
+    </objects>
+</document>

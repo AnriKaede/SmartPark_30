@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="126" id="D9A-0c-uGG" customClass="IllegalListTabCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D9A-0c-uGG" id="MKk-Go-k87">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="125.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="carno" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="45W-At-cTz">
+                        <rect key="frame" x="10" y="24" width="44" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbn-XN-krb">
+                        <rect key="frame" x="333" y="25" width="32" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="msg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GpN-ni-k4h">
+                        <rect key="frame" x="11" y="73" width="353" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BP5-UY-BeE">
+                        <rect key="frame" x="0.0" y="125" width="375" height="1"/>
+                        <color key="backgroundColor" red="0.7372956276" green="0.73728156089999997" blue="0.7372910976" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.80000000000000004" id="sVu-KO-a1t"/>
+                        </constraints>
+                    </view>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="黑名单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDb-ah-e86">
+                        <rect key="frame" x="74" y="24.5" width="50" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="CCI-XL-cbd"/>
+                            <constraint firstAttribute="height" constant="20" id="D9t-tj-CSD"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.92184346910000003" green="0.32546219230000001" blue="0.36869272590000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="GpN-ni-k4h" firstAttribute="leading" secondItem="MKk-Go-k87" secondAttribute="leading" constant="11" id="095-fr-Brg"/>
+                    <constraint firstAttribute="bottom" secondItem="BP5-UY-BeE" secondAttribute="bottom" id="1h5-w9-Bdn"/>
+                    <constraint firstAttribute="trailing" secondItem="Fbn-XN-krb" secondAttribute="trailing" constant="10" id="BeJ-YR-tLw"/>
+                    <constraint firstItem="GpN-ni-k4h" firstAttribute="top" secondItem="45W-At-cTz" secondAttribute="bottom" constant="28" id="L9Y-jZ-G2T"/>
+                    <constraint firstAttribute="trailing" secondItem="GpN-ni-k4h" secondAttribute="trailing" constant="11" id="Olx-m6-rTf"/>
+                    <constraint firstItem="45W-At-cTz" firstAttribute="top" secondItem="MKk-Go-k87" secondAttribute="top" constant="24" id="UDk-U2-Qf8"/>
+                    <constraint firstItem="45W-At-cTz" firstAttribute="leading" secondItem="MKk-Go-k87" secondAttribute="leading" constant="10" id="cRo-W1-cLH"/>
+                    <constraint firstItem="wDb-ah-e86" firstAttribute="centerY" secondItem="45W-At-cTz" secondAttribute="centerY" id="ck8-m1-eyk"/>
+                    <constraint firstItem="wDb-ah-e86" firstAttribute="leading" secondItem="45W-At-cTz" secondAttribute="trailing" constant="20" id="gF3-9F-Gk6"/>
+                    <constraint firstItem="Fbn-XN-krb" firstAttribute="centerY" secondItem="45W-At-cTz" secondAttribute="centerY" id="hoi-a8-bTb"/>
+                    <constraint firstAttribute="trailing" secondItem="BP5-UY-BeE" secondAttribute="trailing" id="te9-dS-pjO"/>
+                    <constraint firstItem="BP5-UY-BeE" firstAttribute="leading" secondItem="MKk-Go-k87" secondAttribute="leading" id="uia-dD-cJN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="_blackFlagLabel" destination="wDb-ah-e86" id="Axw-ww-T46"/>
+                <outlet property="_carNoLabel" destination="45W-At-cTz" id="Y9z-uJ-tRf"/>
+                <outlet property="_msgLabel" destination="GpN-ni-k4h" id="g6t-JT-dr2"/>
+                <outlet property="_timeLabel" destination="Fbn-XN-krb" id="s0k-UJ-ImO"/>
+            </connections>
+            <point key="canvasLocation" x="-186.5" y="-1"/>
+        </tableViewCell>
+    </objects>
+</document>

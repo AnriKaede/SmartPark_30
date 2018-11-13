@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AuthorityCell">
+            <rect key="frame" x="0.0" y="0.0" width="87" height="86"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="87" height="86"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNr-Xs-ztz">
+                        <rect key="frame" x="0.0" y="0.0" width="87" height="30"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="101房" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyw-xK-fbC">
+                                <rect key="frame" x="13" y="6.5" width="60.5" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="room_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Q6o-FW-hHO">
+                                <rect key="frame" x="3" y="3" width="10" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="Nxt-0r-NMn"/>
+                                    <constraint firstAttribute="height" constant="10" id="TtZ-e9-p7m"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2342541367" green="0.48326131700000002" blue="0.76477122310000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="Q6o-FW-hHO" firstAttribute="leading" secondItem="NNr-Xs-ztz" secondAttribute="leading" constant="3" id="1H1-0D-VeJ"/>
+                            <constraint firstItem="Q6o-FW-hHO" firstAttribute="top" secondItem="NNr-Xs-ztz" secondAttribute="top" constant="3" id="7yd-we-c2T"/>
+                            <constraint firstItem="zyw-xK-fbC" firstAttribute="centerX" secondItem="NNr-Xs-ztz" secondAttribute="centerX" id="J5A-ez-UeB"/>
+                            <constraint firstItem="zyw-xK-fbC" firstAttribute="centerY" secondItem="NNr-Xs-ztz" secondAttribute="centerY" id="RrC-gn-qkH"/>
+                            <constraint firstAttribute="height" constant="30" id="okF-2t-t2d"/>
+                            <constraint firstItem="zyw-xK-fbC" firstAttribute="width" secondItem="NNr-Xs-ztz" secondAttribute="width" multiplier="0.7" id="uP0-hh-b7N"/>
+                        </constraints>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="door_close" translatesAutoresizingMaskIntoConstraints="NO" id="7fz-zC-0vW">
+                        <rect key="frame" x="24.5" y="35.5" width="38.5" height="50.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="38.5" id="6fB-yS-puL"/>
+                            <constraint firstAttribute="height" constant="50.5" id="vie-Pg-EfJ"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="NNr-Xs-ztz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="4Tb-Id-jkg"/>
+                <constraint firstItem="NNr-Xs-ztz" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="FEa-Gt-TSy"/>
+                <constraint firstItem="7fz-zC-0vW" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="FUu-EY-42R"/>
+                <constraint firstAttribute="trailing" secondItem="NNr-Xs-ztz" secondAttribute="trailing" id="TQI-Zr-mgO"/>
+                <constraint firstAttribute="bottom" secondItem="7fz-zC-0vW" secondAttribute="bottom" id="gYC-ra-eoH"/>
+            </constraints>
+            <size key="customSize" width="87" height="86"/>
+            <connections>
+                <outlet property="_doorImgView" destination="7fz-zC-0vW" id="jY9-u0-qtB"/>
+                <outlet property="_doorNumLabel" destination="zyw-xK-fbC" id="DEK-xc-PC7"/>
+                <outlet property="_topBgView" destination="NNr-Xs-ztz" id="wQZ-lA-aHN"/>
+            </connections>
+            <point key="canvasLocation" x="52.5" y="72"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="door_close" width="38" height="50"/>
+        <image name="room_icon" width="11" height="10"/>
+    </resources>
+</document>
