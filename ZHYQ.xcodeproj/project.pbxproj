@@ -81,9 +81,6 @@
 		922770E920BD3B79009010F7 /* ParkAllRcordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 922770E620BD3B78009010F7 /* ParkAllRcordTableViewCell.m */; };
 		922770EC20BD3F4B009010F7 /* ParkFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 922770EB20BD3F4B009010F7 /* ParkFilterViewController.m */; };
 		922770F020BD46A7009010F7 /* MessageTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 922770EF20BD46A7009010F7 /* MessageTypeModel.m */; };
-
-		922F360F20565DBB003DFB04 /* WaterMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 922F360E20565DBB003DFB04 /* WaterMonitorViewController.m */; };
-
 		922788402117E63D00D8430C /* UIImage+Zip.m in Sources */ = {isa = PBXBuildFile; fileRef = 9227883F2117E63D00D8430C /* UIImage+Zip.m */; };
 		922B40C6215250F600B9F6E4 /* ParkOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 922B40C5215250F600B9F6E4 /* ParkOverViewController.m */; };
 		922B40CA2154886D00B9F6E4 /* BookRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 922B40C92154886D00B9F6E4 /* BookRecordViewController.m */; };
@@ -121,6 +118,7 @@
 		922B41322154CE4400B9F6E4 /* KQDetailMonthModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 922B41302154CE4300B9F6E4 /* KQDetailMonthModel.m */; };
 		922B41362154DF7500B9F6E4 /* CardUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 922B41342154DF7500B9F6E4 /* CardUserInfoCell.m */; };
 		922B41372154DF7500B9F6E4 /* CardUserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 922B41352154DF7500B9F6E4 /* CardUserInfoCell.xib */; };
+		922F360F20565DBB003DFB04 /* WaterMonitorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 922F360E20565DBB003DFB04 /* WaterMonitorViewController.m */; };
 		9230011D2047AA2300088227 /* EnvTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9230011B2047AA2300088227 /* EnvTimeCell.m */; };
 		9230011E2047AA2300088227 /* EnvTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9230011C2047AA2300088227 /* EnvTimeCell.xib */; };
 		9230FF441FD3D663002098A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D60262261F9B45DE00A66D5A /* Main.storyboard */; };
@@ -158,7 +156,6 @@
 		9241A35E1FDFC7C700D640E6 /* MusicTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9241A35D1FDFC7C600D640E6 /* MusicTimeModel.m */; };
 		9243E836209FDBE0000FD182 /* WranConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9243E835209FDBE0000FD182 /* WranConfirmView.m */; };
 		9243E83A20A02CF7000FD182 /* WranUndealModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9243E83920A02CF7000FD182 /* WranUndealModel.m */; };
-
 		9253BC7720BF9BE500AB4767 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D60262211F9B45DD00A66D5A /* AppDelegate.mm */; };
 		9253BD5220BFA58E00AB4767 /* MonitorTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */; };
 		9253BD5320BFA58E00AB4767 /* PlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCF120BFA58D00AB4767 /* PlayVideoViewController.m */; };
@@ -215,13 +212,11 @@
 		9253BD8620BFA58E00AB4767 /* DHPubfun.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BD4F20BFA58E00AB4767 /* DHPubfun.m */; };
 		9253BD8720BFA58E00AB4767 /* QTools.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9253BD5020BFA58E00AB4767 /* QTools.mm */; };
 		9253BD8820BFA58E00AB4767 /* PtzSinglePrepointInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BD5120BFA58E00AB4767 /* PtzSinglePrepointInfo.m */; };
-
 		9253C4BB20F8A72D00985949 /* AirBatchCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253C4BA20F8A72D00985949 /* AirBatchCenViewController.m */; };
 		9253C4BE20F8A75200985949 /* AirSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253C4BD20F8A75200985949 /* AirSwitchViewController.m */; };
 		9253C4C120F8A75F00985949 /* AirBatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253C4C020F8A75F00985949 /* AirBatchViewController.m */; };
 		9253C4C520F8ABA900985949 /* AirSiwtchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253C4C320F8ABA900985949 /* AirSiwtchCell.m */; };
 		9253C4C620F8ABA900985949 /* AirSiwtchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9253C4C420F8ABA900985949 /* AirSiwtchCell.xib */; };
-
 		925576C12182997200B4A1A3 /* WifiShareTopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925576BF2182997200B4A1A3 /* WifiShareTopCell.m */; };
 		925576C22182997200B4A1A3 /* WifiShareTopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925576C02182997200B4A1A3 /* WifiShareTopCell.xib */; };
 		925576C62182999300B4A1A3 /* WifiSpeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925576C42182999300B4A1A3 /* WifiSpeedCell.m */; };
@@ -238,7 +233,6 @@
 		925576E22182BFB700B4A1A3 /* WifiCountSpeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925576E02182BFB700B4A1A3 /* WifiCountSpeedCell.xib */; };
 		925576E62182BFDD00B4A1A3 /* WifiCountStrongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925576E42182BFDD00B4A1A3 /* WifiCountStrongCell.m */; };
 		925576E72182BFDD00B4A1A3 /* WifiCountStrongCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925576E52182BFDD00B4A1A3 /* WifiCountStrongCell.xib */; };
-
 		925EEFC91FB04C3B003DB93B /* ShowMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925EEFC81FB04C3B003DB93B /* ShowMenuView.m */; };
 		92643D8C201818340007C007 /* VisSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8B201818340007C007 /* VisSearchViewController.m */; };
 		92643D8F201876970007C007 /* VisCountNumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8E201876970007C007 /* VisCountNumModel.m */; };
@@ -365,25 +359,17 @@
 		9298ECD22004C6E900A8B270 /* TimeRangeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9298ECD02004C6E900A8B270 /* TimeRangeCell.xib */; };
 		9298ECD520074D7100A8B270 /* EntranceGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9298ECD420074D7100A8B270 /* EntranceGroupView.m */; };
 		9298ECD82007714500A8B270 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9298ECD62007714500A8B270 /* WeatherViewController.m */; };
-
+		929AB9B020D3B14B001D9878 /* AptSelAllView.m in Sources */ = {isa = PBXBuildFile; fileRef = 929AB9AF20D3B14B001D9878 /* AptSelAllView.m */; };
 		92A2206D1FFB846800B1A881 /* PlayBackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A220691FFB846700B1A881 /* PlayBackView.m */; };
 		92A2206E1FFB846800B1A881 /* PlayControlBar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92A2206B1FFB846700B1A881 /* PlayControlBar.mm */; };
-
-		929AB9B020D3B14B001D9878 /* AptSelAllView.m in Sources */ = {isa = PBXBuildFile; fileRef = 929AB9AF20D3B14B001D9878 /* AptSelAllView.m */; };
-
 		92A220981FFDBE5500B1A881 /* LightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A220971FFDBE5500B1A881 /* LightViewController.m */; };
 		92A2209B20007E3A00B1A881 /* PointViewSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A2209A20007E3A00B1A881 /* PointViewSelect.m */; };
-
 		92A308051FF60BA30024538A /* SelWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A308041FF60BA30024538A /* SelWeekView.m */; };
-
 		92A9D7CD20E5DBA800472294 /* MeetRoomStateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A9D7CC20E5DBA800472294 /* MeetRoomStateModel.m */; };
-
 		92ACC6522137DEB5006E005E /* MsgFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC6512137DEB5006E005E /* MsgFilterView.m */; };
 		92ACC6552137EF48006E005E /* FaceFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC6542137EF48006E005E /* FaceFilterView.m */; };
 		92ACC6582137F64E006E005E /* LogFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC6572137F64E006E005E /* LogFilterView.m */; };
-
 		92ACCEED2108850600874930 /* MeetRoomDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACCEEC2108850600874930 /* MeetRoomDeviceModel.m */; };
-
 		92AEEF1320CE589C0055CEB4 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 92AEEF1220CE589C0055CEB4 /* libstdc++.6.0.9.tbd */; };
 		92B210C11FD29835001297EB /* libStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B210C01FD29835001297EB /* libStaticLib.a */; };
 		92B3BE981FF0D8C800C3AFEC /* EntranceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B3BE961FF0D8C800C3AFEC /* EntranceCell.m */; };
@@ -527,7 +513,6 @@
 		92D8B8D3206B2D9E0001263F /* SimilarValueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92D8B8D1206B2D9E0001263F /* SimilarValueCell.xib */; };
 		92D8B8D7206B30190001263F /* SelTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D8B8D5206B30190001263F /* SelTimeCell.m */; };
 		92D8B8D8206B30190001263F /* SelTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92D8B8D6206B30190001263F /* SelTimeCell.xib */; };
-		92D8B8DB206B39D40001263F /* FaceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D8B8DA206B39D40001263F /* FaceListViewController.m */; };
 		92D8B8DF206B3F0C0001263F /* FaceTraceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D8B8DD206B3F0C0001263F /* FaceTraceCell.m */; };
 		92D8B8E0206B3F0C0001263F /* FaceTraceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92D8B8DE206B3F0C0001263F /* FaceTraceCell.xib */; };
 		92D8B8E3206B49620001263F /* FaceFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D8B8E2206B49620001263F /* FaceFilterViewController.m */; };
@@ -594,6 +579,11 @@
 		92F8943B20905D30005BDEDD /* WarnRepairIngViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8943A20905D30005BDEDD /* WarnRepairIngViewController.m */; };
 		92F8943E20906344005BDEDD /* WarnCutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8943D20906344005BDEDD /* WarnCutView.m */; };
 		92F8944120908E40005BDEDD /* WarnBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8944020908E40005BDEDD /* WarnBaseViewController.m */; };
+		92FAC4DB219ACE7800FB1489 /* FaceWranViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4D5219ACE6F00FB1489 /* FaceWranViewController.m */; };
+		92FAC4DC219ACE7800FB1489 /* FaceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4D6219ACE7000FB1489 /* FaceListViewController.m */; };
+		92FAC4DD219ACE7800FB1489 /* FaceHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */; };
+		92FAC4E2219ACF2200FB1489 /* FaceHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4DF219ACF1F00FB1489 /* FaceHistoryCell.m */; };
+		92FAC4E3219ACF2200FB1489 /* FaceHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92FAC4E0219ACF2100FB1489 /* FaceHistoryCell.xib */; };
 		92FC1E4420C8C10900C8364A /* AppointmentParkCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1E4320C8C10900C8364A /* AppointmentParkCenViewController.m */; };
 		92FC1E4720C8C16500C8364A /* AppointMentParkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1E4620C8C16500C8364A /* AppointMentParkViewController.m */; };
 		92FC1E4A20C8C36800C8364A /* AppointMentParkFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FC1E4920C8C36800C8364A /* AppointMentParkFilterViewController.m */; };
@@ -1120,7 +1110,6 @@
 		9243E835209FDBE0000FD182 /* WranConfirmView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranConfirmView.m; sourceTree = "<group>"; };
 		9243E83820A02CF7000FD182 /* WranUndealModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WranUndealModel.h; sourceTree = "<group>"; };
 		9243E83920A02CF7000FD182 /* WranUndealModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranUndealModel.m; sourceTree = "<group>"; };
-
 		9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorTimeViewController.m; sourceTree = "<group>"; };
 		9253BCEF20BFA58D00AB4767 /* MonitorLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorLogin.h; sourceTree = "<group>"; };
 		9253BCF020BFA58D00AB4767 /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
@@ -1215,7 +1204,6 @@
 		9253BD4F20BFA58E00AB4767 /* DHPubfun.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHPubfun.m; sourceTree = "<group>"; };
 		9253BD5020BFA58E00AB4767 /* QTools.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = QTools.mm; sourceTree = "<group>"; };
 		9253BD5120BFA58E00AB4767 /* PtzSinglePrepointInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PtzSinglePrepointInfo.m; sourceTree = "<group>"; };
-
 		9253C4B920F8A72D00985949 /* AirBatchCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirBatchCenViewController.h; sourceTree = "<group>"; };
 		9253C4BA20F8A72D00985949 /* AirBatchCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirBatchCenViewController.m; sourceTree = "<group>"; };
 		9253C4BC20F8A75200985949 /* AirSwitchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirSwitchViewController.h; sourceTree = "<group>"; };
@@ -1225,7 +1213,6 @@
 		9253C4C220F8ABA900985949 /* AirSiwtchCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirSiwtchCell.h; sourceTree = "<group>"; };
 		9253C4C320F8ABA900985949 /* AirSiwtchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirSiwtchCell.m; sourceTree = "<group>"; };
 		9253C4C420F8ABA900985949 /* AirSiwtchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AirSiwtchCell.xib; sourceTree = "<group>"; };
-
 		925576BE2182997200B4A1A3 /* WifiShareTopCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiShareTopCell.h; sourceTree = "<group>"; };
 		925576BF2182997200B4A1A3 /* WifiShareTopCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiShareTopCell.m; sourceTree = "<group>"; };
 		925576C02182997200B4A1A3 /* WifiShareTopCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiShareTopCell.xib; sourceTree = "<group>"; };
@@ -1250,7 +1237,6 @@
 		925576E32182BFDD00B4A1A3 /* WifiCountStrongCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiCountStrongCell.h; sourceTree = "<group>"; };
 		925576E42182BFDD00B4A1A3 /* WifiCountStrongCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiCountStrongCell.m; sourceTree = "<group>"; };
 		925576E52182BFDD00B4A1A3 /* WifiCountStrongCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiCountStrongCell.xib; sourceTree = "<group>"; };
-
 		925EEFC71FB04C3A003DB93B /* ShowMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMenuView.h; sourceTree = "<group>"; };
 		925EEFC81FB04C3B003DB93B /* ShowMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMenuView.m; sourceTree = "<group>"; };
 		92643D8A201818340007C007 /* VisSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisSearchViewController.h; sourceTree = "<group>"; };
@@ -1491,36 +1477,28 @@
 		9298ECD420074D7100A8B270 /* EntranceGroupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EntranceGroupView.m; sourceTree = "<group>"; };
 		9298ECD62007714500A8B270 /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
 		9298ECD72007714500A8B270 /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
-
+		929AB9AE20D3B14B001D9878 /* AptSelAllView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AptSelAllView.h; sourceTree = "<group>"; };
+		929AB9AF20D3B14B001D9878 /* AptSelAllView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AptSelAllView.m; sourceTree = "<group>"; };
 		92A220691FFB846700B1A881 /* PlayBackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayBackView.m; sourceTree = "<group>"; };
 		92A2206A1FFB846700B1A881 /* PlayControlBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayControlBar.h; sourceTree = "<group>"; };
 		92A2206B1FFB846700B1A881 /* PlayControlBar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PlayControlBar.mm; sourceTree = "<group>"; };
 		92A2206C1FFB846800B1A881 /* PlayBackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayBackView.h; sourceTree = "<group>"; };
-
-		929AB9AE20D3B14B001D9878 /* AptSelAllView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AptSelAllView.h; sourceTree = "<group>"; };
-		929AB9AF20D3B14B001D9878 /* AptSelAllView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AptSelAllView.m; sourceTree = "<group>"; };
-
 		92A220961FFDBE5500B1A881 /* LightViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LightViewController.h; sourceTree = "<group>"; };
 		92A220971FFDBE5500B1A881 /* LightViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LightViewController.m; sourceTree = "<group>"; };
 		92A2209920007E3A00B1A881 /* PointViewSelect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PointViewSelect.h; sourceTree = "<group>"; };
 		92A2209A20007E3A00B1A881 /* PointViewSelect.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PointViewSelect.m; sourceTree = "<group>"; };
-
 		92A308031FF60BA20024538A /* SelWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelWeekView.h; sourceTree = "<group>"; };
 		92A308041FF60BA30024538A /* SelWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelWeekView.m; sourceTree = "<group>"; };
-
 		92A9D7CB20E5DBA800472294 /* MeetRoomStateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetRoomStateModel.h; sourceTree = "<group>"; };
 		92A9D7CC20E5DBA800472294 /* MeetRoomStateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetRoomStateModel.m; sourceTree = "<group>"; };
-
 		92ACC6502137DEB5006E005E /* MsgFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgFilterView.h; sourceTree = "<group>"; };
 		92ACC6512137DEB5006E005E /* MsgFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgFilterView.m; sourceTree = "<group>"; };
 		92ACC6532137EF48006E005E /* FaceFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceFilterView.h; sourceTree = "<group>"; };
 		92ACC6542137EF48006E005E /* FaceFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceFilterView.m; sourceTree = "<group>"; };
 		92ACC6562137F64E006E005E /* LogFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogFilterView.h; sourceTree = "<group>"; };
 		92ACC6572137F64E006E005E /* LogFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogFilterView.m; sourceTree = "<group>"; };
-
 		92ACCEEB2108850600874930 /* MeetRoomDeviceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetRoomDeviceModel.h; sourceTree = "<group>"; };
 		92ACCEEC2108850600874930 /* MeetRoomDeviceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetRoomDeviceModel.m; sourceTree = "<group>"; };
-
 		92AEEF1220CE589C0055CEB4 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text-based-dylib-definition"; path = "libstdc++.6.0.9.tbd"; sourceTree = "<group>"; };
 		92B210C01FD29835001297EB /* libStaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStaticLib.a; path = Utils/include/libStaticLib.a; sourceTree = "<group>"; };
 		92B3BE951FF0D8C800C3AFEC /* EntranceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EntranceCell.h; sourceTree = "<group>"; };
@@ -1766,7 +1744,6 @@
 		92D8B8D5206B30190001263F /* SelTimeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelTimeCell.m; sourceTree = "<group>"; };
 		92D8B8D6206B30190001263F /* SelTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelTimeCell.xib; sourceTree = "<group>"; };
 		92D8B8D9206B39D40001263F /* FaceListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceListViewController.h; sourceTree = "<group>"; };
-		92D8B8DA206B39D40001263F /* FaceListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceListViewController.m; sourceTree = "<group>"; };
 		92D8B8DC206B3F0C0001263F /* FaceTraceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceTraceCell.h; sourceTree = "<group>"; };
 		92D8B8DD206B3F0C0001263F /* FaceTraceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceTraceCell.m; sourceTree = "<group>"; };
 		92D8B8DE206B3F0C0001263F /* FaceTraceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FaceTraceCell.xib; sourceTree = "<group>"; };
@@ -1889,6 +1866,14 @@
 		92F8943D20906344005BDEDD /* WarnCutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarnCutView.m; sourceTree = "<group>"; };
 		92F8943F20908E40005BDEDD /* WarnBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarnBaseViewController.h; sourceTree = "<group>"; };
 		92F8944020908E40005BDEDD /* WarnBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarnBaseViewController.m; sourceTree = "<group>"; };
+		92FAC4D5219ACE6F00FB1489 /* FaceWranViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceWranViewController.m; sourceTree = "<group>"; };
+		92FAC4D6219ACE7000FB1489 /* FaceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaceListViewController.m; path = ../../../../../../SmartPark/ZHYQ/Class/Equipment/Ctrl/FaceIdentify/FaceListViewController.m; sourceTree = "<group>"; };
+		92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceHistoryViewController.m; sourceTree = "<group>"; };
+		92FAC4D8219ACE7500FB1489 /* FaceHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceHistoryViewController.h; sourceTree = "<group>"; };
+		92FAC4DA219ACE7800FB1489 /* FaceWranViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceWranViewController.h; sourceTree = "<group>"; };
+		92FAC4DF219ACF1F00FB1489 /* FaceHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceHistoryCell.m; sourceTree = "<group>"; };
+		92FAC4E0219ACF2100FB1489 /* FaceHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FaceHistoryCell.xib; sourceTree = "<group>"; };
+		92FAC4E1219ACF2200FB1489 /* FaceHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceHistoryCell.h; sourceTree = "<group>"; };
 		92FC1E4220C8C10900C8364A /* AppointmentParkCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppointmentParkCenViewController.h; sourceTree = "<group>"; };
 		92FC1E4320C8C10900C8364A /* AppointmentParkCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppointmentParkCenViewController.m; sourceTree = "<group>"; };
 		92FC1E4520C8C16500C8364A /* AppointMentParkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppointMentParkViewController.h; sourceTree = "<group>"; };
@@ -2893,7 +2878,6 @@
 			path = Wran;
 			sourceTree = "<group>";
 		};
-
 		9253BCED20BFA58D00AB4767 /* playMonitorVideo */ = {
 			isa = PBXGroup;
 			children = (
@@ -3041,9 +3025,8 @@
 				9253BD5120BFA58E00AB4767 /* PtzSinglePrepointInfo.m */,
 			);
 			path = Depend_s;
-            sourceTree = "<group>";
-        };
-
+			sourceTree = "<group>";
+		};
 		925576BD2182992100B4A1A3 /* wifiShareCount */ = {
 			isa = PBXGroup;
 			children = (
@@ -3341,7 +3324,6 @@
 			path = CoverMoel;
 			sourceTree = "<group>";
 		};
-
 		929142CA2181BE4600FFE7C4 /* WifiCount */ = {
 			isa = PBXGroup;
 			children = (
@@ -3351,19 +3333,6 @@
 			path = WifiCount;
 			sourceTree = "<group>";
 		};
-		92B3BEA01FF39FC900C3AFEC /* parkLight */ = {
-			isa = PBXGroup;
-			children = (
-				92B3BEA11FF39FE700C3AFEC /* ParkLightTaskCell.h */,
-				92B3BEA21FF39FE700C3AFEC /* ParkLightTaskCell.m */,
-				92B3BEA31FF39FE700C3AFEC /* ParkLightTaskCell.xib */,
-				92B3BEC01FF4E69E00C3AFEC /* SelWeekView.h */,
-				92B3BEC11FF4E69E00C3AFEC /* SelWeekView.m */,
-			);
-			path = parkLight;
-			sourceTree = "<group>";
-		};
-
 		92B3BEB11FF3D16300C3AFEC /* food */ = {
 			isa = PBXGroup;
 			children = (
@@ -3635,11 +3604,15 @@
 				92D8B8C6206B2B350001263F /* SelFaceViewController.h */,
 				92D8B8C7206B2B350001263F /* SelFaceViewController.m */,
 				92D8B8D9206B39D40001263F /* FaceListViewController.h */,
-				92D8B8DA206B39D40001263F /* FaceListViewController.m */,
+				92FAC4D6219ACE7000FB1489 /* FaceListViewController.m */,
 				92D8B8E1206B49620001263F /* FaceFilterViewController.h */,
 				92D8B8E2206B49620001263F /* FaceFilterViewController.m */,
 				92D8B8EB206C864B0001263F /* FaceDetailViewController.h */,
 				92D8B8EC206C864B0001263F /* FaceDetailViewController.m */,
+				92FAC4DA219ACE7800FB1489 /* FaceWranViewController.h */,
+				92FAC4D5219ACE6F00FB1489 /* FaceWranViewController.m */,
+				92FAC4D8219ACE7500FB1489 /* FaceHistoryViewController.h */,
+				92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */,
 			);
 			path = FaceIdentify;
 			sourceTree = "<group>";
@@ -3664,6 +3637,9 @@
 				92D8B8DE206B3F0C0001263F /* FaceTraceCell.xib */,
 				92ACC6532137EF48006E005E /* FaceFilterView.h */,
 				92ACC6542137EF48006E005E /* FaceFilterView.m */,
+				92FAC4E1219ACF2200FB1489 /* FaceHistoryCell.h */,
+				92FAC4DF219ACF1F00FB1489 /* FaceHistoryCell.m */,
+				92FAC4E0219ACF2100FB1489 /* FaceHistoryCell.xib */,
 			);
 			path = FaceIdentify;
 			sourceTree = "<group>";
@@ -5342,13 +5318,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-
 				9253BD6620BFA58E00AB4767 /* playback_listexpend.png in Resources */,
-
 				9296D54720FC31550037EE83 /* AirBatchCell.xib in Resources */,
 				922B412F2154CE0900B9F6E4 /* AttDetailOtherTableViewCell.xib in Resources */,
 				92C8EEC92022B8F000AC6337 /* MealIntimeCell.xib in Resources */,
 				9230FF441FD3D663002098A6 /* Main.storyboard in Resources */,
+				92FAC4E3219ACF2200FB1489 /* FaceHistoryCell.xib in Resources */,
 				9253BD6420BFA58E00AB4767 /* playback_progress_n.png in Resources */,
 				9253BD5920BFA58E00AB4767 /* playback_mute_n.png in Resources */,
 				D63199A11FCBBC3B00B78805 /* FgUnParkTableViewCell.xib in Resources */,
@@ -5487,11 +5462,8 @@
 				92D8B8E0206B3F0C0001263F /* FaceTraceCell.xib in Resources */,
 				D63922B41FB4049E00E1A00A /* AirTableViewCell.xib in Resources */,
 				9240BB011FC2BFB40019AF07 /* WarnCell.xib in Resources */,
-
 				9253BD5520BFA58E00AB4767 /* playback_add_h.png in Resources */,
 				9253BD6020BFA58E00AB4767 /* playback_pause_h.png in Resources */,
-				923333061FC90FF700664852 /* ReservedCell.xib in Resources */,
-
 				92D8B8CE206B2D300001263F /* SelPhotoCell.xib in Resources */,
 				92D8B8D3206B2D9E0001263F /* SimilarValueCell.xib in Resources */,
 			);
@@ -5606,6 +5578,7 @@
 				9213C0491FE60B13009E7B67 /* MonitorLoginInfoModel.m in Sources */,
 				D629A5C11F9C5ABD00FA5EE1 /* registerViewController.m in Sources */,
 				D6EAE69E1FB53A3D006E4C2F /* YQEditImageViewController.m in Sources */,
+				92FAC4DC219ACE7800FB1489 /* FaceListViewController.m in Sources */,
 				D697E0CD1FAB3F6900966B62 /* WifiCenterViewController.m in Sources */,
 				92F8943820905D22005BDEDD /* WarnUnReportViewController.m in Sources */,
 				9226845320ABD339006628B3 /* EquipmentInfoWebViewController.m in Sources */,
@@ -5720,7 +5693,6 @@
 				9253BD7320BFA58E00AB4767 /* SBJsonStreamParser.m in Sources */,
 				9222CAD9215E696800C519FF /* LongParkCell.m in Sources */,
 				9296D54620FC31550037EE83 /* AirBatchCell.m in Sources */,
-
 				926B69CA1FD27DE000DEFEDD /* LockBluetool.m in Sources */,
 				D69A2F4A21814D77001C7571 /* WifiUserInfoViewController.m in Sources */,
 				D629A5D01F9C5D3A00FA5EE1 /* HomeViewController.m in Sources */,
@@ -5830,7 +5802,6 @@
 				928775091FB9993700BF708A /* MessageCell.m in Sources */,
 				92FC1E4720C8C16500C8364A /* AppointMentParkViewController.m in Sources */,
 				D602625C1F9C49E000A66D5A /* RootViewController.m in Sources */,
-				92D8B8DB206B39D40001263F /* FaceListViewController.m in Sources */,
 				928DDEAE203FC4890066D8ED /* WebLoadFailView.m in Sources */,
 				D653D7461FB1929F00798E1F /* inDoorMusicTabCell.m in Sources */,
 				D63922BB1FB433D500E1A00A /* YQEquipmentMsgView.m in Sources */,
@@ -5845,6 +5816,7 @@
 				922B41132154952A00B9F6E4 /* BalanceDetailModel.m in Sources */,
 				D695D20B1FB701EA005255E9 /* MonitorCenterViewController.m in Sources */,
 				D602624C1F9C46C900A66D5A /* UITabBar+CustomBadge.m in Sources */,
+				92FAC4DB219ACE7800FB1489 /* FaceWranViewController.m in Sources */,
 				92B90BDC201DD85200F978A1 /* EnergyWaterUseModel.m in Sources */,
 				92D8B8B5206A1FD50001263F /* AAAreaspline.m in Sources */,
 				9253BD6E20BFA58E00AB4767 /* PreviewManager.mm in Sources */,
@@ -5945,9 +5917,7 @@
 				9253BD7C20BFA58E00AB4767 /* SBJsonStreamWriterState.m in Sources */,
 				92E87D0E1FB44EAD0045D2FF /* DevelopProViewController.m in Sources */,
 				D6C554641FDBF59F0038DB0B /* BgMusicTaskCenterViewController.m in Sources */,
-
 				9253BD7E20BFA58E00AB4767 /* MonitorLogin.m in Sources */,
-
 				926748E82136A2840007BDA1 /* VisFilterView.m in Sources */,
 				922B40FF2154908F00B9F6E4 /* VisitHistoryModel.m in Sources */,
 				92CC9D99207C982B005E39A6 /* WarnCakeView.m in Sources */,
@@ -6112,6 +6082,7 @@
 				9253C4C120F8A75F00985949 /* AirBatchViewController.m in Sources */,
 				925576E62182BFDD00B4A1A3 /* WifiCountStrongCell.m in Sources */,
 				92B3BEC51FF5DE1500C3AFEC /* ParkNightTaskModel.m in Sources */,
+				92FAC4DD219ACE7800FB1489 /* FaceHistoryViewController.m in Sources */,
 				92E87D441FB6D7D90045D2FF /* ElectricMeterViewController.m in Sources */,
 				922B40D321548A2100B9F6E4 /* VisitRecordViewController.m in Sources */,
 				92C8EEC32022B50900AC6337 /* MealCountViewController.m in Sources */,
@@ -6123,6 +6094,7 @@
 				9253BD5420BFA58E00AB4767 /* DHVideoWnd.m in Sources */,
 				D631999B1FCBB7B100B78805 /* OpenFrontGroundTabCell.m in Sources */,
 				922B40D621548A4300B9F6E4 /* YQEmptyView.m in Sources */,
+				92FAC4E2219ACF2200FB1489 /* FaceHistoryCell.m in Sources */,
 				921A84181FA9655B00EE4F41 /* ColorToImage.m in Sources */,
 				9290352620B556C1003FDECC /* ParentMenuModel.m in Sources */,
 				9253BD7120BFA58E00AB4767 /* PlaybackManager.mm in Sources */,
@@ -6153,7 +6125,6 @@
 				92C217061FC55EF90072564C /* VisCountItemModel.m in Sources */,
 				D653D7531FB19D2600798E1F /* ChooseMusicTabCell.m in Sources */,
 				922B40DB21548A7800B9F6E4 /* BookRecordTableViewCell.m in Sources */,
-				92B3BE9F1FF374D900C3AFEC /* SetParkTimeViewController.m in Sources */,
 				92D8B8CD206B2D300001263F /* SelPhotoCell.m in Sources */,
 				9273EB0E204E8D0700723C5D /* EvnDataCell.m in Sources */,
 				9287750D1FB99C6600BF708A /* ResetPswTableViewController.m in Sources */,
@@ -6182,7 +6153,6 @@
 				9253BD7220BFA58E00AB4767 /* NSObject+SBJson.m in Sources */,
 				922770EC20BD3F4B009010F7 /* ParkFilterViewController.m in Sources */,
 				9222CADD215F12CC00C519FF /* StopParkSelDayView.m in Sources */,
-				D60262221F9B45DD00A66D5A /* AppDelegate.m in Sources */,
 				D60AC45A217EFA4D00A22391 /* PostmsgDetailViewController.m in Sources */,
 				9241A35E1FDFC7C700D640E6 /* MusicTimeModel.m in Sources */,
 				925576C62182999300B4A1A3 /* WifiSpeedCell.m in Sources */,

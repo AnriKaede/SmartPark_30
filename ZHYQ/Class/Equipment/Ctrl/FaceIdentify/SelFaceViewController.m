@@ -17,6 +17,9 @@
 
 #import "FaceListViewController.h"
 
+#import "FaceHistoryViewController.h"
+#import "FaceWranViewController.h"
+
 @interface SelFaceViewController ()<UITableViewDelegate, UITableViewDataSource, SelFacePhotoDelegate, TZImagePickerControllerDelegate, FaceQueryDelegate>
 {
     UITableView *_selTableView;
@@ -46,7 +49,7 @@
 }
 
 - (void)_initView {
-//    self.title = @"人脸轨迹";
+    //    self.title = @"人脸轨迹";
     
     UIButton *leftBtn = [[UIButton alloc] init];
     leftBtn.frame = CGRectMake(0, 0, 40, 40);
@@ -56,6 +59,14 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = leftItem;
     
+    UIButton *imgWranBtn = [[UIButton alloc] init];
+    imgWranBtn.frame = CGRectMake(0, 0, 40, 40);
+    [imgWranBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+    //    [imgWranBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [imgWranBtn setTitle:@"人像告警" forState:UIControlStateNormal];
+    [imgWranBtn addTarget:self action:@selector(imgWranAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *wranItem = [[UIBarButtonItem alloc] initWithCustomView:imgWranBtn];
+    self.navigationItem.leftBarButtonItem = wranItem;
     
     _selTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64) style:UITableViewStylePlain];
     _selTableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
@@ -71,13 +82,13 @@
     [_selTableView registerNib:[UINib nibWithNibName:@"FaceQueryCell" bundle:nil] forCellReuseIdentifier:@"FaceQueryCell"];
     
     /*
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, KScreenHeight - 64 - 60, KScreenWidth, 60);
-    button.backgroundColor = CNavBgColor;
-    [button setTitle:@"立即查询" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(queryAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
+     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+     button.frame = CGRectMake(0, KScreenHeight - 64 - 60, KScreenWidth, 60);
+     button.backgroundColor = CNavBgColor;
+     [button setTitle:@"立即查询" forState:UIControlStateNormal];
+     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+     [button addTarget:self action:@selector(queryAction) forControlEvents:UIControlEventTouchUpInside];
+     [self.view addSubview:button];
      */
     
     
@@ -89,6 +100,11 @@
     _endTimeStr = [showFormat stringFromDate:[NSDate date]];
     
     [_selTableView reloadData];
+}
+
+- (void)imgWranAction {
+    FaceWranViewController *wranVC = [[FaceWranViewController alloc]init];
+    [self.navigationController pushViewController:wranVC animated:YES];
 }
 
 #pragma mark 查询 cell 协议
@@ -133,7 +149,7 @@
     }
     
     // 查询接口，根据图片和时间查询人脸信息。list中在更具id查询列表轨迹信息
-//    [self imageData:_selPhotoCell.selImgView.image];
+    //    [self imageData:_selPhotoCell.selImgView.image];
     
     // 跳转查询轨迹列表
     FaceListViewController *faceListVC = [[FaceListViewController alloc] init];
@@ -158,7 +174,7 @@
 }
 
 - (void)uploadFaceImage:(NSData *)data {
-//    NSData *data = UIImageJPEGRepresentation(_selPhotoCell.selImgView.image, 1.0f);
+    //    NSData *data = UIImageJPEGRepresentation(_selPhotoCell.selImgView.image, 1.0f);
     
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     encodedImageStr = [NSString stringWithFormat:@"data:image/jpeg;base64,%@", encodedImageStr];
