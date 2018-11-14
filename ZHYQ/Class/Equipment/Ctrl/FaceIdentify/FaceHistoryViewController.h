@@ -7,11 +7,18 @@
 //
 
 #import "RootViewController.h"
+#import "FaceImgHistory+CoreDataClass.h"
+
+@protocol SelHistoryImgDelegate <NSObject>
+
+- (void)selHistoryImg:(FaceImgHistory *)faceImgHistory;
+
+@end
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FaceHistoryViewController : RootViewController
-
+@property (nonatomic,assign) id<SelHistoryImgDelegate> selHistoryImgDelegate;
 @end
 
 NS_ASSUME_NONNULL_END

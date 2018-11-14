@@ -17,7 +17,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    _imgView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
+    _imgView.backgroundColor = [UIColor colorWithHexString:@"#626262"];
+    _imgView.contentMode = UIViewContentModeScaleAspectFit;
+}
+
+- (void)setFaceImgHistory:(FaceImgHistory *)faceImgHistory {
+    _faceImgHistory = faceImgHistory;
+    
+    _imgView.image = [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@%@", FaceHistoryPath, faceImgHistory.imgFilePath]];
 }
 
 @end

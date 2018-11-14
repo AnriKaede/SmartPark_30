@@ -11,6 +11,7 @@
 #import "PublicModel.h"
 
 #import "YQRemindUpdatedView.h"
+#import "VerListViewController.h"
 
 @interface AboutViewController ()<YQRemindUpdatedViewDelegate>
 {
@@ -72,6 +73,12 @@
     }else{
         view.hidden = YES;
     }
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"版本介绍" style:UIBarButtonItemStylePlain target:self action:@selector(intorduce)];
+}
+- (void)intorduce {
+    VerListViewController *verListVC = [[VerListViewController alloc] init];
+    [self.navigationController pushViewController:verListVC animated:YES];
 }
 
 -(void)isNeedRemaind:(NSNotification *)notification

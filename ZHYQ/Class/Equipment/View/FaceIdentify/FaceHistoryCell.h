@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FaceImgHistory+CoreDataClass.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FaceHistoryCell : UICollectionViewCell
+
+@property (nonatomic,retain) FaceImgHistory *faceImgHistory;
 
 @end
 

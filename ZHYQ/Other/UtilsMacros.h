@@ -183,6 +183,9 @@ return shared##className; \
 
 #define KFirstLauch @"firstLauch"       // 是否是第一次启动，显示引导页
 
+// 人脸图片沙盒地址
+#define FaceHistoryPath [NSHomeDirectory() stringByAppendingString:@"/Documents/FaceHistoryData/"]
+
 #define AESKey @"660c345cf08a4829"
 
 #define AirMinTemp 18
