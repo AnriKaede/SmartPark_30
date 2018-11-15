@@ -19,14 +19,23 @@
 #import "ClockTimeCell.h"
 #import "LedListModel.h"
 
+#import "FaceHtmlView.h"
+
 #define IMAGE_SIZE (KScreenWidth - 60)/4
 
-@interface MsgPostViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,LedPostTacticsDelegate,LEDClockTimeDelegate, ChooseLedDeleagte>
+#import "WGCommon.h"
+#define SCREEN_WIDTH  ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+
+#define kEditorURL @"richText_editor"
+
+@interface MsgPostViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,LedPostTacticsDelegate, ChooseLedDeleagte,UIWebViewDelegate,KWEditorBarDelegate,KWFontStyleBarDelegate>
 {
     NSMutableArray *_ledData;
 }
 /* 文本输入框*/
-@property(nonatomic, strong) YQInputView *inputV;
+//@property(nonatomic, strong) YQInputView *inputV;
+//@property(nonatomic, strong) FaceHtmlView *htmlView;
 /* UITableView*/
 @property(nonatomic, strong) UITableView *tabelV;
 /* 选择图片*/
@@ -37,6 +46,11 @@
 @property(nonatomic, strong) NSMutableArray *imageDataSource;
 
 @property (nonatomic,strong) UIView *headerView;
+
+@property (nonatomic,strong) UIWebView *webView;
+@property (nonatomic,strong) KWEditorBar *toolBarView;
+@property (nonatomic,strong) KWFontStyleBar *fontBar;
+@property (nonatomic,strong) UILabel *titleLabel;
 
 @end
 
@@ -62,6 +76,50 @@
         btn.center = _headerView.center;
     }
     return _headerView;
+}
+- (KWEditorBar *)toolBarView{
+    if (!_toolBarView) {
+        _toolBarView = [KWEditorBar editorBar];
+        _toolBarView.frame = CGRectMake(0,SCREEN_HEIGHT - KWEditorBar_Height - kTopHeight, KScreenWidth, KWEditorBar_Height);
+        _toolBarView.backgroundColor = COLOR(237, 237, 237, 1);
+    }
+    return _toolBarView;
+}
+- (KWFontStyleBar *)fontBar{
+    if (!_fontBar) {
+        _fontBar = [[KWFontStyleBar alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.toolBarView.frame) - KWFontBar_Height - KWEditorBar_Height - kTopHeight, KScreenWidth, KWFontBar_Height)];
+        _fontBar.delegate = self;
+        [_fontBar.heading2Item setSelected:YES];
+        
+    }
+    return _fontBar;
+}
+- (UILabel *)titleLabel {
+    if(!_titleLabel){
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.text = @"详细内容";
+        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
+        _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.frame = CGRectMake(10, 15, 80, 15);
+    }
+    return _titleLabel;
+}
+- (UIWebView *)webView{
+    if (!_webView) {
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(89, 0, KScreenWidth - 95, 240)];
+        _webView.delegate = self;
+        NSString *path = [[NSBundle mainBundle] bundlePath];
+        NSURL *baseURL = [NSURL fileURLWithPath:path];
+        NSString * htmlPath = [[NSBundle mainBundle] pathForResource:kEditorURL                                                              ofType:@"html"];
+        NSString * htmlCont = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+        [_webView loadHTMLString:htmlCont baseURL:baseURL];
+        _webView.scrollView.bounces=NO;
+        _webView.hidesInputAccessoryView = YES;
+        //        _webView.detectsPhoneNumbers = NO;
+        
+    }
+    return _webView;
 }
 
 - (void)viewDidLoad {
@@ -115,37 +173,13 @@
     [self.navigationController pushViewController:LEDDetailVC animated:YES];
 }
 
-// 为图片添加点击事件
-//- (void)addTargetForImage{
-//    for (UIButton * button in _photoPickerV.imageViews) {
-//        [button addTarget:self action:@selector(addPhotos:) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//}
-
 - (void)viewConfig {
-    __weak typeof(self) weakSelf = self;
+    [self.view addSubview:self.toolBarView];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyBoardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
-    // 初始化输入视图
-    _inputV = [[YQInputView alloc]init];
-    _inputV.textV.delegate = self;
-//    _inputV.placeholerLabel.hidden = YES;
-    
-//    _inputV.textV.text = @"<html><head><meta charset=utf-8><title></title></head><body><table ><tr><th style=\"color: red;\">请输入第一行内容</th></tr><tr style=\"color: red;\"><td>请输入第二行内容</td></tr></table></body></html>";
-    
-    // 图片选择视图
-//    _photoPickerV = [[YQPhotoPickerView alloc]init];
-//    _photoPickerV.frame = CGRectMake(0, _inputV.frame.size.height +10, KScreenWidth, IMAGE_SIZE);
-//    _photoPickerV.reloadTableViewBlock = ^{
-//        [weakSelf.tabelV reloadData];
-//    };
-//    [self addTargetForImage];
-    
-    // 初始化图片数组
-//    _imageDataSource = [NSMutableArray array];
-//    [_imageDataSource addObject:_photoPickerV.addImage];
-    
-    // 初始化图片编辑控制器
-//    self.editVC = [[YQEditImageViewController alloc]init];
+    self.toolBarView.delegate = self;
+    [self.toolBarView addObserver:self forKeyPath:@"transform" options:
+     NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
     
     _tabelV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64) style:UITableViewStyleGrouped];
     _tabelV.delegate = self;
@@ -155,57 +189,11 @@
     [_tabelV registerNib:[UINib nibWithNibName:@"LEDmsgTitleTableViewCell" bundle:nil] forCellReuseIdentifier:@"LEDmsgTitleTableViewCell"];
     [_tabelV registerNib:[UINib nibWithNibName:@"ClockTimeCell" bundle:nil] forCellReuseIdentifier:@"ClockTimeCell"];
     [_tabelV registerClass:[LEDpostMsgTableViewCell class] forCellReuseIdentifier:@"LEDpostMsgTableViewCell"];
-    [self.view addSubview:_tabelV];
+    [self.view insertSubview:_tabelV atIndex:0];
     _tabelV.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tabelV.backgroundColor = [UIColor colorWithHexString:@"E2E2E2"];
     
     self.view.backgroundColor = [UIColor clearColor];
-}
-
-/*
-- (void)addPhotos:(UIButton *)button{
-    
-    __weak typeof(self) weakSelf = self;
-    
-    if ([button.currentBackgroundImage isEqual:_photoPickerV.addImage]) {
-        TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:10 - _imageDataSource.count delegate:self];
-        // You can get the photos by block, the same as by delegate.
-        // 你可以通过block或者代理，来得到用户选择的照片.
-        [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-            [_imageDataSource removeLastObject];
-            [_imageDataSource addObjectsFromArray:photos];
-            [_imageDataSource addObject:_photoPickerV.addImage];
-            [self.photoPickerV setSelectedImages:_imageDataSource];
-            [self addTargetForImage];
-        }];
-        [self presentViewController:imagePickerVc animated:YES completion:nil];
-    }else{
-        _editVC = [[YQEditImageViewController alloc]init];
-        _editVC.currentOffset = (int)button.tag;
-        _editVC.reloadBlock = ^(NSMutableArray * images){
-            [weakSelf.photoPickerV setSelectedImages:images];
-            [weakSelf addTargetForImage];
-        };
-        _editVC.images = _imageDataSource;
-        [self.navigationController pushViewController:_editVC animated:YES];
-    }
-}
-*/
-
-#pragma mark --------------UITextViewDelegate
--(void)textViewDidChange:(UITextView *)textView{
-    if (textView.text.length) {
-        [_inputV.placeholerLabel removeFromSuperview];
-    }else{
-        [_inputV.textV addSubview:_inputV.placeholerLabel];
-    }
-}
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    if ([text isEqualToString:@"\n"]) {
-//        [textView resignFirstResponder];
-    }
-    return YES;
 }
 
 #pragma mark 获取屏列表
@@ -251,26 +239,18 @@
         cell.ledData = _ledData;
         cell.chooseLedDeleagte = self;
         return cell;
-    }else if(indexPath.section == 1)
-    {
-//        if (indexPath.row == 0) {
-//            LEDmsgTitleTableViewCell * cell1 = [tableView dequeueReusableCellWithIdentifier:@"LEDmsgTitleTableViewCell"];
-//            return cell1;
-//        }else{
-            LEDpostMsgTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"LEDpostMsgTableViewCell"];
-            [cell addSubview:_inputV];
-//            [cell addSubview:_photoPickerV];
-            return cell;
-//        }
-        
-    }else if(indexPath.section == 2)
-    {
+    }else if(indexPath.section == 1) {
+        LEDpostMsgTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"LEDpostMsgTableViewCell"];
+        [cell addSubview:self.titleLabel];
+        [cell addSubview:self.webView];
+        return cell;
+    }else if(indexPath.section == 2) {
         PostTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostTimeTableViewCell"];
         cell.delegate = self;
         return cell;
     }else{
         ClockTimeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ClockTimeCell"];
-        cell.delegate = self;
+//        cell.delegate = self;
         return cell;
     }
 }
@@ -280,12 +260,7 @@
         CGFloat btHeight = (_ledData.count/3 + (_ledData.count%3>0 ? 1:0))*40;
         return 50 + btHeight;
     }else if(indexPath.section == 1){
-//        if (indexPath.row == 0) {
-//            return 60;
-//        }else{
-            CGFloat rowHeight = _inputV.frame.size.height;
-            return rowHeight;
-//        }
+        return 240;
     }else{
         return 60;
     }
@@ -319,15 +294,6 @@
     [self.tabelV deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-#pragma mark --------------SystemVCDelegate
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [_inputV.textV resignFirstResponder];
-}
-
 #pragma mark LED发送新信息
 -(void)postLEDMsgClick:(id)sender {
     NSMutableArray *selLeds = @[].mutableCopy;
@@ -341,45 +307,16 @@
         return;
     }
     
-    if(_inputV.textV.text.length <= 0){
+    if([self.webView contentHtmlText].length <= 0){
         [self showHint:@"请输入内容"];
         return;
     }
     
-    NSArray *texts = [_inputV.textV.text componentsSeparatedByString:@"\n"];
-    NSMutableString *postMsg = @"<html><head><meta charset=utf-8><title></title></head><body><table  style=\"font-size: 30px\">".mutableCopy;
-    
-    [texts enumerateObjectsUsingBlock:^(NSString *trText, NSUInteger idx, BOOL * _Nonnull stop) {
-        [postMsg appendFormat:@"%@", [self trStr:trText]];
-    }];
-    [postMsg appendFormat:@"</table></body></html>"];
-    
-//    NSString *postMsg = [NSString stringWithFormat:@""];
-    
-//    NSString *postMsg = [NSString stringWithFormat:@"<html><head><meta charset=utf-8><title></title></head><body><table  border=\"1\"><tr><th style=\"color: red;\">Header 1</th></tr><tr style=\"color: red;\"><td>Row:1 Cell:1</td></tr></table></body></html>", _inputV.textV.text];
-    
-    
-//    NSString *postMsg = _inputV.textV.text;
+    NSString *postMsg = [NSString stringWithFormat:@"<body style=\"color: red\">%@</body>", [self.webView contentHtmlText]];
     
     [selLeds enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
         [self sendLedMsg:ledListModel withConnect:postMsg];
     }];
-}
-
-- (NSString *)trStr:(NSString *)textStr {
-    NSMutableString *trStr = @"<tr style=\"color: red;\">".mutableCopy;
-    
-    NSArray *tdTexts = [textStr componentsSeparatedByString:@" "];
-    [tdTexts enumerateObjectsUsingBlock:^(NSString *tdText, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSMutableString *tdStr = @"<td>".mutableCopy;
-        [tdStr appendFormat:@"%@", tdText];
-        [trStr appendFormat:@"</td>"];
-        
-        [trStr appendFormat:@"%@", tdStr];
-    }];
-    [trStr appendFormat:@"</tr>"];
-    
-    return trStr;
 }
 
 - (void)sendLedMsg:(LedListModel *)ledListModel withConnect:(NSString *)connect {
@@ -405,23 +342,6 @@
     }];
 }
 
-#pragma mark 选择上屏发布策略
--(void)ledPostTactics:(LEDPostTacticsType)type
-{
-    if (type == LEDPostTacticsDefiniteTime) {
-//        nums = 4;
-    }else{
-//        nums = 3;
-    }
-    [_tabelV reloadData];
-}
-
-#pragma mark 选择定时时间
--(void)clockTimeWithTimeStr:(NSString *)time
-{
-    NSLog(@"%@",time);
-}
-
 #pragma mark 选择发送信息屏幕
 - (void)chooseLed:(NSArray *)ledList {
     // 使用retain 不使用 copy ledList和原ledData 指向同一地址
@@ -430,6 +350,228 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark html编辑器方法
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    if([keyPath isEqualToString:@"transform"]){
+        
+        CGRect fontBarFrame = self.fontBar.frame;
+        fontBarFrame.origin.y = CGRectGetMaxY(self.toolBarView.frame)- KWFontBar_Height - KWEditorBar_Height;
+        self.fontBar.frame = fontBarFrame;
+    }else{
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+#pragma mark -webviewdelegate
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    NSLog(@"webViewDidFinishLoad");
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    NSLog(@"NSError = %@",error);
+    
+    if([error code] == NSURLErrorCancelled){
+        return;
+    }
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *urlString = request.URL.absoluteString;
+    NSLog(@"loadURL = %@",urlString);
+    
+    [self handleEvent:urlString];
+    
+    if ([urlString rangeOfString:@"re-state-content://"].location != NSNotFound) {
+        NSString *className = [urlString stringByReplacingOccurrencesOfString:@"re-state-content://" withString:@""];
+        
+        [self.fontBar updateFontBarWithButtonName:className];
+        
+        if ([self.webView contentText].length <= 0) {
+            [self.webView showContentPlaceholder];
+        }else{
+            [self.webView clearContentPlaceholder];
+        }
+        
+        if ([[className componentsSeparatedByString:@","] containsObject:@"unorderedList"]) {
+            [self.webView clearContentPlaceholder];
+        }
+        
+        
+    }
+    
+    return YES;
+}
+#pragma mar - webView监听处理事件
+- (void)handleEvent:(NSString *)urlString{
+    if ([urlString hasPrefix:@"re-state-content://"]) {
+        self.fontBar.hidden = NO;
+        self.toolBarView.hidden = NO;
+    }
+    
+    if ([urlString hasPrefix:@"re-state-title://"]) {
+        self.fontBar.hidden = YES;
+        self.toolBarView.hidden = YES;
+    }
+    
+}
+
+
+- (void)dealloc{
+    @try {
+        [self.toolBarView removeObserver:self forKeyPath:@"transform"];
+    } @catch (NSException *exception)
+    {
+        NSLog(@"Exception: %@", exception);
+    } @finally {
+        // Added to show finally works as well
+    }
+}
+
+
+/**
+ *  是否显示占位文字
+ */
+- (void)isShowPlaceholder{
+    if ([self.webView contentText].length <= 0)
+    {
+        [self.webView showContentPlaceholder];
+    }else{
+        [self.webView clearContentPlaceholder];
+    }
+}
+
+#pragma mark -editorbarDelegate
+- (void)editorBar:(KWEditorBar *)editorBar didClickIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:{
+            //显示或隐藏键盘
+            if (self.toolBarView.transform.ty < 0) {
+                [self.webView hiddenKeyboard];
+            }else{
+                [self.webView showKeyboardContent];
+            }
+            
+        }
+            break;
+        case 1:{
+            //回退
+            [self.webView stringByEvaluatingJavaScriptFromString:@"document.execCommand('undo')"];
+        }
+            break;
+        case 2:{
+            [self.webView stringByEvaluatingJavaScriptFromString:@"document.execCommand('redo')"];
+        }
+            break;
+        case 3:{
+            //显示更多区域
+            editorBar.fontButton.selected = !editorBar.fontButton.selected;
+            if (editorBar.fontButton.selected) {
+                [self.view addSubview:self.fontBar];
+            }else{
+                [self.fontBar removeFromSuperview];
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+}
+#pragma mark - fontbardelegate
+- (void)fontBar:(KWFontStyleBar *)fontBar didClickBtn:(UIButton *)button{
+    if (self.toolBarView.transform.ty>=0) {
+        [self.webView showKeyboardContent];
+    }
+    switch (button.tag) {
+        case 0:{
+            //粗体
+            [self.webView bold];
+        }
+            break;
+        case 1:{//下划线
+            [self.webView underline];
+        }
+            break;
+        case 2:{//斜体
+            [self.webView italic];
+        }
+            break;
+        case 3:{//14号字体
+            [self.webView setFontSize:@"2"];
+        }
+            break;
+        case 4:{//16号字体
+            [self.webView setFontSize:@"3"];
+        }
+            break;
+        case 5:{//18号字体
+            [self.webView setFontSize:@"4"];
+        }
+            break;
+        case 6:{//左对齐
+            [self.webView justifyLeft];
+        }
+            break;
+        case 7:{//居中对齐
+            [self.webView justifyCenter];
+        }
+            break;
+        case 8:{//右对齐
+            [self.webView justifyRight];
+        }
+            break;
+        case 9:{//无序
+            [self.webView unorderlist];
+        }
+            break;
+        case 10:{
+            //缩进
+            button.selected = !button.selected;
+            if (button.selected) {
+                [self.webView indent];
+            }else{
+                [self.webView outdent];
+            }
+        }
+            break;
+        case 11:{
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+- (void)fontBarResetNormalFontSize{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.webView normalFontSize];
+    });
+}
+
+#pragma mark -keyboard
+- (void)keyBoardWillChangeFrame:(NSNotification*)notification{
+    CGRect frame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    if (frame.origin.y == SCREEN_HEIGHT) {
+        [UIView animateWithDuration:duration animations:^{
+            self.toolBarView.transform =  CGAffineTransformIdentity;
+            self.toolBarView.keyboardButton.selected = NO;
+        }];
+    }else{
+        [UIView animateWithDuration:duration animations:^{
+            self.toolBarView.transform = CGAffineTransformMakeTranslation(0, -frame.size.height);
+            self.toolBarView.keyboardButton.selected = YES;
+            
+        }];
+    }
+}
+
+- (NSString *)getHtmlStr {
+    return [self.webView contentHtmlText];
 }
 
 @end

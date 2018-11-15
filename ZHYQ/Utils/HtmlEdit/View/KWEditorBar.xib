@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="rVY-Md-yuA" customClass="KWEditorBar">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="d9M-XN-jic">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y7U-Ow-Puv" userLabel="jianpan">
+                    <rect key="frame" x="0.0" y="0.5" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="2NF-pL-2kj"/>
+                        <constraint firstAttribute="width" constant="48" id="cj7-RW-q4N"/>
+                    </constraints>
+                    <state key="normal" image="jianpanshang"/>
+                    <state key="selected" image="jianpanxia"/>
+                    <connections>
+                        <action selector="clickKeyboard:" destination="rVY-Md-yuA" eventType="touchUpInside" id="Z0C-7k-Zp6"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hgs-x2-K9G" userLabel="undo">
+                    <rect key="frame" x="227" y="0.5" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="WJu-dK-lq9"/>
+                        <constraint firstAttribute="height" constant="48" id="dNb-eh-8FC"/>
+                    </constraints>
+                    <state key="normal" image="chexiao"/>
+                    <connections>
+                        <action selector="clickUndo:" destination="rVY-Md-yuA" eventType="touchUpInside" id="eIK-Nf-REX"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQW-lE-t8G" userLabel="redo">
+                    <rect key="frame" x="327" y="0.5" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="9La-KM-N2a"/>
+                        <constraint firstAttribute="height" constant="48" id="vjy-Gi-a3K"/>
+                    </constraints>
+                    <state key="normal" image="chongzuo"/>
+                    <connections>
+                        <action selector="clickRedo:" destination="rVY-Md-yuA" eventType="touchUpInside" id="xHg-mS-Dbu"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="He2-2J-H9O" userLabel="font">
+                    <rect key="frame" x="96" y="0.5" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="48" id="ABh-Pv-Df4"/>
+                        <constraint firstAttribute="height" constant="48" id="QSU-E1-S1S"/>
+                    </constraints>
+                    <state key="normal" image="ziti"/>
+                    <state key="selected" image="ziti_hover"/>
+                    <connections>
+                        <action selector="clickfont:" destination="rVY-Md-yuA" eventType="touchUpInside" id="K5X-1x-FnQ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="He2-2J-H9O" firstAttribute="centerY" secondItem="rVY-Md-yuA" secondAttribute="centerY" id="6lk-dD-MKi"/>
+                <constraint firstItem="Hgs-x2-K9G" firstAttribute="centerY" secondItem="rVY-Md-yuA" secondAttribute="centerY" id="KNs-Qh-E0w"/>
+                <constraint firstItem="d9M-XN-jic" firstAttribute="top" secondItem="rVY-Md-yuA" secondAttribute="top" id="P03-pO-ZZU"/>
+                <constraint firstAttribute="trailing" secondItem="zQW-lE-t8G" secondAttribute="trailing" id="TAk-Io-EJS"/>
+                <constraint firstItem="He2-2J-H9O" firstAttribute="top" secondItem="d9M-XN-jic" secondAttribute="bottom" id="XcD-9p-rvy"/>
+                <constraint firstItem="d9M-XN-jic" firstAttribute="trailing" secondItem="zQW-lE-t8G" secondAttribute="trailing" id="Xw1-hx-zas"/>
+                <constraint firstItem="d9M-XN-jic" firstAttribute="leading" secondItem="y7U-Ow-Puv" secondAttribute="leading" id="c6C-YO-kwj"/>
+                <constraint firstItem="zQW-lE-t8G" firstAttribute="leading" secondItem="Hgs-x2-K9G" secondAttribute="trailing" constant="52" id="dxg-XM-tfp"/>
+                <constraint firstItem="y7U-Ow-Puv" firstAttribute="centerY" secondItem="rVY-Md-yuA" secondAttribute="centerY" id="eOr-3Z-0WD"/>
+                <constraint firstItem="He2-2J-H9O" firstAttribute="leading" secondItem="y7U-Ow-Puv" secondAttribute="trailing" constant="48" id="hzm-e6-kGv"/>
+                <constraint firstItem="zQW-lE-t8G" firstAttribute="centerY" secondItem="rVY-Md-yuA" secondAttribute="centerY" id="rBl-jU-fZB"/>
+                <constraint firstItem="y7U-Ow-Puv" firstAttribute="leading" secondItem="rVY-Md-yuA" secondAttribute="leading" id="zhE-M1-cCF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="fontButton" destination="He2-2J-H9O" id="ApQ-3O-cBQ"/>
+                <outlet property="keyboardButton" destination="y7U-Ow-Puv" id="vfL-sU-rI9"/>
+                <outlet property="redoButton" destination="zQW-lE-t8G" id="aC4-qt-Lji"/>
+                <outlet property="undoButton" destination="Hgs-x2-K9G" id="GEm-ey-Uen"/>
+            </connections>
+            <point key="canvasLocation" x="10.5" y="-103.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="chexiao" width="20" height="20"/>
+        <image name="chongzuo" width="20" height="20"/>
+        <image name="jianpanshang" width="16" height="16"/>
+        <image name="jianpanxia" width="20" height="20"/>
+        <image name="ziti" width="20" height="20"/>
+        <image name="ziti_hover" width="20" height="20"/>
+    </resources>
+</document>
