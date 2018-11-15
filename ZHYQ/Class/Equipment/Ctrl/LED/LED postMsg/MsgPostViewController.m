@@ -50,7 +50,6 @@
 @property (nonatomic,strong) UIWebView *webView;
 @property (nonatomic,strong) KWEditorBar *toolBarView;
 @property (nonatomic,strong) KWFontStyleBar *fontBar;
-@property (nonatomic,strong) UILabel *titleLabel;
 
 @end
 
@@ -94,20 +93,9 @@
     }
     return _fontBar;
 }
-- (UILabel *)titleLabel {
-    if(!_titleLabel){
-        _titleLabel = [[UILabel alloc] init];
-        _titleLabel.text = @"详细内容";
-        _titleLabel.font = [UIFont systemFontOfSize:15];
-        _titleLabel.textAlignment = NSTextAlignmentLeft;
-        _titleLabel.textColor = [UIColor blackColor];
-        _titleLabel.frame = CGRectMake(10, 15, 80, 15);
-    }
-    return _titleLabel;
-}
 - (UIWebView *)webView{
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(89, 0, KScreenWidth - 95, 240)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth - 0, 240)];
         _webView.delegate = self;
         NSString *path = [[NSBundle mainBundle] bundlePath];
         NSURL *baseURL = [NSURL fileURLWithPath:path];
@@ -241,7 +229,6 @@
         return cell;
     }else if(indexPath.section == 1) {
         LEDpostMsgTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"LEDpostMsgTableViewCell"];
-        [cell addSubview:self.titleLabel];
         [cell addSubview:self.webView];
         return cell;
     }else if(indexPath.section == 2) {
