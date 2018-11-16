@@ -19,7 +19,7 @@ pod 'MJExtension', '~> 3.0.13'
 pod 'YHPlaceHolderView', '~> 1.0.0'
 pod 'CYLTableViewPlaceHolder', '~> 1.0.8'
 
-pod 'dpsdk', :path => '../SmartPark/ZHYQ/Other/dpsdkDepend'
+pod 'dpsdk', :path => '../SmartPark_30/ZHYQ/Other/dpsdkDepend'
 
 pod 'SCLAlertView-Objective-C', '~> 1.1.2'
 
