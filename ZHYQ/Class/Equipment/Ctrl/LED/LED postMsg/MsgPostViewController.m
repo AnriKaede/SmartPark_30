@@ -29,7 +29,7 @@
 
 #define kEditorURL @"richText_editor"
 
-@interface MsgPostViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,LedPostTacticsDelegate, ChooseLedDeleagte,UIWebViewDelegate,KWEditorBarDelegate,KWFontStyleBarDelegate>
+@interface MsgPostViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource, ChooseLedDeleagte,UIWebViewDelegate,KWEditorBarDelegate,KWFontStyleBarDelegate>
 {
     NSMutableArray *_ledData;
 }
@@ -137,11 +137,14 @@
     UIButton *rightBtn = [[UIButton alloc] init];
     rightBtn.frame = CGRectMake(0, 0, 40, 40);
     [rightBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
-    [rightBtn setImage:[UIImage imageNamed:@"publiished_icon"] forState:UIControlStateNormal];
+    [rightBtn setImage:[UIImage imageNamed:@"led_nav_formwork"] forState:UIControlStateNormal];
+    [rightBtn setTitle:@"内容模板" forState:UIControlStateNormal];
+    rightBtn.titleLabel.font = [UIFont systemFontOfSize:10];
     [rightBtn addTarget:self action:@selector(_rightBarBtnItemClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [rightBtn setTitleEdgeInsets:UIEdgeInsetsMake(rightBtn.imageView.frame.size.height ,-rightBtn.imageView.frame.size.width, -5,0.0)];
+    [rightBtn setImageEdgeInsets:UIEdgeInsetsMake(-10, 20,0.0, -rightBtn.titleLabel.bounds.size.width)];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-//    self.navigationItem.rightBarButtonItem = rightItem;
+    self.navigationItem.rightBarButtonItem = rightItem;
     
     UITapGestureRecognizer *editTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditAction)];
     [self.view addGestureRecognizer:editTap];
