@@ -169,6 +169,7 @@
 -(void)_initPointMapView
 {
     indoorView = [[YQInDoorPointMapView alloc]initWithIndoorMapImageName:[NSString stringWithFormat:@"%@",_floorModel.LAYER_MAP] Frame:CGRectMake(0, 0, self.view.frame.size.width, bottomView.height)];
+//    indoorView = [[YQInDoorPointMapView alloc]initWithIndoorMapImageName:[NSString stringWithFormat:@"%@",@"dxck"] Frame:CGRectMake(0, 0, self.view.frame.size.width, bottomView.height)];
     indoorView.selInMapDelegate = self;
     [bottomView addSubview:indoorView];
 }

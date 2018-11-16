@@ -29,7 +29,7 @@
 
 #define kEditorURL @"richText_editor"
 
-@interface MsgPostViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource,LedPostTacticsDelegate, ChooseLedDeleagte,UIWebViewDelegate,KWEditorBarDelegate,KWFontStyleBarDelegate>
+@interface MsgPostViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource, ChooseLedDeleagte,UIWebViewDelegate,KWEditorBarDelegate,KWFontStyleBarDelegate>
 {
     NSMutableArray *_ledData;
 }
@@ -50,7 +50,6 @@
 @property (nonatomic,strong) UIWebView *webView;
 @property (nonatomic,strong) KWEditorBar *toolBarView;
 @property (nonatomic,strong) KWFontStyleBar *fontBar;
-@property (nonatomic,strong) UILabel *titleLabel;
 
 @end
 
@@ -94,20 +93,9 @@
     }
     return _fontBar;
 }
-- (UILabel *)titleLabel {
-    if(!_titleLabel){
-        _titleLabel = [[UILabel alloc] init];
-        _titleLabel.text = @"详细内容";
-        _titleLabel.font = [UIFont systemFontOfSize:15];
-        _titleLabel.textAlignment = NSTextAlignmentLeft;
-        _titleLabel.textColor = [UIColor blackColor];
-        _titleLabel.frame = CGRectMake(10, 15, 80, 15);
-    }
-    return _titleLabel;
-}
 - (UIWebView *)webView{
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(89, 0, KScreenWidth - 95, 240)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth - 0, 240)];
         _webView.delegate = self;
         NSString *path = [[NSBundle mainBundle] bundlePath];
         NSURL *baseURL = [NSURL fileURLWithPath:path];
@@ -149,11 +137,14 @@
     UIButton *rightBtn = [[UIButton alloc] init];
     rightBtn.frame = CGRectMake(0, 0, 40, 40);
     [rightBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
-    [rightBtn setImage:[UIImage imageNamed:@"publiished_icon"] forState:UIControlStateNormal];
+    [rightBtn setImage:[UIImage imageNamed:@"led_nav_formwork"] forState:UIControlStateNormal];
+    [rightBtn setTitle:@"内容模板" forState:UIControlStateNormal];
+    rightBtn.titleLabel.font = [UIFont systemFontOfSize:10];
     [rightBtn addTarget:self action:@selector(_rightBarBtnItemClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [rightBtn setTitleEdgeInsets:UIEdgeInsetsMake(rightBtn.imageView.frame.size.height ,-rightBtn.imageView.frame.size.width, -5,0.0)];
+    [rightBtn setImageEdgeInsets:UIEdgeInsetsMake(-10, 20,0.0, -rightBtn.titleLabel.bounds.size.width)];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-//    self.navigationItem.rightBarButtonItem = rightItem;
+    self.navigationItem.rightBarButtonItem = rightItem;
     
     UITapGestureRecognizer *editTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditAction)];
     [self.view addGestureRecognizer:editTap];
@@ -241,7 +232,6 @@
         return cell;
     }else if(indexPath.section == 1) {
         LEDpostMsgTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"LEDpostMsgTableViewCell"];
-        [cell addSubview:self.titleLabel];
         [cell addSubview:self.webView];
         return cell;
     }else if(indexPath.section == 2) {
