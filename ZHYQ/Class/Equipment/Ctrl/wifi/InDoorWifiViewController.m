@@ -484,21 +484,43 @@
         return;
     }
     
-    _isRuning = isOn;
-    if(isOn){
-        _stateStr = @"正常开启中";
-        _stateColor = [UIColor colorWithHexString:@"#189517"];
-    }else {
-        _stateStr = @"离线";
-        _stateColor = [UIColor blackColor];
-    }
-    
-    [_showMenuView reloadMenuData];
+    [self wifiControl:isOn];
 }
 - (void)didSelectMenu:(NSInteger)index {
     if(index == 4){
         [self goWifiUser];
     }
+}
+
+#pragma mark 调用开关wifi接口
+- (void)wifiControl:(BOOL)on {
+    NSString *operation;
+    if(on){
+        operation = @"enable_radio";
+    }else {
+        operation = @"disable_radio";
+    }
+    NSString *urlStr = [NSString stringWithFormat:@"%@/wifi/setWifiState?layerId=%@&operation=%@&mode=%@&deviceId=%@",Main_Url, _inDoorWifiModel.LAYER_ID, operation, @"all", _inDoorWifiModel.DEVICE_ID];
+    
+    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
+        NSNumber *success = responseObject[@"success"];
+        if(!success.boolValue){
+            if(responseObject[@"msg"] != nil && ![responseObject[@"msg"] isKindOfClass:[NSNull class]] ) {
+                [self showHint:responseObject[@"msg"]];
+            }
+        }else {
+            if(on){
+                _stateStr = @"正常开启中";
+                _stateColor = [UIColor colorWithHexString:@"#189517"];
+            }else {
+                _stateStr = @"离线";
+                _stateColor = [UIColor blackColor];
+            }
+            [_showMenuView reloadMenuData];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 #pragma mark 选中地图标注
