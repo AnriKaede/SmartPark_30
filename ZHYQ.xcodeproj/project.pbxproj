@@ -249,6 +249,7 @@
 		92669423219D4FD4004583B2 /* jquery.js in Resources */ = {isa = PBXBuildFile; fileRef = 92669417219D4FD3004583B2 /* jquery.js */; };
 		92669424219D4FD4004583B2 /* richText_editor.html in Resources */ = {isa = PBXBuildFile; fileRef = 92669418219D4FD3004583B2 /* richText_editor.html */; };
 		92669427219D5111004583B2 /* FaceHtmlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92669426219D5111004583B2 /* FaceHtmlView.m */; };
+		9266943C219E62A8004583B2 /* FaceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266943B219E62A7004583B2 /* FaceListViewController.m */; };
 		926748E2213682BF0007BDA1 /* UITextField+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 926748E1213682BF0007BDA1 /* UITextField+Position.m */; };
 		926748E82136A2840007BDA1 /* VisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 926748E72136A2840007BDA1 /* VisFilterView.m */; };
 		926B69721FD137B100DEFEDD /* IllegalListTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 926B69711FD137B100DEFEDD /* IllegalListTabCell.xib */; };
@@ -611,7 +612,6 @@
 		92F8943E20906344005BDEDD /* WarnCutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8943D20906344005BDEDD /* WarnCutView.m */; };
 		92F8944120908E40005BDEDD /* WarnBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8944020908E40005BDEDD /* WarnBaseViewController.m */; };
 		92FAC4DB219ACE7800FB1489 /* FaceWranViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4D5219ACE6F00FB1489 /* FaceWranViewController.m */; };
-		92FAC4DC219ACE7800FB1489 /* FaceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4D6219ACE7000FB1489 /* FaceListViewController.m */; };
 		92FAC4DD219ACE7800FB1489 /* FaceHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */; };
 		92FAC4E2219ACF2200FB1489 /* FaceHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4DF219ACF1F00FB1489 /* FaceHistoryCell.m */; };
 		92FAC4E3219ACF2200FB1489 /* FaceHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92FAC4E0219ACF2100FB1489 /* FaceHistoryCell.xib */; };
@@ -1298,6 +1298,7 @@
 		92669418219D4FD3004583B2 /* richText_editor.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = richText_editor.html; sourceTree = "<group>"; };
 		92669425219D5111004583B2 /* FaceHtmlView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceHtmlView.h; sourceTree = "<group>"; };
 		92669426219D5111004583B2 /* FaceHtmlView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceHtmlView.m; sourceTree = "<group>"; };
+		9266943B219E62A7004583B2 /* FaceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceListViewController.m; sourceTree = "<group>"; };
 		926748E0213682BF0007BDA1 /* UITextField+Position.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITextField+Position.h"; sourceTree = "<group>"; };
 		926748E1213682BF0007BDA1 /* UITextField+Position.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Position.m"; sourceTree = "<group>"; };
 		926748E62136A2840007BDA1 /* VisFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisFilterView.h; sourceTree = "<group>"; };
@@ -1942,7 +1943,6 @@
 		92F8943F20908E40005BDEDD /* WarnBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarnBaseViewController.h; sourceTree = "<group>"; };
 		92F8944020908E40005BDEDD /* WarnBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarnBaseViewController.m; sourceTree = "<group>"; };
 		92FAC4D5219ACE6F00FB1489 /* FaceWranViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceWranViewController.m; sourceTree = "<group>"; };
-		92FAC4D6219ACE7000FB1489 /* FaceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FaceListViewController.m; path = ../../../../../../SmartPark/ZHYQ/Class/Equipment/Ctrl/FaceIdentify/FaceListViewController.m; sourceTree = "<group>"; };
 		92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceHistoryViewController.m; sourceTree = "<group>"; };
 		92FAC4D8219ACE7500FB1489 /* FaceHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceHistoryViewController.h; sourceTree = "<group>"; };
 		92FAC4DA219ACE7800FB1489 /* FaceWranViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceWranViewController.h; sourceTree = "<group>"; };
@@ -3736,7 +3736,7 @@
 				92D8B8C6206B2B350001263F /* SelFaceViewController.h */,
 				92D8B8C7206B2B350001263F /* SelFaceViewController.m */,
 				92D8B8D9206B39D40001263F /* FaceListViewController.h */,
-				92FAC4D6219ACE7000FB1489 /* FaceListViewController.m */,
+				9266943B219E62A7004583B2 /* FaceListViewController.m */,
 				92D8B8E1206B49620001263F /* FaceFilterViewController.h */,
 				92D8B8E2206B49620001263F /* FaceFilterViewController.m */,
 				92D8B8EB206C864B0001263F /* FaceDetailViewController.h */,
@@ -5780,7 +5780,6 @@
 				9213C0491FE60B13009E7B67 /* MonitorLoginInfoModel.m in Sources */,
 				D629A5C11F9C5ABD00FA5EE1 /* registerViewController.m in Sources */,
 				D6EAE69E1FB53A3D006E4C2F /* YQEditImageViewController.m in Sources */,
-				92FAC4DC219ACE7800FB1489 /* FaceListViewController.m in Sources */,
 				D697E0CD1FAB3F6900966B62 /* WifiCenterViewController.m in Sources */,
 				92F8943820905D22005BDEDD /* WarnUnReportViewController.m in Sources */,
 				9226845320ABD339006628B3 /* EquipmentInfoWebViewController.m in Sources */,
@@ -5972,6 +5971,7 @@
 				922770C820BBA143009010F7 /* DoorMapViewController.m in Sources */,
 				9253BD6A20BFA58E00AB4767 /* OpenDoorManager.mm in Sources */,
 				9253BD8020BFA58E00AB4767 /* XMLParser.m in Sources */,
+				9266943C219E62A8004583B2 /* FaceListViewController.m in Sources */,
 				D60CA2BD1FB9BC2C00725389 /* OutDoorBgMusicViewController.m in Sources */,
 				92E87D651FB6FC6A0045D2FF /* OpenRecordCell.m in Sources */,
 				92A308051FF60BA30024538A /* SelWeekView.m in Sources */,
