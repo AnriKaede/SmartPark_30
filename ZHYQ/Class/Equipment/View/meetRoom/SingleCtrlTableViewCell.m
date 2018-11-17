@@ -99,11 +99,11 @@
     _singleCtrlSlider.tag = 201;
     
     _singleCtrlSwitch.enabled = YES;
-    if([model.current_state isEqualToString:@"0"]){
-        _singleCtrlSwitch.on = NO;
-    }else {
+    if([model.current_state isEqualToString:@"1"]){
         // 开启 1-255
         _singleCtrlSwitch.on = YES;
+    }else {
+        _singleCtrlSwitch.on = NO;
     }
     
     [self hidAirView:YES];  // 空调默认隐藏

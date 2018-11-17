@@ -62,11 +62,15 @@
  */
 
 - (void)changeModel:(NSString *)modelId {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/lighting/model/%@",Main_Url, modelId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/lighting/model/%@/%@",Main_Url, modelId, _model.ROOM_ID];
     
     [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
-            [_sceneData removeAllObjects];
+            if(_isSceneModel){
+                [_sceneData removeAllObjects];
+            }else {
+                [self.dataArr removeAllObjects];
+            }
             NSArray *responseData = responseObject[@"responseData"];
             [responseData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 SceneEquipmentModel *model = [[SceneEquipmentModel alloc] initWithDataDic:obj];

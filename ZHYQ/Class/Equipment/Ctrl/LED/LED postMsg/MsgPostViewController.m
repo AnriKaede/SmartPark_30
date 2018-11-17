@@ -313,9 +313,6 @@
 
 #pragma mark LED发送新信息
 -(void)postLEDMsgClick:(id)sender {
-    [_sendSucView showSendSucView];
-    return;
-    
     NSMutableArray *selLeds = @[].mutableCopy;
     [_ledData enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
         if(ledListModel.isSelect){
@@ -332,7 +329,11 @@
         return;
     }
     
-    NSString *postMsg = [NSString stringWithFormat:@"<body style=\"color: red\">%@</body>", [self.webView contentHtmlText]];
+    NSString *postMsg = [NSString stringWithFormat:@"<html style=\"color: red\"><head><meta charset=utf-8><title></title></head><body>%@</body></html>", [self.webView contentHtmlText]];
+    
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"4\"" withString:@"size=\"35px\""];
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"3\"" withString:@"size=\"25px\""];
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"2\"" withString:@"size=\"15px\""];
     
     dispatch_group_t group = dispatch_group_create();
     

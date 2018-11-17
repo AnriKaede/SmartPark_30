@@ -117,6 +117,25 @@
 }
 
 - (void)callMeal {
+    __block NSInteger callIndex = 1;
+    [_selNumData enumerateObjectsUsingBlock:^(NSNumber *selNum, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(selNum.boolValue){
+            callIndex = idx;
+        }
+    }];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/music/orderingCall/%ld",Main_Url,callIndex+1];
+    
+    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            
+        }
+        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+            [self showHint:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        [self showHint:KRequestFailMsg];
+    }];
     
 }
 

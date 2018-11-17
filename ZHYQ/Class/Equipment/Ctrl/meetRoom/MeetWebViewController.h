@@ -7,7 +7,8 @@
 //
 
 #import "RootViewController.h"
+#import "MeetRoomGroupModel.h"
 
 @interface MeetWebViewController : RootViewController
-
+@property(nonatomic, retain) MeetRoomGroupModel *model;
 @end
