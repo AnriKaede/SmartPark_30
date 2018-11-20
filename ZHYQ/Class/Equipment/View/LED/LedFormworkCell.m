@@ -33,11 +33,39 @@
     _userBt.layer.borderWidth = 1;
 }
 
+- (void)setIsEdit:(BOOL)isEdit {
+    _isEdit = isEdit;
+    
+    if(isEdit){
+        _editBt.enabled = NO;
+        _deleteBt.enabled = NO;
+    }else {
+        _editBt.enabled = YES;
+        _deleteBt.enabled = YES;
+    }
+}
+
+- (void)setFormworkModel:(LEDFormworkModel *)formworkModel {
+    _formworkModel = formworkModel;
+    
+    _titleLabel.text = [NSString stringWithFormat:@"%@", formworkModel.title];
+    _contentLabel.text = [NSString stringWithFormat:@"%@", formworkModel.contents];
+}
+
 - (IBAction)editAction:(id)sender {
+    if(_formworkDelegate != nil && [_formworkDelegate respondsToSelector:@selector(edit:)]){
+        [_formworkDelegate edit:_formworkModel];
+    }
 }
 - (IBAction)deleteAction:(id)sender {
+    if(_formworkDelegate != nil && [_formworkDelegate respondsToSelector:@selector(delete:)]){
+        [_formworkDelegate deleteForwork:_formworkModel];
+    }
 }
 - (IBAction)userAction:(id)sender {
+    if(_formworkDelegate != nil && [_formworkDelegate respondsToSelector:@selector(user:)]){
+        [_formworkDelegate user:_formworkModel];
+    }
 }
 
 @end

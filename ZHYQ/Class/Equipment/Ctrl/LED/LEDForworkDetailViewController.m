@@ -52,6 +52,7 @@
     [self _initWebView];
     [self _initNavItems];
     [self viewConfig];
+    
 }
 
 - (void)_initWebView {
@@ -66,7 +67,7 @@
 }
 
 -(void)_initNavItems {
-    self.title = @"模板名称";
+    self.title = @"LED内容模板修改";
     
     UIButton *leftBtn = [[UIButton alloc] init];
     leftBtn.frame = CGRectMake(0, 0, 40, 40);
@@ -102,6 +103,15 @@
     self.toolBarView.delegate = self;
     [self.toolBarView addObserver:self forKeyPath:@"transform" options:
      NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+    
+    // 是否是查看，默认是编辑
+    if(!_isEdit){
+        _topBgView.hidden = YES;
+        _topBgViewHeight.constant = 0;
+        
+        [_saveBt setTitle:@"立即使用" forState:UIControlStateNormal];
+        _webView.userInteractionEnabled = NO;
+    }
 }
 #pragma mark html编辑器方法
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context

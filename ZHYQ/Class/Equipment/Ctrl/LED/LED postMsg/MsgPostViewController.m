@@ -36,6 +36,8 @@
     NSMutableArray *_ledData;
     BOOL _isSendSuc;
     LEDSendSucView *_sendSucView;
+    
+    NSString *_postMsgContent;
 }
 /* 文本输入框*/
 //@property(nonatomic, strong) YQInputView *inputV;
@@ -211,6 +213,23 @@
 - (void)confirmWithName:(NSString *)name {
     [_sendSucView hidSendSucView];
     
+    NSString *urlStr = [NSString stringWithFormat:@"%@/udpController/addTempInfo",Main_Url];
+    NSMutableDictionary *addParam = @{}.mutableCopy;
+    [addParam setObject:name forKey:@"Title"];
+    [addParam setObject:_postMsgContent forKey:@"contents"];
+    
+    [self showHudInView:self.tableView hint:@""];
+    [[NetworkClient sharedInstance] POST:urlStr dict:addParam progressFloat:nil succeed:^(id responseObject) {
+        [self hideHud];
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+            [self showHint:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        [self hideHud];
+    }];
 }
 
 #pragma mark 获取屏列表
@@ -312,34 +331,6 @@
 
 #pragma mark LED发送新信息
 -(void)postLEDMsgClick:(id)sender {
-//    NSMutableArray *selLeds = @[].mutableCopy;
-//    [_ledData enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
-//        if(ledListModel.isSelect){
-//            [selLeds addObject:ledListModel];
-//        }
-//    }];
-//    if(selLeds.count <= 0){
-//        [self showHint:@"请选择发布屏"];
-//        return;
-//    }
-//
-//    if([self.webView contentHtmlText].length <= 0){
-//        [self showHint:@"请输入内容"];
-//        return;
-//    }
-    
-    NSString *postMsg = [NSString stringWithFormat:@"<html style=\"color: red; font-size: 35px\"><head><meta charset=utf-8><title></title></head><body>%@</body></html>", [self.webView contentHtmlText]];
-    
-//    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"4\"" withString:@"size=\"7\""];
-//    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"3\"" withString:@"size=\"6\""];
-//    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"2\"" withString:@"size=\"5\""];
-    
-    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"4\"" withString:@"size=\"7\""];
-    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"3\"" withString:@"size=\"6\""];
-    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"2\"" withString:@"size=\"5\""];
-    
-    NSLog(@"%@", postMsg);
-    
     NSMutableArray *selLeds = @[].mutableCopy;
     [_ledData enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
         if(ledListModel.isSelect){
@@ -350,12 +341,25 @@
         [self showHint:@"请选择发布屏"];
         return;
     }
-    
+
     if([self.webView contentHtmlText].length <= 0){
         [self showHint:@"请输入内容"];
         return;
     }
     
+    NSString *postMsg = [NSString stringWithFormat:@"<html style=\"color: red; font-size: 40px\"><head><meta charset=utf-8><title></title></head><body>%@</body></html>", [self.webView contentHtmlText]];
+    
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"4\"" withString:@"size=\"7\""];
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"3\"" withString:@"size=\"6\""];
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"2\"" withString:@"size=\"5\""];
+    
+    NSLog(@"%@", postMsg);
+    _postMsgContent = postMsg;
+    
+#warning 测试添加
+    [_sendSucView showSendSucView];
+    
+    /*
     dispatch_group_t group = dispatch_group_create();
     
     _isSendSuc = YES;
@@ -365,10 +369,11 @@
     
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         // 所有发送成功
-        if(_isSendSuc){
+//        if(_isSendSuc){
             [_sendSucView showSendSucView];
-        }
+//        }
     });
+     */
 }
 
 - (void)sendLedMsg:(LedListModel *)ledListModel withConnect:(NSString *)connect withQueue:(id)group {
@@ -385,7 +390,7 @@
         dispatch_group_leave(group);
         [self hideHud];
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
-            [self.navigationController popViewControllerAnimated:YES];
+//            [self.navigationController popViewControllerAnimated:YES];
         }else {
             _isSendSuc = NO;
             if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
@@ -527,7 +532,7 @@
             //显示更多区域
             editorBar.fontButton.selected = !editorBar.fontButton.selected;
             if (editorBar.fontButton.selected) {
-                [self.view addSubview:self.fontBar];
+                [self.view insertSubview:self.fontBar belowSubview:_sendSucView];
             }else{
                 [self.fontBar removeFromSuperview];
             }

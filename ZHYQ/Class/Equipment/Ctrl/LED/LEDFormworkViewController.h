@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LEDFormworkViewController : RootViewController
 
+@property (nonatomic,assign) BOOL isEdit;
+
 @end
 
 NS_ASSUME_NONNULL_END

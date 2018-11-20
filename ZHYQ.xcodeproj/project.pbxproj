@@ -396,6 +396,7 @@
 		92A2209B20007E3A00B1A881 /* PointViewSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A2209A20007E3A00B1A881 /* PointViewSelect.m */; };
 		92A308051FF60BA30024538A /* SelWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A308041FF60BA30024538A /* SelWeekView.m */; };
 		92A9D7CD20E5DBA800472294 /* MeetRoomStateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A9D7CC20E5DBA800472294 /* MeetRoomStateModel.m */; };
+		92AC03B321A40FA1009A73F3 /* LEDFormworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AC03B221A40FA0009A73F3 /* LEDFormworkModel.m */; };
 		92ACC6522137DEB5006E005E /* MsgFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC6512137DEB5006E005E /* MsgFilterView.m */; };
 		92ACC6552137EF48006E005E /* FaceFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC6542137EF48006E005E /* FaceFilterView.m */; };
 		92ACC6582137F64E006E005E /* LogFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92ACC6572137F64E006E005E /* LogFilterView.m */; };
@@ -1573,6 +1574,8 @@
 		92A308041FF60BA30024538A /* SelWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelWeekView.m; sourceTree = "<group>"; };
 		92A9D7CB20E5DBA800472294 /* MeetRoomStateModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetRoomStateModel.h; sourceTree = "<group>"; };
 		92A9D7CC20E5DBA800472294 /* MeetRoomStateModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetRoomStateModel.m; sourceTree = "<group>"; };
+		92AC03B121A40FA0009A73F3 /* LEDFormworkModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEDFormworkModel.h; sourceTree = "<group>"; };
+		92AC03B221A40FA0009A73F3 /* LEDFormworkModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEDFormworkModel.m; sourceTree = "<group>"; };
 		92ACC6502137DEB5006E005E /* MsgFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MsgFilterView.h; sourceTree = "<group>"; };
 		92ACC6512137DEB5006E005E /* MsgFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MsgFilterView.m; sourceTree = "<group>"; };
 		92ACC6532137EF48006E005E /* FaceFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceFilterView.h; sourceTree = "<group>"; };
@@ -3478,6 +3481,15 @@
 			path = WifiCount;
 			sourceTree = "<group>";
 		};
+		92AC03B021A40F65009A73F3 /* LED */ = {
+			isa = PBXGroup;
+			children = (
+				92AC03B121A40FA0009A73F3 /* LEDFormworkModel.h */,
+				92AC03B221A40FA0009A73F3 /* LEDFormworkModel.m */,
+			);
+			path = LED;
+			sourceTree = "<group>";
+		};
 		92B3BEB11FF3D16300C3AFEC /* food */ = {
 			isa = PBXGroup;
 			children = (
@@ -5242,6 +5254,7 @@
 		D6F556631FA6C02800AFD721 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				92AC03B021A40F65009A73F3 /* LED */,
 				927FA6E5219168E0002CB32C /* Wifi */,
 				922B40E321548C5C00B9F6E4 /* Ecard */,
 				926D9B542125238300D6E0C1 /* drainWater */,
@@ -6383,6 +6396,7 @@
 				92D96C1420F73784000B8DC4 /* AirMenuView.m in Sources */,
 				928426E8214B976400C909D4 /* ReservedFilterView.m in Sources */,
 				927FA6F72191B185002CB32C /* WifiCountSpeedModel.m in Sources */,
+				92AC03B321A40FA1009A73F3 /* LEDFormworkModel.m in Sources */,
 				92E87D3F1FB6D7730045D2FF /* EnergyConViewController.m in Sources */,
 				D69A2F52218154C9001C7571 /* WifiUserInfoCell.m in Sources */,
 				9273EB182051303900723C5D /* WaterTimeViewController.m in Sources */,

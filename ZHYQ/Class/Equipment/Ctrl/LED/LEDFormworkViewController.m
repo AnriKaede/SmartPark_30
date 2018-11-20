@@ -9,8 +9,9 @@
 #import "LEDFormworkViewController.h"
 #import "LedFormworkCell.h"
 #import "LEDForworkDetailViewController.h"
+#import "LEDFormworkModel.h"
 
-@interface LEDFormworkViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface LEDFormworkViewController ()<UITableViewDelegate, UITableViewDataSource, LEDFormworkDelegate>
 {
     UITableView *_workTableView;
     NSMutableArray *_workData;
@@ -36,7 +37,7 @@
     [self _loadData];
 }
 -(void)_initNavItems {
-    self.title = @"LED模板内容";
+    self.title = @"LED内容模板";
     
     UIButton *leftBtn = [[UIButton alloc] init];
     leftBtn.frame = CGRectMake(0, 0, 40, 40);
@@ -78,18 +79,15 @@
 
 #pragma mark 加载数据
 - (void)_loadData {
-    /*
-    NSString *urlStr = [NSString stringWithFormat:@"%@/deviceAlarm/alarmOrders", Main_Url];
-    NSMutableDictionary *paramDic = @{}.mutableCopy;
-    [paramDic setObject:orderState forKey:@"orderState"];
-    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
-    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
-    [paramDic setObject:@"repair" forKey:@"orderRole"];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/udpController/findAllTemplateInfo", Main_Url];
+//    NSMutableDictionary *paramDic = @{}.mutableCopy;
+//    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+//    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+//
+//    NSString *jsonStr = [Utils convertToJsonData:paramDic];
+//    NSDictionary *param = @{@"param":jsonStr};
     
-    NSString *jsonStr = [Utils convertToJsonData:paramDic];
-    NSDictionary *param = @{@"param":jsonStr};
-    
-    [[NetworkClient sharedInstance] POST:urlStr dict:param progressFloat:nil succeed:^(id responseObject) {
+    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         [self removeNoDataImage];
         
         [_workTableView.mj_header endRefreshing];
@@ -102,7 +100,7 @@
                 [_workData removeAllObjects];
             }
             
-            NSArray *data = responseObject[@"responseData"][@"items"];
+            NSArray *data = responseObject[@"responseData"][@"templateList"];
             
             if(data.count > _length-1){
                 _workTableView.mj_footer.state = MJRefreshStateIdle;
@@ -113,7 +111,7 @@
             }
             
             [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                BillListModel *model = [[BillListModel alloc] initWithDataDic:obj];
+                LEDFormworkModel *model = [[LEDFormworkModel alloc] initWithDataDic:obj];
                 [_workData addObject:model];
             }];
             [_workTableView cyl_reloadData];
@@ -127,7 +125,6 @@
             [self showHint:KRequestFailMsg];
         }
     }];
-     */
 }
 
 #pragma mark 无数据协议
@@ -147,8 +144,7 @@
 
 #pragma mark UITableView协议
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return _workData.count;
-    return 3;
+    return _workData.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
@@ -175,18 +171,52 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     LedFormworkCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LedFormworkCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    cell.formworkDelegate = self;
+    cell.formworkDelegate = self;
     if(_workData.count > indexPath.section){
-//        cell.billListModel = _workData[indexPath.section];
+        cell.formworkModel = _workData[indexPath.section];
     }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     LEDForworkDetailViewController *detailVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"LEDForworkDetailViewController"];
     if(_workData.count > indexPath.section){
-//        BillListModel *billListModel = _workData[indexPath.section];
-//        detailVC.orderId = billListModel.orderId;
+        LEDFormworkModel *formworkModel = _workData[indexPath.section];
+        detailVC.formworkModel = formworkModel;
     }
+    detailVC.isEdit = NO;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
+
+#pragma mark UITableViewCell协议
+- (void)edit:(LEDFormworkModel *)formworkModel {
+    LEDForworkDetailViewController *detailVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"LEDForworkDetailViewController"];
+    detailVC.isEdit = YES;
+    detailVC.formworkModel = formworkModel;
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+- (void)deleteForwork:(LEDFormworkModel *)formworkModel {
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否删除此模板" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
+}
+- (void)user:(LEDFormworkModel *)formworkModel {
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否使用此模板" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"使用" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
+}
+
 @end

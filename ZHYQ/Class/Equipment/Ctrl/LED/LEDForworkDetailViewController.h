@@ -7,11 +7,13 @@
 //
 
 #import "RootViewController.h"
+#import "LEDFormworkModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LEDForworkDetailViewController : RootViewController
-
+@property (nonatomic,assign) BOOL isEdit;   // 是否是编辑
+@property (nonatomic,retain) LEDFormworkModel *formworkModel;
 @end
 
 NS_ASSUME_NONNULL_END
