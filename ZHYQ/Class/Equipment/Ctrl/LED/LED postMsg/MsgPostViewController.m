@@ -237,8 +237,7 @@
 
 #pragma mark --------------UITableViewDataSource
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
@@ -313,6 +312,34 @@
 
 #pragma mark LED发送新信息
 -(void)postLEDMsgClick:(id)sender {
+//    NSMutableArray *selLeds = @[].mutableCopy;
+//    [_ledData enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if(ledListModel.isSelect){
+//            [selLeds addObject:ledListModel];
+//        }
+//    }];
+//    if(selLeds.count <= 0){
+//        [self showHint:@"请选择发布屏"];
+//        return;
+//    }
+//
+//    if([self.webView contentHtmlText].length <= 0){
+//        [self showHint:@"请输入内容"];
+//        return;
+//    }
+    
+    NSString *postMsg = [NSString stringWithFormat:@"<html style=\"color: red; font-size: 35px\"><head><meta charset=utf-8><title></title></head><body>%@</body></html>", [self.webView contentHtmlText]];
+    
+//    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"4\"" withString:@"size=\"7\""];
+//    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"3\"" withString:@"size=\"6\""];
+//    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"2\"" withString:@"size=\"5\""];
+    
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"4\"" withString:@"size=\"7\""];
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"3\"" withString:@"size=\"6\""];
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"2\"" withString:@"size=\"5\""];
+    
+    NSLog(@"%@", postMsg);
+    
     NSMutableArray *selLeds = @[].mutableCopy;
     [_ledData enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
         if(ledListModel.isSelect){
@@ -328,12 +355,6 @@
         [self showHint:@"请输入内容"];
         return;
     }
-    
-    NSString *postMsg = [NSString stringWithFormat:@"<html style=\"color: red\"><head><meta charset=utf-8><title></title></head><body>%@</body></html>", [self.webView contentHtmlText]];
-    
-    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"4\"" withString:@"size=\"35px\""];
-    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"3\"" withString:@"size=\"25px\""];
-    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"2\"" withString:@"size=\"15px\""];
     
     dispatch_group_t group = dispatch_group_create();
     

@@ -24,7 +24,8 @@ typedef enum {
     CloseLed,
     OpenPC,
     RestartPC,
-    ClosePC
+    ClosePC,
+    ResumeDefault
 }LEDOperateType;
 
 @interface LEDViewController ()<UITableViewDelegate, UITableViewDataSource, CYLTableViewPlaceHolderDelegate,LEDListDelegate>
@@ -296,13 +297,32 @@ typedef enum {
     ledListModel.status = on ? @"1" : @"0";
 }
 - (void)ledPlay:(LedListModel*)ledListModel {
-    [self operateLed:OpenPC withModel:ledListModel];
+    NSInteger index = [_ledData indexOfObject:ledListModel];
+    UITableViewCell *cellView = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    [self alertOperate:@"是否确定开启设备主机" withBolck:^{
+        [self operateLed:OpenPC withModel:ledListModel];
+    } withShowView:cellView==nil?_headerView:cellView];
 }
 - (void)ledRestart:(LedListModel*)ledListModel {
-    [self operateLed:RestartPC withModel:ledListModel];
+    NSInteger index = [_ledData indexOfObject:ledListModel];
+    UITableViewCell *cellView = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    [self alertOperate:@"是否确定重启设备主机" withBolck:^{
+        [self operateLed:RestartPC withModel:ledListModel];
+    } withShowView:cellView==nil?_headerView:cellView];
 }
 - (void)ledClose:(LedListModel*)ledListModel {
-    [self operateLed:ClosePC withModel:ledListModel];
+    NSInteger index = [_ledData indexOfObject:ledListModel];
+    UITableViewCell *cellView = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    [self alertOperate:@"是否确定关闭设备主机" withBolck:^{
+        [self operateLed:ClosePC withModel:ledListModel];
+    } withShowView:cellView==nil?_headerView:cellView];
+}
+- (void)resumeDefault:(LedListModel*)ledListModel {
+    NSInteger index = [_ledData indexOfObject:ledListModel];
+    UITableViewCell *cellView = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+    [self alertOperate:@"是否确定恢复默认节目" withBolck:^{
+        [self operateLed:ResumeDefault withModel:ledListModel];
+    } withShowView:cellView==nil?_headerView:cellView];
 }
 
 - (void)operateLed:(LEDOperateType)operateType withModel:(LedListModel *)ledListModel {
@@ -406,12 +426,35 @@ typedef enum {
             operate = @"SHUTDOWN";
             break;
         }
+        case ResumeDefault:
+        {
+            operate = @"UPDATEPLAY";
+            break;
+        }
             
         default:
             break;
     }
     
     return operate;
+}
+
+- (void)alertOperate:(NSString *)message withBolck:(void(^)(void))certain withShowView:(UIView *)showView {
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        certain();
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = showView;
+        alertCon.popoverPresentationController.sourceRect = showView.bounds;
+    }
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
 }
 
 @end

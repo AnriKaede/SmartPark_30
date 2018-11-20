@@ -99,18 +99,18 @@
     _singleCtrlSlider.tag = 201;
     
     _singleCtrlSwitch.enabled = YES;
-    if([model.current_state isEqualToString:@"1"]){
-        // 开启 1-255
-        _singleCtrlSwitch.on = YES;
+    if([model.current_state isEqualToString:@"0"] || model.current_state.length <= 0){
+        _singleCtrlSwitch.on = [self dealShadow:model.DEVICE_TYPE withOn:NO];
     }else {
-        _singleCtrlSwitch.on = NO;
+        // 开启 1-255
+        _singleCtrlSwitch.on = [self dealShadow:model.DEVICE_TYPE withOn:YES];
     }
     
     [self hidAirView:YES];  // 空调默认隐藏
     
     _airLineView.hidden = YES;
     
-    if([model.DEVICE_TYPE isEqualToString:@"18-1"] && ![model.current_state isEqualToString:@"0"]){
+    if([model.DEVICE_TYPE isEqualToString:@"18-1"] && ![model.current_state isEqualToString:@"0"] && model.DEVICE_TYPE.length > 0){
         _adjustNumLab.hidden = NO;
         _singleCtrlSlider.hidden = NO;
         if(model.current_state != nil && ![model.current_state isKindOfClass:[NSNull class]] && model.current_state.integerValue != 0){
@@ -231,15 +231,15 @@
     
     _singleCtrlSwitch.enabled = YES;
     if([sceneModel.tagStatus isEqualToString:@"ON"]){  // 开启
-        _singleCtrlSwitch.on = YES;
+        _singleCtrlSwitch.on = [self dealShadow:sceneModel.deviceType withOn:YES];
     }else if([sceneModel.tagStatus isEqualToString:@"OFF"]){
         // 离线
-        _singleCtrlSwitch.on = NO;
+        _singleCtrlSwitch.on = [self dealShadow:sceneModel.deviceType withOn:NO];
     }else {
-        _singleCtrlSwitch.on = NO;
+        _singleCtrlSwitch.on = [self dealShadow:sceneModel.deviceType withOn:NO];
     }
     
-    if([sceneModel.deviceType isEqualToString:@"18-1"] && [sceneModel.tagStatus  isEqualToString:@"ON"]){
+    if([sceneModel.deviceType isEqualToString:@"18-1"] && [sceneModel.tagStatus isEqualToString:@"ON"]){
         _adjustNumLab.hidden = NO;
         _singleCtrlSlider.hidden = NO;
         _singleCtrlSlider.value = sceneModel.tagValue.floatValue/100;
@@ -307,19 +307,19 @@
 - (void)switchTap:(BOOL)on {
     if(_isEdit){
         if(_lightDelegare && [_lightDelegare respondsToSelector:@selector(switchSceneOnOff:withOpen:)]){
-            [_lightDelegare switchSceneOnOff:_sceneModel withOpen:_singleCtrlSwitch.on];
+            [_lightDelegare switchSceneOnOff:_sceneModel withOpen:[self dealShadow:_sceneModel.deviceType withOn:_singleCtrlSwitch.on]];
         }
     }else {
         if(_isScene){
             if(_lightDelegare && [_lightDelegare respondsToSelector:@selector(switchSceneOnOff:withOpen:)]){
-                [_lightDelegare switchSceneOnOff:_sceneModel withOpen:_singleCtrlSwitch.on];
+                [_lightDelegare switchSceneOnOff:_sceneModel withOpen:[self dealShadow:_sceneModel.deviceType withOn:_singleCtrlSwitch.on]];
             }
         }else {
             if([_model.DEVICE_TYPE isEqualToString:@"6"]){
                 [self airOperate:@"AIRSTATUS" withValue:[NSString stringWithFormat:@"%d", _singleCtrlSwitch.on]];
             }else {
                 if(_lightDelegare && [_lightDelegare respondsToSelector:@selector(switchOnOff:withOpen:)]){
-                    [_lightDelegare switchOnOff:_model withOpen:_singleCtrlSwitch.on];
+                    [_lightDelegare switchOnOff:_model withOpen:[self dealShadow:_model.DEVICE_TYPE withOn:_singleCtrlSwitch.on]];
                 }
             }
         }
@@ -437,6 +437,15 @@
             }
         }];
         [_lightDelegare modelCutData:tagId withDeviceId:_model.DEVICE_ID withTagName:tagName withValue:value withMeetModel:_model];
+    }
+}
+
+// 幕布特殊处理
+- (BOOL)dealShadow:(NSString *)deviceType withOn:(BOOL)on {
+    if([deviceType isEqualToString:@"20"]){
+        return !on;
+    }else {
+        return on;
     }
 }
 
