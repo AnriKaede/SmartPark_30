@@ -60,7 +60,7 @@
     _singleCtrlSwitch.backgroundColor = [UIColor clearColor];
     _singleCtrlSwitch.onTintColor = [UIColor colorWithHexString:@"6BDB6A"];
     _singleCtrlSwitch.tintColor = [UIColor colorWithHexString:@"FF4359"];
-//    [_singleCtrlSwitch addTarget:self action:@selector(_waterOnOrOffClick:) forControlEvents:UIControlEventValueChanged];
+    //    [_singleCtrlSwitch addTarget:self action:@selector(_waterOnOrOffClick:) forControlEvents:UIControlEventValueChanged];
     _singleCtrlSwitch.switchDelegate = self;
     
     UIImage *stetchLeftTrack= [UIImage imageNamed:@"_light_zero_icon"];
@@ -99,18 +99,25 @@
     _singleCtrlSlider.tag = 201;
     
     _singleCtrlSwitch.enabled = YES;
-    if([model.current_state isEqualToString:@"0"] || model.current_state.length <= 0){
+    // current_state可能为 ""空字符，"except error"字符串
+    if([model.current_state isEqualToString:@"0"]){
         _singleCtrlSwitch.on = [self dealShadow:model.DEVICE_TYPE withOn:NO];
-    }else {
+    }else if(model.current_state.integerValue > 0){
         // 开启 1-255
         _singleCtrlSwitch.on = [self dealShadow:model.DEVICE_TYPE withOn:YES];
+    }else {
+        if([model.DEVICE_TYPE isEqualToString:@"20"]) {
+            _singleCtrlSwitch.on = [self dealShadow:model.DEVICE_TYPE withOn:YES];
+        }else {
+            _singleCtrlSwitch.on = [self dealShadow:model.DEVICE_TYPE withOn:NO];
+        }
     }
     
     [self hidAirView:YES];  // 空调默认隐藏
     
     _airLineView.hidden = YES;
     
-    if([model.DEVICE_TYPE isEqualToString:@"18-1"] && ![model.current_state isEqualToString:@"0"] && model.DEVICE_TYPE.length > 0){
+    if([model.DEVICE_TYPE isEqualToString:@"18-1"] && ![model.current_state isEqualToString:@"0"] && model.current_state.length > 0 && model.current_state.integerValue > 0){
         _adjustNumLab.hidden = NO;
         _singleCtrlSlider.hidden = NO;
         if(model.current_state != nil && ![model.current_state isKindOfClass:[NSNull class]] && model.current_state.integerValue != 0){
@@ -125,7 +132,7 @@
         
         if(_isEdit){
             // 场景模式编辑
-        }else {        
+        }else {
             [self airDeviceState];
         }
     }else {
@@ -239,7 +246,7 @@
         _singleCtrlSwitch.on = [self dealShadow:sceneModel.deviceType withOn:NO];
     }
     
-    if([sceneModel.deviceType isEqualToString:@"18-1"] && [sceneModel.tagStatus isEqualToString:@"ON"]){
+    if([sceneModel.deviceType isEqualToString:@"18-1"] && [sceneModel.tagStatus isEqualToString:@"ON"] && sceneModel.tagStatus.length > 0){
         _adjustNumLab.hidden = NO;
         _singleCtrlSlider.hidden = NO;
         _singleCtrlSlider.value = sceneModel.tagValue.floatValue/100;

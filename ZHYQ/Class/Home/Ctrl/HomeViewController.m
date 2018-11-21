@@ -51,6 +51,8 @@
 
 #import "Utils.h"
 
+#import "ARSViewController.h"
+
 @interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate>
 {
     UIScrollView *bottomBgView;
@@ -1340,6 +1342,8 @@
 
 - (void)todayClick {
     NSLog(@"todayClickDelegate");
+    ARSViewController *arsVC = [[ARSViewController alloc] init];
+    [self.navigationController pushViewController:arsVC animated:YES];
 }
 
 #pragma mark 扫一扫

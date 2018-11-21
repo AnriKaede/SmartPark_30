@@ -233,6 +233,18 @@
 		925576E22182BFB700B4A1A3 /* WifiCountSpeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925576E02182BFB700B4A1A3 /* WifiCountSpeedCell.xib */; };
 		925576E62182BFDD00B4A1A3 /* WifiCountStrongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925576E42182BFDD00B4A1A3 /* WifiCountStrongCell.m */; };
 		925576E72182BFDD00B4A1A3 /* WifiCountStrongCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925576E52182BFDD00B4A1A3 /* WifiCountStrongCell.xib */; };
+		9256C45A21A55D8200501014 /* bds_license.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9256C43121A55D8100501014 /* bds_license.dat */; };
+		9256C45B21A55D8200501014 /* bds_easr_basic_model.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9256C43221A55D8100501014 /* bds_easr_basic_model.dat */; };
+		9256C45C21A55D8200501014 /* bds_easr_mfe_cmvn.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9256C43321A55D8100501014 /* bds_easr_mfe_cmvn.dat */; };
+		9256C45D21A55D8200501014 /* temp_license_2018-02-24.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9256C43421A55D8100501014 /* temp_license_2018-02-24.dat */; };
+		9256C45E21A55D8200501014 /* bds_easr_input_model.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9256C43521A55D8100501014 /* bds_easr_input_model.dat */; };
+		9256C45F21A55D8200501014 /* bds_easr_mfe_dnn.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9256C43621A55D8100501014 /* bds_easr_mfe_dnn.dat */; };
+		9256C46021A55D8200501014 /* bds_easr_gramm.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9256C43721A55D8100501014 /* bds_easr_gramm.dat */; };
+		9256C46121A55D8200501014 /* bds_easr_wakeup_words.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9256C43821A55D8100501014 /* bds_easr_wakeup_words.dat */; };
+		9256C46221A55D8200501014 /* bds_easr_dnn_wakeup_model.dat in Resources */ = {isa = PBXBuildFile; fileRef = 9256C43921A55D8100501014 /* bds_easr_dnn_wakeup_model.dat */; };
+		9256C47221A55D8200501014 /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9256C44C21A55D8100501014 /* libBaiduSpeechSDK.a */; };
+		9256C47421A55D9300501014 /* BDSClientResources in Resources */ = {isa = PBXBuildFile; fileRef = 9256C47321A55D9300501014 /* BDSClientResources */; };
+		9256C47721A55E9200501014 /* ARSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256C47621A55E9200501014 /* ARSViewController.m */; };
 		925EEFC91FB04C3B003DB93B /* ShowMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925EEFC81FB04C3B003DB93B /* ShowMenuView.m */; };
 		92643D8C201818340007C007 /* VisSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8B201818340007C007 /* VisSearchViewController.m */; };
 		92643D8F201876970007C007 /* VisCountNumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8E201876970007C007 /* VisCountNumModel.m */; };
@@ -1278,6 +1290,30 @@
 		925576E32182BFDD00B4A1A3 /* WifiCountStrongCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WifiCountStrongCell.h; sourceTree = "<group>"; };
 		925576E42182BFDD00B4A1A3 /* WifiCountStrongCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiCountStrongCell.m; sourceTree = "<group>"; };
 		925576E52182BFDD00B4A1A3 /* WifiCountStrongCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiCountStrongCell.xib; sourceTree = "<group>"; };
+		9256C43121A55D8100501014 /* bds_license.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bds_license.dat; sourceTree = "<group>"; };
+		9256C43221A55D8100501014 /* bds_easr_basic_model.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bds_easr_basic_model.dat; sourceTree = "<group>"; };
+		9256C43321A55D8100501014 /* bds_easr_mfe_cmvn.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bds_easr_mfe_cmvn.dat; sourceTree = "<group>"; };
+		9256C43421A55D8100501014 /* temp_license_2018-02-24.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "temp_license_2018-02-24.dat"; sourceTree = "<group>"; };
+		9256C43521A55D8100501014 /* bds_easr_input_model.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bds_easr_input_model.dat; sourceTree = "<group>"; };
+		9256C43621A55D8100501014 /* bds_easr_mfe_dnn.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bds_easr_mfe_dnn.dat; sourceTree = "<group>"; };
+		9256C43721A55D8100501014 /* bds_easr_gramm.dat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bds_easr_gramm.dat; sourceTree = "<group>"; };
+		9256C43821A55D8100501014 /* bds_easr_wakeup_words.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bds_easr_wakeup_words.dat; sourceTree = "<group>"; };
+		9256C43921A55D8100501014 /* bds_easr_dnn_wakeup_model.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bds_easr_dnn_wakeup_model.dat; sourceTree = "<group>"; };
+		9256C44C21A55D8100501014 /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
+		9256C44E21A55D8100501014 /* BDSWakeupParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSWakeupParameters.h; sourceTree = "<group>"; };
+		9256C44F21A55D8100501014 /* BDSASRParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSASRParameters.h; sourceTree = "<group>"; };
+		9256C45021A55D8100501014 /* BDSEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSEventManager.h; sourceTree = "<group>"; };
+		9256C45121A55D8100501014 /* BDSUploaderDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSUploaderDefines.h; sourceTree = "<group>"; };
+		9256C45221A55D8100501014 /* BDSASRDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSASRDefines.h; sourceTree = "<group>"; };
+		9256C45321A55D8100501014 /* BDSUploaderParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSUploaderParameters.h; sourceTree = "<group>"; };
+		9256C45421A55D8100501014 /* BDSWakeupDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSWakeupDefines.h; sourceTree = "<group>"; };
+		9256C45621A55D8100501014 /* BDRecognizerViewParamsObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDRecognizerViewParamsObject.h; sourceTree = "<group>"; };
+		9256C45721A55D8100501014 /* BDRecognizerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDRecognizerViewController.h; sourceTree = "<group>"; };
+		9256C45821A55D8100501014 /* BDTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDTheme.h; sourceTree = "<group>"; };
+		9256C45921A55D8100501014 /* BDRecognizerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDRecognizerViewDelegate.h; sourceTree = "<group>"; };
+		9256C47321A55D9300501014 /* BDSClientResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = BDSClientResources; sourceTree = "<group>"; };
+		9256C47521A55E9100501014 /* ARSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARSViewController.h; sourceTree = "<group>"; };
+		9256C47621A55E9200501014 /* ARSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ARSViewController.m; sourceTree = "<group>"; };
 		925EEFC71FB04C3A003DB93B /* ShowMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMenuView.h; sourceTree = "<group>"; };
 		925EEFC81FB04C3B003DB93B /* ShowMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMenuView.m; sourceTree = "<group>"; };
 		92643D8A201818340007C007 /* VisSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisSearchViewController.h; sourceTree = "<group>"; };
@@ -2506,6 +2542,7 @@
 				92CE43EB1FD4EAAA00ED9F98 /* libStreamParser.a in Frameworks */,
 				92CE43E31FD4EAAA00ED9F98 /* libopus.a in Frameworks */,
 				92CE43D31FD4EAAA00ED9F98 /* libosipparser2.a in Frameworks */,
+				9256C47221A55D8200501014 /* libBaiduSpeechSDK.a in Frameworks */,
 				92AEEF1320CE589C0055CEB4 /* libstdc++.6.0.9.tbd in Frameworks */,
 				92B210C11FD29835001297EB /* libStaticLib.a in Frameworks */,
 				92CE43DC1FD4EAAA00ED9F98 /* libaacdec.a in Frameworks */,
@@ -3143,6 +3180,59 @@
 				925576CA218299A600B4A1A3 /* WifiStateCell.xib */,
 			);
 			path = wifiShareCount;
+			sourceTree = "<group>";
+		};
+		9256C42F21A55D8100501014 /* ARS */ = {
+			isa = PBXGroup;
+			children = (
+				9256C44C21A55D8100501014 /* libBaiduSpeechSDK.a */,
+				9256C44D21A55D8100501014 /* ASR */,
+				9256C47321A55D9300501014 /* BDSClientResources */,
+				9256C43021A55D8100501014 /* BDSClientEASRResources */,
+			);
+			path = ARS;
+			sourceTree = "<group>";
+		};
+		9256C43021A55D8100501014 /* BDSClientEASRResources */ = {
+			isa = PBXGroup;
+			children = (
+				9256C43121A55D8100501014 /* bds_license.dat */,
+				9256C43221A55D8100501014 /* bds_easr_basic_model.dat */,
+				9256C43321A55D8100501014 /* bds_easr_mfe_cmvn.dat */,
+				9256C43421A55D8100501014 /* temp_license_2018-02-24.dat */,
+				9256C43521A55D8100501014 /* bds_easr_input_model.dat */,
+				9256C43621A55D8100501014 /* bds_easr_mfe_dnn.dat */,
+				9256C43721A55D8100501014 /* bds_easr_gramm.dat */,
+				9256C43821A55D8100501014 /* bds_easr_wakeup_words.dat */,
+				9256C43921A55D8100501014 /* bds_easr_dnn_wakeup_model.dat */,
+			);
+			path = BDSClientEASRResources;
+			sourceTree = "<group>";
+		};
+		9256C44D21A55D8100501014 /* ASR */ = {
+			isa = PBXGroup;
+			children = (
+				9256C44E21A55D8100501014 /* BDSWakeupParameters.h */,
+				9256C44F21A55D8100501014 /* BDSASRParameters.h */,
+				9256C45021A55D8100501014 /* BDSEventManager.h */,
+				9256C45121A55D8100501014 /* BDSUploaderDefines.h */,
+				9256C45221A55D8100501014 /* BDSASRDefines.h */,
+				9256C45321A55D8100501014 /* BDSUploaderParameters.h */,
+				9256C45421A55D8100501014 /* BDSWakeupDefines.h */,
+				9256C45521A55D8100501014 /* UIHeaders */,
+			);
+			path = ASR;
+			sourceTree = "<group>";
+		};
+		9256C45521A55D8100501014 /* UIHeaders */ = {
+			isa = PBXGroup;
+			children = (
+				9256C45621A55D8100501014 /* BDRecognizerViewParamsObject.h */,
+				9256C45721A55D8100501014 /* BDRecognizerViewController.h */,
+				9256C45821A55D8100501014 /* BDTheme.h */,
+				9256C45921A55D8100501014 /* BDRecognizerViewDelegate.h */,
+			);
+			path = UIHeaders;
 			sourceTree = "<group>";
 		};
 		925EEFC31FB04B6B003DB93B /* ShowMenuView */ = {
@@ -4117,6 +4207,7 @@
 			isa = PBXGroup;
 			children = (
 				92CE43841FD4EAAA00ED9F98 /* dpsdkDepend */,
+				9256C42F21A55D8100501014 /* ARS */,
 				D602625E1F9C4AFF00A66D5A /* UtilsMacros.h */,
 				D602625F1F9C4B1400A66D5A /* URLMacros.h */,
 				D60262601F9C4B2900A66D5A /* FontAndColorMacros.h */,
@@ -5157,6 +5248,8 @@
 				928CD902205FAE5200058727 /* Lauch */,
 				D629A5CE1F9C5D3A00FA5EE1 /* HomeViewController.h */,
 				D629A5CF1F9C5D3A00FA5EE1 /* HomeViewController.m */,
+				9256C47521A55E9100501014 /* ARSViewController.h */,
+				9256C47621A55E9200501014 /* ARSViewController.m */,
 				D6B1B2631FC2CB7F00852BE8 /* HomeBgMusicTabViewController.h */,
 				D6B1B2641FC2CB7F00852BE8 /* HomeBgMusicTabViewController.m */,
 				9298ECD72007714500A8B270 /* WeatherViewController.h */,
@@ -5568,6 +5661,7 @@
 				927DC2012008953E005C65FB /* EquipmentFloorCell.xib in Resources */,
 				9253BD6720BFA58E00AB4767 /* playback_time_n.png in Resources */,
 				9278977A219C198500792EFF /* face_wran_edit@2x.png in Resources */,
+				9256C45C21A55D8200501014 /* bds_easr_mfe_cmvn.dat in Resources */,
 				9253BD5D20BFA58E00AB4767 /* playback_time_bg.png in Resources */,
 				9253BD5F20BFA58E00AB4767 /* playback_stop_n.png in Resources */,
 				9253BD6120BFA58E00AB4767 /* playback_volume_n.png in Resources */,
@@ -5578,9 +5672,11 @@
 				D6B34DFF20887BAD00DF8DCC /* InquiryDeviceTableViewCell.xib in Resources */,
 				D653D7541FB19D2600798E1F /* ChooseMusicTabCell.xib in Resources */,
 				D6F665511FA1D7A100059931 /* Personal.storyboard in Resources */,
+				9256C47421A55D9300501014 /* BDSClientResources in Resources */,
 				929142C9218152B200FFE7C4 /* ParkFeeSnapCell.xib in Resources */,
 				D68A2EF71FBFEB9B00E541A6 /* FTimeCollectionViewCell.xib in Resources */,
 				D6F6654F1FA1C4A200059931 /* Home.storyboard in Resources */,
+				9256C45E21A55D8200501014 /* bds_easr_input_model.dat in Resources */,
 				929511D31FB93FC9008FF649 /* ECardListCell.xib in Resources */,
 				D68A2EED1FBFD46F00E541A6 /* DCHeaderReusableView.xib in Resources */,
 				92789783219C19CA00792EFF /* face_wran_nor.png in Resources */,
@@ -5633,14 +5729,18 @@
 				925576E22182BFB700B4A1A3 /* WifiCountSpeedCell.xib in Resources */,
 				9287750A1FB9993700BF708A /* MessageCell.xib in Resources */,
 				9240BB061FC2CDAC0019AF07 /* WarnCountCell.xib in Resources */,
+				9256C45D21A55D8200501014 /* temp_license_2018-02-24.dat in Resources */,
 				9253C4C620F8ABA900985949 /* AirSiwtchCell.xib in Resources */,
+				9256C46221A55D8200501014 /* bds_easr_dnn_wakeup_model.dat in Resources */,
 				9266941C219D4FD3004583B2 /* KWEditorBar.xib in Resources */,
+				9256C45A21A55D8200501014 /* bds_license.dat in Resources */,
 				922770E820BD3B79009010F7 /* ParkAllRcordTableViewCell.xib in Resources */,
 				D6928CD21FBD763F00CB9C18 /* BgMusicListTabViewCell.xib in Resources */,
 				9230011E2047AA2300088227 /* EnvTimeCell.xib in Resources */,
 				925576DD2182BFA700B4A1A3 /* WifiCountTimeCell.xib in Resources */,
 				92E87D661FB6FC6A0045D2FF /* OpenRecordCell.xib in Resources */,
 				9289AF11218FDC86005AC0DC /* GetMealCell.xib in Resources */,
+				9256C46121A55D8200501014 /* bds_easr_wakeup_words.dat in Resources */,
 				92FC1EB51FDC065D004A3901 /* TimeTaskCell.xib in Resources */,
 				92BD1EAE210B0DF700D84330 /* MONACO.TTF in Resources */,
 				92669422219D4FD4004583B2 /* normalize.css in Resources */,
@@ -5677,6 +5777,7 @@
 				D6EAE6AF1FB542A7006E4C2F /* ChooseLedTableViewCell.xib in Resources */,
 				92CE43CB1FD4EAAA00ED9F98 /* dpsdk.podspec in Resources */,
 				9287754A1FBC6F1900BF708A /* ConsumPartCell.xib in Resources */,
+				9256C46021A55D8200501014 /* bds_easr_gramm.dat in Resources */,
 				92789782219C19CA00792EFF /* face_wran_nor@2x.png in Resources */,
 				D602622A1F9B45DE00A66D5A /* Assets.xcassets in Resources */,
 				92CE43CA1FD4EAAA00ED9F98 /* README.md in Resources */,
@@ -5684,11 +5785,13 @@
 				921894E01FA95596001C1A41 /* AAHighchartsMore.js in Resources */,
 				9240BAF21FC2847E0019AF07 /* ParkCountNumCell.xib in Resources */,
 				92C7D22A1FD938D600650E73 /* appVersion.plist in Resources */,
+				9256C45B21A55D8200501014 /* bds_easr_basic_model.dat in Resources */,
 				92E87D351FB5A4DE0045D2FF /* DrainWaterCell.xib in Resources */,
 				925576E72182BFDD00B4A1A3 /* WifiCountStrongCell.xib in Resources */,
 				92B3BE991FF0D8C800C3AFEC /* EntranceCell.xib in Resources */,
 				926B69721FD137B100DEFEDD /* IllegalListTabCell.xib in Resources */,
 				928CD9182061FA5A00058727 /* LightGroupCell.xib in Resources */,
+				9256C45F21A55D8200501014 /* bds_easr_mfe_dnn.dat in Resources */,
 				92D0E8AF20897B61003BC75E /* WorkListCell.xib in Resources */,
 				921894E11FA95596001C1A41 /* AAJQueryLibrary.js in Resources */,
 				92789778219C198500792EFF /* face_wran_edit.png in Resources */,
@@ -6346,6 +6449,7 @@
 				92C21A1F1FC676230072564C /* DrainWaterModel.m in Sources */,
 				9253BD5420BFA58E00AB4767 /* DHVideoWnd.m in Sources */,
 				D631999B1FCBB7B100B78805 /* OpenFrontGroundTabCell.m in Sources */,
+				9256C47721A55E9200501014 /* ARSViewController.m in Sources */,
 				922B40D621548A4300B9F6E4 /* YQEmptyView.m in Sources */,
 				92FAC4E2219ACF2200FB1489 /* FaceHistoryCell.m in Sources */,
 				921A84181FA9655B00EE4F41 /* ColorToImage.m in Sources */,
@@ -6590,6 +6694,7 @@
 					"$(PROJECT_DIR)/ZHYQ/Other/dpsdkDepend/Lib",
 					"$(PROJECT_DIR)/ZHYQ/Other/dpsdkDepend/Lib/playsdk",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ZHYQ/Other/ARS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.transfar.smartpark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -6646,6 +6751,7 @@
 					"$(PROJECT_DIR)/ZHYQ/Other/dpsdkDepend/Lib",
 					"$(PROJECT_DIR)/ZHYQ/Other/dpsdkDepend/Lib/playsdk",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/ZHYQ/Other/ARS",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.transfar.smartpark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
