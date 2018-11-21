@@ -127,9 +127,12 @@
         view.layer.cornerRadius = 3;
         view.clipsToBounds = YES;
         [remindNewVersionBtn addSubview:view];
+        remindNewVersionBtn.enabled = YES;
+    }else {
+        remindNewVersionBtn.enabled = NO;
     }
     
-    remindNewVersionBtn.centerX = _versionNumLabel.centerX;
+    remindNewVersionBtn.centerX = KScreenWidth/2;
     
 //    if ([_isNeedUpdate isEqualToString:@"1"]) {
 //        UIButton *rightBtn = [[UIButton alloc] init];

@@ -19,6 +19,13 @@
 #import "CardRecordViewController.h"
 #import "VisitRecordViewController.h"
 
+typedef enum {
+    AptType = 0,
+    KQType,
+    BillType,
+    VisionType
+}InfoType;
+
 @interface ECardEditViewController ()
 {
     NSMutableArray *_infoData;
@@ -65,16 +72,31 @@
                                @"info":_eCardInfoModel.basePerName,
                                @"editFlag":@0
                                }];
+    }else {
+        [_infoData addObject:@{@"title":@"姓名",
+                               @"info":@"无",
+                               @"editFlag":@0
+                               }];
     }
     if(_eCardInfoModel.companyName != nil && ![_eCardInfoModel.companyName isKindOfClass:[NSNull class]]){
         [_infoData addObject:@{@"title":@"公司",
                                @"info":_eCardInfoModel.companyName,
                                @"editFlag":@0
                                }];
+    }else {
+        [_infoData addObject:@{@"title":@"公司",
+                               @"info":@"无",
+                               @"editFlag":@0
+                               }];
     }
     if(_eCardInfoModel.departName != nil && ![_eCardInfoModel.departName isKindOfClass:[NSNull class]]){
         [_infoData addObject:@{@"title":@"部门",
                                @"info":_eCardInfoModel.departName,
+                               @"editFlag":@0
+                               }];
+    }else {
+        [_infoData addObject:@{@"title":@"部门",
+                               @"info":@"无",
                                @"editFlag":@0
                                }];
     }
@@ -85,6 +107,11 @@
     if(_eCardInfoModel.basePerNo != nil && ![_eCardInfoModel.basePerNo isKindOfClass:[NSNull class]]){
         [_infoData addObject:@{@"title":@"卡号",
                                @"info":_eCardInfoModel.basePerNo,
+                               @"editFlag":@0
+                               }];
+    }else {
+        [_infoData addObject:@{@"title":@"卡号",
+                               @"info":@"无",
                                @"editFlag":@0
                                }];
     }
@@ -194,33 +221,33 @@
         OpenDoorAreaViewController *openDoorVC = [[OpenDoorAreaViewController alloc] init];
         openDoorVC.basePerNo = _eCardInfoModel.basePerNo;
         [self.navigationController pushViewController:openDoorVC animated:YES];
-    }else if (indexPath.row >= 5 && indexPath.row < [self getRecordIndex]) {
+    }else if (indexPath.row >= 5 && indexPath.row < 5+_bindCarData.count) {
         if(_bindCarData.count > indexPath.row - 5){
-            FindCarNoModel *findCarNoModel = _infoData[indexPath.row - 5];
+            FindCarNoModel *findCarNoModel = _bindCarData[indexPath.row - 5];
             
             ParkRecordCenViewController *parkRecordCenVC = [[ParkRecordCenViewController alloc] init];
             parkRecordCenVC.carNo = [NSString stringWithFormat:@"%@", findCarNoModel.CAR_NO];
             [self.navigationController pushViewController:parkRecordCenVC animated:YES];
         }
-    }else if(indexPath.row == [self getRecordIndex]){
+    }else if(indexPath.row == [self getRecordIndex:indexPath.row withType:AptType]){
         // 车位预约明细
         BookRecordViewController *recordVC = [[BookRecordViewController alloc] init];
         recordVC.title = @"车位预约明细";
         recordVC.cardNo = _eCardInfoModel.basePerNo;
         [self.navigationController pushViewController:recordVC animated:YES];
-    }else if(indexPath.row == [self getRecordIndex] + 1){
+    }else if(indexPath.row == [self getRecordIndex:indexPath.row withType:KQType]){
         // 工作考勤明细
         AttendanceDetailViewController *recordVC = [[AttendanceDetailViewController alloc] init];
         recordVC.title = @"工作考勤明细";
         recordVC.cardNo = _eCardInfoModel.basePerNo;
         [self.navigationController pushViewController:recordVC animated:YES];
-    }else if(indexPath.row == [self getRecordIndex] + 2){
+    }else if(indexPath.row == [self getRecordIndex:indexPath.row withType:BillType]){
         // 园区消费明细
         CardRecordViewController *recordVC = [[CardRecordViewController alloc] init];
         recordVC.title = @"园区消费明细";
         recordVC.cardNo = _eCardInfoModel.basePerNo;
         [self.navigationController pushViewController:recordVC animated:YES];
-    }else if(indexPath.row == [self getRecordIndex] + 3){
+    }else if(indexPath.row == [self getRecordIndex:indexPath.row withType:VisionType]){
         // 访客预约明细
         VisitRecordViewController *recordVC = [[VisitRecordViewController alloc] init];
         recordVC.title = @"访客预约明细";
@@ -230,14 +257,36 @@
 }
 
 // 获取绑定车辆下面明细开始 行数
-- (NSInteger)getRecordIndex {
-    NSInteger index = 6;
-    if(_bindCarData.count <= 0 && _infoData.count >= 10){
-        index = 6;
+- (NSInteger)getRecordIndex:(NSInteger)row withType:(InfoType)infoType {
+    NSInteger addIndex = 1;
+    if(_bindCarData.count <= 0){
+        addIndex = 1;
     }else {
-        index = _infoData.count - 4 - _bindCarData.count;
+        addIndex = _bindCarData.count;
     }
-    return index;
+    
+    switch (infoType) {
+        case AptType:
+            return 5+addIndex;
+            break;
+            
+        case KQType:
+            return 6+addIndex;
+            break;
+            
+        case BillType:
+            return 7+addIndex;
+            break;
+            
+        case VisionType:
+            return 8+addIndex;
+            break;
+            
+        default:
+            return 6;
+            break;
+    }
+    
 }
 
 @end

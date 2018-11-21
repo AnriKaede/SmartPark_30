@@ -42,7 +42,7 @@
 }
 
 - (void)_loadData {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/lighting/model/auth",Main_Url];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/lighting/model/authNew/%@",Main_Url, _model.ROOM_ID];
     [self showHudInView:self.view hint:@""];
     [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];

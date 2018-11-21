@@ -696,7 +696,11 @@
             case 33:
             {
                 // 智慧物业
-                // 测试取餐叫号
+                break;
+            }
+            case 34:
+            {
+                // 取餐叫号
                 MealCenViewController *mealVC = [[MealCenViewController alloc] init];
                 [self.navigationController pushViewController:mealVC animated:YES];
                 break;

@@ -62,7 +62,7 @@
  */
 
 - (void)changeModel:(NSString *)modelId {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/lighting/model/%@",Main_Url, modelId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/lighting/model/%@/%@",Main_Url, modelId, _model.ROOM_ID];
     
     [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
@@ -324,7 +324,7 @@
         
     }else {
         MeetRoomModel *model = _dataArr[indexPath.row];
-        if([model.DEVICE_TYPE isEqualToString:@"18-1"] && model.current_state != nil &&  ![model.current_state isKindOfClass:[NSNull class]] && ![model.current_state isEqualToString:@"0"]){
+        if([model.DEVICE_TYPE isEqualToString:@"18-1"] && model.current_state != nil &&  ![model.current_state isKindOfClass:[NSNull class]] && ![model.current_state isEqualToString:@"0"] && model.current_state.length > 0){
             // 灯筒
             return 120;
         }
@@ -332,7 +332,7 @@
             // 空调
             __block BOOL isOpen = NO;
             [model.airList enumerateObjectsUsingBlock:^(MeetRoomDeviceModel *deviceModel, NSUInteger idx, BOOL * _Nonnull stop) {
-                if([deviceModel.TAGNAME isEqualToString:@"AIRSTATUS"] && deviceModel.current_state!= nil && ![deviceModel.current_state isKindOfClass:[NSNull class]] && ![deviceModel.current_state isEqualToString:@"0"]){
+                if([deviceModel.TAGNAME isEqualToString:@"AIRSTATUS"] && deviceModel.current_state!= nil && ![deviceModel.current_state isKindOfClass:[NSNull class]] && ![deviceModel.current_state isEqualToString:@"0"] && deviceModel.current_state.length > 0){
                     isOpen = YES;
                 }
             }];
@@ -362,12 +362,42 @@
 
 #pragma mark 设备全关
 - (void)allClose {
-    [self allConScene:@"off"];
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否关闭所有设备" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"全关" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self allConScene:@"off"];
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = _bottomView;
+        alertCon.popoverPresentationController.sourceRect = _bottomView.bounds;
+    }
+    
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
 }
 
 #pragma mark 设备全开
 - (void)allOpen {
-    [self allConScene:@"on"];
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否开启所有设备" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"全开" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self allConScene:@"on"];
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = _bottomView;
+        alertCon.popoverPresentationController.sourceRect = _bottomView.bounds;
+    }
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
 }
 
 #pragma mark 灯桶协议(可调节亮度)

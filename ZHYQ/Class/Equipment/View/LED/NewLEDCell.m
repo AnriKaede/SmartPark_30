@@ -27,6 +27,7 @@
     YQSwitch *_yqSwitch;
     
     __weak IBOutlet UIButton *_currentProLabel;
+    __weak IBOutlet UIButton *_resumeBt;
 }
 
 @end
@@ -78,16 +79,26 @@
     }
      */
     
-    if([ledListModel.status isEqualToString:@"0"]){
-        // 离线
-        _yqSwitch.on = NO;
-        _stateLabel.text = @"关闭中";
-        _stateLabel.backgroundColor = [UIColor colorWithHexString:@"#A5A5A5"];
-    }else {
+    if([ledListModel.status isEqualToString:@"1"]){
         // 在线
         _yqSwitch.on = YES;
         _stateLabel.text = @"开启中";
         _stateLabel.backgroundColor = [UIColor colorWithHexString:@"#009CF3"];
+        
+        _playBt.enabled = NO;
+        _restartBt.enabled = YES;
+        _closeBt.enabled = YES;
+        _resumeBt.enabled = YES;
+    }else {
+        // 离线
+        _yqSwitch.on = NO;
+        _stateLabel.text = @"关闭中";
+        _stateLabel.backgroundColor = [UIColor colorWithHexString:@"#A5A5A5"];
+        
+        _playBt.enabled = YES;
+        _restartBt.enabled = NO;
+        _closeBt.enabled = NO;
+        _resumeBt.enabled = NO;
     }
     
     if(_ledListModel.program != nil && ![_ledListModel.program isKindOfClass:[NSNull class]]){
@@ -123,5 +134,12 @@
         [self.delegate ledClose:_ledListModel];
     }
 }
+
+- (IBAction)resumeDefault:(id)sender {
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(resumeDefault:)]) {
+        [self.delegate resumeDefault:_ledListModel];
+    }
+}
+
 
 @end

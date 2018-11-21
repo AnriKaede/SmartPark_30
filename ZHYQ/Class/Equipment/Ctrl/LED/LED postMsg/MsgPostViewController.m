@@ -18,6 +18,8 @@
 #import "LEDDetailViewController.h"
 #import "ClockTimeCell.h"
 #import "LedListModel.h"
+#import "LEDFormworkViewController.h"
+#import "LEDSendSucView.h"
 
 #import "FaceHtmlView.h"
 
@@ -29,9 +31,13 @@
 
 #define kEditorURL @"richText_editor"
 
-@interface MsgPostViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource, ChooseLedDeleagte,UIWebViewDelegate,KWEditorBarDelegate,KWFontStyleBarDelegate>
+@interface MsgPostViewController ()<UITextViewDelegate,UITableViewDelegate,UITableViewDataSource, ChooseLedDeleagte,UIWebViewDelegate,KWEditorBarDelegate,KWFontStyleBarDelegate, SendLedSucDelegate>
 {
     NSMutableArray *_ledData;
+    BOOL _isSendSuc;
+    LEDSendSucView *_sendSucView;
+    
+    NSString *_postMsgContent;
 }
 /* 文本输入框*/
 //@property(nonatomic, strong) YQInputView *inputV;
@@ -50,6 +56,7 @@
 @property (nonatomic,strong) UIWebView *webView;
 @property (nonatomic,strong) KWEditorBar *toolBarView;
 @property (nonatomic,strong) KWFontStyleBar *fontBar;
+@property (nonatomic,strong) UIButton *formworkBt;
 
 @end
 
@@ -95,7 +102,7 @@
 }
 - (UIWebView *)webView{
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth - 0, 240)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth - 0, 250)];
         _webView.delegate = self;
         NSString *path = [[NSBundle mainBundle] bundlePath];
         NSURL *baseURL = [NSURL fileURLWithPath:path];
@@ -108,6 +115,19 @@
         
     }
     return _webView;
+}
+- (UIButton *)formworkBt {
+    if(!_formworkBt){
+        _formworkBt = [UIButton buttonWithType:UIButtonTypeCustom];
+        _formworkBt.frame = CGRectMake(KScreenWidth - 80, 218, 68, 23);
+        _formworkBt.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+        _formworkBt.layer.cornerRadius = 4;
+        _formworkBt.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_formworkBt setTitle:@"使用模板" forState:UIControlStateNormal];
+        [_formworkBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_formworkBt addTarget:self action:@selector(_rightBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _formworkBt;
 }
 
 - (void)viewDidLoad {
@@ -140,11 +160,11 @@
     [rightBtn setImage:[UIImage imageNamed:@"led_nav_formwork"] forState:UIControlStateNormal];
     [rightBtn setTitle:@"内容模板" forState:UIControlStateNormal];
     rightBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-    [rightBtn addTarget:self action:@selector(_rightBarBtnItemClick:) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn addTarget:self action:@selector(_rightBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
     [rightBtn setTitleEdgeInsets:UIEdgeInsetsMake(rightBtn.imageView.frame.size.height ,-rightBtn.imageView.frame.size.width, -5,0.0)];
     [rightBtn setImageEdgeInsets:UIEdgeInsetsMake(-10, 20,0.0, -rightBtn.titleLabel.bounds.size.width)];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-    self.navigationItem.rightBarButtonItem = rightItem;
+//    self.navigationItem.rightBarButtonItem = rightItem;
     
     UITapGestureRecognizer *editTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditAction)];
     [self.view addGestureRecognizer:editTap];
@@ -158,9 +178,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)_rightBarBtnItemClick:(id)sender
-{
-    LEDDetailViewController *LEDDetailVC = [[LEDDetailViewController alloc] init];
+-(void)_rightBarBtnItemClick {
+    LEDFormworkViewController *LEDDetailVC = [[LEDFormworkViewController alloc] init];
     [self.navigationController pushViewController:LEDDetailVC animated:YES];
 }
 
@@ -185,6 +204,32 @@
     _tabelV.backgroundColor = [UIColor colorWithHexString:@"E2E2E2"];
     
     self.view.backgroundColor = [UIColor clearColor];
+    
+    _sendSucView = [[LEDSendSucView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight)];
+    _sendSucView.sendSucDelegate = self;
+    [self.view addSubview:_sendSucView];
+}
+#pragma mark 点击保存模板协议
+- (void)confirmWithName:(NSString *)name {
+    [_sendSucView hidSendSucView];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/udpController/addTempInfo",Main_Url];
+    NSMutableDictionary *addParam = @{}.mutableCopy;
+    [addParam setObject:name forKey:@"Title"];
+    [addParam setObject:_postMsgContent forKey:@"contents"];
+    
+    [self showHudInView:self.tableView hint:@""];
+    [[NetworkClient sharedInstance] POST:urlStr dict:addParam progressFloat:nil succeed:^(id responseObject) {
+        [self hideHud];
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+            [self showHint:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        [self hideHud];
+    }];
 }
 
 #pragma mark 获取屏列表
@@ -211,8 +256,7 @@
 
 #pragma mark --------------UITableViewDataSource
 
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
@@ -233,10 +277,11 @@
     }else if(indexPath.section == 1) {
         LEDpostMsgTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"LEDpostMsgTableViewCell"];
         [cell addSubview:self.webView];
+//        [cell addSubview:self.formworkBt];
         return cell;
     }else if(indexPath.section == 2) {
         PostTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostTimeTableViewCell"];
-        cell.delegate = self;
+//        cell.delegate = self;
         return cell;
     }else{
         ClockTimeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ClockTimeCell"];
@@ -250,7 +295,7 @@
         CGFloat btHeight = (_ledData.count/3 + (_ledData.count%3>0 ? 1:0))*40;
         return 50 + btHeight;
     }else if(indexPath.section == 1){
-        return 240;
+        return 250;
     }else{
         return 60;
     }
@@ -296,20 +341,50 @@
         [self showHint:@"请选择发布屏"];
         return;
     }
-    
+
     if([self.webView contentHtmlText].length <= 0){
         [self showHint:@"请输入内容"];
         return;
     }
     
-    NSString *postMsg = [NSString stringWithFormat:@"<body style=\"color: red\">%@</body>", [self.webView contentHtmlText]];
+    NSString *postMsg = [NSString stringWithFormat:@"<html style=\"color: red; font-size: 40px\"><head><meta charset=utf-8><title></title></head><body>%@</body></html>", [self.webView contentHtmlText]];
     
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"4\"" withString:@"size=\"7\""];
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"3\"" withString:@"size=\"6\""];
+    postMsg = [postMsg stringByReplacingOccurrencesOfString:@"size=\"2\"" withString:@"size=\"5\""];
+    
+    NSLog(@"%@", postMsg);
+    _postMsgContent = postMsg;
+    
+    // 不需要模板
     [selLeds enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
         [self sendLedMsg:ledListModel withConnect:postMsg];
     }];
+    
+    /*
+#warning 测试添加
+    [_sendSucView showSendSucView];
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+    _isSendSuc = YES;
+    [selLeds enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self sendLedMsg:ledListModel withConnect:postMsg withQueue:group];
+    }];
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        // 所有发送成功
+//        if(_isSendSuc){
+            [_sendSucView showSendSucView];
+//        }
+    });
+     */
 }
 
+//- (void)sendLedMsg:(LedListModel *)ledListModel withConnect:(NSString *)connect withQueue:(id)group {
 - (void)sendLedMsg:(LedListModel *)ledListModel withConnect:(NSString *)connect {
+//    dispatch_group_enter(group);
+    
     NSString *urlStr = [NSString stringWithFormat:@"%@/udpController/sendMsgToUdpSer",Main_Url];
     NSMutableDictionary *searchParam = @{}.mutableCopy;
     [searchParam setObject:ledListModel.deviceId forKey:@"deviceId"];
@@ -318,15 +393,19 @@
     
     [self showHudInView:self.tableView hint:@""];
     [[NetworkClient sharedInstance] POST:urlStr dict:searchParam progressFloat:nil succeed:^(id responseObject) {
+//        dispatch_group_leave(group);
         [self hideHud];
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
             [self.navigationController popViewControllerAnimated:YES];
-        }
-        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
-            [self showHint:responseObject[@"message"]];
+        }else {
+            _isSendSuc = NO;
+            if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+                [self showHint:responseObject[@"message"]];
+            }
         }
         
     } failure:^(NSError *error) {
+//        dispatch_group_leave(group);
         [self hideHud];
         [self showHint:KRequestFailMsg];
     }];
@@ -459,7 +538,7 @@
             //显示更多区域
             editorBar.fontButton.selected = !editorBar.fontButton.selected;
             if (editorBar.fontButton.selected) {
-                [self.view addSubview:self.fontBar];
+                [self.view insertSubview:self.fontBar belowSubview:_sendSucView];
             }else{
                 [self.fontBar removeFromSuperview];
             }

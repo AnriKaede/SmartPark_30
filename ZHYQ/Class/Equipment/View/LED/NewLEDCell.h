@@ -18,6 +18,8 @@
 - (void)ledRestart:(LedListModel*)ledListModel;
 - (void)ledClose:(LedListModel*)ledListModel;
 
+- (void)resumeDefault:(LedListModel*)ledListModel;
+
 @end
 
 NS_ASSUME_NONNULL_BEGIN
