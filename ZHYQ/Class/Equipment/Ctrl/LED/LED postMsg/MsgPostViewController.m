@@ -164,7 +164,7 @@
     [rightBtn setTitleEdgeInsets:UIEdgeInsetsMake(rightBtn.imageView.frame.size.height ,-rightBtn.imageView.frame.size.width, -5,0.0)];
     [rightBtn setImageEdgeInsets:UIEdgeInsetsMake(-10, 20,0.0, -rightBtn.titleLabel.bounds.size.width)];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-    self.navigationItem.rightBarButtonItem = rightItem;
+//    self.navigationItem.rightBarButtonItem = rightItem;
     
     UITapGestureRecognizer *editTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditAction)];
     [self.view addGestureRecognizer:editTap];
@@ -277,7 +277,7 @@
     }else if(indexPath.section == 1) {
         LEDpostMsgTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"LEDpostMsgTableViewCell"];
         [cell addSubview:self.webView];
-        [cell addSubview:self.formworkBt];
+//        [cell addSubview:self.formworkBt];
         return cell;
     }else if(indexPath.section == 2) {
         PostTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostTimeTableViewCell"];
@@ -356,10 +356,15 @@
     NSLog(@"%@", postMsg);
     _postMsgContent = postMsg;
     
+    // 不需要模板
+    [selLeds enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self sendLedMsg:ledListModel withConnect:postMsg];
+    }];
+    
+    /*
 #warning 测试添加
     [_sendSucView showSendSucView];
     
-    /*
     dispatch_group_t group = dispatch_group_create();
     
     _isSendSuc = YES;
@@ -376,8 +381,9 @@
      */
 }
 
-- (void)sendLedMsg:(LedListModel *)ledListModel withConnect:(NSString *)connect withQueue:(id)group {
-    dispatch_group_enter(group);
+//- (void)sendLedMsg:(LedListModel *)ledListModel withConnect:(NSString *)connect withQueue:(id)group {
+- (void)sendLedMsg:(LedListModel *)ledListModel withConnect:(NSString *)connect {
+//    dispatch_group_enter(group);
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/udpController/sendMsgToUdpSer",Main_Url];
     NSMutableDictionary *searchParam = @{}.mutableCopy;
@@ -387,10 +393,10 @@
     
     [self showHudInView:self.tableView hint:@""];
     [[NetworkClient sharedInstance] POST:urlStr dict:searchParam progressFloat:nil succeed:^(id responseObject) {
-        dispatch_group_leave(group);
+//        dispatch_group_leave(group);
         [self hideHud];
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
-//            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }else {
             _isSendSuc = NO;
             if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
@@ -399,7 +405,7 @@
         }
         
     } failure:^(NSError *error) {
-        dispatch_group_leave(group);
+//        dispatch_group_leave(group);
         [self hideHud];
         [self showHint:KRequestFailMsg];
     }];
