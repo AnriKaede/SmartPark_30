@@ -110,7 +110,7 @@
     [super viewWillAppear:animated];
     
     //设置状态栏颜色
-    [self setStatusBarBackgroundColor:[UIColor colorWithHexString:@"#252E44"]];
+    [self setStatusBarBackgroundColor:CNavBgColor];
 }
 
 //一定要在viewWillDisappear里面写，如果写在viewDidDisappear里面会出问题！！！！
