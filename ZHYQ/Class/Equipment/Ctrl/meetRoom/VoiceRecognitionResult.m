@@ -31,6 +31,7 @@
     BOOL isAirCondit = [result containsString:@"空调"];
     
     BOOL isCurtain = [result containsString:@"纱窗"];
+    BOOL isCurtain1 = [result containsString:@"纱帘"];
     BOOL isCurtain2 = [result containsString:@"窗帘"];
     
     BOOL isShadow = [result containsString:@"投影"];
@@ -42,7 +43,7 @@
             return OpenLight;
         }else if (isAirCondit) {
             return OpenAirCondit;
-        }else if (isCurtain || isCurtain2) {
+        }else if (isCurtain || isCurtain2 || isCurtain1) {
             return OpenCurtain;
         }else if (isShadow || isShadow2) {
             return OpenShadow;
@@ -55,7 +56,7 @@
             return CloseLight;
         }else if (isAirCondit) {
             return CloseAirCondit;
-        }else if (isCurtain || isCurtain2) {
+        }else if (isCurtain || isCurtain2 || isCurtain1) {
             return CloseCurtain;
         }else if (isShadow || isShadow2) {
             return CloseShadow;

@@ -82,7 +82,8 @@
 }
 
 - (NSInteger)menuNumInView {
-    return 7;
+//    return 7;
+    return 6;
 }
 
 - (NSString *)menuTitle:(NSInteger)index {
@@ -102,13 +103,10 @@
         case 4:
             return @"温度";
             break;
-        case 5:
-            return @"定时装置";
-            break;
-//        case 6:
-//            return @"设备信息";
+//        case 5:
+//            return @"定时装置";
 //            break;
-        case 6:
+        case 5:
             return @"运行时长";
             break;
             
@@ -138,9 +136,9 @@
         case 1:
             return SliderConMenu;
             break;
-        case 5:
-            return TextAndImgConMenu;
-            break;
+//        case 5:
+//            return TextAndImgConMenu;
+//            break;
             
         default:
             return DefaultConMenu;
@@ -173,9 +171,11 @@
         return _frequencyStr;
     }else if(index == 4){
         return _temperatureStr;
-    }else if(index == 5){
-        return _timeStr;
-    }else if(index == 6){
+    }
+//    else if(index == 5){
+//        return _timeStr;
+//    }
+    else if(index == 5){
         return _lightTime;
     }else {
         return @"";
@@ -223,7 +223,7 @@
     if(_subDeviceModel.DEVICE_ADDR != nil && ![_subDeviceModel.DEVICE_ADDR isKindOfClass:[NSNull class]]){
         [param setObject:_subDeviceModel.DEVICE_ADDR forKey:@"lampCtrlAddr"];
     }
-    [param setObject:@"13" forKey:@"lampCtrlType"];
+    [param setObject:@"24" forKey:@"lampCtrlType"];
     if(isOnOff){
         // 开关
         [param setObject:@"on" forKey:@"operateType"];

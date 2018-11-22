@@ -118,7 +118,7 @@
     _reTransmitLabel.text = [NSString stringWithFormat:@"%@ %%", _wifiUserModel.retrans];
     _mistakeLabel.text = [NSString stringWithFormat:@"%@ %%", _wifiUserModel.errorCodeRate];
     _signalNumLabel.text = [NSString stringWithFormat:@"%@", _wifiUserModel.signal];
-    _signalStrongLabel.text = [NSString stringWithFormat:@"%@", _wifiUserModel.signalStrength];
+    _signalStrongLabel.text = [NSString stringWithFormat:@"%@ dBm", _wifiUserModel.signalStrength];
     _networkCardLabel.text = [NSString stringWithFormat:@"%@", _wifiUserModel.nc_maker];
     _disasterTypeLabel.text = [NSString stringWithFormat:@"%@", _wifiUserModel.disaster_type];
 }

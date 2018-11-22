@@ -867,10 +867,10 @@ const NSString* APP_ID = @"14886206";
             [self voiceAloneCon:@"6" withOpen:NO];
             break;
         case OpenShadow:
-            [self voiceAloneCon:@"20" withOpen:YES];
+            [self voiceAloneCon:@"20" withOpen:NO]; // 投影取反
             break;
         case CloseShadow:
-            [self voiceAloneCon:@"20" withOpen:NO];
+            [self voiceAloneCon:@"20" withOpen:YES];
             break;
         case NotSupport:
             [self showConFailMsg];
@@ -884,7 +884,8 @@ const NSString* APP_ID = @"14886206";
         [_sceneData enumerateObjectsUsingBlock:^(SceneEquipmentModel *sceneModel, NSUInteger idx, BOOL * _Nonnull stop) {
             // 空调
             if([sceneModel.deviceType isEqualToString:deviceType]){
-                [self aloneCon:sceneModel.tagId withOpen:isOpen withMeetModel:nil withSceneModel:sceneModel withIsScene:YES withDeviceName:@"空调"];
+//                [self aloneCon:sceneModel.tagId withOpen:isOpen withMeetModel:nil withSceneModel:sceneModel withIsScene:YES withDeviceName:@"空调"];
+//                [self modelCutData:sceneModel.tagId withDeviceId:sceneModel.tagId withTagName:@"AIRSTATUS" withValue:[NSString stringWithFormat:@"%d", isOpen] withMeetModel:meetModel];
                 *stop = YES;
             }else if ([sceneModel.deviceType isEqualToString:deviceType]) {
                 [self aloneCon:sceneModel.tagId withOpen:isOpen withMeetModel:nil withSceneModel:sceneModel withIsScene:YES withDeviceName:@"投影幕布"];
@@ -895,7 +896,14 @@ const NSString* APP_ID = @"14886206";
         [_dataArr enumerateObjectsUsingBlock:^(MeetRoomModel *meetModel, NSUInteger idx, BOOL * _Nonnull stop) {
             // 空调
             if([meetModel.DEVICE_TYPE isEqualToString:deviceType]){
-                [self aloneCon:meetModel.TAGID withOpen:isOpen withMeetModel:meetModel withSceneModel:nil withIsScene:NO withDeviceName:@"空调"];
+//                [self aloneCon:meetModel.TAGID withOpen:isOpen withMeetModel:meetModel withSceneModel:nil withIsScene:NO withDeviceName:@"空调"];
+                __block NSString *tagId;
+                [meetModel.airList enumerateObjectsUsingBlock:^(MeetRoomDeviceModel *deviceModel, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if([deviceModel.TAGNAME isEqualToString:@"AIRSTATUS"]){
+                        tagId = deviceModel.WRITE_ID;
+                    }
+                }];
+                [self modelCutData:tagId withDeviceId:meetModel.DEVICE_ID withTagName:@"AIRSTATUS" withValue:[NSString stringWithFormat:@"%d", isOpen] withMeetModel:meetModel];
                 *stop = YES;
             }else if ([meetModel.DEVICE_TYPE isEqualToString:deviceType]) {
                 [self aloneCon:meetModel.TAGID withOpen:isOpen withMeetModel:meetModel withSceneModel:nil withIsScene:NO withDeviceName:@"投影幕布"];

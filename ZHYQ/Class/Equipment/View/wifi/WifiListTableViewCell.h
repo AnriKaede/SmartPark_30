@@ -12,12 +12,20 @@
 #import "WifiMapModel.h"
 #import "WifiInfoModel.h"
 
+@protocol WifiConDelegate <NSObject>
+
+- (void)wifiConType:(NSInteger)type;    // 0重启，1开启，2关闭
+
+@end
+
 @class YQSwitch;
 
 @interface WifiListTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *wifiNameLab;
 
-@property (weak, nonatomic) IBOutlet YQSwitch *wifiSwitch;
+@property (weak, nonatomic) IBOutlet UIButton *restartBt;
+@property (weak, nonatomic) IBOutlet UIButton *openBt;
+@property (weak, nonatomic) IBOutlet UIButton *closeBt;
 
 @property (weak, nonatomic) IBOutlet UIView *selectView;
 
@@ -37,5 +45,7 @@
 @property (nonatomic,strong) InDoorWifiModel *model;
 @property (nonatomic,strong) WifiMapModel *mapModel;
 @property (nonatomic,retain) WifiInfoModel *wifiInfoModel;
+
+@property (nonatomic,assign) id<WifiConDelegate> wifiConDelegate;
 
 @end
