@@ -61,9 +61,21 @@
 //    self.delegate = self;
 //    self.dataSource = self;
 }
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    //隐藏返回按钮
+    self.navigationItem.hidesBackButton = YES;
+    //禁止页面左侧滑动返回，注意，如果仅仅需要禁止此单个页面返回，还需要在viewWillDisapper下开放侧滑权限
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = [NSString stringWithFormat:@"%@", _model.ROOM_NAME];
     
     self.statusBarStyle = UIStatusBarStyleLightContent;
     
