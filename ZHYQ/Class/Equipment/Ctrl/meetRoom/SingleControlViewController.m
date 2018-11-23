@@ -30,10 +30,6 @@
 
 #import "TouchButton.h"
 
-const NSString* API_KEY = @"ZBlcoUbUMeFo8K5Ibtms3Rqz";
-const NSString* SECRET_KEY = @"VGQUHWiGCZIE4vOcIHWGmYYQEMEcFyvh";
-const NSString* APP_ID = @"14886206";
-
 @interface SingleControlViewController ()<UITableViewDelegate,UITableViewDataSource, SliderLightDelegate, CYLTableViewPlaceHolderDelegate, BDRecognizerViewDelegate>
 {
     UIView *_bottomView;
@@ -160,12 +156,9 @@ const NSString* APP_ID = @"14886206";
     [_bottomView addSubview:_allOpenButton];
     
     _voiceRecognitionBt = [TouchButton buttonWithType:UIButtonTypeCustom];
-    _voiceRecognitionBt.frame = CGRectMake(3, KScreenHeight - 100 - 64 - 100, 50, 50);
-    _voiceRecognitionBt.backgroundColor = CNavBgColor;
-    [_voiceRecognitionBt setTitle:@"语音" forState:UIControlStateNormal];
+    _voiceRecognitionBt.frame = CGRectMake(3, KScreenHeight - 100 - 64 - 100, 63, 63);
     _voiceRecognitionBt.MoveEnable = YES;
-    _voiceRecognitionBt.alpha = 0.5;
-    _voiceRecognitionBt.layer.cornerRadius = 25;
+    [_voiceRecognitionBt setImage:[UIImage imageNamed:@"voice_bt_icon"] forState:UIControlStateNormal];
     [_voiceRecognitionBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_voiceRecognitionBt addTarget:self action:@selector(voiceRecognition) forControlEvents:UIControlEventTouchUpInside];
     [self.view insertSubview:_voiceRecognitionBt aboveSubview:_bottomView];

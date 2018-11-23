@@ -83,7 +83,7 @@
         [UIView beginAnimations:@"move" context:nil];
         [UIView setAnimationDuration:0.3];
         [UIView setAnimationDelegate:self];
-        self.frame=CGRectMake(self.superview.frame.size.width - 50,self.center.y-20, 50.f,50.f);
+        self.frame=CGRectMake(self.superview.frame.size.width - 63,self.center.y-20, 63.f,63.f);
         //提交UIView动画
         [UIView commitAnimations];
     }else{//向左侧移动
@@ -91,7 +91,7 @@
         [UIView beginAnimations:@"move" context:nil];
         [UIView setAnimationDuration:0.4];
         [UIView setAnimationDelegate:self];
-        self.frame=CGRectMake(0.f,self.center.y-20, 50.f,50.f);
+        self.frame=CGRectMake(0.f,self.center.y-20, 63.f,63.f);
         //提交UIView动画
         [UIView commitAnimations];
         

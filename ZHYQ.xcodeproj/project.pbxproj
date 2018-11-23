@@ -626,6 +626,7 @@
 		92E87D711FB702B00045D2FF /* ECardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E87D6E1FB702B00045D2FF /* ECardViewController.m */; };
 		92E87D721FB702B00045D2FF /* ECardEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E87D6F1FB702B00045D2FF /* ECardEditViewController.m */; };
 		92EECFE321A65BF2002ED8CD /* TouchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EECFE221A65BF2002ED8CD /* TouchButton.m */; };
+		92EECFE621A79EDA002ED8CD /* FountainVoiceRecognition.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EECFE521A79ED9002ED8CD /* FountainVoiceRecognition.m */; };
 		92F8943420905C68005BDEDD /* WarnUnDealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8943320905C68005BDEDD /* WarnUnDealViewController.m */; };
 		92F8943820905D22005BDEDD /* WarnUnReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8943720905D22005BDEDD /* WarnUnReportViewController.m */; };
 		92F8943B20905D30005BDEDD /* WarnRepairIngViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8943A20905D30005BDEDD /* WarnRepairIngViewController.m */; };
@@ -1991,6 +1992,8 @@
 		92E87D701FB702B00045D2FF /* ECardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECardViewController.h; sourceTree = "<group>"; };
 		92EECFE121A65BF1002ED8CD /* TouchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchButton.h; sourceTree = "<group>"; };
 		92EECFE221A65BF2002ED8CD /* TouchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchButton.m; sourceTree = "<group>"; };
+		92EECFE421A79ED9002ED8CD /* FountainVoiceRecognition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FountainVoiceRecognition.h; sourceTree = "<group>"; };
+		92EECFE521A79ED9002ED8CD /* FountainVoiceRecognition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FountainVoiceRecognition.m; sourceTree = "<group>"; };
 		92F8943220905C68005BDEDD /* WarnUnDealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarnUnDealViewController.h; sourceTree = "<group>"; };
 		92F8943320905C68005BDEDD /* WarnUnDealViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarnUnDealViewController.m; sourceTree = "<group>"; };
 		92F8943620905D22005BDEDD /* WarnUnReportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarnUnReportViewController.h; sourceTree = "<group>"; };
@@ -4453,6 +4456,8 @@
 			children = (
 				D653D7371FB14EEA00798E1F /* FountainViewController.h */,
 				D653D7381FB14EEA00798E1F /* FountainViewController.m */,
+				92EECFE421A79ED9002ED8CD /* FountainVoiceRecognition.h */,
+				92EECFE521A79ED9002ED8CD /* FountainVoiceRecognition.m */,
 			);
 			path = fountain;
 			sourceTree = "<group>";
@@ -5961,6 +5966,7 @@
 				D639228D1FB32F4A00E1A00A /* IllegalListTabCell.m in Sources */,
 				D64020561FCEDB340028568D /* CarBlackListModel.m in Sources */,
 				921A840F1FA962CC00EE4F41 /* ThreadViewController.m in Sources */,
+				92EECFE621A79EDA002ED8CD /* FountainVoiceRecognition.m in Sources */,
 				D6FE63901FB28CEB005CEE99 /* MD5.m in Sources */,
 				9289AF08218FD65B005AC0DC /* MealCenViewController.m in Sources */,
 				D674A8421FD403B000E773FD /* HourFlowCountModel.m in Sources */,
