@@ -9,11 +9,15 @@
 #import "FaceWranViewController.h"
 #import "FaceWranCell.h"
 #import "UIImage+Zip.h"
+#import "FaceWranModel.h"
 
 @interface FaceWranViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TZImagePickerControllerDelegate>
 {
     UICollectionView *_collectionView;
     NSMutableArray *_wranData;
+    
+    NSInteger _page;
+    NSInteger _length;
     
     UIView *_bottomView;
     
@@ -30,9 +34,14 @@
     self.title = @"人像告警";
     _wranData = @[].mutableCopy;
     
+    _page = 1;
+    _length = 32;
+    
     [self _initView];
     
     [self _createBottomView];
+    
+    [self loadFaceData];
 }
 
 - (void)_initView {
@@ -61,6 +70,17 @@
     _collectionView.backgroundColor = [UIColor clearColor];
     [_collectionView registerNib:[UINib nibWithNibName:@"FaceWranCell" bundle:nil] forCellWithReuseIdentifier:@"FaceWranCell"];
     [self.view addSubview:_collectionView];
+    
+    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _page = 1;
+        [self loadFaceData];
+    }];
+    // 上拉刷新
+    _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _page ++;
+        [self loadFaceData];
+    }];
+    _collectionView.mj_footer.hidden = YES;
 }
 
 -(void)_leftBarBtnItemClick:(id)sender{
@@ -68,6 +88,80 @@
 }
 - (void)allSelect {
     // 全选
+    [_wranData enumerateObjectsUsingBlock:^(FaceWranModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        model.isSelDelete = YES;
+    }];
+    [_collectionView reloadData];
+}
+
+#pragma mark 请求数据
+- (void)loadFaceData {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/faceRecognition/getAlarmIamges", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    
+    [paramDic setObject:@"19" forKey:@"repository"];
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"param":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self removeNoDataImage];
+        
+        [_collectionView.mj_header endRefreshing];
+        [_collectionView.mj_footer endRefreshing];
+        
+        NSString *code = responseObject[@"code"];
+        
+        if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
+            if(_page == 1){
+                [_wranData removeAllObjects];
+            }
+            
+            NSDictionary *dic = responseObject[@"responseData"];
+            NSArray *arr = dic[@"items"];
+            
+            if(arr.count > _length-1){
+                _collectionView.mj_footer.state = MJRefreshStateIdle;
+                _collectionView.mj_footer.hidden = NO;
+            }else {
+                _collectionView.mj_footer.state = MJRefreshStateNoMoreData;
+                _collectionView.mj_footer.hidden = YES;
+            }
+            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                FaceWranModel *model = [[FaceWranModel alloc] initWithDataDic:obj];
+                [_wranData addObject:model];
+            }];
+            
+        }
+        [_collectionView reloadData];
+        
+    } failure:^(NSError *error) {
+        [_collectionView.mj_header endRefreshing];
+        [_collectionView.mj_footer endRefreshing];
+        
+        if(_wranData.count <= 0){
+            [self showNoDataImage];
+        }else {
+            [self showHint:KRequestFailMsg];
+        }
+    }];
+    
+}
+// 无网络重载
+- (void)reloadTableData {
+    [self loadFaceData];
+}
+
+#pragma mark 无数据协议
+- (UIView *)makePlaceHolderView {
+    NoDataView *noDataView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 60, KScreenWidth, KScreenHeight - 63)];
+    return noDataView;
+}
+- (BOOL)enableScrollWhenPlaceHolderViewShowing {
+    return YES;
 }
 
 - (void)_createBottomView {
@@ -93,9 +187,9 @@
     
     NSString *rightTitle = @"";
     if(_isDelete){
-        rightTitle = @"新增人像";
-    }else {
         rightTitle = @"删除所选";
+    }else {
+        rightTitle = @"新增人像";
     }
     UIButton *bottomRightButton = [UIButton buttonWithType:UIButtonTypeCustom];
     bottomRightButton.tag = 2002;
@@ -151,8 +245,7 @@
 
 #pragma mark UICollectionView 协议
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-//    return _wranData.count;
-    return 10;
+    return _wranData.count;
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat itemWidth = KScreenWidth/4 - 1.5;
@@ -164,6 +257,7 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     FaceWranCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FaceWranCell" forIndexPath:indexPath];
     cell.isDelete = _isDelete;
+    cell.faceWranModel = _wranData[indexPath.row];
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
