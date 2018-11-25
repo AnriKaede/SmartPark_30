@@ -11,7 +11,7 @@
 #import "UIImage+Zip.h"
 #import "FaceWranModel.h"
 
-@interface FaceWranViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TZImagePickerControllerDelegate>
+@interface FaceWranViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TZImagePickerControllerDelegate, UpdateImgDelegate>
 {
     UICollectionView *_collectionView;
     NSMutableArray *_wranData;
@@ -257,10 +257,16 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     FaceWranCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FaceWranCell" forIndexPath:indexPath];
     cell.isDelete = _isDelete;
+    cell.updateImgDelegate = self;
     cell.faceWranModel = _wranData[indexPath.row];
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+#pragma mark cell协议，更新人像
+- (void)updateImg:(FaceWranModel *)faceWranModel {
     
 }
 

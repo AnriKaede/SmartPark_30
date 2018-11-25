@@ -25,7 +25,11 @@ typedef enum {
     OpenPC,
     RestartPC,
     ClosePC,
-    ResumeDefault
+    ResumeDefault,
+    
+    OpenStreetLED,
+    CLoseStreetLED,
+    RestartStreetPC
 }LEDOperateType;
 
 @interface LEDViewController ()<UITableViewDelegate, UITableViewDataSource, CYLTableViewPlaceHolderDelegate,LEDListDelegate>
@@ -165,6 +169,10 @@ typedef enum {
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    return 248;
+    LedListModel *ledListModel = _ledData[indexPath.row];
+    if([ledListModel.type isEqualToString:@"1"]){
+        return 175;
+    }
     return 205;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -284,16 +292,26 @@ typedef enum {
 }
 
 #pragma mark 新LED操作协议
+// 截屏
 - (void)lookScreenShotWithModel:(LedListModel*)ledListModel {
     LEDScreenShotViewController *ledScreenVc = [[LEDScreenShotViewController alloc] init];
+    if([ledListModel.type isEqualToString:@"1"]){
+        // 路灯屏
+        ledScreenVc.isStreetLight = YES;
+    }
     ledScreenVc.ledListModel = ledListModel;
     [self.navigationController pushViewController:ledScreenVc animated:YES];
 }
 - (void)ledSwitch:(BOOL)on withModel:(LedListModel*)ledListModel {
-    if(on){
-        [self operateLed:OpenLed withModel:ledListModel];
+    if([ledListModel.type isEqualToString:@"1"]){
+        // 路灯屏
+        [self streetOperate:on withModel:ledListModel];
     }else {
-        [self operateLed:CloseLed withModel:ledListModel];
+        if(on){
+            [self operateLed:OpenLed withModel:ledListModel];
+        }else {
+            [self operateLed:CloseLed withModel:ledListModel];
+        }
     }
     ledListModel.status = on ? @"1" : @"0";
 }
@@ -308,7 +326,11 @@ typedef enum {
     NSInteger index = [_ledData indexOfObject:ledListModel];
     UITableViewCell *cellView = [_tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     [self alertOperate:@"是否确定重启设备主机" withBolck:^{
-        [self operateLed:RestartPC withModel:ledListModel];
+        if([ledListModel.type isEqualToString:@"1"]){
+            [self streetRestart:ledListModel];
+        }else {
+            [self operateLed:RestartPC withModel:ledListModel];
+        }
     } withShowView:cellView==nil?_headerView:cellView];
 }
 - (void)ledClose:(LedListModel*)ledListModel {
@@ -392,6 +414,21 @@ typedef enum {
             operate = [NSString stringWithFormat:@"LED屏电脑\"%@\"关", ledListModel.deviceName];
             break;
         }
+        case OpenStreetLED:
+        {
+            operate = [NSString stringWithFormat:@"路灯LED屏\"%@\"开", ledListModel.deviceName];
+            break;
+        }
+        case CLoseStreetLED:
+        {
+            operate = [NSString stringWithFormat:@"路灯LED屏\"%@\"关", ledListModel.deviceName];
+            break;
+        }
+        case RestartStreetPC:
+        {
+            operate = [NSString stringWithFormat:@"路灯LED主机\"%@\"重启", ledListModel.deviceName];
+            break;
+        }
             
         default:
             break;
@@ -455,6 +492,71 @@ typedef enum {
         alertCon.popoverPresentationController.sourceRect = showView.bounds;
     }
     [self presentViewController:alertCon animated:YES completion:^{
+    }];
+}
+
+#pragma mark 路灯屏 操作
+- (void)streetOperate:(BOOL)onOff withModel:(LedListModel *)ledListModel {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/roadLamp/openAndStopScreen",Main_Url];
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:ledListModel.tagid forKey:@"tagId"];
+    LEDOperateType operateType;
+    if(onOff){
+        // 开
+        [param setObject:[NSNumber numberWithBool:YES] forKey:@"arg1"];
+        operateType = OpenStreetLED;
+    }else {
+        // 关
+        [param setObject:[NSNumber numberWithBool:NO] forKey:@"arg1"];
+        operateType = CLoseStreetLED;
+    }
+    
+    NSString *jsonParam = [Utils convertToJsonData:param];
+    NSDictionary *params = @{@"param":jsonParam};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            // 调列表接口刷新
+            // 成功
+            // 记录日志
+            [self operateLog:operateType withModel:ledListModel];
+        }
+        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+            [self showHint:responseObject[@"message"]];
+        }
+        
+        NSInteger index = [_ledData indexOfObject:ledListModel];
+        [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+- (void)streetRestart:(LedListModel *)ledListModel {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/roadLamp/restartScreen",Main_Url];
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:ledListModel.tagid forKey:@"tagId"];
+    LEDOperateType operateType = RestartStreetPC;
+    
+    NSString *jsonParam = [Utils convertToJsonData:param];
+    NSDictionary *params = @{@"param":jsonParam};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            // 调列表接口刷新
+            // 成功
+            // 记录日志
+            [self operateLog:operateType withModel:ledListModel];
+        }
+        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+            [self showHint:responseObject[@"message"]];
+        }
+        
+        NSInteger index = [_ledData indexOfObject:ledListModel];
+        [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        
+    } failure:^(NSError *error) {
+        
     }];
 }
 

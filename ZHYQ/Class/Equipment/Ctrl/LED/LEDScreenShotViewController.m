@@ -37,7 +37,16 @@
 }
 
 -(void)initNav{
-    self.title = [NSString stringWithFormat:@"%@", _ledListModel.deviceName];
+    self.title = @"LED屏";
+    if(_isStreetLight){
+        if(_subDeviceModel != nil){
+            self.title = [NSString stringWithFormat:@"%@", _subDeviceModel.DEVICE_NAME];
+        }else if(_ledListModel != nil){
+            self.title = [NSString stringWithFormat:@"%@", _ledListModel.deviceName];
+        }
+    }else {
+        self.title = [NSString stringWithFormat:@"%@", _ledListModel.deviceName];
+    }
     
     UIButton *leftBtn = [[UIButton alloc] init];
     leftBtn.frame = CGRectMake(0, 0, 40, 40);
@@ -136,6 +145,14 @@
 
 #pragma mark 请求数据
 - (void)loadImgData {
+    if(_isStreetLight){
+        [self streetScreen];
+    }else {
+        [self diningHallScreen];
+    }
+}
+
+- (void)diningHallScreen {
     NSString *urlStr = [NSString stringWithFormat:@"%@/udpController/sendMsgToUdpSer",Main_Url];
     
     NSMutableDictionary *searchParam = @{}.mutableCopy;
@@ -149,7 +166,7 @@
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
             NSString *imgUrl = responseObject[@"responseData"][@"resMsg"];
             if(imgUrl != nil && ![imgUrl isKindOfClass:[NSNull class]]){
-//                [self.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
+                //                [self.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl]];
                 
                 dispatch_queue_t queue2 = dispatch_queue_create("Queue2", DISPATCH_QUEUE_CONCURRENT);
                 dispatch_async(queue2, ^{
@@ -159,6 +176,42 @@
                         self.imageView.image = img;
                     });
                 });
+            }
+            
+        }else {
+            if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+                [self showHint:responseObject[@"message"]];
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)streetScreen {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/roadLamp/getPicture",Main_Url];
+    
+    NSMutableDictionary *searchParam = @{}.mutableCopy;
+    if(_subDeviceModel != nil){
+        [searchParam setObject:_subDeviceModel.TAGID forKey:@"tagId"];
+    }else if(_ledListModel != nil){
+        [searchParam setObject:_ledListModel.tagid forKey:@"tagId"];
+    }
+//    [searchParam setObject:@100 forKey:@"arg1"];
+//    [searchParam setObject:@100 forKey:@"arg2"];
+    
+    NSString *jsonStr = [Utils convertToJsonData:searchParam];
+    NSDictionary *param = @{@"param":jsonStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:param progressFloat:nil succeed:^(id responseObject) {
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            NSString *imageBase64 = responseObject[@"responseData"][@"imageBase64"];
+            if(imageBase64 != nil && ![imageBase64 isKindOfClass:[NSNull class]]){
+                NSString *traceBase64Str = [imageBase64 componentsSeparatedByString:@"base64,"].lastObject;
+                NSData *traceImageData = [[NSData alloc] initWithBase64EncodedString:traceBase64Str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                UIImage *traceImage = [UIImage imageWithData:traceImageData];
+                self.imageView.image = traceImage;
             }
             
         }else {

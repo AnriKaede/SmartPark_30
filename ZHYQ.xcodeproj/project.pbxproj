@@ -326,6 +326,8 @@
 		927FA6FA2191B1A1002CB32C /* WifiCountStrongModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FA6F92191B1A1002CB32C /* WifiCountStrongModel.m */; };
 		927FA73A2192C288002CB32C /* WifiNewUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FA7392192C288002CB32C /* WifiNewUserModel.m */; };
 		927FA73D2192C410002CB32C /* APNumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FA73C2192C410002CB32C /* APNumModel.m */; };
+		927FFE4D21A8E496008D1DC4 /* AddAloneFaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FFE4C21A8E496008D1DC4 /* AddAloneFaceViewController.m */; };
+		927FFE5121A8FB0F008D1DC4 /* HotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FFE5021A8FB0F008D1DC4 /* HotelViewController.m */; };
 		928426DD214B5D8800C909D4 /* ReservedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 928426DB214B5D8700C909D4 /* ReservedModel.m */; };
 		928426E0214B5DA100C909D4 /* ReservedDelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928426DF214B5DA100C909D4 /* ReservedDelViewController.m */; };
 		928426E4214B5DE000C909D4 /* ReservedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 928426E2214B5DDF00C909D4 /* ReservedCell.m */; };
@@ -1459,6 +1461,10 @@
 		927FA7392192C288002CB32C /* WifiNewUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiNewUserModel.m; sourceTree = "<group>"; };
 		927FA73B2192C410002CB32C /* APNumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APNumModel.h; sourceTree = "<group>"; };
 		927FA73C2192C410002CB32C /* APNumModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APNumModel.m; sourceTree = "<group>"; };
+		927FFE4B21A8E496008D1DC4 /* AddAloneFaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAloneFaceViewController.h; sourceTree = "<group>"; };
+		927FFE4C21A8E496008D1DC4 /* AddAloneFaceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAloneFaceViewController.m; sourceTree = "<group>"; };
+		927FFE4F21A8FB0F008D1DC4 /* HotelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotelViewController.h; sourceTree = "<group>"; };
+		927FFE5021A8FB0F008D1DC4 /* HotelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotelViewController.m; sourceTree = "<group>"; };
 		928426DB214B5D8700C909D4 /* ReservedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservedModel.m; sourceTree = "<group>"; };
 		928426DC214B5D8800C909D4 /* ReservedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservedModel.h; sourceTree = "<group>"; };
 		928426DE214B5DA000C909D4 /* ReservedDelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservedDelViewController.h; sourceTree = "<group>"; };
@@ -3435,6 +3441,15 @@
 			path = Wifi;
 			sourceTree = "<group>";
 		};
+		927FFE4E21A8FAA1008D1DC4 /* Hotel */ = {
+			isa = PBXGroup;
+			children = (
+				927FFE4F21A8FB0F008D1DC4 /* HotelViewController.h */,
+				927FFE5021A8FB0F008D1DC4 /* HotelViewController.m */,
+			);
+			path = Hotel;
+			sourceTree = "<group>";
+		};
 		928775191FBA814A00BF708A /* streetLight */ = {
 			isa = PBXGroup;
 			children = (
@@ -3845,6 +3860,8 @@
 				92FAC4D5219ACE6F00FB1489 /* FaceWranViewController.m */,
 				92FAC4D8219ACE7500FB1489 /* FaceHistoryViewController.h */,
 				92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */,
+				927FFE4B21A8E496008D1DC4 /* AddAloneFaceViewController.h */,
+				927FFE4C21A8E496008D1DC4 /* AddAloneFaceViewController.m */,
 			);
 			path = FaceIdentify;
 			sourceTree = "<group>";
@@ -5271,6 +5288,7 @@
 				D63922961FB335D500E1A00A /* wifi */,
 				92B3BEB11FF3D16300C3AFEC /* food */,
 				92BD4201200DE06900AB303E /* train */,
+				927FFE4E21A8FAA1008D1DC4 /* Hotel */,
 			);
 			path = Ctrl;
 			sourceTree = "<group>";
@@ -6025,6 +6043,7 @@
 				9222CAC9215E532800C519FF /* StopParkMangerViewController.m in Sources */,
 				92C8EEBD2022B4B800AC6337 /* MealTabBarController.m in Sources */,
 				925576D72182BF9400B4A1A3 /* WifiCountTerminalCell.m in Sources */,
+				927FFE5121A8FB0F008D1DC4 /* HotelViewController.m in Sources */,
 				92D8B8BB206A1FD50001263F /* AAXAxis.m in Sources */,
 				92FAC4FE219BB48000FB1489 /* FaceImgHistory+CoreDataClass.m in Sources */,
 				9253BD8720BFA58E00AB4767 /* QTools.mm in Sources */,
@@ -6392,6 +6411,7 @@
 				92343BEA20D8A60500A28603 /* AptManagerViewController.m in Sources */,
 				922B40FA21548F5100B9F6E4 /* UIScrollView+Empty.m in Sources */,
 				9253C4C120F8A75F00985949 /* AirBatchViewController.m in Sources */,
+				927FFE4D21A8E496008D1DC4 /* AddAloneFaceViewController.m in Sources */,
 				925576E62182BFDD00B4A1A3 /* WifiCountStrongCell.m in Sources */,
 				92B3BEC51FF5DE1500C3AFEC /* ParkNightTaskModel.m in Sources */,
 				92FAC4DD219ACE7800FB1489 /* FaceHistoryViewController.m in Sources */,

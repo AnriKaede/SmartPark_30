@@ -31,6 +31,8 @@
     
     [self _initView];
     
+    _distributorFilterView.hidden = YES;
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadWeb) name:@"ResumeNetworkNotification" object:nil];
@@ -75,7 +77,8 @@
     [self.view addSubview:_webView];
     
     // 加载url
-    NSString *actUrl = [NSString stringWithFormat:@"http://192.168.206.19:9080/20171220admin/html/xldt.html"];
+//    NSString *actUrl = [NSString stringWithFormat:@"http://192.168.206.19:9080/20171220admin/html/xldt.html"];
+    NSString *actUrl = [NSString stringWithFormat:@"%@/h5/diningAdmin/html/zhpj.html", Main_Url];
     NSURLRequest *reqest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:actUrl] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:5];
     [_webView loadRequest:reqest];
     

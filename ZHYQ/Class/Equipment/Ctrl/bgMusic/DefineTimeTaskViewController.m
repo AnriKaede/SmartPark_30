@@ -151,7 +151,7 @@
 }
 
 - (void)playTask:(MusicTimeModel *)musicTimeModel {
-    NSString *playUrl = [NSString stringWithFormat:@"%@/music/startSchedTask/%@", Main_Url, musicTimeModel.musicTimeId];
+    NSString *playUrl = [NSString stringWithFormat:@"%@/music/startSchedTask/%@/%@", Main_Url, musicTimeModel.musicTimeId, musicTimeModel.musicType];
     [[NetworkClient sharedInstance] GET:playUrl dict:nil progressFloat:nil succeed:^(id responseObject) {
         [self.tableView.mj_header endRefreshing];
         if(responseObject[@"code"] != nil && ![responseObject[@"code"] isKindOfClass:[NSNull class]] &&  [responseObject[@"code"] isEqualToString:@"1"]){
@@ -177,7 +177,7 @@
 }
 
 - (void)stopTask:(MusicTimeModel *)musicTimeModel {
-    NSString *playUrl = [NSString stringWithFormat:@"%@/music/stopSchedTask/%@", Main_Url, musicTimeModel.musicTimeId];
+    NSString *playUrl = [NSString stringWithFormat:@"%@/music/stopSchedTask/%@/%@", Main_Url, musicTimeModel.musicTimeId, musicTimeModel.musicType];
     [[NetworkClient sharedInstance] GET:playUrl dict:nil progressFloat:nil succeed:^(id responseObject) {
         [self.tableView.mj_header endRefreshing];
         if(responseObject[@"code"] != nil && ![responseObject[@"code"] isKindOfClass:[NSNull class]] &&  [responseObject[@"code"] isEqualToString:@"1"]){

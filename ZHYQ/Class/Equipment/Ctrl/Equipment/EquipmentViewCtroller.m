@@ -63,6 +63,8 @@
 
 #import "LightLockWebViewController.h"
 
+#import "HotelViewController.h"
+
 #import "ParentMenuModel.h"
 #import "MenuModel.h"
 #import "TopMenuModel.h"
@@ -677,10 +679,10 @@
             case 30:
             {
                 // 智慧酒店
-                // 测试智慧配电
-                SmartDistributorViewController *distributorVC = [[SmartDistributorViewController alloc] init];
-                distributorVC.isHidenNaviBar = YES;
-                [self.navigationController pushViewController:distributorVC animated:YES];
+                HotelViewController *hotelVC = [[HotelViewController alloc] init];
+                hotelVC.isHidenNaviBar = YES;
+                [self.navigationController pushViewController:hotelVC animated:YES];
+                
                 break;
             }
                 
@@ -696,6 +698,7 @@
             case 33:
             {
                 // 智慧物业
+                [self showHint:@"敬请期待"];
                 break;
             }
             case 34:
@@ -703,6 +706,14 @@
                 // 取餐叫号
                 MealCenViewController *mealVC = [[MealCenViewController alloc] init];
                 [self.navigationController pushViewController:mealVC animated:YES];
+                break;
+            }
+            case 123293:
+            {
+                // 智慧配电
+                SmartDistributorViewController *distributorVC = [[SmartDistributorViewController alloc] init];
+                distributorVC.isHidenNaviBar = YES;
+                [self.navigationController pushViewController:distributorVC animated:YES];
                 break;
             }
                 
