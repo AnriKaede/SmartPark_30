@@ -42,7 +42,7 @@
     [button setTitle:@"返回" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
+//    [self.view addSubview:button];
 }
 - (void)backAction {
     [self.navigationController popViewControllerAnimated:YES];
@@ -106,6 +106,7 @@
     
     // 楼层图
     _distributorFilterView = [[DistributorFilterView alloc] initWithFrame:CGRectMake(0, kTopHeight, KScreenWidth, KScreenHeight - kTopHeight - kTabBarHeight)];
+    _distributorFilterView.hidden = YES;
     [self.view addSubview:_distributorFilterView];
 }
 
@@ -130,7 +131,13 @@
     
     context[@"share"] = ^() {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            _distributorFilterView.hidden = NO;
+        });
+    };
+    
+    context[@"mapclose"] = ^() {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _distributorFilterView.hidden = YES;
         });
     };
     
