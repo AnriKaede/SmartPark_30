@@ -191,4 +191,9 @@ return shared##className; \
 #define AirMinTemp 18
 #define AirMaxTemp 30
 
+/// 百度人脸识别配置参数
+#define API_KEY @"ZBlcoUbUMeFo8K5Ibtms3Rqz"
+#define SECRET_KEY @"VGQUHWiGCZIE4vOcIHWGmYYQEMEcFyvh"
+#define APP_ID @"14886206"
+
 #endif /* UtilsMacros_h */

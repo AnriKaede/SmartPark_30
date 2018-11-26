@@ -164,7 +164,8 @@ typedef enum {
     return _ledData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 248;
+//    return 248;
+    return 205;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    LEDCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LEDCell" forIndexPath:indexPath];

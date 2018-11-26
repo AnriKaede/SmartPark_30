@@ -34,7 +34,7 @@
 
 - (void)_initView {
     
-    NSString *actUrl = [NSString stringWithFormat:@"%@/h5/trainWx/html/indexNew.html", Main_Url];
+    NSString *actUrl = [NSString stringWithFormat:@"http://220.168.59.11/hntfHotel/m/smartHotel/html/zhjd.jsp"];
     
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, -20, KScreenWidth, KScreenHeight + 20)];
     _webView.scrollView.bounces = NO;

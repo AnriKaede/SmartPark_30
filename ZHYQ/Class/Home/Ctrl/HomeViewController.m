@@ -51,7 +51,7 @@
 
 #import "Utils.h"
 
-#import "ARSViewController.h"
+//#import "ARSViewController.h"
 
 @interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate>
 {
@@ -1342,8 +1342,8 @@
 
 - (void)todayClick {
     NSLog(@"todayClickDelegate");
-    ARSViewController *arsVC = [[ARSViewController alloc] init];
-    [self.navigationController pushViewController:arsVC animated:YES];
+//    ARSViewController *arsVC = [[ARSViewController alloc] init];
+//    [self.navigationController pushViewController:arsVC animated:YES];
 }
 
 #pragma mark 扫一扫

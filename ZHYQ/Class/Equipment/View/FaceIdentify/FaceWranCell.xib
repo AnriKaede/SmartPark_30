@@ -22,13 +22,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="112" height="113"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DhU-f9-1RR">
+                        <rect key="frame" x="0.0" y="88" width="112" height="25"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="YxN-xP-2hQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BhX-cz-RQr">
-                        <rect key="frame" x="84" y="85" width="20" height="20"/>
+                        <rect key="frame" x="84" y="90" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="eoK-if-njj"/>
                             <constraint firstAttribute="width" constant="20" id="zeo-Kf-9tx"/>
                         </constraints>
-                        <state key="normal" image="face_wran_edit.png"/>
+                        <state key="normal" image="face_wran_edit"/>
                         <connections>
                             <action selector="editImg:" destination="gTV-IL-0wX" eventType="touchUpInside" id="fks-cR-99l"/>
                         </connections>
@@ -39,7 +49,7 @@
                             <constraint firstAttribute="width" constant="20" id="2ln-Ce-dyc"/>
                             <constraint firstAttribute="height" constant="20" id="bt7-iD-2lY"/>
                         </constraints>
-                        <state key="normal" image="face_wran_nor.png"/>
+                        <state key="normal" image="face_wran_nor"/>
                         <state key="selected" image="face_wran_sel.png"/>
                         <connections>
                             <action selector="deleteSelect:" destination="gTV-IL-0wX" eventType="touchUpInside" id="fvk-e7-f22"/>
@@ -48,9 +58,12 @@
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="DhU-f9-1RR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0Ex-sa-DBL"/>
+                <constraint firstAttribute="trailing" secondItem="DhU-f9-1RR" secondAttribute="trailing" id="2rv-Hk-iDK"/>
                 <constraint firstItem="wR5-WM-nVM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="3V0-5D-Idu"/>
+                <constraint firstAttribute="bottom" secondItem="DhU-f9-1RR" secondAttribute="bottom" id="D5h-Tk-4Ie"/>
                 <constraint firstItem="ZzY-Cc-s36" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ILH-BY-5Lv"/>
-                <constraint firstAttribute="bottom" secondItem="BhX-cz-RQr" secondAttribute="bottom" constant="8" id="PfS-B3-K3W"/>
+                <constraint firstAttribute="bottom" secondItem="BhX-cz-RQr" secondAttribute="bottom" constant="3" id="PfS-B3-K3W"/>
                 <constraint firstItem="ZzY-Cc-s36" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="VIW-7D-LnW"/>
                 <constraint firstAttribute="bottom" secondItem="ZzY-Cc-s36" secondAttribute="bottom" id="cbG-iE-fib"/>
                 <constraint firstAttribute="trailing" secondItem="wR5-WM-nVM" secondAttribute="trailing" constant="8" id="mro-kb-Q43"/>
@@ -62,13 +75,14 @@
                 <outlet property="_bgImgView" destination="ZzY-Cc-s36" id="wbN-OH-jHX"/>
                 <outlet property="_deleteSelBt" destination="wR5-WM-nVM" id="mk4-zp-Z0U"/>
                 <outlet property="_editBt" destination="BhX-cz-RQr" id="bDP-6d-gld"/>
+                <outlet property="_nameLabel" destination="DhU-f9-1RR" id="UhQ-id-kd3"/>
             </connections>
             <point key="canvasLocation" x="187.19999999999999" y="182.15892053973016"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="face_wran_edit.png" width="20" height="20"/>
-        <image name="face_wran_nor.png" width="20" height="20"/>
+        <image name="face_wran_edit" width="20" height="20"/>
+        <image name="face_wran_nor" width="20" height="20"/>
         <image name="face_wran_sel.png" width="20" height="20"/>
     </resources>
 </document>
