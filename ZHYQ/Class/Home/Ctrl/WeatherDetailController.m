@@ -309,7 +309,7 @@
 -(void)_loadWeatherData
 {
     [self showHudInView:self.view hint:@""];
-    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/sensor",Main_Url];
+    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/sensorNew",Main_Url];
     
     [[NetworkClient sharedInstance] POST:urkStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         
@@ -342,7 +342,7 @@
                 
                 _titleView.size = CGSizeMake(size.width, 25);
                 
-                [self changeValueColor:[model.pm2_5 stringValue]];
+                [self changeValueColor:[NSString stringWithFormat:@"%@", model.pm2_5]];
             }
         }
     } failure:^(NSError *error) {

@@ -67,6 +67,28 @@
 }
  */
 
+/*
+{
+    "airpressure": "1011.5",
+    "humidity": "41.7",
+    "noise": "60.6",
+    "pm10": "44",
+    "pm2_5": "41",
+    "precipitation": "4.4",
+    "temperature": "16.9",
+    "weatherInfo": {
+        "adv_name": "长沙",
+        "bigColor": "http://220.168.59.15:8081/hntfEsb/pc/images/weather/bigColor/多云.png",
+        "city_name": "长沙",
+        "smallBlue": "http://220.168.59.15:8081/hntfEsb/pc/images/weather/smallBlue/多云.png",
+        "smallWhite": "http://220.168.59.15:8081/hntfEsb/pc/images/weather/smallWhite/多云.png",
+        "weather": "多云"
+    },
+    "winddirection": "西南",
+    "windspeed": "0"
+}
+ */
+
 @property (nonatomic, strong) NSNumber *airpressure;    // 气压
 @property (nonatomic, strong) NSNumber *pm2_5;          // pm2.5
 @property (nonatomic, strong) NSNumber *temperature;    // 温度

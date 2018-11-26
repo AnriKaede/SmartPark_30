@@ -169,10 +169,10 @@ typedef enum {
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    return 248;
-    LedListModel *ledListModel = _ledData[indexPath.row];
-    if([ledListModel.type isEqualToString:@"1"]){
-        return 175;
-    }
+//    LedListModel *ledListModel = _ledData[indexPath.row];
+//    if([ledListModel.type isEqualToString:@"1"]){
+//        return 175;
+//    }
     return 205;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -520,6 +520,8 @@ typedef enum {
             // 成功
             // 记录日志
             [self operateLog:operateType withModel:ledListModel];
+            
+            ledListModel.mainstatus = [NSString stringWithFormat:@"%d", onOff];
         }
         if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
             [self showHint:responseObject[@"message"]];

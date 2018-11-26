@@ -91,6 +91,9 @@
         _playBt.enabled = NO;
         _restartBt.enabled = YES;
         _closeBt.enabled = YES;
+        [_playBt setBackgroundImage:[UIImage imageNamed:@"led_closeOpen_enable_icon"] forState:UIControlStateNormal];
+        [_restartBt setBackgroundImage:[UIImage imageNamed:@"led_restart_icon"] forState:UIControlStateNormal];
+        [_closeBt setBackgroundImage:[UIImage imageNamed:@"led_close_icon"] forState:UIControlStateNormal];
         _resumeBt.enabled = YES;
     }else {
         // 离线
@@ -101,6 +104,9 @@
         _playBt.enabled = YES;
         _restartBt.enabled = NO;
         _closeBt.enabled = NO;
+        [_playBt setBackgroundImage:[UIImage imageNamed:@"led_play_icon"] forState:UIControlStateNormal];
+        [_restartBt setBackgroundImage:[UIImage imageNamed:@"led_restart_enable_icon"] forState:UIControlStateNormal];
+        [_closeBt setBackgroundImage:[UIImage imageNamed:@"led_closeOpen_enable_icon"] forState:UIControlStateNormal];
         _resumeBt.enabled = NO;
     }
     
@@ -116,14 +122,22 @@
     if([ledListModel.type isEqualToString:@"1"]){
         _playBt.enabled = NO;
         _closeBt.enabled = NO;
+        [_playBt setBackgroundImage:[UIImage imageNamed:@"led_closeOpen_enable_icon"] forState:UIControlStateNormal];
+        [_closeBt setBackgroundImage:[UIImage imageNamed:@"led_closeOpen_enable_icon"] forState:UIControlStateNormal];
         
-        _currentImgTop.constant = 30;
-        _currentImgLabel.hidden = YES;
-        screenshotView.hidden = YES;
+        if([ledListModel.mainstatus isEqualToString:@"1"]){
+            _yqSwitch.on = YES;
+        }else {
+            _yqSwitch.on = NO;
+        }
+        
+//        _currentImgTop.constant = 30;
+//        _currentImgLabel.hidden = YES;
+//        screenshotView.hidden = YES;
     }else {
-        _currentImgTop.constant = 58;
-        _currentImgLabel.hidden = NO;
-        screenshotView.hidden = NO;
+//        _currentImgTop.constant = 58;
+//        _currentImgLabel.hidden = NO;
+//        screenshotView.hidden = NO;
     }
 }
 

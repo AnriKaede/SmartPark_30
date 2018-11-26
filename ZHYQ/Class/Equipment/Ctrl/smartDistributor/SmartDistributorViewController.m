@@ -31,7 +31,7 @@
     
     [self _initView];
     
-    _distributorFilterView.hidden = YES;
+//    _distributorFilterView.hidden = YES;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -123,6 +123,12 @@
     JSContext *context = [webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
     // 退出 调用js方法
     context[@"close"] = ^() {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        });
+    };
+    
+    context[@"share"] = ^() {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.navigationController popToRootViewControllerAnimated:YES];
         });

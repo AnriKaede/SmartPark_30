@@ -564,10 +564,10 @@
 #pragma mark 加载天气数据
 -(void)_loadWeatherData
 {
-    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/sensor",Main_Url];
+    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/sensorNew",Main_Url];
     
     NSMutableDictionary *param = @{}.mutableCopy;
-    [param setObject:@"" forKey:@"uid"];
+//    [param setObject:@"" forKey:@"uid"];
     
     NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
     
