@@ -173,9 +173,12 @@
 
 - (void)didSelectMenu:(NSInteger)index {
     if(index == 1){
-        // 截屏
-        if(_currentScreenDelegate != nil && [_currentScreenDelegate respondsToSelector:@selector(currentScreen:)]){
-            [_currentScreenDelegate currentScreen:_subDeviceModel];
+        if(_isRuning){
+            // 截屏
+            if(_currentScreenDelegate != nil && [_currentScreenDelegate respondsToSelector:@selector(currentScreen:)]){
+                [_currentScreenDelegate currentScreen:_subDeviceModel];
+            }
+        }else {
         }
     }
 }

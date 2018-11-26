@@ -97,6 +97,7 @@
     UILabel *warnLabel = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth - warnSize.width - 24, titleView.bottom + 162, warnSize.width, 17)];
     warnLabel.tag = 6001;
     warnLabel.text = warnStr;
+    warnLabel.hidden = YES;
     warnLabel.textColor = [UIColor colorWithHexString:@"#FF4359"];
     warnLabel.font = warnFont;
     warnLabel.textAlignment = NSTextAlignmentLeft;
@@ -104,6 +105,7 @@
     
     UIImageView *warnImgView = [[UIImageView alloc] initWithFrame:CGRectMake(warnLabel.left - 30, titleView.bottom + 160, 20, 20)];
     warnImgView.tag = 7001;
+    warnImgView.hidden = YES;
     warnImgView.image = [UIImage imageNamed:@"eve_warn"];
     [_bgView addSubview:warnImgView];
 }
