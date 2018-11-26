@@ -11,10 +11,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol UpdateImgDelegate <NSObject>
+
+- (void)updateImg:(FaceWranModel *)faceWranModel;
+
+@end
+
 @interface FaceWranCell : UICollectionViewCell
 
 @property (nonatomic,assign) BOOL isDelete;
 @property (nonatomic,retain) FaceWranModel *faceWranModel;
+@property (nonatomic,assign) id<UpdateImgDelegate> updateImgDelegate;
 
 @end
 

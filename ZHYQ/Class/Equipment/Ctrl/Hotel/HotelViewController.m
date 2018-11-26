@@ -1,16 +1,16 @@
 //
-//  TrainViewController.m
+//  HotelViewController.m
 //  ZHYQ
 //
-//  Created by 魏唯隆 on 2018/1/16.
-//  Copyright © 2018年 焦平. All rights reserved.
+//  Created by 魏唯隆 on 2018/11/24.
+//  Copyright © 2018 焦平. All rights reserved.
 //
 
-#import "TrainViewController.h"
+#import "HotelViewController.h"
 #import "NoDataView.h"
 #import "WebLoadFailView.h"
 
-@interface TrainViewController ()<UIWebViewDelegate, WebLoadFailDelegate>
+@interface HotelViewController ()<UIWebViewDelegate, WebLoadFailDelegate>
 {
     UIWebView *_webView;
     
@@ -22,11 +22,11 @@
 
 @end
 
-@implementation TrainViewController
+@implementation HotelViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+    
     [self _initView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadWeb) name:@"ResumeNetworkNotification" object:nil];
@@ -34,8 +34,7 @@
 
 - (void)_initView {
     
-//    NSString *actUrl = [NSString stringWithFormat:@"http://220.168.59.11/hntfHotel/m/smartHotel/html/zhjd.jsp"];
-    NSString *actUrl = [NSString stringWithFormat:@"%@/h5/trainWx/html/indexNew.html", Main_Url];
+    NSString *actUrl = [NSString stringWithFormat:@"http://220.168.59.11/hntfHotel/m/smartHotel/html/zhjd.jsp"];
     
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, -20, KScreenWidth, KScreenHeight + 20)];
     _webView.scrollView.bounces = NO;
@@ -100,8 +99,8 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     [self hideHud];
     
-//    NSString *htmlTitle = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-//    self.title = htmlTitle;
+    //    NSString *htmlTitle = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    //    self.title = htmlTitle;
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     [self hideHud];

@@ -26,6 +26,7 @@
 //    NSString *_equipInfo; // 设备信息
     NSString *_lightTime; // 亮灯时长
 
+    BOOL _isOnline;
 }
 @end
 
@@ -188,11 +189,19 @@
         return;
     }
     
-    if(isOn){
-        [self operateLight:YES withOperateValue:@"ON"];
+    // 是否在线
+    if(_isOnline){
+        if(isOn){
+            [self operateLight:YES withOperateValue:@"ON"];
+        }else {
+            [self operateLight:YES withOperateValue:@"OFF"];
+        }
     }else {
-        [self operateLight:YES withOperateValue:@"OFF"];
+        // 离线
+        [[self viewController] showHint:@"设备离线，请稍后再试"];
+        [_showMenuView reloadMenuData];
     }
+    
     
 //    [_showMenuView reloadMenuData];
 }
@@ -332,8 +341,10 @@
             if(online != nil && ![online isKindOfClass:[NSNull class]]){
                 if(online.integerValue == 1){
                     _menuTitle = [NSString stringWithFormat:@"照明(在线)"];
+                    _isOnline = YES;
                 }else {
                     _menuTitle = [NSString stringWithFormat:@"照明(离线)"];
+                    _isOnline = NO;
                 }
             }
             

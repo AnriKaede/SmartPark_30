@@ -47,7 +47,9 @@
     _faceWranModel.isSelDelete = _deleteSelBt.selected;
 }
 - (IBAction)editImg:(id)sender {
-    
+    if(_updateImgDelegate != nil && [_updateImgDelegate respondsToSelector:@selector(updateImg:)]){
+        [_updateImgDelegate updateImg:_faceWranModel];
+    }
 }
 
 @end

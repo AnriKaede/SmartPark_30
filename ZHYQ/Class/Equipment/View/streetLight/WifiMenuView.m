@@ -18,7 +18,8 @@
     UIColor *_stateColor;   // 设备状态颜色
     BOOL _isRuning; // 是否正常开启
     NSString *_locationStr; // 坐标位置
-    NSString *_networkSpedd; // 网速
+    NSString *_acceptSpedd; // 网速
+    NSString *_sendSpedd; // 网速
     NSString *_accessNum; // 接入量
 }
 @end
@@ -35,12 +36,13 @@
 
 - (void)_initView {
     
-    _menuTitle = @"WIFI";
+    _menuTitle = [NSString stringWithFormat:@"WiFi"];
+    _isRuning = YES;
     _stateStr= @"正常开启中";
     _stateColor = [UIColor colorWithHexString:@"#189517"];
-    _locationStr = @"位置";
-    _networkSpedd = @"0m/s";
-    _accessNum = @"0";
+    _acceptSpedd = @"28.60 b";
+    _sendSpedd = @"8.40 b";
+    _accessNum = @"2";
     
     // 创建点击菜单视图
     _showMenuView = [[ShowMenuView alloc] init];
@@ -65,6 +67,12 @@
     _showMenuView.menuDelegate = self;
 }
 
+- (void)setStreetLightModel:(StreetLightModel *)streetLightModel {
+    _streetLightModel = streetLightModel;
+    
+    _locationStr = [NSString stringWithFormat:@"%@", streetLightModel.DEVICE_NAME];
+}
+
 #pragma mark MenuControlDelegate
 - (CGFloat)menuHeightInView:(NSInteger)index {
     switch (index) {
@@ -80,6 +88,9 @@
         case 3:
             return 40;
             break;
+        case 4:
+            return 40;
+            break;
             
         default:
             return 0;
@@ -88,7 +99,7 @@
 }
 
 - (NSInteger)menuNumInView {
-    return 4;
+    return 5;
 }
 
 - (NSString *)menuTitle:(NSInteger)index {
@@ -100,9 +111,12 @@
             return @"位置";
             break;
         case 2:
-            return @"网速";
+            return @"接收速率";
             break;
         case 3:
+            return @"发送速率";
+            break;
+        case 4:
             return @"接入量";
             break;
             
@@ -138,6 +152,9 @@
         case 3:
             return DefaultConMenu;
             break;
+        case 4:
+            return DefaultConMenu;
+            break;
             
         default:
             return DefaultConMenu;
@@ -153,8 +170,10 @@
     if(index == 1){
         return _locationStr;
     }else if(index == 2){
-        return _networkSpedd;
+        return _acceptSpedd;
     }else if(index == 3){
+        return _sendSpedd;
+    }else if(index == 4){
         return _accessNum;
     }else {
         return @"";
@@ -171,9 +190,15 @@
     if(isOn){
         _stateStr = @"正常开启中";
         _stateColor = [UIColor colorWithHexString:@"#189517"];
+        _acceptSpedd = @"28.60 b";
+        _sendSpedd = @"8.40 b";
+        _accessNum = @"2";
     }else {
         _stateStr = @"离线";
         _stateColor = [UIColor blackColor];
+        _acceptSpedd = @"0.0 b";
+        _sendSpedd = @"0.0 b";
+        _accessNum = @"0";
     }
     
     [_showMenuView reloadMenuData];
@@ -181,7 +206,7 @@
 
 - (void)didSelectMenu:(NSInteger)index {
     switch (index) {
-        case 3:
+        case 4:
         {
             
         }

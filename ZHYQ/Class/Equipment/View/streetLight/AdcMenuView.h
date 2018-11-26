@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SubDeviceModel.h"
 
+@protocol CurrentScreenDelegate <NSObject>
+
+- (void)currentScreen:(SubDeviceModel *)subDeviceModel;
+
+@end
+
 @interface AdcMenuView : UIView
 - (void)showMenu;
 - (void)hidMenu;
@@ -16,4 +22,6 @@
 @property (nonatomic, retain) SubDeviceModel *subDeviceModel;
 
 @property (nonatomic, copy) NSString *parentDevName;
+@property (nonatomic,assign) id<CurrentScreenDelegate> currentScreenDelegate;
+
 @end

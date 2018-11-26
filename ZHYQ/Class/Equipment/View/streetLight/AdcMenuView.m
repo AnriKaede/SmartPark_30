@@ -36,8 +36,8 @@
 - (void)_initView {
     
     _menuTitle = @"广告屏";
-    _stateStr = @"正常开启中";
-    _stateColor = [UIColor colorWithHexString:@"#189517"];
+    _stateStr = @"开关状态";
+//    _stateColor = [UIColor colorWithHexString:@"#189517"];
     _timeStr = @"未定时";
     _playMsg = @"三条消息 查看详情";
     
@@ -65,9 +65,6 @@
         case 1:
             return 40;
             break;
-        case 2:
-            return 40;
-            break;
             
         default:
             return 0;
@@ -76,7 +73,7 @@
 }
 
 - (NSInteger)menuNumInView {
-    return 3;
+    return 2;
 }
 
 - (NSString *)menuTitle:(NSInteger)index {
@@ -85,10 +82,7 @@
             return _stateStr;
             break;
         case 1:
-            return @"定时装置";
-            break;
-        case 2:
-            return @"当前播放";
+            return @"当前屏幕截图";
             break;
             
         default:
@@ -115,10 +109,7 @@
             return SwitchConMenu;
             break;
         case 1:
-            return TextAndImgConMenu;
-            break;
-        case 2:
-            return DefaultConMenu;
+            return ImgConMenu;
             break;
             
         default:
@@ -152,9 +143,12 @@
 
 - (NSString *)imageName:(NSInteger)index {
     if(index == 1){
-        return @"_dingshi_clock";
+        return @"led_Screenshot";
     }
     return @"";
+}
+- (CGSize)imageSize:(NSInteger)index {
+    return CGSizeMake(30, 30);
 }
 
 // LED开关协议
@@ -178,28 +172,31 @@
 }
 
 - (void)didSelectMenu:(NSInteger)index {
-    switch (index) {
-        case 3:
-        {
-            
+    if(index == 1){
+        // 截屏
+        if(_currentScreenDelegate != nil && [_currentScreenDelegate respondsToSelector:@selector(currentScreen:)]){
+            [_currentScreenDelegate currentScreen:_subDeviceModel];
         }
-        
     }
 }
 
 #pragma mark 操作路灯
 - (void)operateLED:(BOOL)onOff {
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/roadLamp/controlLed",Main_Url];
+//    NSString *urlStr = [NSString stringWithFormat:@"%@/roadLamp/controlLed",Main_Url];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/roadLamp/openAndStopScreen",Main_Url];
     
     NSMutableDictionary *param = @{}.mutableCopy;
-    [param setObject:_subDeviceModel.TAGID forKey:@"uid"];
+//    [param setObject:_subDeviceModel.TAGID forKey:@"uid"];
+    [param setObject:_subDeviceModel.TAGID forKey:@"tagId"];
     if(onOff){
         // 开
-        [param setObject:@"ON" forKey:@"operateType"];
+//        [param setObject:@"ON" forKey:@"operateType"];
+        [param setObject:[NSNumber numberWithBool:YES] forKey:@"arg1"];
     }else {
         // 关
-        [param setObject:@"OFF" forKey:@"operateType"];
+//        [param setObject:@"OFF" forKey:@"operateType"];
+        [param setObject:[NSNumber numberWithBool:NO] forKey:@"arg1"];
     }
     
     NSString *jsonParam = [Utils convertToJsonData:param];
@@ -256,10 +253,12 @@
 }
 
 - (void)_loadData {
-    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/led",Main_Url];
+//    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/led",Main_Url];
+    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/screenOpenOrStop",Main_Url];
     
     NSMutableDictionary *param = @{}.mutableCopy;
-    [param setObject:_subDeviceModel.TAGID forKey:@"uid"];
+//    [param setObject:_subDeviceModel.TAGID forKey:@"uid"];
+    [param setObject:_subDeviceModel.TAGID forKey:@"tagId"];
     
     NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
     
@@ -273,9 +272,9 @@
             }
             
             // 开关状态
-            NSNumber *screenState = lightDic[@"screenState"];
+            NSNumber *screenState = lightDic[@"result"];
             if(screenState != nil && ![screenState isKindOfClass:[NSNull class]]){
-                if(screenState.integerValue == 1){
+                if(screenState.boolValue == 1){
                     _isRuning = YES;
                 }else {
                     _isRuning = NO;

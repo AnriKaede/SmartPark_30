@@ -28,6 +28,8 @@
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSString *status;
 
+@property (nonatomic,copy) NSString *mainstatus;
+
 @property (nonatomic,copy) NSString *program;
 
 @property (nonatomic,assign) BOOL isSelect;

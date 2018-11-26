@@ -385,11 +385,8 @@
 - (void)sendLedMsg:(LedListModel *)ledListModel withConnect:(NSString *)connect {
 //    dispatch_group_enter(group);
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/udpController/sendMsgToUdpSer",Main_Url];
-    NSMutableDictionary *searchParam = @{}.mutableCopy;
-    [searchParam setObject:ledListModel.deviceId forKey:@"deviceId"];
-    [searchParam setObject:@"SENDHTML" forKey:@"instructions"];
-    [searchParam setObject:connect forKey:@"content"];
+    NSString *urlStr = [self postUrl:ledListModel];
+    id searchParam = [self postParam:ledListModel withContent:connect];
     
     [self showHudInView:self.tableView hint:@""];
     [[NetworkClient sharedInstance] POST:urlStr dict:searchParam progressFloat:nil succeed:^(id responseObject) {
@@ -409,6 +406,33 @@
         [self hideHud];
         [self showHint:KRequestFailMsg];
     }];
+}
+- (NSString *)postUrl:(LedListModel *)ledListModel {
+    if([ledListModel.type isEqualToString:@"1"]){
+        return [NSString stringWithFormat:@"%@/roadLamp/lampVideoRoll",Main_Url];
+    }else if([ledListModel.type isEqualToString:@"2"]){
+        return [NSString stringWithFormat:@"%@/udpController/sendMsgToUdpSer",Main_Url];
+    }
+    return @"";
+}
+- (id)postParam:(LedListModel *)ledListModel withContent:(NSString *)content {
+    if([ledListModel.type isEqualToString:@"1"]){
+        NSMutableDictionary *searchParam = @{}.mutableCopy;
+        [searchParam setObject:ledListModel.tagid forKey:@"tagId"];
+        [searchParam setObject:@-1 forKey:@"num"];
+        [searchParam setObject:content forKey:@"html"];
+        [searchParam setObject:@"center" forKey:@"align"];
+        NSString *jsonParam = [Utils convertToJsonData:searchParam];
+        NSDictionary *params = @{@"param":jsonParam};
+        return params;
+    }else if([ledListModel.type isEqualToString:@"2"]){
+        NSMutableDictionary *searchParam = @{}.mutableCopy;
+        [searchParam setObject:ledListModel.deviceId forKey:@"deviceId"];
+        [searchParam setObject:@"SENDHTML" forKey:@"instructions"];
+        [searchParam setObject:content forKey:@"content"];
+        return searchParam;
+    }
+    return @"";
 }
 
 #pragma mark 选择发送信息屏幕

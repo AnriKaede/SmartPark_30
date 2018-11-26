@@ -5322,6 +5322,101 @@
             </objects>
             <point key="canvasLocation" x="2392.8000000000002" y="11559.670164917543"/>
         </scene>
+        <!--Add Alone Face View Controller-->
+        <scene sceneID="khq-Ir-fW6">
+            <objects>
+                <tableViewController storyboardIdentifier="AddAloneFaceViewController" id="MSV-gB-mLE" customClass="AddAloneFaceViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="3" sectionFooterHeight="3" id="qPe-w2-zPE" customClass="AddAl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="IUI-wF-ek5">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="277" id="JEe-kn-Irw">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="277"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JEe-kn-Irw" id="fwR-tE-2Yb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="276.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HUe-Kx-rzh">
+                                                    <rect key="frame" x="85" y="28" width="205" height="205"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="205" id="9fv-wk-KOR"/>
+                                                        <constraint firstAttribute="width" constant="205" id="iSK-Nl-l1i"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fkp-Lj-Jk5">
+                                                    <rect key="frame" x="285" y="249.5" width="73" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <state key="normal" title=" 更换人像" image="rechange_face">
+                                                        <color key="titleColor" red="0.1058823529" green="0.50980392159999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="changeFace:" destination="MSV-gB-mLE" eventType="touchUpInside" id="iJc-c1-ya1"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Fkp-Lj-Jk5" secondAttribute="bottom" constant="10" id="Cx5-RY-Alg"/>
+                                                <constraint firstItem="HUe-Kx-rzh" firstAttribute="centerY" secondItem="fwR-tE-2Yb" secondAttribute="centerY" constant="-8" id="Iq6-83-5zs"/>
+                                                <constraint firstAttribute="trailing" secondItem="Fkp-Lj-Jk5" secondAttribute="trailing" constant="17" id="NCj-64-zBE"/>
+                                                <constraint firstItem="HUe-Kx-rzh" firstAttribute="centerX" secondItem="fwR-tE-2Yb" secondAttribute="centerX" id="qZk-sm-HkA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="L2o-u6-YRu">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="Dfd-mU-zhC">
+                                        <rect key="frame" x="0.0" y="318" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Dfd-mU-zhC" id="wVr-kp-ZGp">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人像姓名:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DKd-lC-AAz">
+                                                    <rect key="frame" x="10" y="19.5" width="74" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入姓名" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="5Zl-yG-qaQ">
+                                                    <rect key="frame" x="104" y="5" width="251" height="49.5"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DKd-lC-AAz" firstAttribute="centerY" secondItem="wVr-kp-ZGp" secondAttribute="centerY" id="8Ii-gD-U93"/>
+                                                <constraint firstAttribute="trailing" secondItem="5Zl-yG-qaQ" secondAttribute="trailing" constant="20" id="DLT-js-AU6"/>
+                                                <constraint firstAttribute="bottom" secondItem="5Zl-yG-qaQ" secondAttribute="bottom" constant="5" id="hGX-R7-yb0"/>
+                                                <constraint firstItem="DKd-lC-AAz" firstAttribute="leading" secondItem="wVr-kp-ZGp" secondAttribute="leading" constant="10" id="pu0-HH-aCH"/>
+                                                <constraint firstItem="5Zl-yG-qaQ" firstAttribute="leading" secondItem="DKd-lC-AAz" secondAttribute="trailing" constant="20" id="qFq-1A-2qo"/>
+                                                <constraint firstItem="5Zl-yG-qaQ" firstAttribute="top" secondItem="wVr-kp-ZGp" secondAttribute="top" constant="5" id="xtd-ze-UwR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="MSV-gB-mLE" id="zxX-Ab-41S"/>
+                            <outlet property="delegate" destination="MSV-gB-mLE" id="IUc-Pt-7pm"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="_changeFaceBt" destination="Fkp-Lj-Jk5" id="IbH-RN-mGk"/>
+                        <outlet property="_faceImgView" destination="HUe-Kx-rzh" id="EUC-7q-mDd"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tMo-qm-5OE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3239" y="11560"/>
+        </scene>
         <!--Park Detail Msg Controller-->
         <scene sceneID="yxo-f1-GWb">
             <objects>
@@ -8016,6 +8111,7 @@
         <image name="play_bt_reduce_nor" width="74.5" height="74.5"/>
         <image name="play_bt_reduce_sel" width="74.5" height="74.5"/>
         <image name="play_bt_up_nor" width="24" height="18.5"/>
+        <image name="rechange_face" width="12.5" height="12"/>
         <image name="reserve_clock" width="20" height="20"/>
         <image name="scene_edit_mustfill" width="8.5" height="8"/>
         <image name="set_park_task_clock" width="80" height="77.5"/>

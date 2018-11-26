@@ -37,6 +37,25 @@
             self.bigColor = bigColor;
         }
         
+        NSDictionary *weatherInfo = data[@"weatherInfo"];
+        if(weatherInfo != nil && ![weatherInfo isKindOfClass:[NSNull class]]){
+            NSString *weather = weatherInfo[@"weather"];
+            self.weather = [NSString stringWithFormat:@"%@", weather];
+            
+            NSString *smallWhite = weatherInfo[@"smallWhite"];
+            self.smallWhite = [NSString stringWithFormat:@"%@", smallWhite];
+            
+            NSString *smallBlue = weatherInfo[@"smallBlue"];
+            self.smallBlue = [NSString stringWithFormat:@"%@", smallBlue];
+            
+            NSString *bigColor = weatherInfo[@"bigColor"];
+            self.bigColor = [NSString stringWithFormat:@"%@", bigColor];
+            
+            NSString *adv_name = weatherInfo[@"adv_name"];
+            self.adv_name = [NSString stringWithFormat:@"%@", adv_name];
+            
+        }
+        
     }
     return self;
 }

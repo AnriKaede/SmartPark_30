@@ -21,8 +21,9 @@
 #import "PlayVideoViewController.h"
 #import "PlaybackViewController.h"
 #import "DHDataCenter.h"
+#import "LEDScreenShotViewController.h"
 
-@interface StreetLightPointViewController ()<DidSelInMapPopDelegate, PlayMonitorDelegate>
+@interface StreetLightPointViewController ()<DidSelInMapPopDelegate, PlayMonitorDelegate, CurrentScreenDelegate>
 {
     YQInDoorPointMapView *_indoorView;
     
@@ -110,7 +111,9 @@
     _monitorMenuView = [[MonitorMenuView alloc] init];
     _monitorMenuView.playMonitorDelegate = self;
     _wifiMenuView = [[WifiMenuView alloc] init];
+    _wifiMenuView.streetLightModel = _model;
     _adcMenuView = [[AdcMenuView alloc] init];
+    _adcMenuView.currentScreenDelegate = self;
     _musicMenuView = [[MusicMenuView alloc] init];
     _callMenuView = [[CallMenuView alloc] init];
     _powerMenuView = [[PowerMenuView alloc] init];
@@ -177,6 +180,14 @@
         [_powerMenuView showMenu];
         
     }
+}
+
+#pragma mark 广告屏当前截屏协议
+- (void)currentScreen:(SubDeviceModel *)subDeviceModel {
+    LEDScreenShotViewController *ledScreenVc = [[LEDScreenShotViewController alloc] init];
+    ledScreenVc.isStreetLight = YES;
+    ledScreenVc.subDeviceModel = subDeviceModel;
+    [self.navigationController pushViewController:ledScreenVc animated:YES];
 }
 
 #pragma mark 播放视频menu协议

@@ -41,8 +41,21 @@
 - (void)_initView {
     
     _menuTitle = @"音乐";
-    _stateStr= @"-";
-    _volume = 0;
+    _stateStr= @"开启中";
+    _stateColor = [UIColor colorWithHexString:@"#189517"];
+    _volume = 0.42;
+    /** 当前播放任务
+     7:30 -12:30   灯杆广播上午定时任务
+     14:00  18:30   灯杆广播下午定时任务
+     其他时间  空白
+     */
+    if([self judgeTimeByStartAndEnd:@"7:30" withExpireTime:@"12:30"]){
+        _currentMusic = @"灯杆广播上午定时任务";
+    }else if([self judgeTimeByStartAndEnd:@"14:00" withExpireTime:@"18:30"]){
+        _currentMusic = @"灯杆广播下午定时任务";
+    }else {
+        _currentMusic = @"";
+    }
     
     // 创建点击菜单视图
     _showMenuView = [[ShowMenuView alloc] init];
@@ -275,6 +288,24 @@
 }
 - (void)hidMenu {
     _showMenuView.hidden = YES;
+}
+
+// 当前时间是否在时间段内 (忽略年月日)
+- (BOOL)judgeTimeByStartAndEnd:(NSString *)startTime withExpireTime:(NSString *)expireTime {
+    NSDate *today = [NSDate date];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    // 时间格式,此处遇到过坑,建议时间HH大写,手机24小时进制和12小时禁止都可以完美格式化
+    [dateFormat setDateFormat:@"HH:mm"];
+    NSString * todayStr=[dateFormat stringFromDate:today];//将日期转换成字符串
+    today=[ dateFormat dateFromString:todayStr];//转换成NSDate类型。日期置为方法默认日期
+    //startTime格式为 02:22   expireTime格式为 12:44
+    NSDate *start = [dateFormat dateFromString:startTime];
+    NSDate *expire = [dateFormat dateFromString:expireTime];
+    
+    if ([today compare:start] == NSOrderedDescending && [today compare:expire] == NSOrderedAscending) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

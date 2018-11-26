@@ -159,7 +159,7 @@
     
     NSMutableDictionary *param = @{}.mutableCopy;
     [param setObject:lamps forKey:@"lamps"];
-    [param setObject:@"13" forKey:@"lampCtrlType"];
+    [param setObject:@"24" forKey:@"lampCtrlType"];
     [param setObject:@"on" forKey:@"operateType"];
     [param setObject:onOff forKey:@"operateValue"];
     

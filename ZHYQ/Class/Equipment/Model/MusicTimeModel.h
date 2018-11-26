@@ -39,6 +39,8 @@
 
 @property (nonatomic,strong) NSNumber *vol;
 
+@property (nonatomic,copy) NSString *musicType;
+
 @property (nonatomic,assign) BOOL isSelect;
 
 @end
