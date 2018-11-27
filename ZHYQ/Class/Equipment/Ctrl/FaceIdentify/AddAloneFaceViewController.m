@@ -21,6 +21,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self _initView];
+    
+}
+
+- (void)_initView {
+    UIButton *leftBtn = [[UIButton alloc] init];
+    leftBtn.frame = CGRectMake(0, 0, 40, 40);
+    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
+    if(_selImg){
+        _faceImgView.image = _selImg;
+    }
+}
+
+-(void)_leftBarBtnItemClick:(id)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)changeFace:(id)sender {

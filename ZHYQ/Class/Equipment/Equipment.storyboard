@@ -5411,6 +5411,7 @@
                     <connections>
                         <outlet property="_changeFaceBt" destination="Fkp-Lj-Jk5" id="IbH-RN-mGk"/>
                         <outlet property="_faceImgView" destination="HUe-Kx-rzh" id="EUC-7q-mDd"/>
+                        <outlet property="_nameTF" destination="5Zl-yG-qaQ" id="bsQ-Ew-EYV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tMo-qm-5OE" userLabel="First Responder" sceneMemberID="firstResponder"/>

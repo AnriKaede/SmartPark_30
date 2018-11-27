@@ -10,6 +10,7 @@
 #import "FaceWranCell.h"
 #import "UIImage+Zip.h"
 #import "FaceWranModel.h"
+#import "AddAloneFaceViewController.h"
 
 @interface FaceWranViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TZImagePickerControllerDelegate, UpdateImgDelegate>
 {
@@ -237,6 +238,10 @@
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
 #warning 选择多张图片，上传测试是否包含人像信息
         NSLog(@"%@", photos);
+        if(photos.count == 1){
+            AddAloneFaceViewController *aloneVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"AddAloneFaceViewController"];
+            [self.navigationController pushViewController:aloneVC animated:YES];
+        }
         // 判断图片是否存在头像
 //        [self imageData:photos.firstObject];
     }];

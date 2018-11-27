@@ -876,11 +876,11 @@
     if(_isSceneModel){
         [_sceneData enumerateObjectsUsingBlock:^(SceneEquipmentModel *sceneModel, NSUInteger idx, BOOL * _Nonnull stop) {
             // 空调
-            if([sceneModel.deviceType isEqualToString:deviceType]){
+            if([sceneModel.deviceType isEqualToString:@"6"] && [sceneModel.deviceType isEqualToString:deviceType]){
 //                [self aloneCon:sceneModel.tagId withOpen:isOpen withMeetModel:nil withSceneModel:sceneModel withIsScene:YES withDeviceName:@"空调"];
 //                [self modelCutData:sceneModel.tagId withDeviceId:sceneModel.tagId withTagName:@"AIRSTATUS" withValue:[NSString stringWithFormat:@"%d", isOpen] withMeetModel:meetModel];
                 *stop = YES;
-            }else if ([sceneModel.deviceType isEqualToString:deviceType]) {
+            }else if ([sceneModel.deviceType isEqualToString:@"20"] && [sceneModel.deviceType isEqualToString:deviceType]) {
                 [self aloneCon:sceneModel.tagId withOpen:isOpen withMeetModel:nil withSceneModel:sceneModel withIsScene:YES withDeviceName:@"投影幕布"];
                 *stop = YES;
             }
@@ -888,7 +888,7 @@
     }else {
         [_dataArr enumerateObjectsUsingBlock:^(MeetRoomModel *meetModel, NSUInteger idx, BOOL * _Nonnull stop) {
             // 空调
-            if([meetModel.DEVICE_TYPE isEqualToString:deviceType]){
+            if([meetModel.DEVICE_TYPE isEqualToString:@"6"] && [meetModel.DEVICE_TYPE isEqualToString:deviceType]){
 //                [self aloneCon:meetModel.TAGID withOpen:isOpen withMeetModel:meetModel withSceneModel:nil withIsScene:NO withDeviceName:@"空调"];
                 __block NSString *tagId;
                 [meetModel.airList enumerateObjectsUsingBlock:^(MeetRoomDeviceModel *deviceModel, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -898,7 +898,7 @@
                 }];
                 [self modelCutData:tagId withDeviceId:meetModel.DEVICE_ID withTagName:@"AIRSTATUS" withValue:[NSString stringWithFormat:@"%d", isOpen] withMeetModel:meetModel];
                 *stop = YES;
-            }else if ([meetModel.DEVICE_TYPE isEqualToString:deviceType]) {
+            }else if ([meetModel.DEVICE_TYPE isEqualToString:@"20"] && [meetModel.DEVICE_TYPE isEqualToString:deviceType]) {
                 [self aloneCon:meetModel.TAGID withOpen:isOpen withMeetModel:meetModel withSceneModel:nil withIsScene:NO withDeviceName:@"投影幕布"];
                 *stop = YES;
             }

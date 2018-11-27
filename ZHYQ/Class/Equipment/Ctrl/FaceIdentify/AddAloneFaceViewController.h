@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface AddAloneFaceViewController : BaseTableViewController
 
+@property (nonatomic,copy) UIImage *selImg;
+
 @end
 
 NS_ASSUME_NONNULL_END
