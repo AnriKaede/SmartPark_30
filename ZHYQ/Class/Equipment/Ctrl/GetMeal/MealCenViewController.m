@@ -74,6 +74,42 @@
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 150)];
     imgView.image = [UIImage imageNamed:@"get_meal_top"];
     [self.view addSubview:imgView];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake((KScreenWidth - 250)/2, KScreenHeight - 97 - kTopHeight, 250, 50);
+    [button setTitle:@" 请取餐" forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor colorWithHexString:@"#1B82D1"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"get_meal_call"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(callMeal) forControlEvents:UIControlEventTouchUpInside];
+    button.titleLabel.font = [UIFont systemFontOfSize:17];
+    button.layer.cornerRadius = 4;
+    button.layer.borderWidth = 1;
+    button.layer.borderColor = [UIColor colorWithHexString:@"#1B82D1"].CGColor;
+    [self.view addSubview:button];
+}
+- (void)callMeal {
+    __block NSInteger callIndex = 1;
+    
+    MealNumViewController *numVC = (MealNumViewController *)[self currentViewController];
+    [numVC.selNumData enumerateObjectsUsingBlock:^(NSNumber *selNum, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(selNum.boolValue){
+            callIndex = idx;
+        }
+    }];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/music/orderingCall/%ld",Main_Url,(callIndex+1) + numVC.index*16];
+    
+    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            
+        }
+        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+            [self showHint:responseObject[@"message"]];
+        }
+    } failure:^(NSError *error) {
+        [self showHint:KRequestFailMsg];
+    }];
+    
 }
 
 - (void)_leftBarBtnItemClick {

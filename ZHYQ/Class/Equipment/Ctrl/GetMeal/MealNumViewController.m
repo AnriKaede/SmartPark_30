@@ -14,7 +14,6 @@
     UICollectionView *_collectionView;
     NSMutableArray *_sceneData;
     
-    NSMutableArray *_selNumData;
 }
 @end
 
@@ -47,7 +46,7 @@
     _collectionView.dataSource = self;
     _collectionView.backgroundColor = [UIColor clearColor];
     [_collectionView registerNib:[UINib nibWithNibName:@"GetMealCell" bundle:nil] forCellWithReuseIdentifier:@"GetMealCell"];
-    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"reusableView"];
+//    [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"reusableView"];
     [self.view addSubview:_collectionView];
     
 //    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -72,12 +71,19 @@
     return CGSizeMake(83, 50);
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(4, 4, 4, 4);
+    if(_index == 3){
+        // 两个号
+        return UIEdgeInsetsMake(100, (KScreenWidth - 163 - 8)/2, 0, 0);
+    }else {
+        return UIEdgeInsetsMake(4, 4, 4, 4);
+    }
 }
 //footer的size
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(KScreenWidth, 100);
+//    return CGSizeMake(KScreenWidth, 100);
+    return CGSizeZero;
 }
+/*
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"reusableView" forIndexPath:indexPath];
     footerView.backgroundColor =[UIColor clearColor];
@@ -94,8 +100,10 @@
     button.layer.borderColor = [UIColor colorWithHexString:@"#1B82D1"].CGColor;
     [footerView addSubview:button];
     
-    return footerView;
+//    return footerView;
+    return [UICollectionReusableView new];
 }
+ */
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GetMealCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GetMealCell" forIndexPath:indexPath];
     cell.numStr = [NSString stringWithFormat:@"%ld", indexPath.row + 16*_index + 1];
