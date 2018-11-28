@@ -67,10 +67,10 @@
     imgWranBtn.frame = CGRectMake(0, 0, 40, 40);
     [imgWranBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
 //    face_history_icon
-    [imgWranBtn setImage:[UIImage imageNamed:@"face_wran_icon"] forState:UIControlStateNormal];
-    [imgWranBtn setTitle:@"人像告警" forState:UIControlStateNormal];
+    [imgWranBtn setImage:[UIImage imageNamed:@"face_history_icon"] forState:UIControlStateNormal];
+    [imgWranBtn setTitle:@"历史照片" forState:UIControlStateNormal];
     imgWranBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-    [imgWranBtn addTarget:self action:@selector(imgWranAction) forControlEvents:UIControlEventTouchUpInside];
+    [imgWranBtn addTarget:self action:@selector(faceHistory) forControlEvents:UIControlEventTouchUpInside];
     [imgWranBtn setTitleEdgeInsets:UIEdgeInsetsMake(imgWranBtn.imageView.frame.size.height ,-imgWranBtn.imageView.frame.size.width, -5,0.0)];
     [imgWranBtn setImageEdgeInsets:UIEdgeInsetsMake(-10, 20,0.0, -imgWranBtn.titleLabel.bounds.size.width)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imgWranBtn];
@@ -96,11 +96,6 @@
     _endTimeStr = [showFormat stringFromDate:[NSDate date]];
     
     [_selTableView reloadData];
-}
-
-- (void)imgWranAction {
-    FaceWranViewController *wranVC = [[FaceWranViewController alloc]init];
-    [self.navigationController pushViewController:wranVC animated:YES];
 }
 
 #pragma mark 查询 cell 协议

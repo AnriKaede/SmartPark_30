@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="BatchAddFaceCell">
+            <rect key="frame" x="0.0" y="0.0" width="117" height="127"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="117" height="127"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SMj-1Z-XzT">
+                        <rect key="frame" x="8" y="8" width="101" height="87"/>
+                        <color key="backgroundColor" red="0.89432841539999997" green="0.89773863549999999" blue="0.91372841599999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </imageView>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入人像姓名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pu3-2s-B0g">
+                        <rect key="frame" x="8" y="95" width="101" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="pWx-aJ-xDI"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gi-oz-IPg">
+                        <rect key="frame" x="4" y="122" width="109" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="XaM-AK-DeX"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="9gi-oz-IPg" secondAttribute="trailing" constant="4" id="1qe-Eq-l4y"/>
+                <constraint firstItem="SMj-1Z-XzT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="ADm-2b-UZk"/>
+                <constraint firstAttribute="bottom" secondItem="9gi-oz-IPg" secondAttribute="bottom" constant="4" id="K75-rv-F3v"/>
+                <constraint firstAttribute="trailing" secondItem="pu3-2s-B0g" secondAttribute="trailing" constant="8" id="PmY-IF-Rbu"/>
+                <constraint firstAttribute="trailing" secondItem="SMj-1Z-XzT" secondAttribute="trailing" constant="8" id="W4B-IE-9ml"/>
+                <constraint firstAttribute="bottom" secondItem="pu3-2s-B0g" secondAttribute="bottom" id="XHR-kO-HJk"/>
+                <constraint firstItem="pu3-2s-B0g" firstAttribute="top" secondItem="SMj-1Z-XzT" secondAttribute="bottom" id="bEf-f3-3R1"/>
+                <constraint firstItem="pu3-2s-B0g" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="bZD-iW-5j0"/>
+                <constraint firstItem="9gi-oz-IPg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="d3j-kk-4CZ"/>
+                <constraint firstItem="SMj-1Z-XzT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="kwF-Il-v8E"/>
+            </constraints>
+            <size key="customSize" width="117" height="127"/>
+            <connections>
+                <outlet property="_faceImageView" destination="SMj-1Z-XzT" id="CXu-LK-zG9"/>
+                <outlet property="_nameTF" destination="pu3-2s-B0g" id="hHY-Gd-z0m"/>
+            </connections>
+            <point key="canvasLocation" x="191.19999999999999" y="188.45577211394306"/>
+        </collectionViewCell>
+    </objects>
+</document>

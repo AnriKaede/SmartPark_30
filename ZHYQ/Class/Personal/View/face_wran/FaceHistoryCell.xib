@@ -21,19 +21,38 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NqU-We-x2d">
                         <rect key="frame" x="0.0" y="0.0" width="84" height="79"/>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YwS-oV-g2O">
+                        <rect key="frame" x="60" y="4" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Mvh-de-W7h"/>
+                            <constraint firstAttribute="width" constant="20" id="lav-W1-C3y"/>
+                        </constraints>
+                        <state key="normal" backgroundImage="face_wran_nor"/>
+                        <state key="selected" backgroundImage="face_wran_sel"/>
+                        <connections>
+                            <action selector="selImgAction:" destination="gTV-IL-0wX" eventType="touchUpInside" id="QW6-2e-BL8"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="NqU-We-x2d" secondAttribute="bottom" id="fLG-xe-0YI"/>
+                <constraint firstItem="YwS-oV-g2O" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="i5u-Tu-C17"/>
                 <constraint firstItem="NqU-We-x2d" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="luC-rm-abC"/>
                 <constraint firstItem="NqU-We-x2d" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="mI2-1A-NLf"/>
                 <constraint firstAttribute="trailing" secondItem="NqU-We-x2d" secondAttribute="trailing" id="vbk-Ti-JP6"/>
+                <constraint firstAttribute="trailing" secondItem="YwS-oV-g2O" secondAttribute="trailing" constant="4" id="xym-bY-DZk"/>
             </constraints>
             <size key="customSize" width="84" height="79"/>
             <connections>
                 <outlet property="_imgView" destination="NqU-We-x2d" id="3aa-gE-t2V"/>
+                <outlet property="_selBt" destination="YwS-oV-g2O" id="InG-oj-Dtb"/>
             </connections>
             <point key="canvasLocation" x="164.80000000000001" y="166.8665667166417"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="face_wran_nor" width="20" height="20"/>
+        <image name="face_wran_sel" width="20" height="20"/>
+    </resources>
 </document>

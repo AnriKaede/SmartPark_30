@@ -11,7 +11,7 @@
 @implementation FaceHistoryCell
 {
     __weak IBOutlet UIImageView *_imgView;
-    
+    __weak IBOutlet UIButton *_selBt;
 }
 
 - (void)awakeFromNib {
@@ -25,6 +25,17 @@
     _faceImgHistory = faceImgHistory;
     
     _imgView.image = [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@%@", FaceHistoryPath, faceImgHistory.imgFilePath]];
+}
+
+- (void)setIsShowDelete:(BOOL)isShowDelete {
+    _isShowDelete = isShowDelete;
+    
+    _selBt.hidden = !_isShowDelete;
+}
+
+- (IBAction)selImgAction:(id)sender {
+    _isSelDelete = !_isSelDelete;
+    _selBt.selected = _isSelDelete;
 }
 
 @end

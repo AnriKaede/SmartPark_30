@@ -11,8 +11,9 @@
 #import "UIImage+Zip.h"
 #import "FaceWranModel.h"
 #import "AddAloneFaceViewController.h"
+#import "AddBatchViewController.h"
 
-@interface FaceWranViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TZImagePickerControllerDelegate, UpdateImgDelegate>
+@interface FaceWranViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TZImagePickerControllerDelegate, UpdateImgDelegate, FaceCompleteDelegate>
 {
     UICollectionView *_collectionView;
     NSMutableArray *_wranData;
@@ -25,6 +26,7 @@
     BOOL _isDelete;
     
     UIButton *_allSelBt;
+    NoDataView *_noDataView;
 }
 @end
 
@@ -82,6 +84,11 @@
         [self loadFaceData];
     }];
     _collectionView.mj_footer.hidden = YES;
+    
+    // 无数据视图
+    _noDataView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64-49)];
+    _noDataView.hidden = YES;
+    [self.view addSubview:_noDataView];
 }
 
 -(void)_leftBarBtnItemClick:(id)sender{
@@ -92,7 +99,7 @@
     [_wranData enumerateObjectsUsingBlock:^(FaceWranModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         model.isSelDelete = YES;
     }];
-    [_collectionView reloadData];
+    [self reloadCollectionView];
 }
 
 #pragma mark 请求数据
@@ -137,7 +144,7 @@
             }];
             
         }
-        [_collectionView reloadData];
+        [self reloadCollectionView];
         
     } failure:^(NSError *error) {
         [_collectionView.mj_header endRefreshing];
@@ -156,13 +163,13 @@
     [self loadFaceData];
 }
 
-#pragma mark 无数据协议
-- (UIView *)makePlaceHolderView {
-    NoDataView *noDataView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 60, KScreenWidth, KScreenHeight - 63)];
-    return noDataView;
-}
-- (BOOL)enableScrollWhenPlaceHolderViewShowing {
-    return YES;
+- (void)reloadCollectionView {
+    if(_wranData.count <= 0){
+        _noDataView.hidden = NO;
+    }else {
+        _noDataView.hidden = YES;
+    }
+    [_collectionView reloadData];
 }
 
 - (void)_createBottomView {
@@ -218,16 +225,58 @@
         [bottomRightButton setTitle:@"删除所选" forState:UIControlStateNormal];
         _allSelBt.hidden = NO;
     }
-    [_collectionView reloadData];
+    [self reloadCollectionView];
 }
 - (void)bottomRightAction {
     if(_isDelete){
+        NSMutableString *deleteStr = @"".mutableCopy;
+        NSMutableArray *delModels = @[].mutableCopy;
         // 删除所选
+        [_wranData enumerateObjectsUsingBlock:^(FaceWranModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(model.isSelDelete){
+                [deleteStr appendFormat:@"%@,", model.face_image_id];
+                [delModels addObject:model];
+            }
+        }];
+        if(deleteStr.length > 0){
+            [deleteStr deleteCharactersInRange:NSMakeRange(deleteStr.length - 1, 1)];
+            [self deleteFace:deleteStr withDelModels:delModels];
+        }
     }else {
         // 新增人像
         [self selFacePhoto];
     }
 }
+#pragma mark 删除人像
+- (void)deleteFace:(NSString *)faceStr withDelModels:(NSArray *)delModels {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/faceRecognition/deleteAlarmIamges", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    [paramDic setObject:faceStr forKey:@"faceImageId"];
+    
+    [self showHudInView:self.view hint:@""];
+    [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
+        [self hideHud];
+        
+        NSString *code = responseObject[@"code"];
+        if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
+            [delModels enumerateObjectsUsingBlock:^(FaceWranModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                [_wranData removeObject:model];
+            }];
+            [self reloadCollectionView];
+            // 恢复删除前
+            [self bottomLeftAction];
+        }
+        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+            [self showHint:responseObject[@"message"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [self hideHud];
+        [self showHint:KRequestFailMsg];
+    }];
+}
+
 #pragma mark 选择人脸图片
 - (void)selFacePhoto {
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
@@ -238,9 +287,16 @@
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
 #warning 选择多张图片，上传测试是否包含人像信息
         NSLog(@"%@", photos);
-        if(photos.count == 1){
+        if(photos.count <= 1){
             AddAloneFaceViewController *aloneVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"AddAloneFaceViewController"];
+            aloneVC.selImg = photos.firstObject;
+            aloneVC.isAdd = YES;
+            aloneVC.faceCompleteDelegate = self;
             [self.navigationController pushViewController:aloneVC animated:YES];
+        }else {
+            AddBatchViewController *batchVC = [[AddBatchViewController alloc] init];
+            batchVC.selImgs = photos;
+            [self.navigationController pushViewController:batchVC animated:YES];
         }
         // 判断图片是否存在头像
 //        [self imageData:photos.firstObject];
@@ -272,7 +328,21 @@
 
 #pragma mark cell协议，更新人像
 - (void)updateImg:(FaceWranModel *)faceWranModel {
-    
+    AddAloneFaceViewController *aloneVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"AddAloneFaceViewController"];
+    aloneVC.faceWranModel = faceWranModel;
+    aloneVC.isAdd = NO;
+    aloneVC.faceCompleteDelegate = self;
+    [self.navigationController pushViewController:aloneVC animated:YES];
+}
+#pragma mark 更新/新增人像完成协议
+- (void)faceComplete:(FaceWranModel *)model withIsAdd:(BOOL)isAdd {
+    if(isAdd){
+        [_wranData insertObject:model atIndex:0];
+        [self reloadCollectionView];
+    }else {
+        NSInteger index = [_wranData indexOfObject:model];
+        [_collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]];
+    }
 }
 
 #pragma mark 图片压缩至2M以内

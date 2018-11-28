@@ -13,7 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FaceHistoryCell : UICollectionViewCell
 
+@property (nonatomic,assign) BOOL isShowDelete;
+
 @property (nonatomic,retain) FaceImgHistory *faceImgHistory;
+
+// 选中标识放入到model中
+@property (nonatomic,assign) BOOL isSelDelete;;
 
 @end
 

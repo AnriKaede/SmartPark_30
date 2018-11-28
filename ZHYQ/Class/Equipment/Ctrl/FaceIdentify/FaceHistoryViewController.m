@@ -15,7 +15,11 @@
     UICollectionView *_collectionView;
     NSMutableArray *_historyTitleData;
     NSMutableArray *_historyData;
+    UIView *_bottomView;
+    BOOL _isDelete;
     
+    UIButton *_rightBt;
+    NoDataView *_noDataView;
 }
 @end
 
@@ -29,6 +33,7 @@
     self.title = @"选择历史照片";
     
     [self _initView];
+    [self _createBottomView];
     
     [self _loadHistoryData];
 }
@@ -42,20 +47,98 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = leftItem;
     
+    _rightBt = [UIButton buttonWithType:UIButtonTypeCustom];
+    _rightBt.frame = CGRectMake(0, 0, 50, 40);
+    [_rightBt setTitle:@"删除" forState:UIControlStateNormal];
+    [_rightBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_rightBt addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightBt];
+    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 1;
     layout.minimumLineSpacing = 1;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight) collectionViewLayout:layout];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
+    _collectionView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     _collectionView.backgroundColor = [UIColor clearColor];
     [_collectionView registerNib:[UINib nibWithNibName:@"FaceHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"FaceHistoryCell"];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
     [self.view addSubview:_collectionView];
     
+    // 无数据视图
+    _noDataView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64-49)];
+    _noDataView.hidden = YES;
+    [self.view addSubview:_noDataView];
+    
 }
+- (void)_createBottomView {
+    _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kTopHeight - 60, KScreenWidth, 60)];
+    _bottomView.hidden = YES;
+    _bottomView.backgroundColor = [UIColor whiteColor];
+    
+    [self.view addSubview:_bottomView];
+    
+    NSString *leftTitle = @"";
+    leftTitle = @"取消";
+    UIButton *bottomLeftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    bottomLeftButton.tag = 2001;
+    bottomLeftButton.frame = CGRectMake(0, 0, KScreenWidth/2, _bottomView.height);
+    [bottomLeftButton setBackgroundImage:[UIImage imageNamed:@"scene_all_close_bg"] forState:UIControlStateNormal];
+    [bottomLeftButton setTitle:leftTitle forState:UIControlStateNormal];
+    [bottomLeftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [bottomLeftButton addTarget:self action:@selector(bottomLeftAction) forControlEvents:UIControlEventTouchUpInside];
+    [_bottomView addSubview:bottomLeftButton];
+    
+    NSString *rightTitle = @"";
+    rightTitle = @"删除所选";
+    UIButton *bottomRightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    bottomRightButton.tag = 2002;
+    bottomRightButton.frame = CGRectMake(KScreenWidth/2, 0, KScreenWidth/2, _bottomView.height);
+    bottomRightButton.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+    [bottomRightButton setTitle:rightTitle forState:UIControlStateNormal];
+    [bottomRightButton setTitleColor:[UIColor colorWithHexString:@"#CCFF00"] forState:UIControlStateNormal];
+    [bottomRightButton addTarget:self action:@selector(bottomRightAction) forControlEvents:UIControlEventTouchUpInside];
+    [_bottomView addSubview:bottomRightButton];
+    
+}
+#pragma mark 导航栏按钮
 -(void)_leftBarBtnItemClick:(id)sender{
     [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)rightAction {
+    if(_isDelete){
+        // 全选
+#warning 修改Model中的选中删除标识
+    }else {
+        // 删除
+        _isDelete = YES;
+        [self reloadColletionView];
+        _bottomView.hidden = NO;
+        [_rightBt setTitle:@"全选" forState:UIControlStateNormal];
+    }
+}
+- (void)bottomLeftAction {
+    _isDelete = NO;
+    _bottomView.hidden = YES;
+    [self reloadColletionView];
+    [_rightBt setTitle:@"删除" forState:UIControlStateNormal];
+}
+- (void)bottomRightAction {
+    if(_isDelete){
+        // 删除所选
+        [self showHint:@"删除所选"];
+    }
+}
+
+- (void)reloadColletionView {
+    if(_historyData.count <= 0){
+        _noDataView.hidden = NO;
+    }else {
+        _noDataView.hidden = YES;
+    }
+    [_collectionView reloadData];
 }
 
 - (void)_loadHistoryData {
@@ -66,7 +149,7 @@
     NSLog(@"%@", faceData);
     [self dealData:faceData];
     
-    [_collectionView reloadData];
+    [self reloadColletionView];
 }
 - (void)dealData:(NSArray *)billData {
     if(billData.count <= 0){
@@ -181,6 +264,7 @@
     FaceHistoryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FaceHistoryCell" forIndexPath:indexPath];
     FaceImgHistory *imgModel = _historyData[indexPath.section][indexPath.row];
     cell.faceImgHistory = imgModel;
+    cell.isShowDelete = _isDelete;
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
