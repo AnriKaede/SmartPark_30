@@ -249,6 +249,23 @@
 }
 #pragma mark 删除人像
 - (void)deleteFace:(NSString *)faceStr withDelModels:(NSArray *)delModels {
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确定删除" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self certainDeleteFace:faceStr withDelModels:delModels];
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = _bottomView;
+        alertCon.popoverPresentationController.sourceRect = _bottomView.bounds;
+    }
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
+}
+- (void)certainDeleteFace:(NSString *)faceStr withDelModels:(NSArray *)delModels {
     NSString *urlStr = [NSString stringWithFormat:@"%@/faceRecognition/deleteAlarmIamges", Main_Url];
     
     NSMutableDictionary *paramDic = @{}.mutableCopy;

@@ -84,6 +84,7 @@
 //    [rightBtn setImage:[UIImage imageNamed:@"indoorWifi_graphic"] forState:UIControlStateNormal];
     rightBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [rightBtn setTitle:@"批量操作" forState:UIControlStateNormal];
+    rightBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightBtn addTarget:self action:@selector(_rightBarBtnItemClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -173,7 +174,7 @@
         self.contentScroll.contentOffset = CGPointMake(btn.tag *KScreenWidth, 0);
     }];
     
-    if(_currentIndex == 1){
+    if(_currentIndex != 0){
         rightBtn.hidden = YES;
     }else {
         rightBtn.hidden = NO;

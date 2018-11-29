@@ -1,16 +1,15 @@
 //
-//  FaceHistoryViewController.m
+//  ClientFaceHisViewController.m
 //  ZHYQ
 //
-//  Created by 魏唯隆 on 2018/11/13.
+//  Created by 魏唯隆 on 2018/11/29.
 //  Copyright © 2018 焦平. All rights reserved.
 //
 
-#import "FaceHistoryViewController.h"
+#import "ClientFaceHisViewController.h"
 #import "FaceHistoryCell.h"
-#import "FaceCoreDataManager.h"
 
-@interface FaceHistoryViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface ClientFaceHisViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
     UICollectionView *_collectionView;
     NSMutableArray *_historyTitleData;
@@ -20,15 +19,21 @@
     
     UIButton *_rightBt;
     NoDataView *_noDataView;
+    
+    int _page;
+    int _length;
 }
 @end
 
-@implementation FaceHistoryViewController
+@implementation ClientFaceHisViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _historyTitleData = @[].mutableCopy;
     _historyData = @[].mutableCopy;
+    
+    _page = 1;
+    _length = 24;
     
     self.title = @"选择历史照片";
     
@@ -67,6 +72,17 @@
     [_collectionView registerNib:[UINib nibWithNibName:@"FaceHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"FaceHistoryCell"];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
     [self.view addSubview:_collectionView];
+    
+    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _page = 1;
+        [self _loadHistoryData];
+    }];
+    // 上拉刷新
+    _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _page ++;
+        [self _loadHistoryData];
+    }];
+    _collectionView.mj_footer.hidden = YES;
     
     // 无数据视图
     _noDataView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64-49)];
@@ -111,7 +127,12 @@
 - (void)rightAction {
     if(_isDelete){
         // 全选
-#warning 修改Model中的选中删除标识
+        [_historyData enumerateObjectsUsingBlock:^(NSArray *monthModels, NSUInteger idx, BOOL * _Nonnull stop) {
+            [monthModels enumerateObjectsUsingBlock:^(FaceHistoryModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+                model.isSelDelete = YES;
+            }];
+        }];
+        [self reloadColletionView];
     }else {
         // 删除
         _isDelete = YES;
@@ -128,9 +149,64 @@
 }
 - (void)bottomRightAction {
     if(_isDelete){
-        // 删除所选
-        [self showHint:@"删除所选"];
+        UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确认删除" preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self certainDelete];
+        }];
+        [alertCon addAction:cancelAction];
+        [alertCon addAction:removeAction];
+        if (alertCon.popoverPresentationController != nil) {
+            alertCon.popoverPresentationController.sourceView = _bottomView;
+            alertCon.popoverPresentationController.sourceRect = _bottomView.bounds;
+        }
+        [self presentViewController:alertCon animated:YES completion:^{
+        }];
     }
+}
+- (void)certainDelete {
+    NSMutableArray *delArys = @[].mutableCopy;
+    NSMutableString *faceId = @"".mutableCopy;
+    [_historyData enumerateObjectsUsingBlock:^(NSArray *monthModels, NSUInteger groupIdx, BOOL * _Nonnull stop) {
+        [monthModels enumerateObjectsUsingBlock:^(FaceHistoryModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(model.isSelDelete){
+                [faceId appendFormat:@"%@,", model.uuid];
+                [delArys addObject:[NSIndexPath indexPathForRow:idx inSection:groupIdx]];
+            }
+        }];
+    }];
+    
+    if(faceId.length > 0){
+        [faceId deleteCharactersInRange:NSMakeRange(faceId.length - 1, 1)];
+    }else {
+        return;
+    }
+    // 删除所选
+    NSString *urlStr = [NSString stringWithFormat:@"%@/faceRecognition/delBatchFaceQueryHis", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    [paramDic setObject:faceId forKey:@"uuids"];
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"param":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        
+        NSString *code = responseObject[@"code"];
+        if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
+            
+            [self _loadHistoryData];
+            //                [self reloadColletionView];
+        }
+        NSString *message = responseObject[@"message"];
+        if(message != nil && ![message isKindOfClass:[NSNull class]]){
+            [self showHint:message];
+        }
+    } failure:^(NSError *error) {
+        [self showHint:KRequestFailMsg];
+    }];
 }
 
 - (void)reloadColletionView {
@@ -143,14 +219,57 @@
 }
 
 - (void)_loadHistoryData {
-    // 查询sqlite数据库
-    FaceCoreDataManager *dataManager = [FaceCoreDataManager shareManager];
-
-    NSArray *faceData = [dataManager query:@"FaceImgHistory" predicate:nil];
-    NSLog(@"%@", faceData);
-    [self dealData:faceData];
     
-    [self reloadColletionView];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/faceRecognition/queryFaceQueryHis", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    [paramDic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:KDeviceUUID] forKey:@"equId"];
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"param":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self removeNoDataImage];
+        [_collectionView.mj_header endRefreshing];
+        [_collectionView.mj_footer endRefreshing];
+        
+        NSString *code = responseObject[@"code"];
+        if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
+            if(_page == 1){
+                [_historyData removeAllObjects];
+            }
+            NSArray *arr = responseObject[@"responseData"];
+            
+            if(arr.count > _length-1){
+                _collectionView.mj_footer.state = MJRefreshStateIdle;
+                _collectionView.mj_footer.hidden = NO;
+            }else {
+                _collectionView.mj_footer.state = MJRefreshStateNoMoreData;
+                _collectionView.mj_footer.hidden = YES;
+            }
+            NSMutableArray *hisDatas = @[].mutableCopy;
+            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                FaceHistoryModel *model = [[FaceHistoryModel alloc] initWithDataDic:obj];
+                [hisDatas addObject:model];
+            }];
+            
+            // 处理数据
+            [self dealData:hisDatas];
+        }
+        [self reloadColletionView];
+        
+    } failure:^(NSError *error) {
+        [_collectionView.mj_header endRefreshing];
+        [_collectionView.mj_footer endRefreshing];
+        
+        if(_historyData.count <= 0){
+            [self showNoDataImage];
+        }else {
+            [self showHint:KRequestFailMsg];
+        }
+    }];
 }
 - (void)dealData:(NSArray *)billData {
     if(billData.count <= 0){
@@ -161,15 +280,15 @@
     
     NSMutableArray *monthData = @[].mutableCopy;
     
-    FaceImgHistory *friModel = billData.firstObject;
-    __block NSDate *friDate = friModel.selTime;
+    FaceHistoryModel *friModel = billData.firstObject;
+    __block NSDate *friDate = [self timeStrWithInt:friModel.createTime];
     
     NSDateFormatter *newFormat = [[NSDateFormatter alloc] init];
     [newFormat setDateFormat:@"yyyy年MM月dd日"];
     __block NSString *friDateStr = [newFormat stringFromDate:friDate];
     
-    [billData enumerateObjectsUsingBlock:^(FaceImgHistory *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSDate *billDate = model.selTime;
+    [billData enumerateObjectsUsingBlock:^(FaceHistoryModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDate *billDate = [self timeStrWithInt:friModel.createTime];
         NSString *billDateStr = [newFormat stringFromDate:billDate];
         
         NSCalendar* calendar = [NSCalendar currentCalendar];
@@ -181,7 +300,6 @@
                 // 同月
                 [monthData addObject:model];
             }else {
-//                [_historyTitleData addObject:[friDateStr substringWithRange:NSMakeRange(5, 3)]];
                 [_historyTitleData addObject:[friDateStr substringWithRange:NSMakeRange(0, 8)]];
                 [_historyData addObject:monthData.copy];
                 [monthData removeAllObjects];
@@ -192,7 +310,6 @@
             }
             
         }else {
-//            [_historyTitleData addObject:[friDateStr substringWithRange:NSMakeRange(5, 3)]];
             [_historyTitleData addObject:[friDateStr substringWithRange:NSMakeRange(0, 8)]];
             [_historyData addObject:monthData.copy];
             [monthData removeAllObjects];
@@ -220,13 +337,22 @@
     NSDateComponents *newComponents = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate new]];
     
     if(friComponents.year == newComponents.year){
-//        [_historyTitleData addObject:[friDateStr substringWithRange:NSMakeRange(5, 3)]];
         [_historyTitleData addObject:[friDateStr substringWithRange:NSMakeRange(0, 8)]];
         [_historyData addObject:monthData.copy];
     }else {
         [_historyTitleData addObject:[friDateStr substringWithRange:NSMakeRange(0, 8)]];
         [_historyData addObject:monthData.copy];
     }
+}
+- (NSDate *)timeStrWithInt:(NSNumber *)time {
+    if(time == nil || [time isKindOfClass:[NSNull class]]){
+        return [NSDate date];
+    }
+    //时间戳转化成时间
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:time.doubleValue/1000.0];
+    return stampDate;
 }
 
 #pragma mark UICollectionView 协议
@@ -263,15 +389,15 @@
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     FaceHistoryCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FaceHistoryCell" forIndexPath:indexPath];
-    FaceImgHistory *imgModel = _historyData[indexPath.section][indexPath.row];
-//    cell.faceImgHistory = imgModel;
+    FaceHistoryModel *imgModel = _historyData[indexPath.section][indexPath.row];
+    cell.faceHistoryModel = imgModel;
     cell.isShowDelete = _isDelete;
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    FaceImgHistory *imgModel = _historyData[indexPath.section][indexPath.row];
-    if(_selHistoryImgDelegate != nil && [_selHistoryImgDelegate respondsToSelector:@selector(selHistoryImg:)]){
-        [_selHistoryImgDelegate selHistoryImg:imgModel];
+     FaceHistoryModel *imgModel = _historyData[indexPath.section][indexPath.row];
+    if(_selClientHistoryImgDelegate != nil && [_selClientHistoryImgDelegate respondsToSelector:@selector(selHistoryImg:)]){
+        [_selClientHistoryImgDelegate selHistoryImg:imgModel];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

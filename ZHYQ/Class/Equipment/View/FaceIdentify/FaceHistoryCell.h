@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FaceImgHistory+CoreDataClass.h"
+//#import "FaceImgHistory+CoreDataClass.h"
+#import "FaceHistoryModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,10 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign) BOOL isShowDelete;
 
-@property (nonatomic,retain) FaceImgHistory *faceImgHistory;
-
+//@property (nonatomic,retain) FaceImgHistory *faceImgHistory;
 // 选中标识放入到model中
-@property (nonatomic,assign) BOOL isSelDelete;;
+//@property (nonatomic,assign) BOOL isSelDelete;
+
+@property (nonatomic,retain) FaceHistoryModel *faceHistoryModel;
 
 @end
 

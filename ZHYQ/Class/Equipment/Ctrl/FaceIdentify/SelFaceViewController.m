@@ -17,14 +17,15 @@
 
 #import "FaceListViewController.h"
 
-#import "FaceHistoryViewController.h"
+//#import "FaceHistoryViewController.h"
+#import "ClientFaceHisViewController.h"
 #import "FaceWranViewController.h"
 
 #import "FaceCoreDataManager.h"
 #import "FaceImgHistory+CoreDataClass.h"
 #import "UIImage+Zip.h"
 
-@interface SelFaceViewController ()<UITableViewDelegate, UITableViewDataSource, SelFacePhotoDelegate, TZImagePickerControllerDelegate, FaceQueryDelegate, SelHistoryImgDelegate>
+@interface SelFaceViewController ()<UITableViewDelegate, UITableViewDataSource, SelFacePhotoDelegate, TZImagePickerControllerDelegate, FaceQueryDelegate, SelClientHistoryImgDelegate>
 {
     UITableView *_selTableView;
     
@@ -309,8 +310,8 @@
     [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
 - (void)faceHistory {
-    FaceHistoryViewController *hisVC = [[FaceHistoryViewController alloc] init];
-    hisVC.selHistoryImgDelegate = self;
+    ClientFaceHisViewController *hisVC = [[ClientFaceHisViewController alloc] init];
+    hisVC.selClientHistoryImgDelegate = self;
     [self.navigationController pushViewController:hisVC animated:YES];
 }
 
@@ -373,11 +374,16 @@
 }
 
 #pragma mark 选择历史照片协议
-- (void)selHistoryImg:(FaceImgHistory *)faceImgHistory {
-    UIImage *selImg = [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@%@", FaceHistoryPath, faceImgHistory.imgFilePath]];
-    [self imageData:selImg];
+- (void)selHistoryImg:(FaceHistoryModel *)faceHistoryModel {
+//    UIImage *selImg = [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@%@", FaceHistoryPath, faceImgHistory.imgFilePath]];
     
-    _selPhotoCell.selImgView.image = selImg;
+    NSString *base64Str = [faceHistoryModel.faceInfo componentsSeparatedByString:@"base64,"].lastObject;
+    NSData *decodedImageData = [[NSData alloc] initWithBase64EncodedString:base64Str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+    
+    [self imageData:decodedImage];
+    
+    _selPhotoCell.selImgView.image = decodedImage;
 }
 
 @end

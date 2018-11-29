@@ -574,6 +574,8 @@
 		92E77DA220DA309D00B87F9B /* AptParkingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E77DA120DA309D00B87F9B /* AptParkingAreaModel.m */; };
 		92E77DA520DA30B100B87F9B /* AptParkingSpaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E77DA420DA30B100B87F9B /* AptParkingSpaceModel.m */; };
 		92E8207821AE6C6A002F8325 /* AddBatchFaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E8207721AE6C6A002F8325 /* AddBatchFaceModel.m */; };
+		92E8207B21AFBBB4002F8325 /* ClientFaceHisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E8207A21AFBBB4002F8325 /* ClientFaceHisViewController.m */; };
+		92E8207E21AFBC31002F8325 /* FaceHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E8207D21AFBC31002F8325 /* FaceHistoryModel.m */; };
 		92E83DE9208D8D09006759E7 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E83DE8208D8D09006759E7 /* ScanViewController.m */; };
 		92E83DEC208D8D3E006759E7 /* YQScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E83DEA208D8D3E006759E7 /* YQScanView.m */; };
 		92E83DEF208EB896006759E7 /* EquipmentInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E83DEE208EB896006759E7 /* EquipmentInfoViewController.m */; };
@@ -1903,6 +1905,10 @@
 		92E77DA420DA30B100B87F9B /* AptParkingSpaceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AptParkingSpaceModel.m; sourceTree = "<group>"; };
 		92E8207621AE6C6A002F8325 /* AddBatchFaceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddBatchFaceModel.h; sourceTree = "<group>"; };
 		92E8207721AE6C6A002F8325 /* AddBatchFaceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddBatchFaceModel.m; sourceTree = "<group>"; };
+		92E8207921AFBBB4002F8325 /* ClientFaceHisViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClientFaceHisViewController.h; sourceTree = "<group>"; };
+		92E8207A21AFBBB4002F8325 /* ClientFaceHisViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClientFaceHisViewController.m; sourceTree = "<group>"; };
+		92E8207C21AFBC31002F8325 /* FaceHistoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceHistoryModel.h; sourceTree = "<group>"; };
+		92E8207D21AFBC31002F8325 /* FaceHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceHistoryModel.m; sourceTree = "<group>"; };
 		92E83DE7208D8D09006759E7 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		92E83DE8208D8D09006759E7 /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		92E83DEA208D8D3E006759E7 /* YQScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YQScanView.m; sourceTree = "<group>"; };
@@ -2982,9 +2988,6 @@
 		9231FDB421AE413100736A74 /* face_wran */ = {
 			isa = PBXGroup;
 			children = (
-				92FAC4E1219ACF2200FB1489 /* FaceHistoryCell.h */,
-				92FAC4DF219ACF1F00FB1489 /* FaceHistoryCell.m */,
-				92FAC4E0219ACF2100FB1489 /* FaceHistoryCell.xib */,
 				92789770219C18E800792EFF /* FaceWranCell.h */,
 				92789771219C18E800792EFF /* FaceWranCell.m */,
 				92789772219C18E800792EFF /* FaceWranCell.xib */,
@@ -3900,6 +3903,8 @@
 				92D8B8EC206C864B0001263F /* FaceDetailViewController.m */,
 				92FAC4D8219ACE7500FB1489 /* FaceHistoryViewController.h */,
 				92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */,
+				92E8207921AFBBB4002F8325 /* ClientFaceHisViewController.h */,
+				92E8207A21AFBBB4002F8325 /* ClientFaceHisViewController.m */,
 			);
 			path = FaceIdentify;
 			sourceTree = "<group>";
@@ -3926,6 +3931,9 @@
 				92ACC6542137EF48006E005E /* FaceFilterView.m */,
 				92669425219D5111004583B2 /* FaceHtmlView.h */,
 				92669426219D5111004583B2 /* FaceHtmlView.m */,
+				92FAC4E1219ACF2200FB1489 /* FaceHistoryCell.h */,
+				92FAC4DF219ACF1F00FB1489 /* FaceHistoryCell.m */,
+				92FAC4E0219ACF2100FB1489 /* FaceHistoryCell.xib */,
 			);
 			path = FaceIdentify;
 			sourceTree = "<group>";
@@ -3939,6 +3947,8 @@
 				92D8B8E9206B8FC20001263F /* FaceListModel.m */,
 				92EECFE721A7FC0B002ED8CD /* FaceWranModel.h */,
 				92EECFE821A7FC0B002ED8CD /* FaceWranModel.m */,
+				92E8207C21AFBC31002F8325 /* FaceHistoryModel.h */,
+				92E8207D21AFBC31002F8325 /* FaceHistoryModel.m */,
 			);
 			path = Face;
 			sourceTree = "<group>";
@@ -6112,6 +6122,7 @@
 				92216EF71FEDF629008B09EA /* OpenDoorModel.m in Sources */,
 				92CD237C209A9ECD00BDF1AF /* FindCarNoViewController.m in Sources */,
 				92BD4204200DE08700AB303E /* TrainViewController.m in Sources */,
+				92E8207B21AFBBB4002F8325 /* ClientFaceHisViewController.m in Sources */,
 				92D8B8BC206A1FD50001263F /* AASubtitle.m in Sources */,
 				D60262301F9B45DE00A66D5A /* main.m in Sources */,
 				92FC1E951FDB88B2004A3901 /* FlowTraceModel.m in Sources */,
@@ -6242,6 +6253,7 @@
 				928775501FBD7A8900BF708A /* CountCakeView.m in Sources */,
 				D63922D61FB475E100E1A00A /* WifiAnnotationView.m in Sources */,
 				D6A2DEEC2180163100D76AB6 /* ParkFeeListCell.m in Sources */,
+				92E8207E21AFBC31002F8325 /* FaceHistoryModel.m in Sources */,
 				926B697D1FD25C7800DEFEDD /* ParkLockModel.m in Sources */,
 				927FA6EE2191B10D002CB32C /* WifiInfoCountModel.m in Sources */,
 				D68A2EF01FBFD46F00E541A6 /* DCSildeBarView.m in Sources */,
