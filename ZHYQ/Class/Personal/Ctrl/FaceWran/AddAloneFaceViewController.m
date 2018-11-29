@@ -113,7 +113,12 @@
     }
     [paramDic setObject:[self imgToBase64Str:_faceImgView.image] forKey:@"base64EncodeImage"];
     
-    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSString *paramStr;
+    if(_isAdd){
+        paramStr = [Utils convertToJsonData:@[paramDic]];
+    }else {
+        paramStr = [Utils convertToJsonData:paramDic];
+    }
     NSDictionary *params = @{@"param":paramStr};
     
     [self showHudInView:self.view hint:@""];
@@ -123,17 +128,27 @@
         NSString *code = responseObject[@"code"];
         if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
             FaceWranModel *model;
+            
             if(_isAdd){
-                model = [[FaceWranModel alloc] initWithDataDic:responseObject[@"responseData"]];
+                NSArray *resDatas = responseObject[@"responseData"];
+                if(resDatas.count > 0){
+                    model = [[FaceWranModel alloc] initWithDataDic:resDatas.firstObject];
+                }
                 model.name = _nameTF.text;
+                model.faceImageBase64 = [self imgToBase64Str:_faceImgView.image];
             }else {
+                model = [[FaceWranModel alloc] initWithDataDic:responseObject[@"responseData"]];
                 _faceWranModel.name = _nameTF.text;
                 _faceWranModel.faceImageBase64 = [self imgToBase64Str:_faceImgView.image];
-                model = _faceWranModel;
+                _faceWranModel.face_image_id = model.face_image_id;
             }
             
             if(_faceCompleteDelegate != nil && [_faceCompleteDelegate respondsToSelector:@selector(faceComplete:withIsAdd:)]){
-                [_faceCompleteDelegate faceComplete:model withIsAdd:_isAdd];
+                if(_isAdd){
+                    [_faceCompleteDelegate faceComplete:model withIsAdd:_isAdd];
+                }else {
+                    [_faceCompleteDelegate faceComplete:_faceWranModel withIsAdd:_isAdd];
+                }
             }
             [self.navigationController popViewControllerAnimated:YES];
         }

@@ -51,6 +51,7 @@
     _rightBt.frame = CGRectMake(0, 0, 50, 40);
     [_rightBt setTitle:@"删除" forState:UIControlStateNormal];
     [_rightBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _rightBt.titleLabel.font = [UIFont systemFontOfSize:15];
     [_rightBt addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_rightBt];

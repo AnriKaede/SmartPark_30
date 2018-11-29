@@ -67,7 +67,7 @@
     imgWranBtn.frame = CGRectMake(0, 0, 40, 40);
     [imgWranBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
 //    face_history_icon
-    [imgWranBtn setImage:[UIImage imageNamed:@"face_history_icon"] forState:UIControlStateNormal];
+    [imgWranBtn setImage:[UIImage imageNamed:@"face_nav_picture"] forState:UIControlStateNormal];
     [imgWranBtn setTitle:@"历史照片" forState:UIControlStateNormal];
     imgWranBtn.titleLabel.font = [UIFont systemFontOfSize:10];
     [imgWranBtn addTarget:self action:@selector(faceHistory) forControlEvents:UIControlEventTouchUpInside];

@@ -13,7 +13,7 @@
 #import "AddAloneFaceViewController.h"
 #import "AddBatchViewController.h"
 
-@interface FaceWranViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TZImagePickerControllerDelegate, UpdateImgDelegate, FaceCompleteDelegate>
+@interface FaceWranViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, TZImagePickerControllerDelegate, UpdateImgDelegate, FaceCompleteDelegate, FaceBatchCompleteDelegate>
 {
     UICollectionView *_collectionView;
     NSMutableArray *_wranData;
@@ -296,6 +296,7 @@
         }else {
             AddBatchViewController *batchVC = [[AddBatchViewController alloc] init];
             batchVC.selImgs = photos;
+            batchVC.faceBatchCompleteDelegate = self;
             [self.navigationController pushViewController:batchVC animated:YES];
         }
         // 判断图片是否存在头像
@@ -382,6 +383,12 @@
         NSLog(@"%@", error);
     }];
     
+}
+
+#pragma mark 批量新增完成协议
+- (void)faceBatchComplete:(NSArray *)wranModels {
+    [_wranData insertObjects:wranModels atIndex:0];
+    [self reloadCollectionView];
 }
 
 @end

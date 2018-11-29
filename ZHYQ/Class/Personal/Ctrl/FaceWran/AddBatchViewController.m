@@ -9,6 +9,8 @@
 #import "AddBatchViewController.h"
 #import "BatchAddFaceCell.h"
 #import "AddBatchFaceModel.h"
+#import "FaceWranModel.h"
+#import "UIImage+Zip.h"
 
 @interface AddBatchViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
@@ -115,7 +117,88 @@
 
 #pragma mark 确认新增
 - (void)certainAdd {
+    [self.view endEditing:YES];
     
+    __block BOOL emptyImg = NO;
+    __block BOOL emptyName = NO;
+    [_batchFaceData enumerateObjectsUsingBlock:^(AddBatchFaceModel *batchModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(batchModel.faceImage == nil){
+            emptyImg = YES;
+            *stop = YES;
+        }
+        if(batchModel.name == nil || batchModel.name.length <= 0){
+            emptyName = YES;
+            *stop = YES;
+        }
+    }];
+    if(emptyImg){
+        [self showHint:@"请选择人像图片"];
+        return;
+    }
+    if(emptyName){
+        [self showHint:@"请输入姓名"];
+        return;
+    }
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/faceRecognition/addAlarmIamges", Main_Url];
+    
+    NSMutableArray *paramAry = @[].mutableCopy;
+    [_batchFaceData enumerateObjectsUsingBlock:^(AddBatchFaceModel *batchModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSMutableDictionary *paramDic = @{}.mutableCopy;
+        [paramDic setObject:batchModel.name forKey:@"name"];
+        [paramDic setObject:@"19" forKey:@"repositoryId"];
+        [paramDic setObject:[self imgToBase64Str:batchModel.faceImage] forKey:@"base64EncodeImage"];
+        [paramAry addObject:paramDic];
+    }];
+    
+    NSString *paramStr = [Utils convertToJsonData:paramAry];
+    NSDictionary *params = @{@"param":paramStr};
+    
+    [self showHudInView:self.view hint:@""];
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self hideHud];
+        NSString *code = responseObject[@"code"];
+        if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
+            
+            NSMutableArray *batchWranModels = @[].mutableCopy;
+            NSArray *resDatas = responseObject[@"responseData"];
+            if(resDatas.count > 0){
+                [resDatas enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    FaceWranModel *model = [[FaceWranModel alloc] initWithDataDic:obj];
+                    if(_batchFaceData.count > idx){
+                        AddBatchFaceModel *batchModel = _batchFaceData[idx];
+                        model.name = batchModel.name;
+                        model.faceImageBase64 = [self imgToBase64Str:batchModel.faceImage];
+                    }
+                    [batchWranModels addObject:model];
+                }];
+            }
+            
+            if(_faceBatchCompleteDelegate != nil && [_faceBatchCompleteDelegate respondsToSelector:@selector(faceBatchComplete:)]){
+                [_faceBatchCompleteDelegate faceBatchComplete:batchWranModels];
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+            [self showHint:responseObject[@"message"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [self hideHud];
+        [self showHint:KRequestFailMsg];
+    }];
+}
+
+- (NSString *)imgToBase64Str:(UIImage *)image {
+    NSData *data = [UIImage compressWithOrgImg:image];
+    
+    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    encodedImageStr = [NSString stringWithFormat:@"data:image/jpeg;base64,%@", encodedImageStr];
+    encodedImageStr = [encodedImageStr stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    encodedImageStr = [encodedImageStr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    
+    return encodedImageStr;
 }
 
 @end

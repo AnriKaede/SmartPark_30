@@ -28,7 +28,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="face_wran_icon" translatesAutoresizingMaskIntoConstraints="NO" id="ZTU-yK-HMn">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slide_face_wran" translatesAutoresizingMaskIntoConstraints="NO" id="ZTU-yK-HMn">
                                                     <rect key="frame" x="15" y="20" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="BHK-vG-De9"/>
@@ -2050,7 +2050,6 @@
         <image name="calendar_icon" width="20" height="20"/>
         <image name="code_top" width="179.5" height="64.5"/>
         <image name="down_code" width="128.25" height="126.75"/>
-        <image name="face_wran_icon" width="20" height="20"/>
         <image name="meetroon_add_scene" width="25" height="25"/>
         <image name="message_bill_icon" width="45" height="45"/>
         <image name="message_login_icon" width="45" height="45"/>
@@ -2058,6 +2057,7 @@
         <image name="operate_log_group" width="67.5" height="35"/>
         <image name="repairs_bill_icon" width="20" height="20"/>
         <image name="scene_edit_mustfill" width="8.5" height="8"/>
+        <image name="slide_face_wran" width="20" height="20"/>
         <image name="tongfu_logo" width="295.38461303710938" height="295.38461303710938"/>
     </resources>
 </document>
