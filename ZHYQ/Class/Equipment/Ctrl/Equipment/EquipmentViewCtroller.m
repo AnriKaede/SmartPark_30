@@ -18,6 +18,7 @@
 #import "WifiGroupViewController.h"
 //#import "StreetLightsViewController.h"
 #import "StreetLigGroupViewController.h"
+#import "StreetMapViewController.h"
 #import "ManholeCoverViewController.h"
 //#import "WaterViewController.h"
 #import "WaterConViewController.h"
@@ -478,10 +479,12 @@
                 break;
             case 9:
                 {
-                    StreetLigGroupViewController *streetLigVC = [[StreetLigGroupViewController alloc] init];
-                    streetLigVC.title = model.MENU_NAME;
-                    [self.navigationController pushViewController:streetLigVC animated:YES];
-                    
+//                    StreetLigGroupViewController *streetLigVC = [[StreetLigGroupViewController alloc] init];
+//                    streetLigVC.title = model.MENU_NAME;
+//                    [self.navigationController pushViewController:streetLigVC animated:YES];
+                    StreetMapViewController *streetMapVC = [[StreetMapViewController alloc] init];
+                    streetMapVC.title = model.MENU_NAME;
+                    [self.navigationController pushViewController:streetMapVC animated:YES];
                 }
                 break;
             case 10:

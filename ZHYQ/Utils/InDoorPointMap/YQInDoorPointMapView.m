@@ -14,6 +14,7 @@
 #import "ParkLightModel.h"
 #import "AirConditionModel.h"
 #import "DownParkMdel.h"
+#import "StreetLightModel.h"
 
 #import "SubDeviceModel.h"
 
@@ -184,6 +185,7 @@
     }];
 }
 
+// 路灯挂载子设备地图
 -(void)setStreetLightArr:(NSMutableArray *)streetLightArr
 {
     _streetLightArr = streetLightArr;
@@ -199,6 +201,17 @@
         lab.font = [UIFont systemFontOfSize:13];
         lab.backgroundColor = [UIColor orangeColor];
         lab.text = model.DEVICE_NAME;
+    }];
+}
+
+// 路灯杆数据
+- (void)setStreetLightMapArr:(NSMutableArray *)streetLightMapArr {
+    _streetLightMapArr = streetLightMapArr;
+    
+    [streetLightMapArr enumerateObjectsUsingBlock:^(StreetLightModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        imageView.contentMode = UIViewContentModeScaleToFill;
+        imageView.image = [UIImage imageNamed:@"wifi_normal"];
     }];
 }
 

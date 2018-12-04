@@ -56,6 +56,9 @@
 		9224A2E62012F5D200AE4FF4 /* VisitorFinishModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9224A2E52012F5D200AE4FF4 /* VisitorFinishModel.m */; };
 		9224A2E92012F5E200AE4FF4 /* VisitorUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9224A2E82012F5E200AE4FF4 /* VisitorUserModel.m */; };
 		9224A2EC2012F5F600AE4FF4 /* VisitorViserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9224A2EB2012F5F600AE4FF4 /* VisitorViserModel.m */; };
+		9225EC5F21B62BC0007645D2 /* StreetMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225EC5E21B62BBF007645D2 /* StreetMapViewController.m */; };
+		9225EC6321B69DDC007645D2 /* LEDSendTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9225EC6121B69DDC007645D2 /* LEDSendTypeCell.m */; };
+		9225EC6421B69DDC007645D2 /* LEDSendTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9225EC6221B69DDC007645D2 /* LEDSendTypeCell.xib */; };
 		9226842820A969E4006628B3 /* RepairsManModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9226842720A969E4006628B3 /* RepairsManModel.m */; };
 		9226842B20AA6D4E006628B3 /* BillListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9226842A20AA6D4E006628B3 /* BillListModel.m */; };
 		9226842E20AA7F3A006628B3 /* BillProgressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9226842D20AA7F3A006628B3 /* BillProgressModel.m */; };
@@ -979,6 +982,11 @@
 		9224A2E82012F5E200AE4FF4 /* VisitorUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitorUserModel.m; sourceTree = "<group>"; };
 		9224A2EA2012F5F600AE4FF4 /* VisitorViserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitorViserModel.h; sourceTree = "<group>"; };
 		9224A2EB2012F5F600AE4FF4 /* VisitorViserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisitorViserModel.m; sourceTree = "<group>"; };
+		9225EC5D21B62BBF007645D2 /* StreetMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StreetMapViewController.h; sourceTree = "<group>"; };
+		9225EC5E21B62BBF007645D2 /* StreetMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StreetMapViewController.m; sourceTree = "<group>"; };
+		9225EC6021B69DDC007645D2 /* LEDSendTypeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LEDSendTypeCell.h; sourceTree = "<group>"; };
+		9225EC6121B69DDC007645D2 /* LEDSendTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LEDSendTypeCell.m; sourceTree = "<group>"; };
+		9225EC6221B69DDC007645D2 /* LEDSendTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LEDSendTypeCell.xib; sourceTree = "<group>"; };
 		9226842620A969E4006628B3 /* RepairsManModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepairsManModel.h; sourceTree = "<group>"; };
 		9226842720A969E4006628B3 /* RepairsManModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepairsManModel.m; sourceTree = "<group>"; };
 		9226842920AA6D4E006628B3 /* BillListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BillListModel.h; sourceTree = "<group>"; };
@@ -4452,6 +4460,8 @@
 			children = (
 				927DC20B2008A65A005C65FB /* StreetLigGroupViewController.h */,
 				927DC20C2008A65A005C65FB /* StreetLigGroupViewController.m */,
+				9225EC5D21B62BBF007645D2 /* StreetMapViewController.h */,
+				9225EC5E21B62BBF007645D2 /* StreetMapViewController.m */,
 				927DC20E2008AAB0005C65FB /* StreetLightPointViewController.h */,
 				927DC20F2008AAB0005C65FB /* StreetLightPointViewController.m */,
 				D656855D1FAFF69100BDFFF3 /* StreetLightsViewController.h */,
@@ -5071,6 +5081,9 @@
 				92669446219EA1E3004583B2 /* LedFormworkCell.h */,
 				92669447219EA1E3004583B2 /* LedFormworkCell.m */,
 				92669448219EA1E3004583B2 /* LedFormworkCell.xib */,
+				9225EC6021B69DDC007645D2 /* LEDSendTypeCell.h */,
+				9225EC6121B69DDC007645D2 /* LEDSendTypeCell.m */,
+				9225EC6221B69DDC007645D2 /* LEDSendTypeCell.xib */,
 			);
 			path = LED;
 			sourceTree = "<group>";
@@ -5779,6 +5792,7 @@
 				92669421219D4FD4004583B2 /* style.css in Resources */,
 				9253BD6320BFA58E00AB4767 /* playback_bg.png in Resources */,
 				921894DE1FA95596001C1A41 /* AAHighcharts-3d.js in Resources */,
+				9225EC6421B69DDC007645D2 /* LEDSendTypeCell.xib in Resources */,
 				9253BD6520BFA58E00AB4767 /* playback_play_n.png in Resources */,
 				D6B1B2571FC27CAB00852BE8 /* MonitorTableViewCell.xib in Resources */,
 				92E87D511FB6E25B0045D2FF /* MonthMeterCell.xib in Resources */,
@@ -6013,6 +6027,7 @@
 				927DC2002008953E005C65FB /* EquipmentFloorCell.m in Sources */,
 				922F360F20565DBB003DFB04 /* WaterMonitorViewController.m in Sources */,
 				928775531FBD872600BF708A /* CountMaxMinView.m in Sources */,
+				9225EC5F21B62BC0007645D2 /* StreetMapViewController.m in Sources */,
 				928426DD214B5D8800C909D4 /* ReservedModel.m in Sources */,
 				922B412E2154CE0900B9F6E4 /* AttDetailOtherTableViewCell.m in Sources */,
 				9240BADC1FC269AB0019AF07 /* TodayParkViewController.m in Sources */,
@@ -6527,6 +6542,7 @@
 				928426E8214B976400C909D4 /* ReservedFilterView.m in Sources */,
 				927FA6F72191B185002CB32C /* WifiCountSpeedModel.m in Sources */,
 				92AC03B321A40FA1009A73F3 /* LEDFormworkModel.m in Sources */,
+				9225EC6321B69DDC007645D2 /* LEDSendTypeCell.m in Sources */,
 				92E87D3F1FB6D7730045D2FF /* EnergyConViewController.m in Sources */,
 				D69A2F52218154C9001C7571 /* WifiUserInfoCell.m in Sources */,
 				9273EB182051303900723C5D /* WaterTimeViewController.m in Sources */,

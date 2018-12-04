@@ -38,6 +38,9 @@ typedef enum {
     __weak IBOutlet UITableView *_tableView;
     
     NSMutableArray *_ledData;
+    
+    NSInteger _page;
+    NSInteger _length;
 }
 @end
 
@@ -53,9 +56,12 @@ typedef enum {
     [super viewDidLoad];
     _ledData = @[].mutableCopy;
     
+    _page = 1;
+    _length = 3;
+    
     [self _initView];
     
-    [self _loadData];
+    [_tableView.mj_header beginRefreshing];
 }
 
 - (void)_initView {
@@ -94,9 +100,20 @@ typedef enum {
 //    [_tableView registerNib:[UINib nibWithNibName:@"LEDCell" bundle:nil] forCellReuseIdentifier:@"LEDCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"NewLEDCell" bundle:nil] forCellReuseIdentifier:@"NewLEDCell"];
     
+    _tableView.estimatedRowHeight = 0;
+    _tableView.estimatedSectionHeaderHeight = 0;
+    _tableView.estimatedSectionFooterHeight = 0;
+    
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _page = 1;
         [self _loadData];
     }];
+    // 上拉刷新
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _page ++;
+        [self _loadData];
+    }];
+    _tableView.mj_footer.hidden = YES;
 }
 
 - (void)_leftBarBtnItemClick {
@@ -109,12 +126,30 @@ typedef enum {
 
 - (void)_loadData {
     NSString *urlStr = [NSString stringWithFormat:@"%@/equipment/getLedScreenList",Main_Url];
-    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
+    
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:@"all" forKey:@"type"];
+    [param setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [param setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
+    [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
         [_tableView.mj_header endRefreshing];
         [self removeNoDataImage];
-        if ([responseObject[@"code"] isEqualToString:@"1"]) {
-            [_ledData removeAllObjects];
+        
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        if([responseObject[@"code"] isEqualToString:@"1"]) {
+            if(_page == 1){
+                [_ledData removeAllObjects];
+            }
             NSArray *responseData = responseObject[@"responseData"][@"ledScreenList"];
+            if(responseData.count > _length-1){
+                _tableView.mj_footer.state = MJRefreshStateIdle;
+                _tableView.mj_footer.hidden = NO;
+            }else {
+                _tableView.mj_footer.state = MJRefreshStateNoMoreData;
+                _tableView.mj_footer.hidden = YES;
+            }
             [responseData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 LedListModel *model = [[LedListModel alloc] initWithDataDic:obj];
                 [_ledData addObject:model];
@@ -134,6 +169,8 @@ typedef enum {
         
     } failure:^(NSError *error) {
         [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        
         if(_ledData.count <= 0){
             [self showNoDataImage];
         }else {

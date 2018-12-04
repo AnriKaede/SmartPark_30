@@ -45,6 +45,8 @@
 
 @property (nonatomic, strong) NSMutableArray *parkDownArr;  // 车库点位图数组
 
+// 路灯数据
+@property (nonatomic, strong) NSMutableArray *streetLightMapArr;
 
 // 小地图
 @property (nonatomic, strong) SmallMapView *smallMapView;

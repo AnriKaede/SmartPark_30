@@ -21,6 +21,8 @@
 #import "LEDFormworkViewController.h"
 #import "LEDSendSucView.h"
 
+#import "LEDSendTypeCell.h"
+
 #import "FaceHtmlView.h"
 
 #define IMAGE_SIZE (KScreenWidth - 60)/4
@@ -38,6 +40,8 @@
     LEDSendSucView *_sendSucView;
     
     NSString *_postMsgContent;
+    
+    NSString *_ledType;
 }
 /* 文本输入框*/
 //@property(nonatomic, strong) YQInputView *inputV;
@@ -69,6 +73,7 @@
         _headerView.backgroundColor = [UIColor clearColor];
 
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100.0*hScale, 50.0*hScale)];
+        btn.tag = 3001;
         [btn addTarget:self action:@selector(postLEDMsgClick:) forControlEvents:UIControlEventTouchUpInside];
         btn.layer.cornerRadius = 4.0*hScale;
         [btn setTitle:@"确定提交" forState:UIControlStateNormal];
@@ -138,7 +143,7 @@
     
     [self _initNavItems];
     
-    [self _loadLedData];
+//    [self _loadLedData];
 }
 
 -(void)_initNavItems
@@ -166,11 +171,6 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
 //    self.navigationItem.rightBarButtonItem = rightItem;
     
-    UITapGestureRecognizer *editTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditAction)];
-    [self.view addGestureRecognizer:editTap];
-}
-- (void)endEditAction {
-    [self.view endEditing:YES];
 }
 
 -(void)_leftBarBtnItemClick:(id)sender
@@ -195,6 +195,7 @@
     _tabelV.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
     _tabelV.delegate = self;
     _tabelV.dataSource = self;
+    [_tabelV registerNib:[UINib nibWithNibName:@"LEDSendTypeCell" bundle:nil] forCellReuseIdentifier:@"LEDSendTypeCell"];
     [_tabelV registerNib:[UINib nibWithNibName:@"ChooseLedTableViewCell" bundle:nil] forCellReuseIdentifier:@"ChooseLedTableViewCell"];
     [_tabelV registerNib:[UINib nibWithNibName:@"PostTimeTableViewCell" bundle:nil] forCellReuseIdentifier:@"PostTimeTableViewCell"];
     [_tabelV registerNib:[UINib nibWithNibName:@"LEDmsgTitleTableViewCell" bundle:nil] forCellReuseIdentifier:@"LEDmsgTitleTableViewCell"];
@@ -236,8 +237,14 @@
 #pragma mark 获取屏列表
 - (void)_loadLedData {
     NSString *urlStr = [NSString stringWithFormat:@"%@/equipment/getLedScreenList",Main_Url];
+    
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:_ledType forKey:@"type"];
+    [param setObject:[NSNumber numberWithInteger:1] forKey:@"pageNumber"];
+    [param setObject:[NSNumber numberWithInteger:30] forKey:@"pageSize"];
+    NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
     [self showHudInView:self.tableView hint:@""];
-    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
+    [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
             [_ledData removeAllObjects];
@@ -246,7 +253,7 @@
                 LedListModel *model = [[LedListModel alloc] initWithDataDic:obj];
                 [_ledData addObject:model];
             }];
-            [_tabelV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            [_tabelV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
         }
         
     } failure:^(NSError *error) {
@@ -258,8 +265,7 @@
 #pragma mark --------------UITableViewDataSource
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return 3;
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -267,19 +273,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (indexPath.section == 0) {
-//        // 选择屏类型
-//        ChooseLedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChooseLedTableViewCell"];
-//        cell.ledData = _ledData;
-//        cell.chooseLedDeleagte = self;
-//        return cell;
-//    }else
-        if (indexPath.section == 0) {
+    if (indexPath.section == 0) {
+        // 选择屏类型
+        LEDSendTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LEDSendTypeCell"];
+        cell.screenType = _ledType;
+        return cell;
+    }else if (indexPath.section == 1) {
         ChooseLedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChooseLedTableViewCell"];
         cell.ledData = _ledData;
         cell.chooseLedDeleagte = self;
         return cell;
-    }else if(indexPath.section == 1) {
+    }else if(indexPath.section == 2) {
         LEDpostMsgTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"LEDpostMsgTableViewCell"];
         [cell addSubview:self.webView];
 //        [cell addSubview:self.formworkBt];
@@ -296,10 +300,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         CGFloat btHeight = (_ledData.count/3 + (_ledData.count%3>0 ? 1:0))*40;
         return 50 + btHeight;
-    }else if(indexPath.section == 1){
+    }else if(indexPath.section == 2){
         return 250;
     }else{
         return 60;
@@ -316,7 +320,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if(section == 1) {
+    if(section == 2) {
         return 105.0f;
     }else {
         return 5.0f;
@@ -324,14 +328,45 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == 2) {
         return self.headerView;
     }else{
         return [UIView new];
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self.view endEditing:YES];
     [self.tabelV deselectRowAtIndexPath:indexPath animated:NO];
+    
+    if(indexPath.section == 0){
+        UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"请选择LED屏类型" preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        }];
+        UIAlertAction *dgAction = [UIAlertAction actionWithTitle:@"灯杆屏" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            _ledType = @"dengGan";
+            [self _loadLedData];
+            [_tabelV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            
+            UIButton *btn = [_headerView viewWithTag:3001];
+            btn.enabled = NO;
+            [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        }];
+        UIAlertAction *otherAction = [UIAlertAction actionWithTitle:@"其他屏" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            _ledType = @"other";
+            [self _loadLedData];
+            [_tabelV reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+            
+            UIButton *btn = [_headerView viewWithTag:3001];
+            btn.enabled = YES;
+            [btn setTitleColor:CNavBgColor forState:UIControlStateNormal];
+        }];
+        [alertCon addAction:cancelAction];
+        [alertCon addAction:dgAction];
+        [alertCon addAction:otherAction];
+        [self presentViewController:alertCon animated:YES completion:^{
+        }];
+    }
 }
 
 #pragma mark LED发送新信息

@@ -9,9 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "SubDeviceModel.h"
 
+@protocol MusicOperateDelegate <NSObject>
+
+- (void)noSuportMsg;
+
+@end
+
 @interface MusicMenuView : UIView
 - (void)showMenu;
 - (void)hidMenu;
 
 @property (nonatomic, retain) SubDeviceModel *subDeviceModel;
+@property (nonatomic,assign) id<MusicOperateDelegate> musicOperateDelegate;
 @end

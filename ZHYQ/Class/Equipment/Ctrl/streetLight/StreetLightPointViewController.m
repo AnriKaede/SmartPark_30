@@ -23,7 +23,7 @@
 #import "DHDataCenter.h"
 #import "LEDScreenShotViewController.h"
 
-@interface StreetLightPointViewController ()<DidSelInMapPopDelegate, PlayMonitorDelegate, CurrentScreenDelegate>
+@interface StreetLightPointViewController ()<DidSelInMapPopDelegate, PlayMonitorDelegate, CurrentScreenDelegate, MusicOperateDelegate>
 {
     YQInDoorPointMapView *_indoorView;
     
@@ -88,23 +88,35 @@
     }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 -(void)initPointMapView
 {
+//    self.view.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.6];
+    
     // 顶部名称
-    self.title = _model.DEVICE_NAME;
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, KScreenWidth, 20)];
+    titleLabel.text = _model.DEVICE_NAME;
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:20];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:titleLabel];
     
-    UIButton *leftBtn = [[UIButton alloc] init];
-    leftBtn.frame = CGRectMake(0, 0, 40, 40);
-    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
-    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    
-    _indoorView = [[YQInDoorPointMapView alloc]initWithIndoorMapImageName:@"stLight" Frame:CGRectMake(KScreenWidth/2-(320*hScale/2) + 20, 10, 320*hScale, 550*hScale) withScale:1];
+    _indoorView = [[YQInDoorPointMapView alloc]initWithIndoorMapImageName:@"stLight" Frame:CGRectMake(KScreenWidth/2-(320*hScale/2) + 20, titleLabel.bottom + 10, 320*hScale, 550*hScale) withScale:1];
     _indoorView.selInMapDelegate = self;
+    _indoorView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_indoorView];
 
+    // 下方返回按钮
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake((KScreenWidth - 60)/2, KScreenHeight - 80, 60, 60);
+    [backButton setImage:[UIImage imageNamed:@"wifi_speed_down"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backButton];
+    
     // 创建点击菜单视图
     _eveMenuView = [[EveMenuView alloc] init];
     _lightVMenuView = [[LightVMenuView alloc] init];
@@ -115,13 +127,19 @@
     _adcMenuView = [[AdcMenuView alloc] init];
     _adcMenuView.currentScreenDelegate = self;
     _musicMenuView = [[MusicMenuView alloc] init];
+    _musicMenuView.musicOperateDelegate = self;
     _callMenuView = [[CallMenuView alloc] init];
     _powerMenuView = [[PowerMenuView alloc] init];
     
 }
 
-- (void)_leftBarBtnItemClick {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)noSuportMsg {
+    [self showHint:@"该设备不支持此操作"];
+}
+
+- (void)closeAction {
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (void)selInMapWithId:(NSString *)identity
