@@ -186,6 +186,25 @@
 #pragma mark 滑动slider时调用
 - (void)sliderChangeValue:(CGFloat)value {
     _volume = value;
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/roadLamp/getZoneTerminalData",Main_Url];
+    
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:_subDeviceModel.SUB_DEVICE_ID forKey:@"id"];
+    [param setObject:[NSNumber numberWithInt:value*15] forKey:@"bcoutv"];
+    [param setObject:[[NSUserDefaults standardUserDefaults] objectForKey:KLoginUserName] forKey:@"user"];
+    
+    NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
+        NSString *code = responseObject[@"code"];
+        if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
+            // 成功 记录日志
+            [self logRecordOperate:[NSString stringWithFormat:@"%@调节音量到%.0f",[NSString stringWithFormat:@"%@", _subDeviceModel.DEVICE_NAME],value*15] withUid:[NSString stringWithFormat:@"%@", _subDeviceModel.SUB_DEVICE_ID]];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 // 右侧有图片时实现
@@ -308,4 +327,18 @@
     return NO;
 }
 
+#pragma mark 单个音箱设置音量
+- (void)logRecordOperate:(NSString *)operate withUid:(NSString *)groupId {
+    NSMutableDictionary *logDic = @{}.mutableCopy;
+    [logDic setObject:operate forKey:@"operateName"];//操作动作名 说明
+    [logDic setObject:operate forKey:@"operateDes"];//操作描述 说明
+    [logDic setObject:@"roadLamp/getZoneTerminalData" forKey:@"operateUrl"];//操作url
+    //    [logDic setObject:<#(nonnull id)#> forKey:@"operateLocation"];//操作地点
+    //    [logDic setObject:<#(nonnull id)#> forKey:@"operateValue"];//操作值(如音量大小)
+    [logDic setObject:groupId forKey:@"operateDeviceId"];//操作设备ID tagid
+    [logDic setObject:@"背景音乐" forKey:@"operateDeviceName"];//操作设备名  模块
+    //    [logDic setObject:<#(nonnull id)#> forKey:@"expand1"];//扩展字段 (暂未用到)    操作前值比如音量
+    
+    [LogRecordObj recordLog:logDic];
+}
 @end
