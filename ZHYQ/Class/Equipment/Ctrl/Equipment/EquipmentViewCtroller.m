@@ -32,7 +32,8 @@
 #import "AirCondGroupViewController.h"
 #import "ElevatorViewController.h"
 
-#import "LEDViewController.h"
+//#import "LEDViewController.h"
+#import "LEDMapViewController.h"
 #import "ParkNightViewController.h"
 //#import "MeetRoomCenterViewController.h"
 //#import "MeetPageViewController.h"
@@ -574,7 +575,10 @@
             case 19:
                 {
                     // led
-                    LEDViewController *ledVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"LEDViewController"];
+//                    LEDViewController *ledVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"LEDViewController"];
+//                    ledVC.title = model.MENU_NAME;
+//                    [self.navigationController pushViewController:ledVC animated:YES];
+                    LEDMapViewController *ledVC = [[LEDMapViewController alloc] init];
                     ledVC.title = model.MENU_NAME;
                     [self.navigationController pushViewController:ledVC animated:YES];
                 }

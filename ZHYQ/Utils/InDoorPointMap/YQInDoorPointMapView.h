@@ -48,6 +48,9 @@
 // 路灯数据
 @property (nonatomic, strong) NSMutableArray *streetLightMapArr;
 
+// LED数据
+@property (nonatomic, strong) NSMutableArray *LEDMapArr;
+
 // 小地图
 @property (nonatomic, strong) SmallMapView *smallMapView;
 

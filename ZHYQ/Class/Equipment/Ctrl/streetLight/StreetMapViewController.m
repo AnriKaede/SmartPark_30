@@ -11,7 +11,6 @@
 #import "YQSecondHeaderView.h"
 
 #import "YQInDoorPointMapView.h"
-#import "InDoorMonitorMapModel.h"
 
 #import "MonitorTableViewCell.h"
 
@@ -28,14 +27,8 @@
 
 #import "StreetLightPointViewController.h"
 
-@interface StreetMapViewController ()<UIScrollViewDelegate, MenuControlDelegate,DidSelInMapPopDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface StreetMapViewController ()<UIScrollViewDelegate,DidSelInMapPopDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 {
-    // 弹窗
-    ShowMenuView *_showMenuView;
-    NSString *_menuTitle;   // 菜单标题
-    NSString *_stateStr;    // 设备状态
-    UIColor *_stateColor;   // 设备状态颜色
-    
     YQInDoorPointMapView *indoorView;
     UIImageView *_selectImageView;
     BOOL isOpen;
@@ -47,7 +40,7 @@
     NSMutableArray *_nameArr;
     NSMutableArray *_dataArr;
     
-    InDoorMonitorMapModel *_currentModel;
+    StreetLightModel *_currentModel;
     BOOL _isShowMenu;
     NSMutableDictionary *_statusDic;
     
@@ -110,8 +103,6 @@
         bottomView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight - 32);
         tabView.frame = CGRectMake(0, 0, KScreenWidth, bottomView.height);
         indoorView.frame = CGRectMake(0, 0, KScreenWidth, bottomView.height);
-        _showMenuView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
-        [_showMenuView reloadMenuData];
         _headerView.hidden = YES;
     }else{
         // 屏幕从横屏变为竖屏时执行
@@ -119,8 +110,6 @@
         bottomView.frame = CGRectMake(0, _headerView.bottom, KScreenWidth, KScreenHeight - kTopHeight - 20 - _headerView.bottom);
         tabView.frame = CGRectMake(0, 0, KScreenWidth, bottomView.height);
         indoorView.frame = CGRectMake(0, 0, KScreenWidth, bottomView.height);
-        _showMenuView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight);
-        [_showMenuView reloadMenuData];
         _headerView.hidden = NO;
     }
 }
@@ -142,7 +131,6 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"E2E2E2"];
     
     //初始化子视图
-    [self _initView];
     [self _initheaderView];
     [self _initTableView];
     [self _initPointMapView];
@@ -198,12 +186,12 @@
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 StreetLightModel *model = [[StreetLightModel alloc] initWithDataDic:obj];
                 
-//                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LONGITUDE, model.LATITUDE];
-//                [self.graphData addObject:graphStr];
+                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LAYER_B, model.LAYER_C];
+                [self.graphData addObject:graphStr];
                 [self.cameraDataArr addObject:model];
             }];
             indoorView.graphData = _graphData;
-            indoorView.streetLightArr = _cameraDataArr;
+            indoorView.streetLightMapArr = _cameraDataArr;
         }
         
         _dataArr = [NSMutableArray arrayWithArray:self.cameraDataArr];
@@ -212,16 +200,6 @@
     } failure:^(NSError *error) {
         [self hideHud];
     }];
-}
-
--(void)_initView
-{
-    
-    _showMenuView = [[ShowMenuView alloc] init];
-    _showMenuView.menuDelegate = self;
-    _showMenuView.hidden = YES;
-    [[UIApplication sharedApplication].delegate.window addSubview:_showMenuView];
-    
 }
 
 -(void)_initPointMapView {
@@ -324,6 +302,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    [self forceOrientationPortrait];
+    
     [searchBar resignFirstResponder];
     
     /*
@@ -379,202 +359,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark 菜单协议
-- (CGFloat)menuHeightInView:(NSInteger)index {
-    switch (index) {
-        case 0:
-            return 40;
-            break;
-        case 1:
-            return 80;
-            break;
-        case 2:
-            return 50;
-            break;
-            
-        default:
-            return 0;
-            break;
-    }
-}
-
-- (NSInteger)menuNumInView {
-    return 3;
-}
-
-- (NSString *)menuTitle:(NSInteger)index {
-    switch (index) {
-        case 0:
-            return @"在线状态";
-            break;
-        case 1:
-            return @"实时画面";
-            break;
-        case 2:
-            return @"历史录像";
-            break;
-            
-        default:
-            return @"";
-            break;
-    }
-}
-
-- (UIColor *)menuTitleColor:(NSInteger)index {
-    return [UIColor blackColor];
-}
-
-- (NSString *)menuTitleViewText {
-    return _menuTitle;
-}
-
-- (ShowMenuStyle)menuViewStyle:(NSInteger)index {
-    switch (index) {
-        case 0:
-            return DefaultConMenu;
-            break;
-        case 1:
-            return ImgConMenu;
-            break;
-        case 2:
-            return ImgConMenu;
-            break;
-            
-        default:
-            return DefaultConMenu;
-            break;
-    }
-}
-
-- (NSString *)menuMessage:(NSInteger)index {
-    switch (index) {
-        case 0:
-            return _stateStr;
-            break;
-            
-        default:
-            return @"";
-            break;
-    }
-}
-- (UIColor *)menuMessageColor:(NSInteger)index {
-    if(index == 0){
-        return _stateColor;
-    }else {
-        return [UIColor blackColor];
-    }
-}
-
-// 右侧有图片时实现
-- (NSString *)imageName:(NSInteger)index {
-    if(index == 1){
-        return @"camera_play";
-    }
-    if(index == 2){
-        return @"door_list_right_narrow";
-    }
-    return @"";
-}
-- (CGSize)imageSize:(NSInteger)index {
-    if(index == 2){
-        return CGSizeMake(30, 30);
-    }
-    return CGSizeMake(62, 62);
-}
-
-- (void)didSelectMenu:(NSInteger)index {
-    if(index == 1){
-        _isShowMenu = YES;
-#pragma mark 播放视频
-        // 播放视频
-        // 查询固定相机
-        //                [DHDataCenter sharedInstance].channelID = @"1000010$1$0$0";
-        
-        if(!_isOnline){
-            // 离线
-            [self showHint:@"设备离线"];
-            return;
-        }
-        
-        if(_currentModel.TAGID == nil || [_currentModel.TAGID isKindOfClass:[NSNull class]]){
-            [self showHint:@"相机无参数"];
-            return;
-        }
-        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
-        
-        [self forceOrientationPortrait];
-        
-        PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
-        playVC.deviceType = _currentModel.DEVICE_TYPE;
-        [self.navigationController pushViewController:playVC animated:YES];
-        
-    }else if(index == 2) {
-        if(_currentModel.TAGID == nil || [_currentModel.TAGID isKindOfClass:[NSNull class]]){
-            [self showHint:@"相机无参数"];
-            return;
-        }
-        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
-        
-        [self forceOrientationPortrait];
-        
-        PlaybackViewController *playVC = [[PlaybackViewController alloc] init];
-        [self.navigationController pushViewController:playVC animated:YES];
-        
-    }
-}
-
 - (void)selInMapWithId:(NSString *)identity {
     
     NSInteger selectIndex = [identity integerValue]-100;
     if(self.cameraDataArr.count <= selectIndex){
         return;
     }
-    InDoorMonitorMapModel *model = self.cameraDataArr[selectIndex];
+    StreetLightModel *model = self.cameraDataArr[selectIndex];
     _currentModel = model;
-    
-    DeviceTreeNode* tasksGroup =  [DHDataCenter sharedInstance].CamerasGroups;
-    
-    _stateStr = @"";
-    
-    if(model.TAGID != nil && model.TAGID.length > 6){
-        NSString *careraID = [model.TAGID substringWithRange:NSMakeRange(0, model.TAGID.length - 6)];
-        [tasksGroup queryNodeByCareraId:careraID withBlock:^(DeviceTreeNode *node) {
-            NSLog(@"在线离线状态：------- %d", node.bOnline);
-            if(node.bOnline){
-                // 在线
-                _isOnline = YES;
-                _stateStr = @"正常开启中";
-                _stateColor = [UIColor colorWithHexString:@"#189517"];
-            }else {
-                // 离线
-                _isOnline = NO;
-                _stateStr = @"离线";
-                _stateColor = [UIColor grayColor];
-            }
-        }];
-    }
-    
-    
-    _showMenuView.hidden = NO;
-    /*
-     if([model.CAMERA_STATUS isEqualToString:@"1"]){
-     // 正常
-     _stateStr = @"正常开启中";
-     _stateColor = [UIColor colorWithHexString:@"#189517"];
-     }else if([model.CAMERA_STATUS isEqualToString:@"0"]){
-     // 故障
-     _stateStr = @"设备故障";
-     _stateColor = [UIColor colorWithHexString:@"#FF4359"];
-     }if([model.CAMERA_STATUS isEqualToString:@"2"]){
-     // 离线
-     _stateStr = @"离线";
-     _stateColor = [UIColor grayColor];
-     }
-     */
-    
-    _menuTitle = model.DEVICE_NAME;
-    
-    [_showMenuView reloadMenuData]; //  刷新菜单
     
     if (_selectImageView) {
         _selectImageView.contentMode = UIViewContentModeScaleToFill;
@@ -582,26 +374,12 @@
         if(self.cameraDataArr.count <= selIndex){
             return;
         }
-        InDoorMonitorMapModel *selectModel = self.cameraDataArr[_selectImageView.tag-100];
-        
-        if ([selectModel.CAMERA_STATUS isEqualToString:@"1"]||[selectModel.CAMERA_STATUS isEqualToString:@"2"]) {
-            if ([selectModel.DEVICE_TYPE isEqualToString:@"1-1"]) {
-                _selectImageView.image = [UIImage imageNamed:@"map_gunshot_icon_normal"];
-            }else if ([selectModel.DEVICE_TYPE isEqualToString:@"1-2"])
-            {
-                _selectImageView.image = [UIImage imageNamed:@"map_ball_icon_normal"];
-            }else{
-                _selectImageView.image = [UIImage imageNamed:@"map_halfball_icon_normal"];
-            }
-        }else{
-            if ([selectModel.DEVICE_TYPE isEqualToString:@"1-1"]) {
-                _selectImageView.image = [UIImage imageNamed:@"map_gunshot_icon_error"];
-            }else if ([selectModel.DEVICE_TYPE isEqualToString:@"1-2"])
-            {
-                _selectImageView.image = [UIImage imageNamed:@"map_ball_icon_error"];
-            }else{
-                _selectImageView.image = [UIImage imageNamed:@"map_halfball_icon_error"];
-            }
+        StreetLightModel *selectModel = self.cameraDataArr[_selectImageView.tag-100];
+        // 区分莲花灯和路灯
+        if ([selectModel.DEVICE_TYPE isEqualToString:@"55-2"]) {
+            _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
+        }else {
+            _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
         }
     }
     
@@ -609,26 +387,14 @@
     if(_selectImageView != nil){
         [PointViewSelect recoverSelImgView:_selectImageView];
     }
+    StreetLightModel *selectModel = self.cameraDataArr[_selectImageView.tag-100];
     
     UIImageView *imageView = [indoorView.mapView viewWithTag:[identity integerValue]];
-    if ([model.CAMERA_STATUS isEqualToString:@"1"]||[model.CAMERA_STATUS isEqualToString:@"2"]) {
-        if ([model.DEVICE_TYPE isEqualToString:@"1-1"]) {
-            imageView.image = [UIImage imageNamed:@"map_gunshot_icon_normal"];
-        }else if ([model.DEVICE_TYPE isEqualToString:@"1-2"])
-        {
-            imageView.image = [UIImage imageNamed:@"map_ball_icon_normal"];
-        }else{
-            imageView.image = [UIImage imageNamed:@"map_halfball_icon_normal"];
-        }
+    // 区分莲花灯和路灯
+    if ([selectModel.DEVICE_TYPE isEqualToString:@"55-2"]) {
+        _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
     }else {
-        if ([model.DEVICE_TYPE isEqualToString:@"1-1"]) {
-            imageView.image = [UIImage imageNamed:@"map_gunshot_icon_error"];
-        }else if ([model.DEVICE_TYPE isEqualToString:@"1-2"])
-        {
-            imageView.image = [UIImage imageNamed:@"map_ball_icon_error"];
-        }else{
-            imageView.image = [UIImage imageNamed:@"map_halfball_icon_error"];
-        }
+        _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
     }
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;
@@ -660,7 +426,7 @@
     [_nameArr removeAllObjects];
     
     [_dataArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        InDoorMonitorMapModel *model = (InDoorMonitorMapModel *)obj;
+        StreetLightModel *model = (StreetLightModel *)obj;
         [_nameArr addObject:model.DEVICE_NAME];
     }];
     
@@ -775,20 +541,6 @@
         }
     }];
 }
-
-/*
- - (void)viewDidAppear:(BOOL)animated {
- [super viewDidAppear:animated];
- if(_isShowMenu){
- _showMenuView.alpha = 0;
- _showMenuView.hidden = NO;
- [UIView animateWithDuration:0.1 animations:^{
- _showMenuView.alpha = 1;
- }];
- _isShowMenu = NO;
- }
- }
- */
 
 #pragma mark 强制变为竖屏
 - (void)forceOrientationPortrait {

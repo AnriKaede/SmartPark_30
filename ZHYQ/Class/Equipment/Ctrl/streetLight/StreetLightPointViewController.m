@@ -105,15 +105,22 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:titleLabel];
     
-    _indoorView = [[YQInDoorPointMapView alloc]initWithIndoorMapImageName:@"stLight" Frame:CGRectMake(KScreenWidth/2-(320*hScale/2) + 20, titleLabel.bottom + 10, 320*hScale, 550*hScale) withScale:1];
+    NSString *imgName;
+    if([_model.DEVICE_TYPE isEqualToString:@"55-2"]){
+        imgName = @"street_lamp_map_flower_bg";
+    }else {
+        imgName = @"street_lamp_map_nor_bg";
+    }
+    
+    _indoorView = [[YQInDoorPointMapView alloc]initWithIndoorMapImageName:imgName Frame:CGRectMake(KScreenWidth/2-(330*hScale/2), titleLabel.bottom + 10, 330*hScale, 550*hScale) withScale:1];
     _indoorView.selInMapDelegate = self;
     _indoorView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_indoorView];
 
     // 下方返回按钮
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake((KScreenWidth - 60)/2, KScreenHeight - 80, 60, 60);
-    [backButton setImage:[UIImage imageNamed:@"wifi_speed_down"] forState:UIControlStateNormal];
+    backButton.frame = CGRectMake((KScreenWidth - 60)/2, KScreenHeight - 70, 60, 60);
+    [backButton setImage:[UIImage imageNamed:@"street_lamp_down"] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     

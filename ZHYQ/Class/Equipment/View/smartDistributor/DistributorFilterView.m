@@ -42,11 +42,27 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if(self){
+        [self loadData];
         [self _initView];
         [self loadBuildView];
         [self _initPointMapView];
     }
     return self;
+}
+
+- (void)loadData {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/peiDianData/queryPDline",Main_Url];
+    NSMutableDictionary *param = @{}.mutableCopy;
+    NSString *jsonParam = [Utils convertToJsonData:param];
+    NSDictionary *params = @{@"param":jsonParam};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            NSLog(@"%@", responseObject);
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)_initView {
@@ -56,13 +72,8 @@
      *  stateConfigDict 属性 格式 详见CFDropDownMenuView.h文件
      *  可不传  使用默认样式  /   也可自定义样式
      */
-//    _dropDownMenuView.stateConfigDict = @{@"selected" : @[[UIColor redColor], @"红箭头"],};
-//    _dropDownMenuView.stateConfigDict = @{@"normal" : @[[UIColor orangeColor], @"测试黄"],};
-//    _dropDownMenuView.stateConfigDict = @{@"selected" : @[[UIColor blueColor], @"天蓝箭头"],@"normal" : @[[UIColor orangeColor], @"橙箭头"]};
-    // 注:  需先 赋值数据源dataSourceArr二维数组  再赋值defaulTitleArray一维数组
     _dropDownMenuView.dataSourceArr = @[
                                        @[@"研发楼"],
-                                       @[@"东北电井", @"东南电井"],
                                        @[@"1F", @"2F", @"3F", @"4F", @"5F", @"6F", @"7F", @"8F", @"9F", @"10F"],
                                        @[@"照明动力", @"公共照明"]
                                        ].mutableCopy;
@@ -85,16 +96,19 @@
     if(indexPath.section == 0){
         _buildView.hidden = NO;
         indoorView.hidden = YES;
-        [_buildView showBuild];
-    }else if(indexPath.section == 1){
-        _buildView.hidden = NO;
-        indoorView.hidden = YES;
+//        [_buildView showBuild];
         [_buildView showFloor];
-    }else if(indexPath.section == 2){
+    }
+//    else if(indexPath.section == 1){
+//        _buildView.hidden = NO;
+//        indoorView.hidden = YES;
+//        [_buildView showFloor];
+//    }
+    else if(indexPath.section == 1){
         _buildView.hidden = YES;
         indoorView.hidden = NO;
         [indoorView updateMapImg:[NSString stringWithFormat:@"yfl%ldf", indexPath.row + 1]];
-    }else if(indexPath.section == 3){
+    }else if(indexPath.section == 2){
         _buildView.hidden = YES;
         indoorView.hidden = NO;
     }
@@ -106,7 +120,8 @@
     _buildView = [[BuildView alloc] initWithFrame:CGRectMake(0, 45, KScreenWidth, self.height - 45)];
     _buildView.buildDelegate = self;
     [self addSubview:_buildView];
-    [_buildView showBuild];
+//    [_buildView showBuild];
+    [_buildView showFloor];
 }
 
 #pragma mark 加载点位图
@@ -123,18 +138,18 @@
 
 #pragma mark 点击建筑协议
 - (void)buildLeft {
-    [_dropDownMenuView selIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+//    [_dropDownMenuView selIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
     
     [_buildView showFloor];
 }
 - (void)buildRight {
-    [_dropDownMenuView selIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
+//    [_dropDownMenuView selIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
     
     [_buildView showFloor];
 }
 
 - (void)buildFloor:(NSInteger)index {
-    [_dropDownMenuView selIndexPath:[NSIndexPath indexPathForRow:index inSection:2]];
+    [_dropDownMenuView selIndexPath:[NSIndexPath indexPathForRow:index inSection:1]];
     
     _buildView.hidden = YES;
     indoorView.hidden = NO;

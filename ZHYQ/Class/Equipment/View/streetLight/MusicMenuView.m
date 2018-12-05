@@ -43,7 +43,7 @@
     _menuTitle = @"音乐";
     _stateStr= @"开启中";
     _stateColor = [UIColor colorWithHexString:@"#189517"];
-    _volume = 0.42;
+    _volume = 0.1;
     /** 当前播放任务
      7:30 -12:30   灯杆广播上午定时任务
      14:00  18:30   灯杆广播下午定时任务
@@ -95,10 +95,16 @@
                     _stateColor = [UIColor grayColor];
                 }
                 
-                _currentMusic = [NSString stringWithFormat:@"%@", taskName];
+                if(taskName != nil && ![taskName isKindOfClass:[NSNull class]]){
+                    _currentMusic = [NSString stringWithFormat:@"%@", taskName];
+                }else {
+                    _currentMusic = [NSString stringWithFormat:@""];
+                }
                 if(bcoutv != nil && ![bcoutv isKindOfClass:[NSNull class]]){
                     _volume = bcoutv.floatValue/15;
                 }
+                
+                [_showMenuView reloadMenuData];
             }
         }
     } failure:^(NSError *error) {

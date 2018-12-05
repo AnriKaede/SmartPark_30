@@ -17,6 +17,7 @@
 #import "StreetLightModel.h"
 
 #import "SubDeviceModel.h"
+#import "LedListModel.h"
 
 #define scal 0.2
 
@@ -145,23 +146,30 @@
         NSString *y = pointAry[1];
         
         UIImageView *videoImgView;
+        UIImageView *bottomImgView;
         if(_isLayCoord){
             videoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue, y.floatValue, PointImgWidth, PointImgWidth)];
+            bottomImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue, y.floatValue, PointImgWidth, PointImgWidth)];
         }else {
             // 楼层图高度
             if(_mapView.image != nil){            
                 CGFloat imgHeight = _mapView.image.size.height;
                 videoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue, imgHeight - y.floatValue, PointImgWidth, PointImgWidth)];
+                bottomImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue, imgHeight - y.floatValue, PointImgWidth, PointImgWidth)];
             }
         }
         
 //        UIImageView *videoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue/2.4f, y.floatValue/2.4f, 20, 20)];
 //        videoImgView.image = [UIImage imageNamed:@"wifi_normal"];
         videoImgView.tag = 100+idx;
+        bottomImgView.tag = 200+idx;
         videoImgView.userInteractionEnabled = YES;
+        bottomImgView.userInteractionEnabled = YES;
         [_mapView addSubview:videoImgView];
+        [_mapView insertSubview:bottomImgView belowSubview:videoImgView];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
         [videoImgView addGestureRecognizer:tap];
+//        [bottomImgView addGestureRecognizer:tap];
     }];
 }
 
@@ -211,7 +219,13 @@
     [streetLightMapArr enumerateObjectsUsingBlock:^(StreetLightModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         UIImageView *imageView = [_mapView viewWithTag:100+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
-        imageView.image = [UIImage imageNamed:@"wifi_normal"];
+        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 65, 200);
+        if([model.DEVICE_TYPE isEqualToString:@"55-2"]){
+            // 莲花灯
+            imageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
+        }else {
+            imageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
+        }
     }];
 }
 
@@ -327,6 +341,26 @@
             imageView.image = [UIImage imageNamed:@"park_light_error"];
         }
 
+    }];
+}
+
+- (void)setLEDMapArr:(NSMutableArray *)LEDMapArr {
+    _LEDMapArr = LEDMapArr;
+    
+    [LEDMapArr enumerateObjectsUsingBlock:^(LedListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *bottomImgView = [_mapView viewWithTag:200+idx];
+        imageView.contentMode = UIViewContentModeScaleToFill;
+        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 120, 160);
+        bottomImgView.frame = CGRectMake(bottomImgView.left-8, bottomImgView.top + 105, 130, 130);
+        bottomImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        if ([model.mainstatus isEqualToString:@"1"]) {
+//            imageView.image = [UIImage imageNamed:@"LED_map_icon"];
+            imageView.image = [UIImage imageNamed:@"LED_map_icon"];
+        }else{
+            imageView.image = [UIImage imageNamed:@"LED_map_icon"];
+        }
+        
     }];
 }
 
