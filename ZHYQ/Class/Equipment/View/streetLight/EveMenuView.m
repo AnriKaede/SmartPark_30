@@ -138,7 +138,7 @@
             UIView *weatherItemView = [self viewWithTag:3000];
             UIImageView *weatherIconImgView = [weatherItemView viewWithTag:4000];
             if(model.smallBlue != nil && ![model.smallBlue isKindOfClass:[NSNull class]]){
-                [weatherIconImgView sd_setImageWithURL:[NSURL URLWithString:model.smallBlue] placeholderImage:[UIImage imageNamed:@"eve_未知"]];
+                [weatherIconImgView sd_setImageWithURL:[NSURL URLWithString:[model.smallBlue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:[UIImage imageNamed:@"eve_未知"]];
             }
             
             UILabel *weatherLabel = [weatherItemView viewWithTag:5000];

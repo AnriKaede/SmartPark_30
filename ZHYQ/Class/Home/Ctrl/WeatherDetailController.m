@@ -325,7 +325,7 @@
                 _weatherAndTempLab.text = [NSString stringWithFormat:@"%@ %.1f℃",model.weather,[model.temperature floatValue]];
                 
                 if(model.bigColor != nil && ![model.bigColor isKindOfClass:[NSNull class]]){
-                    [_weatherView sd_setImageWithURL:[NSURL URLWithString:model.bigColor] placeholderImage:[UIImage imageNamed:@"big_未知"]];
+                    [_weatherView sd_setImageWithURL:[NSURL URLWithString:[model.bigColor stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:[UIImage imageNamed:@"big_未知"]];
                 }
                 
                 _windLab.text = [NSString stringWithFormat:@"%@",model.winddirection];
