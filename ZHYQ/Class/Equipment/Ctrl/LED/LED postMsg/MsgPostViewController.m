@@ -364,6 +364,10 @@
         [alertCon addAction:cancelAction];
         [alertCon addAction:dgAction];
         [alertCon addAction:otherAction];
+        if (alertCon.popoverPresentationController != nil) {
+            alertCon.popoverPresentationController.sourceView = [_tabelV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            alertCon.popoverPresentationController.sourceRect = [_tabelV cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].bounds;
+        }
         [self presentViewController:alertCon animated:YES completion:^{
         }];
     }

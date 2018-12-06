@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BuildView : UIView
 @property (nonatomic,assign) id<BuildDelegate> buildDelegate;
+@property (nonatomic,copy) NSArray *floorData;
 
 - (void)showBuild;
 - (void)showFloor;

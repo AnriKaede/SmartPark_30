@@ -99,7 +99,7 @@
 }
 
 -(void)_loadData {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/common/getSubDeviceListByType?deviceType=55&subDeviceType=18",Main_Url];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/common/getSubDeviceListByType?deviceType=55,55-1,55-2&subDeviceType=18",Main_Url];
     
     [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         [self removeNoDataImage];

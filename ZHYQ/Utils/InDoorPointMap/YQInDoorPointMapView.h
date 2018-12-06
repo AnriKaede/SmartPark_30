@@ -67,4 +67,7 @@
 - (void)updateCarIcon:(DownParkMdel *)downParkMdel withIndex:(NSInteger)index;
 - (void)normalCarIcon:(DownParkMdel *)downParkMdel withIndex:(NSInteger)index;
 
+// 画配电线路
+- (void)drawLineMap:(NSArray *)lineData withColor:(UIColor *)lineColor;
+
 @end

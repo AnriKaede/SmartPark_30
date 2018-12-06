@@ -26,6 +26,7 @@
 #import "LightGroupCell.h"
 
 #import "StreetLightPointViewController.h"
+#import "StreLigAllConViewController.h"
 
 @interface StreetMapViewController ()<UIScrollViewDelegate,DidSelInMapPopDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 {
@@ -45,6 +46,8 @@
     NSMutableDictionary *_statusDic;
     
     BOOL _isOnline;
+    
+    UIView *_bottomView;
 }
 
 @property (strong,nonatomic) YQSecondHeaderView *headerView;
@@ -103,6 +106,7 @@
         bottomView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight - 32);
         tabView.frame = CGRectMake(0, 0, KScreenWidth, bottomView.height);
         indoorView.frame = CGRectMake(0, 0, KScreenWidth, bottomView.height);
+//        _bottomView.frame = 
         _headerView.hidden = YES;
     }else{
         // 屏幕从横屏变为竖屏时执行
@@ -135,6 +139,8 @@
     [self _initTableView];
     [self _initPointMapView];
     
+    [self _createBottomView];
+    
     [self _loadFloorEquipmentData];
 }
 
@@ -145,6 +151,29 @@
     [self.view addSubview:self.headerView];
     
 }
+- (void)_createBottomView {
+    _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, KScreenHeight - kTopHeight - 60, KScreenWidth, 60)];
+    _bottomView.hidden = YES;
+    _bottomView.backgroundColor = [UIColor whiteColor];
+    
+    [self.view addSubview:_bottomView];
+    
+    NSString *leftTitle = @"";
+    leftTitle = @"取消";
+    UIButton *bottomLeftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    bottomLeftButton.tag = 2001;
+    bottomLeftButton.frame = CGRectMake((KScreenWidth - 267)/2, 10, 267, 40);
+    bottomLeftButton.layer.cornerRadius = 20;
+    bottomLeftButton.backgroundColor = CNavBgColor;
+    [bottomLeftButton setTitle:@"批量开关" forState:UIControlStateNormal];
+    [bottomLeftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [bottomLeftButton addTarget:self action:@selector(bottomLeftAction) forControlEvents:UIControlEventTouchUpInside];
+    [_bottomView addSubview:bottomLeftButton];
+}
+- (void)bottomLeftAction {
+    StreLigAllConViewController *allConVC = [[StreLigAllConViewController alloc] init];
+    [self.navigationController pushViewController:allConVC animated:YES];
+}
 
 -(void)_initTableView
 {
@@ -154,6 +183,7 @@
     
     tabView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tabView.frame = CGRectMake(0, 0, KScreenWidth, bottomView.height);
+    tabView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0);
     tabView.delegate = self;
     tabView.dataSource = self;
     tabView.backgroundColor = [UIColor colorWithHexString:@"E2E2E2"];
@@ -186,7 +216,7 @@
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 StreetLightModel *model = [[StreetLightModel alloc] initWithDataDic:obj];
                 
-                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LAYER_B, model.LAYER_C];
+                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LONGITUDE, model.LATITUDE];
                 [self.graphData addObject:graphStr];
                 [self.cameraDataArr addObject:model];
             }];
@@ -253,34 +283,7 @@
 {
     LightGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LightGroupCell" forIndexPath:indexPath];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    /*
-    if (indexPath.row == _selectedIndex.row && _selectedIndex != nil) {
-        //如果是展开
-        if (isOpen == YES) {
-            cell.contentView.backgroundColor = [UIColor colorWithHexString:@"F8FCFF"];
-            cell.selectView.hidden = NO;
-            cell.playBtn.hidden = NO;
-            cell.screen.hidden = NO;
-            cell.hisLab.hidden = NO;
-            cell.playBackBtn.hidden = NO;
-        }else{
-            cell.contentView.backgroundColor = [UIColor whiteColor];
-            cell.selectView.hidden = YES;
-            cell.playBtn.hidden = YES;
-            cell.screen.hidden = YES;
-            cell.hisLab.hidden = YES;
-            cell.playBackBtn.hidden = YES;
-        }
-        //不是自身
-    } else {
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-        cell.selectView.hidden = YES;
-        cell.playBtn.hidden = YES;
-        cell.screen.hidden = YES;
-        cell.hisLab.hidden = YES;
-        cell.playBackBtn.hidden = YES;
-    }
-     */
+    
     StreetLightModel *model = self.cameraDataArr[indexPath.row];
     cell.nameLabel.text = model.DEVICE_NAME;
     return cell;
@@ -330,12 +333,16 @@
     //记下选中的索引
     self.selectedIndex = indexPath;
     
-    // 到路灯挂载子设备页面
     StreetLightModel *model = self.cameraDataArr[indexPath.row];
+    
+    [self presentPointVC:model];
+}
+- (void)presentPointVC:(StreetLightModel *)model {
+    // 到路灯挂载子设备页面
     // 跳转点位图
     StreetLightPointViewController *streetVC = [[StreetLightPointViewController alloc] init];
     streetVC.model = model;
-//    [self.navigationController pushViewController:streetVC animated:YES];
+    //    [self.navigationController pushViewController:streetVC animated:YES];
     streetVC.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     streetVC.isHidenNaviBar = YES;
     streetVC.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.8];
@@ -368,13 +375,11 @@
     StreetLightModel *model = self.cameraDataArr[selectIndex];
     _currentModel = model;
     
-    if (_selectImageView) {
-        _selectImageView.contentMode = UIViewContentModeScaleToFill;
-        NSInteger selIndex = _selectImageView.tag-100;
-        if(self.cameraDataArr.count <= selIndex){
-            return;
-        }
+    // 复原之前选中图片效果
+    if(_selectImageView != nil){
+        [PointViewSelect recoverSelImgView:_selectImageView];
         StreetLightModel *selectModel = self.cameraDataArr[_selectImageView.tag-100];
+        _selectImageView.contentMode = UIViewContentModeScaleToFill;
         // 区分莲花灯和路灯
         if ([selectModel.DEVICE_TYPE isEqualToString:@"55-2"]) {
             _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
@@ -383,23 +388,19 @@
         }
     }
     
-    // 复原之前选中图片效果
-    if(_selectImageView != nil){
-        [PointViewSelect recoverSelImgView:_selectImageView];
-    }
-    StreetLightModel *selectModel = self.cameraDataArr[_selectImageView.tag-100];
-    
     UIImageView *imageView = [indoorView.mapView viewWithTag:[identity integerValue]];
     // 区分莲花灯和路灯
-    if ([selectModel.DEVICE_TYPE isEqualToString:@"55-2"]) {
-        _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
+    if ([model.DEVICE_TYPE isEqualToString:@"55-2"]) {
+        imageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
     }else {
-        _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
+        imageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
     }
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;
     
     [PointViewSelect pointImageSelect:_selectImageView];
+    
+    [self presentPointVC:model];
 }
 
 #pragma mark 室内点位图与列表的切换
@@ -411,10 +412,12 @@
             indoorView.hidden = YES;
             [tabView reloadData];
             [_statusDic setObject:@"1" forKey:@"areaStatus"];
+            _bottomView.hidden = NO;
         }else{
             tabView.hidden = YES;
             indoorView.hidden = NO;
             [_statusDic setObject:@"0" forKey:@"areaStatus"];
+            _bottomView.hidden = YES;
         }
     }];
 }
@@ -527,6 +530,7 @@
             [_statusDic setObject:@"1" forKey:@"areaStatus"];
             tabView.hidden = NO;
             indoorView.hidden = YES;
+            _bottomView.hidden = NO;
             [tabView reloadData];
             [btn setImage:[UIImage imageNamed:@"slideMenu"] forState:UIControlStateNormal];
         }else{
@@ -534,6 +538,7 @@
             [_statusDic setObject:@"0" forKey:@"areaStatus"];
             tabView.hidden = YES;
             indoorView.hidden = NO;
+            _bottomView.hidden = YES;
             [btn setImage:[UIImage imageNamed:@"switchmap"] forState:UIControlStateNormal];
             
             [self.cameraDataArr removeAllObjects];
