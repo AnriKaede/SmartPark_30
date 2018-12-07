@@ -17,14 +17,15 @@
 
 #import "FaceListViewController.h"
 
-#import "FaceHistoryViewController.h"
+//#import "FaceHistoryViewController.h"
+#import "ClientFaceHisViewController.h"
 #import "FaceWranViewController.h"
 
 #import "FaceCoreDataManager.h"
 #import "FaceImgHistory+CoreDataClass.h"
 #import "UIImage+Zip.h"
 
-@interface SelFaceViewController ()<UITableViewDelegate, UITableViewDataSource, SelFacePhotoDelegate, TZImagePickerControllerDelegate, FaceQueryDelegate, SelHistoryImgDelegate>
+@interface SelFaceViewController ()<UITableViewDelegate, UITableViewDataSource, SelFacePhotoDelegate, TZImagePickerControllerDelegate, FaceQueryDelegate, SelClientHistoryImgDelegate>
 {
     UITableView *_selTableView;
     
@@ -67,13 +68,13 @@
     imgWranBtn.frame = CGRectMake(0, 0, 40, 40);
     [imgWranBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
 //    face_history_icon
-    [imgWranBtn setImage:[UIImage imageNamed:@"face_wran_icon"] forState:UIControlStateNormal];
-    [imgWranBtn setTitle:@"人像告警" forState:UIControlStateNormal];
+    [imgWranBtn setImage:[UIImage imageNamed:@"face_nav_picture"] forState:UIControlStateNormal];
+    [imgWranBtn setTitle:@"历史照片" forState:UIControlStateNormal];
     imgWranBtn.titleLabel.font = [UIFont systemFontOfSize:10];
-    [imgWranBtn addTarget:self action:@selector(imgWranAction) forControlEvents:UIControlEventTouchUpInside];
+    [imgWranBtn addTarget:self action:@selector(faceHistory) forControlEvents:UIControlEventTouchUpInside];
     [imgWranBtn setTitleEdgeInsets:UIEdgeInsetsMake(imgWranBtn.imageView.frame.size.height ,-imgWranBtn.imageView.frame.size.width, -5,0.0)];
     [imgWranBtn setImageEdgeInsets:UIEdgeInsetsMake(-10, 20,0.0, -imgWranBtn.titleLabel.bounds.size.width)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imgWranBtn];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imgWranBtn];
     
     _selTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64) style:UITableViewStylePlain];
     _selTableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
@@ -96,11 +97,6 @@
     _endTimeStr = [showFormat stringFromDate:[NSDate date]];
     
     [_selTableView reloadData];
-}
-
-- (void)imgWranAction {
-    FaceWranViewController *wranVC = [[FaceWranViewController alloc]init];
-    [self.navigationController pushViewController:wranVC animated:YES];
 }
 
 #pragma mark 查询 cell 协议
@@ -314,8 +310,8 @@
     [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
 - (void)faceHistory {
-    FaceHistoryViewController *hisVC = [[FaceHistoryViewController alloc] init];
-    hisVC.selHistoryImgDelegate = self;
+    ClientFaceHisViewController *hisVC = [[ClientFaceHisViewController alloc] init];
+    hisVC.selClientHistoryImgDelegate = self;
     [self.navigationController pushViewController:hisVC animated:YES];
 }
 
@@ -378,11 +374,16 @@
 }
 
 #pragma mark 选择历史照片协议
-- (void)selHistoryImg:(FaceImgHistory *)faceImgHistory {
-    UIImage *selImg = [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@%@", FaceHistoryPath, faceImgHistory.imgFilePath]];
-    [self imageData:selImg];
+- (void)selHistoryImg:(FaceHistoryModel *)faceHistoryModel {
+//    UIImage *selImg = [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@%@", FaceHistoryPath, faceImgHistory.imgFilePath]];
     
-    _selPhotoCell.selImgView.image = selImg;
+    NSString *base64Str = [faceHistoryModel.faceInfo componentsSeparatedByString:@"base64,"].lastObject;
+    NSData *decodedImageData = [[NSData alloc] initWithBase64EncodedString:base64Str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+    
+    [self imageData:decodedImage];
+    
+    _selPhotoCell.selImgView.image = decodedImage;
 }
 
 @end

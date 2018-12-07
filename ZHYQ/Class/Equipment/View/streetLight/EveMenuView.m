@@ -97,6 +97,7 @@
     UILabel *warnLabel = [[UILabel alloc] initWithFrame:CGRectMake(KScreenWidth - warnSize.width - 24, titleView.bottom + 162, warnSize.width, 17)];
     warnLabel.tag = 6001;
     warnLabel.text = warnStr;
+    warnLabel.hidden = YES;
     warnLabel.textColor = [UIColor colorWithHexString:@"#FF4359"];
     warnLabel.font = warnFont;
     warnLabel.textAlignment = NSTextAlignmentLeft;
@@ -104,6 +105,7 @@
     
     UIImageView *warnImgView = [[UIImageView alloc] initWithFrame:CGRectMake(warnLabel.left - 30, titleView.bottom + 160, 20, 20)];
     warnImgView.tag = 7001;
+    warnImgView.hidden = YES;
     warnImgView.image = [UIImage imageNamed:@"eve_warn"];
     [_bgView addSubview:warnImgView];
 }
@@ -136,7 +138,7 @@
             UIView *weatherItemView = [self viewWithTag:3000];
             UIImageView *weatherIconImgView = [weatherItemView viewWithTag:4000];
             if(model.smallBlue != nil && ![model.smallBlue isKindOfClass:[NSNull class]]){
-                [weatherIconImgView sd_setImageWithURL:[NSURL URLWithString:model.smallBlue] placeholderImage:[UIImage imageNamed:@"eve_未知"]];
+                [weatherIconImgView sd_setImageWithURL:[NSURL URLWithString:[model.smallBlue stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:[UIImage imageNamed:@"eve_未知"]];
             }
             
             UILabel *weatherLabel = [weatherItemView viewWithTag:5000];

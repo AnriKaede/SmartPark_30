@@ -31,7 +31,7 @@
     
     [self _initView];
     
-//    _distributorFilterView.hidden = YES;
+    //    _distributorFilterView.hidden = YES;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -42,6 +42,7 @@
     [button setTitle:@"返回" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+
 //    [self.view addSubview:button];
 }
 - (void)backAction {
@@ -52,7 +53,7 @@
     [super viewWillAppear:animated];
     
     [self setStatusBarBackgroundColor:[UIColor colorWithHexString:@"#1B82D1"]];
-//    [self setStatusBarBackgroundColor:[UIColor clearColor]];
+    //    [self setStatusBarBackgroundColor:[UIColor clearColor]];
 }
 //设置状态栏颜色
 - (void)setStatusBarBackgroundColor:(UIColor *)color {
@@ -77,7 +78,7 @@
     [self.view addSubview:_webView];
     
     // 加载url
-//    NSString *actUrl = [NSString stringWithFormat:@"http://192.168.206.19:9080/20171220admin/html/xldt.html"];
+    //    NSString *actUrl = [NSString stringWithFormat:@"http://192.168.206.19:9080/20171220admin/html/xldt.html"];
     NSString *actUrl = [NSString stringWithFormat:@"%@/h5/diningAdmin/html/zhpj.html", Main_Url];
     NSURLRequest *reqest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:actUrl] cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:5];
     [_webView loadRequest:reqest];

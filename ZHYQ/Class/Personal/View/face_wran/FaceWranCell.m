@@ -19,7 +19,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    _bgImgView.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 - (void)setFaceWranModel:(FaceWranModel *)faceWranModel {

@@ -97,7 +97,7 @@
     [_noDataView addSubview:button];
     
     [self.view.subviews enumerateObjectsUsingBlock:^(UITableView* obj, NSUInteger idx, BOOL *stop) {
-        if ([obj isKindOfClass:[UITableView class]]) {
+        if ([obj isKindOfClass:[UITableView class]] || [obj isKindOfClass:[UICollectionView class]]) {
             [_noDataView setFrame:CGRectMake(0, 0,obj.frame.size.width, obj.frame.size.height)];
             [obj addSubview:_noDataView];
             

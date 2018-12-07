@@ -107,6 +107,11 @@
             [self dealParkData:@"2002" withParkName:@"南坪" withDataDic:responseDic];
             [self dealParkData:@"2003" withParkName:@"地下车库" withDataDic:responseDic];
          
+            // 默认地下车库展开
+            if(_aptParkData.count > 0){
+                ParkAreaModel *parkAreaModel = _aptParkData.lastObject;
+                parkAreaModel.isDisplay = YES;
+            }
             [_aptTableView reloadData];
         }
         

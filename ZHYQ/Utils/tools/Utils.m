@@ -113,7 +113,7 @@
     }
 }
 
-+(NSString *)convertToJsonData:(NSDictionary *)dict
++(NSString *)convertToJsonData:(id)dict
 {
     NSError *error;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];

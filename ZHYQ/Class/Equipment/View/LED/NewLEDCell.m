@@ -85,7 +85,7 @@
     if([ledListModel.status isEqualToString:@"1"]){
         // 在线
         _yqSwitch.on = YES;
-        _stateLabel.text = @"开启中";
+        _stateLabel.text = @"已开启";
         _stateLabel.backgroundColor = [UIColor colorWithHexString:@"#009CF3"];
         
         _playBt.enabled = NO;
@@ -98,7 +98,7 @@
     }else {
         // 离线
         _yqSwitch.on = NO;
-        _stateLabel.text = @"关闭中";
+        _stateLabel.text = @"关闭";
         _stateLabel.backgroundColor = [UIColor colorWithHexString:@"#A5A5A5"];
         
         _playBt.enabled = YES;

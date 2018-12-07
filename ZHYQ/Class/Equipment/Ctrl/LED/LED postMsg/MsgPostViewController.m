@@ -192,6 +192,7 @@
      NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
     
     _tabelV = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64) style:UITableViewStyleGrouped];
+    _tabelV.contentInset = UIEdgeInsetsMake(0, 0, 40, 0);
     _tabelV.delegate = self;
     _tabelV.dataSource = self;
     [_tabelV registerNib:[UINib nibWithNibName:@"ChooseLedTableViewCell" bundle:nil] forCellReuseIdentifier:@"ChooseLedTableViewCell"];
@@ -257,19 +258,23 @@
 #pragma mark --------------UITableViewDataSource
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+//    return 3;
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if(section == 1){
-        return 1;
-    }else{
-        return 1;
-    }
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
+//    if (indexPath.section == 0) {
+//        // 选择屏类型
+//        ChooseLedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChooseLedTableViewCell"];
+//        cell.ledData = _ledData;
+//        cell.chooseLedDeleagte = self;
+//        return cell;
+//    }else
+        if (indexPath.section == 0) {
         ChooseLedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChooseLedTableViewCell"];
         cell.ledData = _ledData;
         cell.chooseLedDeleagte = self;
@@ -279,7 +284,7 @@
         [cell addSubview:self.webView];
 //        [cell addSubview:self.formworkBt];
         return cell;
-    }else if(indexPath.section == 2) {
+    }else if(indexPath.section == 3) {
         PostTimeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostTimeTableViewCell"];
 //        cell.delegate = self;
         return cell;

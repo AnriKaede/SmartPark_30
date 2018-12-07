@@ -583,7 +583,7 @@
             
             _cityLab.text = model.adv_name;
             if(model.smallWhite != nil && ![model.smallWhite isKindOfClass:[NSNull class]]){
-                [_weatherView sd_setImageWithURL:[NSURL URLWithString:model.smallWhite] placeholderImage:[UIImage imageNamed:@"未知"]];
+                [_weatherView sd_setImageWithURL:[NSURL URLWithString:[model.smallWhite stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:[UIImage imageNamed:@"未知"]];
             }
             _weaDataLab.text = [NSString stringWithFormat:@"%.1f℃",model.temperature.floatValue];
             _humDataLab.text = [NSString stringWithFormat:@"%.1f%%",model.humidity.floatValue];

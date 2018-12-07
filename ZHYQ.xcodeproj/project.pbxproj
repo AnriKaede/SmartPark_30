@@ -122,6 +122,11 @@
 		9230011D2047AA2300088227 /* EnvTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9230011B2047AA2300088227 /* EnvTimeCell.m */; };
 		9230011E2047AA2300088227 /* EnvTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9230011C2047AA2300088227 /* EnvTimeCell.xib */; };
 		9230FF441FD3D663002098A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D60262261F9B45DE00A66D5A /* Main.storyboard */; };
+		9231FDAE21AE23DE00736A74 /* FaceWranViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9231FDAA21AE23DC00736A74 /* FaceWranViewController.m */; };
+		9231FDAF21AE23DE00736A74 /* AddAloneFaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9231FDAC21AE23DD00736A74 /* AddAloneFaceViewController.m */; };
+		9231FDB321AE3DF200736A74 /* AddBatchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9231FDB221AE3DF200736A74 /* AddBatchViewController.m */; };
+		9231FDB821AE41A300736A74 /* BatchAddFaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9231FDB621AE41A300736A74 /* BatchAddFaceCell.m */; };
+		9231FDB921AE41A300736A74 /* BatchAddFaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9231FDB721AE41A300736A74 /* BatchAddFaceCell.xib */; };
 		9233330E1FC983AC00664852 /* MusicGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9233330D1FC983AC00664852 /* MusicGroupModel.m */; };
 		92343BEA20D8A60500A28603 /* AptManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92343BE920D8A60500A28603 /* AptManagerViewController.m */; };
 		92343BED20D8A6DA00A28603 /* BatchAptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92343BEC20D8A6DA00A28603 /* BatchAptViewController.m */; };
@@ -326,7 +331,6 @@
 		927FA6FA2191B1A1002CB32C /* WifiCountStrongModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FA6F92191B1A1002CB32C /* WifiCountStrongModel.m */; };
 		927FA73A2192C288002CB32C /* WifiNewUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FA7392192C288002CB32C /* WifiNewUserModel.m */; };
 		927FA73D2192C410002CB32C /* APNumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FA73C2192C410002CB32C /* APNumModel.m */; };
-		927FFE4D21A8E496008D1DC4 /* AddAloneFaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FFE4C21A8E496008D1DC4 /* AddAloneFaceViewController.m */; };
 		927FFE5121A8FB0F008D1DC4 /* HotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 927FFE5021A8FB0F008D1DC4 /* HotelViewController.m */; };
 		928426DD214B5D8800C909D4 /* ReservedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 928426DB214B5D8700C909D4 /* ReservedModel.m */; };
 		928426E0214B5DA100C909D4 /* ReservedDelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928426DF214B5DA100C909D4 /* ReservedDelViewController.m */; };
@@ -569,6 +573,9 @@
 		92E77D9F20DA308B00B87F9B /* AptOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E77D9E20DA308B00B87F9B /* AptOrderModel.m */; };
 		92E77DA220DA309D00B87F9B /* AptParkingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E77DA120DA309D00B87F9B /* AptParkingAreaModel.m */; };
 		92E77DA520DA30B100B87F9B /* AptParkingSpaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E77DA420DA30B100B87F9B /* AptParkingSpaceModel.m */; };
+		92E8207821AE6C6A002F8325 /* AddBatchFaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E8207721AE6C6A002F8325 /* AddBatchFaceModel.m */; };
+		92E8207B21AFBBB4002F8325 /* ClientFaceHisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E8207A21AFBBB4002F8325 /* ClientFaceHisViewController.m */; };
+		92E8207E21AFBC31002F8325 /* FaceHistoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E8207D21AFBC31002F8325 /* FaceHistoryModel.m */; };
 		92E83DE9208D8D09006759E7 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E83DE8208D8D09006759E7 /* ScanViewController.m */; };
 		92E83DEC208D8D3E006759E7 /* YQScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E83DEA208D8D3E006759E7 /* YQScanView.m */; };
 		92E83DEF208EB896006759E7 /* EquipmentInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E83DEE208EB896006759E7 /* EquipmentInfoViewController.m */; };
@@ -620,7 +627,6 @@
 		92F8943B20905D30005BDEDD /* WarnRepairIngViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8943A20905D30005BDEDD /* WarnRepairIngViewController.m */; };
 		92F8943E20906344005BDEDD /* WarnCutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8943D20906344005BDEDD /* WarnCutView.m */; };
 		92F8944120908E40005BDEDD /* WarnBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F8944020908E40005BDEDD /* WarnBaseViewController.m */; };
-		92FAC4DB219ACE7800FB1489 /* FaceWranViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4D5219ACE6F00FB1489 /* FaceWranViewController.m */; };
 		92FAC4DD219ACE7800FB1489 /* FaceHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */; };
 		92FAC4E2219ACF2200FB1489 /* FaceHistoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92FAC4DF219ACF1F00FB1489 /* FaceHistoryCell.m */; };
 		92FAC4E3219ACF2200FB1489 /* FaceHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92FAC4E0219ACF2100FB1489 /* FaceHistoryCell.xib */; };
@@ -1096,6 +1102,15 @@
 		9230011A2047AA2300088227 /* EnvTimeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnvTimeCell.h; sourceTree = "<group>"; };
 		9230011B2047AA2300088227 /* EnvTimeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EnvTimeCell.m; sourceTree = "<group>"; };
 		9230011C2047AA2300088227 /* EnvTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnvTimeCell.xib; sourceTree = "<group>"; };
+		9231FDAA21AE23DC00736A74 /* FaceWranViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceWranViewController.m; sourceTree = "<group>"; };
+		9231FDAB21AE23DD00736A74 /* AddAloneFaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAloneFaceViewController.h; sourceTree = "<group>"; };
+		9231FDAC21AE23DD00736A74 /* AddAloneFaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAloneFaceViewController.m; sourceTree = "<group>"; };
+		9231FDAD21AE23DD00736A74 /* FaceWranViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceWranViewController.h; sourceTree = "<group>"; };
+		9231FDB121AE3DF200736A74 /* AddBatchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddBatchViewController.h; sourceTree = "<group>"; };
+		9231FDB221AE3DF200736A74 /* AddBatchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddBatchViewController.m; sourceTree = "<group>"; };
+		9231FDB521AE41A300736A74 /* BatchAddFaceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BatchAddFaceCell.h; sourceTree = "<group>"; };
+		9231FDB621AE41A300736A74 /* BatchAddFaceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BatchAddFaceCell.m; sourceTree = "<group>"; };
+		9231FDB721AE41A300736A74 /* BatchAddFaceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BatchAddFaceCell.xib; sourceTree = "<group>"; };
 		9233330C1FC983AC00664852 /* MusicGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicGroupModel.h; sourceTree = "<group>"; };
 		9233330D1FC983AC00664852 /* MusicGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicGroupModel.m; sourceTree = "<group>"; };
 		92343BE820D8A60500A28603 /* AptManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AptManagerViewController.h; sourceTree = "<group>"; };
@@ -1461,8 +1476,6 @@
 		927FA7392192C288002CB32C /* WifiNewUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiNewUserModel.m; sourceTree = "<group>"; };
 		927FA73B2192C410002CB32C /* APNumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APNumModel.h; sourceTree = "<group>"; };
 		927FA73C2192C410002CB32C /* APNumModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APNumModel.m; sourceTree = "<group>"; };
-		927FFE4B21A8E496008D1DC4 /* AddAloneFaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAloneFaceViewController.h; sourceTree = "<group>"; };
-		927FFE4C21A8E496008D1DC4 /* AddAloneFaceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAloneFaceViewController.m; sourceTree = "<group>"; };
 		927FFE4F21A8FB0F008D1DC4 /* HotelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HotelViewController.h; sourceTree = "<group>"; };
 		927FFE5021A8FB0F008D1DC4 /* HotelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HotelViewController.m; sourceTree = "<group>"; };
 		928426DB214B5D8700C909D4 /* ReservedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservedModel.m; sourceTree = "<group>"; };
@@ -1890,6 +1903,12 @@
 		92E77DA120DA309D00B87F9B /* AptParkingAreaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AptParkingAreaModel.m; sourceTree = "<group>"; };
 		92E77DA320DA30B100B87F9B /* AptParkingSpaceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AptParkingSpaceModel.h; sourceTree = "<group>"; };
 		92E77DA420DA30B100B87F9B /* AptParkingSpaceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AptParkingSpaceModel.m; sourceTree = "<group>"; };
+		92E8207621AE6C6A002F8325 /* AddBatchFaceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddBatchFaceModel.h; sourceTree = "<group>"; };
+		92E8207721AE6C6A002F8325 /* AddBatchFaceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddBatchFaceModel.m; sourceTree = "<group>"; };
+		92E8207921AFBBB4002F8325 /* ClientFaceHisViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClientFaceHisViewController.h; sourceTree = "<group>"; };
+		92E8207A21AFBBB4002F8325 /* ClientFaceHisViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClientFaceHisViewController.m; sourceTree = "<group>"; };
+		92E8207C21AFBC31002F8325 /* FaceHistoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FaceHistoryModel.h; sourceTree = "<group>"; };
+		92E8207D21AFBC31002F8325 /* FaceHistoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FaceHistoryModel.m; sourceTree = "<group>"; };
 		92E83DE7208D8D09006759E7 /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		92E83DE8208D8D09006759E7 /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		92E83DEA208D8D3E006759E7 /* YQScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YQScanView.m; sourceTree = "<group>"; };
@@ -1983,10 +2002,8 @@
 		92F8943D20906344005BDEDD /* WarnCutView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarnCutView.m; sourceTree = "<group>"; };
 		92F8943F20908E40005BDEDD /* WarnBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WarnBaseViewController.h; sourceTree = "<group>"; };
 		92F8944020908E40005BDEDD /* WarnBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WarnBaseViewController.m; sourceTree = "<group>"; };
-		92FAC4D5219ACE6F00FB1489 /* FaceWranViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceWranViewController.m; sourceTree = "<group>"; };
 		92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceHistoryViewController.m; sourceTree = "<group>"; };
 		92FAC4D8219ACE7500FB1489 /* FaceHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceHistoryViewController.h; sourceTree = "<group>"; };
-		92FAC4DA219ACE7800FB1489 /* FaceWranViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceWranViewController.h; sourceTree = "<group>"; };
 		92FAC4DF219ACF1F00FB1489 /* FaceHistoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaceHistoryCell.m; sourceTree = "<group>"; };
 		92FAC4E0219ACF2100FB1489 /* FaceHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FaceHistoryCell.xib; sourceTree = "<group>"; };
 		92FAC4E1219ACF2200FB1489 /* FaceHistoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceHistoryCell.h; sourceTree = "<group>"; };
@@ -2663,6 +2680,8 @@
 				922770ED20BD4681009010F7 /* Message */,
 				926DB8DC202A9C3300529BE0 /* OperateLogModel.h */,
 				926DB8DD202A9C3300529BE0 /* OperateLogModel.m */,
+				92E8207621AE6C6A002F8325 /* AddBatchFaceModel.h */,
+				92E8207721AE6C6A002F8325 /* AddBatchFaceModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2951,6 +2970,32 @@
 				922B41082154919B00B9F6E4 /* YQFaliterPopView.m */,
 			);
 			path = YQFaliterView;
+			sourceTree = "<group>";
+		};
+		9231FDB021AE3DA300736A74 /* FaceWran */ = {
+			isa = PBXGroup;
+			children = (
+				9231FDAD21AE23DD00736A74 /* FaceWranViewController.h */,
+				9231FDAA21AE23DC00736A74 /* FaceWranViewController.m */,
+				9231FDAB21AE23DD00736A74 /* AddAloneFaceViewController.h */,
+				9231FDAC21AE23DD00736A74 /* AddAloneFaceViewController.m */,
+				9231FDB121AE3DF200736A74 /* AddBatchViewController.h */,
+				9231FDB221AE3DF200736A74 /* AddBatchViewController.m */,
+			);
+			path = FaceWran;
+			sourceTree = "<group>";
+		};
+		9231FDB421AE413100736A74 /* face_wran */ = {
+			isa = PBXGroup;
+			children = (
+				92789770219C18E800792EFF /* FaceWranCell.h */,
+				92789771219C18E800792EFF /* FaceWranCell.m */,
+				92789772219C18E800792EFF /* FaceWranCell.xib */,
+				9231FDB521AE41A300736A74 /* BatchAddFaceCell.h */,
+				9231FDB621AE41A300736A74 /* BatchAddFaceCell.m */,
+				9231FDB721AE41A300736A74 /* BatchAddFaceCell.xib */,
+			);
+			path = face_wran;
 			sourceTree = "<group>";
 		};
 		9240BAE21FC27EB80019AF07 /* parkCount */ = {
@@ -3856,12 +3901,10 @@
 				92D8B8E2206B49620001263F /* FaceFilterViewController.m */,
 				92D8B8EB206C864B0001263F /* FaceDetailViewController.h */,
 				92D8B8EC206C864B0001263F /* FaceDetailViewController.m */,
-				92FAC4DA219ACE7800FB1489 /* FaceWranViewController.h */,
-				92FAC4D5219ACE6F00FB1489 /* FaceWranViewController.m */,
 				92FAC4D8219ACE7500FB1489 /* FaceHistoryViewController.h */,
 				92FAC4D7219ACE7300FB1489 /* FaceHistoryViewController.m */,
-				927FFE4B21A8E496008D1DC4 /* AddAloneFaceViewController.h */,
-				927FFE4C21A8E496008D1DC4 /* AddAloneFaceViewController.m */,
+				92E8207921AFBBB4002F8325 /* ClientFaceHisViewController.h */,
+				92E8207A21AFBBB4002F8325 /* ClientFaceHisViewController.m */,
 			);
 			path = FaceIdentify;
 			sourceTree = "<group>";
@@ -3886,14 +3929,11 @@
 				92D8B8DE206B3F0C0001263F /* FaceTraceCell.xib */,
 				92ACC6532137EF48006E005E /* FaceFilterView.h */,
 				92ACC6542137EF48006E005E /* FaceFilterView.m */,
+				92669425219D5111004583B2 /* FaceHtmlView.h */,
+				92669426219D5111004583B2 /* FaceHtmlView.m */,
 				92FAC4E1219ACF2200FB1489 /* FaceHistoryCell.h */,
 				92FAC4DF219ACF1F00FB1489 /* FaceHistoryCell.m */,
 				92FAC4E0219ACF2100FB1489 /* FaceHistoryCell.xib */,
-				92789770219C18E800792EFF /* FaceWranCell.h */,
-				92789771219C18E800792EFF /* FaceWranCell.m */,
-				92789772219C18E800792EFF /* FaceWranCell.xib */,
-				92669425219D5111004583B2 /* FaceHtmlView.h */,
-				92669426219D5111004583B2 /* FaceHtmlView.m */,
 			);
 			path = FaceIdentify;
 			sourceTree = "<group>";
@@ -3907,6 +3947,8 @@
 				92D8B8E9206B8FC20001263F /* FaceListModel.m */,
 				92EECFE721A7FC0B002ED8CD /* FaceWranModel.h */,
 				92EECFE821A7FC0B002ED8CD /* FaceWranModel.m */,
+				92E8207C21AFBC31002F8325 /* FaceHistoryModel.h */,
+				92E8207D21AFBC31002F8325 /* FaceHistoryModel.m */,
 			);
 			path = Face;
 			sourceTree = "<group>";
@@ -5474,6 +5516,7 @@
 		D6F665521FA1E07F00059931 /* Ctrl */ = {
 			isa = PBXGroup;
 			children = (
+				9231FDB021AE3DA300736A74 /* FaceWran */,
 				9276A59F2088742800F6667B /* WorkList */,
 				D629A62D1FA16D7400FA5EE1 /* PersonalViewController.h */,
 				D629A62E1FA16D7400FA5EE1 /* PersonalViewController.m */,
@@ -5508,6 +5551,7 @@
 		D6F665541FA1E09500059931 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9231FDB421AE413100736A74 /* face_wran */,
 				92D0E8AA20897B3C003BC75E /* WorkList */,
 				D6F665551FA1E0C700059931 /* SetHeaderView.h */,
 				D6F665561FA1E0C700059931 /* SetHeaderView.m */,
@@ -5745,6 +5789,7 @@
 				D629A5BB1F9C58B400FA5EE1 /* image.xcassets in Resources */,
 				9240BB111FC2F0C60019AF07 /* VIsListCell.xib in Resources */,
 				925576C72182999300B4A1A3 /* WifiSpeedCell.xib in Resources */,
+				9231FDB921AE41A300736A74 /* BatchAddFaceCell.xib in Resources */,
 				D6A2DEF821804A3C00D76AB6 /* PFFilterContentView.xib in Resources */,
 				92E87D601FB6EF510045D2FF /* AuthorityCell.xib in Resources */,
 				922B41272154A08C00B9F6E4 /* AttDetailTableViewCell.xib in Resources */,
@@ -5922,6 +5967,7 @@
 				D639228D1FB32F4A00E1A00A /* IllegalListTabCell.m in Sources */,
 				D64020561FCEDB340028568D /* CarBlackListModel.m in Sources */,
 				921A840F1FA962CC00EE4F41 /* ThreadViewController.m in Sources */,
+				9231FDAE21AE23DE00736A74 /* FaceWranViewController.m in Sources */,
 				92EECFE621A79EDA002ED8CD /* FountainVoiceRecognition.m in Sources */,
 				D6FE63901FB28CEB005CEE99 /* MD5.m in Sources */,
 				9289AF08218FD65B005AC0DC /* MealCenViewController.m in Sources */,
@@ -6076,9 +6122,11 @@
 				92216EF71FEDF629008B09EA /* OpenDoorModel.m in Sources */,
 				92CD237C209A9ECD00BDF1AF /* FindCarNoViewController.m in Sources */,
 				92BD4204200DE08700AB303E /* TrainViewController.m in Sources */,
+				92E8207B21AFBBB4002F8325 /* ClientFaceHisViewController.m in Sources */,
 				92D8B8BC206A1FD50001263F /* AASubtitle.m in Sources */,
 				D60262301F9B45DE00A66D5A /* main.m in Sources */,
 				92FC1E951FDB88B2004A3901 /* FlowTraceModel.m in Sources */,
+				9231FDB321AE3DF200736A74 /* AddBatchViewController.m in Sources */,
 				D6928CC41FBD333800CB9C18 /* InDoorMonitorMapModel.m in Sources */,
 				D60CA2B11FB9952000725389 /* ManholeCoverModel.m in Sources */,
 				9240BAF91FC2B3550019AF07 /* WarnTodayViewController.m in Sources */,
@@ -6107,6 +6155,7 @@
 				D65685621FB0117D00BDFFF3 /* TimeSetTableViewController.m in Sources */,
 				92D8DDB920469A5700E8185A /* WaterConViewController.m in Sources */,
 				9224A2EC2012F5F600AE4FF4 /* VisitorViserModel.m in Sources */,
+				92E8207821AE6C6A002F8325 /* AddBatchFaceModel.m in Sources */,
 				922770CC20BBA681009010F7 /* DoorMapListCell.m in Sources */,
 				D63922A61FB3EA6600E1A00A /* FrontGroundViewController.m in Sources */,
 				D6F3DFFE1FA827BC00DDAE05 /* YQPlayerToolsView.m in Sources */,
@@ -6141,7 +6190,6 @@
 				922B41132154952A00B9F6E4 /* BalanceDetailModel.m in Sources */,
 				D695D20B1FB701EA005255E9 /* MonitorCenterViewController.m in Sources */,
 				D602624C1F9C46C900A66D5A /* UITabBar+CustomBadge.m in Sources */,
-				92FAC4DB219ACE7800FB1489 /* FaceWranViewController.m in Sources */,
 				92B90BDC201DD85200F978A1 /* EnergyWaterUseModel.m in Sources */,
 				92D8B8B5206A1FD50001263F /* AAAreaspline.m in Sources */,
 				9253BD6E20BFA58E00AB4767 /* PreviewManager.mm in Sources */,
@@ -6172,6 +6220,7 @@
 				927DC20D2008A65A005C65FB /* StreetLigGroupViewController.m in Sources */,
 				9289AF19218FE8BA005AC0DC /* SmartDistributorViewController.m in Sources */,
 				92343BF320D8D97500A28603 /* ParkAreaModel.m in Sources */,
+				9231FDB821AE41A300736A74 /* BatchAddFaceCell.m in Sources */,
 				9243E836209FDBE0000FD182 /* WranConfirmView.m in Sources */,
 				92E77D9F20DA308B00B87F9B /* AptOrderModel.m in Sources */,
 				92BD1EAC210AA22E00D84330 /* AirRoomModel.m in Sources */,
@@ -6204,6 +6253,7 @@
 				928775501FBD7A8900BF708A /* CountCakeView.m in Sources */,
 				D63922D61FB475E100E1A00A /* WifiAnnotationView.m in Sources */,
 				D6A2DEEC2180163100D76AB6 /* ParkFeeListCell.m in Sources */,
+				92E8207E21AFBC31002F8325 /* FaceHistoryModel.m in Sources */,
 				926B697D1FD25C7800DEFEDD /* ParkLockModel.m in Sources */,
 				927FA6EE2191B10D002CB32C /* WifiInfoCountModel.m in Sources */,
 				D68A2EF01FBFD46F00E541A6 /* DCSildeBarView.m in Sources */,
@@ -6288,6 +6338,7 @@
 				92216EF41FED045A008B09EA /* ECardInfoModel.m in Sources */,
 				921A84221FA9662300EE4F41 /* Utils.m in Sources */,
 				D6B34DFE20887BAD00DF8DCC /* InquiryDeviceTableViewCell.m in Sources */,
+				9231FDAF21AE23DE00736A74 /* AddAloneFaceViewController.m in Sources */,
 				9240BB151FC2F9740019AF07 /* VisCountCell.m in Sources */,
 				928775131FB9A41700BF708A /* OperateLogViewController.m in Sources */,
 				D69259AC1FC5A4FC0077482F /* LoginViewController.m in Sources */,
@@ -6411,7 +6462,6 @@
 				92343BEA20D8A60500A28603 /* AptManagerViewController.m in Sources */,
 				922B40FA21548F5100B9F6E4 /* UIScrollView+Empty.m in Sources */,
 				9253C4C120F8A75F00985949 /* AirBatchViewController.m in Sources */,
-				927FFE4D21A8E496008D1DC4 /* AddAloneFaceViewController.m in Sources */,
 				925576E62182BFDD00B4A1A3 /* WifiCountStrongCell.m in Sources */,
 				92B3BEC51FF5DE1500C3AFEC /* ParkNightTaskModel.m in Sources */,
 				92FAC4DD219ACE7800FB1489 /* FaceHistoryViewController.m in Sources */,
