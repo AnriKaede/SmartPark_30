@@ -25,7 +25,7 @@
 
 #import "Utils.h"
 
-#define listCellHeight 300
+#define listCellHeight 240
 
 @interface PersonalViewController ()<ContactCtrlDelegate>
 {
@@ -132,6 +132,9 @@
 #pragma mark UITableView 协议
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.row == 2 && ![[NSUserDefaults standardUserDefaults] boolForKey:KIsRepairman]){
+        return 0.1;
+    }
+    if(indexPath.row == 0){
         return 0.1;
     }
     return 60;
