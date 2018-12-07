@@ -95,9 +95,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)allSelect {
+    _allSelBt.selected = !_allSelBt.selected;
     // 全选
     [_wranData enumerateObjectsUsingBlock:^(FaceWranModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        model.isSelDelete = YES;
+        model.isSelDelete = _allSelBt.selected;
     }];
     [self reloadCollectionView];
 }
@@ -218,6 +219,9 @@
         [bottomLeftButton setTitle:@"删除人像" forState:UIControlStateNormal];
         [bottomRightButton setTitle:@"新增人像" forState:UIControlStateNormal];
         _allSelBt.hidden = YES;
+        [_wranData enumerateObjectsUsingBlock:^(FaceWranModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            model.isSelDelete = NO;
+        }];
     }else {
         // 删除人像
         _isDelete = YES;

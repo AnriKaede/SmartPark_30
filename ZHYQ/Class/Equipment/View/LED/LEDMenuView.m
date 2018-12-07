@@ -85,6 +85,8 @@
 - (void)setModelAry:(NSArray *)modelAry {
     _modelAry = modelAry;
     
+#warning 请求状态信息接口
+    
     if(modelAry && modelAry.count > 0){
         self.ledListModel = modelAry.firstObject;
         // 标题

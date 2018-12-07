@@ -12,6 +12,8 @@
 @interface ClientFaceHisViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 {
     UICollectionView *_collectionView;
+    NSMutableArray *_hisDatas;
+    
     NSMutableArray *_historyTitleData;
     NSMutableArray *_historyData;
     UIView *_bottomView;
@@ -29,6 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _hisDatas = @[].mutableCopy;
     _historyTitleData = @[].mutableCopy;
     _historyData = @[].mutableCopy;
     
@@ -72,6 +75,8 @@
     [_collectionView registerNib:[UINib nibWithNibName:@"FaceHistoryCell" bundle:nil] forCellWithReuseIdentifier:@"FaceHistoryCell"];
     [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"reusableView"];
     [self.view addSubview:_collectionView];
+    
+    layout.estimatedItemSize = CGSizeZero;
     
     _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         _page = 1;
@@ -126,10 +131,11 @@
 }
 - (void)rightAction {
     if(_isDelete){
+        _rightBt.selected = !_rightBt.selected;
         // 全选
         [_historyData enumerateObjectsUsingBlock:^(NSArray *monthModels, NSUInteger idx, BOOL * _Nonnull stop) {
             [monthModels enumerateObjectsUsingBlock:^(FaceHistoryModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-                model.isSelDelete = YES;
+                model.isSelDelete = _rightBt.selected;
             }];
         }];
         [self reloadColletionView];
@@ -144,6 +150,11 @@
 - (void)bottomLeftAction {
     _isDelete = NO;
     _bottomView.hidden = YES;
+    [_historyData enumerateObjectsUsingBlock:^(NSArray *monthModels, NSUInteger idx, BOOL * _Nonnull stop) {
+        [monthModels enumerateObjectsUsingBlock:^(FaceHistoryModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            model.isSelDelete = NO;
+        }];
+    }];
     [self reloadColletionView];
     [_rightBt setTitle:@"删除" forState:UIControlStateNormal];
 }
@@ -238,7 +249,7 @@
         NSString *code = responseObject[@"code"];
         if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
             if(_page == 1){
-                [_historyData removeAllObjects];
+                [_hisDatas removeAllObjects];
             }
             NSArray *arr = responseObject[@"responseData"];
             
@@ -249,14 +260,13 @@
                 _collectionView.mj_footer.state = MJRefreshStateNoMoreData;
                 _collectionView.mj_footer.hidden = YES;
             }
-            NSMutableArray *hisDatas = @[].mutableCopy;
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 FaceHistoryModel *model = [[FaceHistoryModel alloc] initWithDataDic:obj];
-                [hisDatas addObject:model];
+                [_hisDatas addObject:model];
             }];
             
             // 处理数据
-            [self dealData:hisDatas];
+            [self dealData:_hisDatas];
         }
         [self reloadColletionView];
         

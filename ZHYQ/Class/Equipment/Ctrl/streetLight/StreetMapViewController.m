@@ -32,6 +32,7 @@
 {
     YQInDoorPointMapView *indoorView;
     UIImageView *_selectImageView;
+    UIImageView *_selectBottomImageView;
     BOOL isOpen;
     UIView *bottomView;
     
@@ -383,20 +384,26 @@
         // 区分莲花灯和路灯
         if ([selectModel.DEVICE_TYPE isEqualToString:@"55-2"]) {
             _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
+            _selectBottomImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
         }else {
             _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
+            _selectBottomImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
         }
     }
     
     UIImageView *imageView = [indoorView.mapView viewWithTag:[identity integerValue]];
+    UIImageView *bottomImageView = [indoorView.mapView viewWithTag:[identity integerValue]+100];
     // 区分莲花灯和路灯
     if ([model.DEVICE_TYPE isEqualToString:@"55-2"]) {
         imageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
+        bottomImageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
     }else {
         imageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
+        bottomImageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
     }
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;
+    _selectBottomImageView = bottomImageView;
     
     [PointViewSelect pointImageSelect:_selectImageView];
     

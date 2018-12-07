@@ -62,6 +62,8 @@ typedef enum {
 @property (strong, nonatomic) YQHeaderView *headerView;
 @property (nonatomic, strong) UICollectionView *mainCollectionView;
 @property (nonatomic,strong) NSIndexPath * selectedIndex;
+
+@property (nonatomic,strong) NSMutableArray *mapCoordinateData;
 @property (nonatomic,strong) NSMutableArray *pointMapDataArr;
 @property (nonatomic,strong) NSMutableArray *graphData;
 
@@ -124,9 +126,10 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _mapCoordinateData = @[].mutableCopy;
     
     _page = 1;
-    _length = 20;
+    _length = 3;
     
     isOpen = YES;
     
@@ -138,6 +141,8 @@ typedef enum {
     [self _initView];
     
     [self _initTableView];
+    
+    [self _loadCoordinateData];
     
     [self _loadPointMapData];
     
@@ -160,9 +165,59 @@ typedef enum {
     tabView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tabView.yh_PlaceHolderView = [self makePlaceHolderView];
     [bottomView addSubview:tabView];
+    
+    tabView.estimatedRowHeight = 0;
+    tabView.estimatedSectionHeaderHeight = 0;
+    tabView.estimatedSectionFooterHeight = 0;
+    
+    tabView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _page = 1;
+        [self _loadPointMapData];
+    }];
+    // 上拉刷新
+    tabView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _page ++;
+        [self _loadPointMapData];
+    }];
+    tabView.mj_footer.hidden = YES;
 }
 
-#pragma mark 加载LED点位图数据
+#pragma mark 加载LED地图点位数据
+- (void)_loadCoordinateData {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/equipment/getLedScreenList",Main_Url];
+    
+    NSMutableDictionary *param = @{}.mutableCopy;
+    [param setObject:@"all" forKey:@"type"];
+    [param setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [param setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
+    [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
+        [self hideHud];
+        [self.graphData removeAllObjects];
+        [_mapCoordinateData removeAllObjects];
+        
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            NSDictionary *dic = responseObject[@"responseData"];
+            NSArray *arr = dic[@"ledScreenList"];
+            
+            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                LedListModel *model = [[LedListModel alloc] initWithDataDic:obj];
+                //                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LONGITUDE, model.LATITUDE];
+                //                [self.graphData addObject:graphStr];
+                [self.graphData addObject:@"543,535,"];
+                [_mapCoordinateData addObject:model];
+            }];
+        }
+        
+        indoorView.graphData = self.graphData;
+        indoorView.LEDMapArr = _mapCoordinateData;
+        [tabView reloadData];
+    } failure:^(NSError *error) {
+        NSLog(@"LED错误 %@", error);
+    }];
+}
+
+#pragma mark 加载LED列表图数据
 -(void)_loadPointMapData {
     NSString *urlStr = [NSString stringWithFormat:@"%@/equipment/getLedScreenList",Main_Url];
     
@@ -174,28 +229,36 @@ typedef enum {
     [self showHudInView:self.view hint:@""];
     [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
-        [self.graphData removeAllObjects];
-        [self.pointMapDataArr removeAllObjects];
+        [tabView.mj_header endRefreshing];
+        [tabView.mj_footer endRefreshing];
         
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
             NSDictionary *dic = responseObject[@"responseData"];
             NSArray *arr = dic[@"ledScreenList"];
             
+            if(_page == 1){
+                [self.pointMapDataArr removeAllObjects];
+            }
+            if(arr.count > _length-1){
+                tabView.mj_footer.state = MJRefreshStateIdle;
+                tabView.mj_footer.hidden = NO;
+            }else {
+                tabView.mj_footer.state = MJRefreshStateNoMoreData;
+                tabView.mj_footer.hidden = YES;
+            }
+            
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 LedListModel *model = [[LedListModel alloc] initWithDataDic:obj];
-//                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LONGITUDE, model.LATITUDE];
-//                [self.graphData addObject:graphStr];
-                [self.graphData addObject:@"543,535,"];
                 [self.pointMapDataArr addObject:model];
             }];
         }
         
-        indoorView.graphData = self.graphData;
-        indoorView.LEDMapArr = self.pointMapDataArr;
         _dataArr = self.pointMapDataArr.mutableCopy;
         [tabView reloadData];
     } failure:^(NSError *error) {
         [self hideHud];
+        [tabView.mj_header endRefreshing];
+        [tabView.mj_footer endRefreshing];
         NSLog(@"LED错误 %@", error);
     }];
 }
@@ -367,10 +430,11 @@ typedef enum {
 #pragma mark 选中点位
 - (void)selInMapWithId:(NSString *)identity {
     NSInteger selectIndex = [identity integerValue]-100;
-    if(self.pointMapDataArr.count <= selectIndex){
+    if(_mapCoordinateData.count <= selectIndex){
         return;
     }
-    LedListModel *model = self.pointMapDataArr[selectIndex];
+#warning 修改为点位model
+    LedListModel *model = _mapCoordinateData[selectIndex];
     
     if (_selectImageView) {
         _selectImageView.contentMode = UIViewContentModeScaleToFill;
@@ -403,6 +467,7 @@ typedef enum {
     [PointViewSelect pointImageSelect:_selectImageView];
     [PointViewSelect pointImageSelect:_selectBottomImageView];
     
+#warning 修改为点位model
     _ledMenuView.modelAry = @[model];
     _ledMenuView.hidden = NO;
     
