@@ -85,11 +85,14 @@
 - (void)setModelAry:(NSArray *)modelAry {
     _modelAry = modelAry;
     
-#warning 请求状态信息接口
+    _playBt.enabled = NO;
+    _restartBt.enabled = NO;
+    _closeBt.enabled = NO;
     
+    [self loadLEDInfo:modelAry.firstObject];
+    
+    [_topBgView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     if(modelAry && modelAry.count > 0){
-#warning 数据
-//        self.ledListModel = modelAry.firstObject;
         // 标题
         CGFloat itemWidth = KScreenWidth/modelAry.count;
         [modelAry enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -129,17 +132,26 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/ledController/getAppLedStatus",Main_Url];
     
     NSMutableDictionary *param = @{}.mutableCopy;
-    if(model.type){
+    if([model.deviceType isEqualToString:@"14-2"]){
         [param setObject:[NSString stringWithFormat:@"%@", model.deviceId] forKey:@"id"];
     }else {
         [param setObject:[NSString stringWithFormat:@"%@", model.tagid] forKey:@"id"];
     }
     NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
     [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
-//        if ([responseObject[@"code"] isEqualToString:@"1"]) {
-//            NSDictionary *dic = responseObject[@"responseData"];
-//        }
-        NSLog(@"%@", responseObject);
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            NSDictionary *dic = responseObject[@"responseData"];
+            NSArray *arr = dic[@"rows"];
+            
+            if(arr != nil && arr.count > 0){
+                LedListModel *deviceModel = [[LedListModel alloc] initWithDataDic:arr.firstObject];
+                model.status = deviceModel.status;
+                model.tagid = deviceModel.tagid;
+                model.deviceId = deviceModel.deviceId;
+            }
+            
+            self.ledListModel = model;
+        }
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
     }];

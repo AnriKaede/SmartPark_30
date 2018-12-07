@@ -144,7 +144,7 @@ typedef enum {
     
     [self _loadCoordinateData];
     
-    [self _loadPointMapData];
+    [tabView.mj_header beginRefreshing];
     
     // 加载顶部统计数
     [self _loadCountData];
@@ -186,13 +186,12 @@ typedef enum {
 - (void)_loadCoordinateData {
     NSString *urlStr = [NSString stringWithFormat:@"%@/ledController/getAppLedInfoMsg",Main_Url];
     [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
-        [self hideHud];
         [self.graphData removeAllObjects];
         [_mapCoordinateData removeAllObjects];
         
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
             NSDictionary *dic = responseObject[@"responseData"];
-            NSArray *arr = dic[@"ledScreenList"];
+            NSArray *arr = dic[@"rows"];
             
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 LedListModel *model = [[LedListModel alloc] initWithDataDic:obj];
@@ -219,9 +218,9 @@ typedef enum {
     [param setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
     [param setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
     NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
-    [self showHudInView:self.view hint:@""];
+//    [self showHudInView:self.view hint:@""];
     [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
-        [self hideHud];
+//        [self hideHud];
         [tabView.mj_header endRefreshing];
         [tabView.mj_footer endRefreshing];
         
@@ -441,7 +440,7 @@ typedef enum {
     
     UIImageView *imageView = [indoorView.mapView viewWithTag:[identity integerValue]];
     UIImageView *bottomImageView = [indoorView.mapView viewWithTag:[identity integerValue] + 100];
-    imageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
+    bottomImageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;
     _selectBottomImageView = bottomImageView;
