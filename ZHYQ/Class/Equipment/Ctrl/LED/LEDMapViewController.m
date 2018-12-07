@@ -184,14 +184,8 @@ typedef enum {
 
 #pragma mark 加载LED地图点位数据
 - (void)_loadCoordinateData {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/equipment/getLedScreenList",Main_Url];
-    
-    NSMutableDictionary *param = @{}.mutableCopy;
-    [param setObject:@"all" forKey:@"type"];
-    [param setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
-    [param setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
-    NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
-    [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/ledController/getAppLedInfoMsg",Main_Url];
+    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         [self.graphData removeAllObjects];
         [_mapCoordinateData removeAllObjects];
@@ -202,9 +196,8 @@ typedef enum {
             
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 LedListModel *model = [[LedListModel alloc] initWithDataDic:obj];
-                //                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LONGITUDE, model.LATITUDE];
-                //                [self.graphData addObject:graphStr];
-                [self.graphData addObject:@"543,535,"];
+                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LONGITUDE, model.LATITUDE];
+                [self.graphData addObject:graphStr];
                 [_mapCoordinateData addObject:model];
             }];
         }
@@ -217,7 +210,7 @@ typedef enum {
     }];
 }
 
-#pragma mark 加载LED列表图数据
+#pragma mark 加载LED列表数据
 -(void)_loadPointMapData {
     NSString *urlStr = [NSString stringWithFormat:@"%@/equipment/getLedScreenList",Main_Url];
     
@@ -433,33 +426,22 @@ typedef enum {
     if(_mapCoordinateData.count <= selectIndex){
         return;
     }
-#warning 修改为点位model
+
     LedListModel *model = _mapCoordinateData[selectIndex];
     
-    if (_selectImageView) {
-        _selectImageView.contentMode = UIViewContentModeScaleToFill;
-        if([_selectModel.mainstatus isEqualToString:@"1"]) {
-            _selectImageView.image = [UIImage imageNamed:@"LED_map_icon"];
-        }else {
-            _selectImageView.image = [UIImage imageNamed:@"LED_map_icon"];
-        }
-    }
-    
-    _selectModel = model;
-    
     // 复原之前选中图片效果
-    if(_selectImageView != nil){
+    if (_selectImageView != nil && _selectBottomImageView != nil) {
+        _selectImageView.contentMode = UIViewContentModeScaleToFill;
+        _selectBottomImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
         [PointViewSelect recoverSelImgView:_selectImageView];
         [PointViewSelect recoverSelImgView:_selectBottomImageView];
     }
     
+    _selectModel = model;
+    
     UIImageView *imageView = [indoorView.mapView viewWithTag:[identity integerValue]];
     UIImageView *bottomImageView = [indoorView.mapView viewWithTag:[identity integerValue] + 100];
-    if ([model.mainstatus isEqualToString:@"1"]) {
-        imageView.image = [UIImage imageNamed:@"LED_map_icon"];
-    }else {
-        imageView.image = [UIImage imageNamed:@"LED_map_icon"];
-    }
+    imageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;
     _selectBottomImageView = bottomImageView;
@@ -467,7 +449,6 @@ typedef enum {
     [PointViewSelect pointImageSelect:_selectImageView];
     [PointViewSelect pointImageSelect:_selectBottomImageView];
     
-#warning 修改为点位model
     _ledMenuView.modelAry = @[model];
     _ledMenuView.hidden = NO;
     

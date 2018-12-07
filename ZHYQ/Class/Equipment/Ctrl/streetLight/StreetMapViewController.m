@@ -377,8 +377,9 @@
     _currentModel = model;
     
     // 复原之前选中图片效果
-    if(_selectImageView != nil){
+    if(_selectImageView != nil && _selectBottomImageView != nil){
         [PointViewSelect recoverSelImgView:_selectImageView];
+        [PointViewSelect recoverSelImgView:_selectBottomImageView];
         StreetLightModel *selectModel = self.cameraDataArr[_selectImageView.tag-100];
         _selectImageView.contentMode = UIViewContentModeScaleToFill;
         // 区分莲花灯和路灯
@@ -406,6 +407,7 @@
     _selectBottomImageView = bottomImageView;
     
     [PointViewSelect pointImageSelect:_selectImageView];
+    [PointViewSelect pointImageSelect:_selectBottomImageView];
     
     [self presentPointVC:model];
 }

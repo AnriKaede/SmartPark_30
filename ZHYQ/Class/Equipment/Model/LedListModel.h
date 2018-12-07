@@ -27,6 +27,8 @@
 @property (nonatomic,copy) NSString *tagid;
 @property (nonatomic,copy) NSString *type;
 @property (nonatomic,copy) NSString *status;
+@property (nonatomic,copy) NSString *LATITUDE;
+@property (nonatomic,copy) NSString *LONGITUDE;
 
 @property (nonatomic,copy) NSString *mainstatus;
 

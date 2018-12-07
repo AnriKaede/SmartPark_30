@@ -88,7 +88,8 @@
 #warning 请求状态信息接口
     
     if(modelAry && modelAry.count > 0){
-        self.ledListModel = modelAry.firstObject;
+#warning 数据
+//        self.ledListModel = modelAry.firstObject;
         // 标题
         CGFloat itemWidth = KScreenWidth/modelAry.count;
         [modelAry enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -121,6 +122,27 @@
         }
     }
     self.ledListModel = _modelAry[selBt.tag - 3000];
+}
+
+#pragma mark 请求单个LED设备信息
+- (void)loadLEDInfo:(LedListModel *)model {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/ledController/getAppLedStatus",Main_Url];
+    
+    NSMutableDictionary *param = @{}.mutableCopy;
+    if(model.type){
+        [param setObject:[NSString stringWithFormat:@"%@", model.deviceId] forKey:@"id"];
+    }else {
+        [param setObject:[NSString stringWithFormat:@"%@", model.tagid] forKey:@"id"];
+    }
+    NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
+    [[NetworkClient sharedInstance] POST:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
+//        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+//            NSDictionary *dic = responseObject[@"responseData"];
+//        }
+        NSLog(@"%@", responseObject);
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)setLedListModel:(LedListModel *)ledListModel {
