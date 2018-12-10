@@ -74,7 +74,7 @@
     [imgWranBtn addTarget:self action:@selector(faceHistory) forControlEvents:UIControlEventTouchUpInside];
     [imgWranBtn setTitleEdgeInsets:UIEdgeInsetsMake(imgWranBtn.imageView.frame.size.height ,-imgWranBtn.imageView.frame.size.width, -5,0.0)];
     [imgWranBtn setImageEdgeInsets:UIEdgeInsetsMake(-10, 20,0.0, -imgWranBtn.titleLabel.bounds.size.width)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imgWranBtn];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imgWranBtn];
     
     _selTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64) style:UITableViewStylePlain];
     _selTableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];

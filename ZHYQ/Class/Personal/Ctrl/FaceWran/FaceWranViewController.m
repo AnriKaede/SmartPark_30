@@ -321,7 +321,7 @@
             [self.navigationController pushViewController:batchVC animated:YES];
         }
         // 判断图片是否存在头像
-//        [self imageData:photos.firstObject];
+        //        [self imageData:photos.firstObject];
     }];
     [self presentViewController:imagePickerVc animated:YES completion:nil];
 }

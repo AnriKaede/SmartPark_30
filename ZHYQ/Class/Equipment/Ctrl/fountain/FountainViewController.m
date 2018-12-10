@@ -535,7 +535,7 @@
     [param setObject:operateType forKey:@"operateType"];
     [param setObject:@"1" forKey:@"tagValue"];
     
-    [self showHudInView:self.view hint:@""];
+//    [self showHudInView:self.view hint:@""];
     [[NetworkClient sharedInstance] POST:urlStr dict:param progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
