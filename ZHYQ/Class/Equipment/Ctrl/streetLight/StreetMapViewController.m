@@ -287,6 +287,11 @@
     
     StreetLightModel *model = self.cameraDataArr[indexPath.row];
     cell.nameLabel.text = model.DEVICE_NAME;
+    if([model.DEVICE_TYPE isEqualToString:@"55-2"]){
+        cell.lampImgView.image = [UIImage imageNamed:@"street_lamp_flower_icon"];
+    }else {
+        cell.lampImgView.image = [UIImage imageNamed:@"street_lamp_icon"];
+    }
     return cell;
 }
 

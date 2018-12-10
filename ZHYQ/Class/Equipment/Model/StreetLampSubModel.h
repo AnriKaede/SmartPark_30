@@ -37,6 +37,7 @@
 @property (nonatomic,copy) NSString *DEVICE_NAME;
 @property (nonatomic,copy) NSString *SUB_DEVICE_ADDR;
 @property (nonatomic,copy) NSString *SUB_TAGID;
+@property (nonatomic,copy) NSString *DEVICE_TYPE;
 
 @property (nonatomic,assign) BOOL isConSelect;
 

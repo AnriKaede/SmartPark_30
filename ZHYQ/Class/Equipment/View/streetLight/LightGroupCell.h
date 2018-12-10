@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface LightGroupCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *lampImgView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @end
