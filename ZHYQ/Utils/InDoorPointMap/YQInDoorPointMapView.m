@@ -170,6 +170,7 @@
 //        videoImgView.image = [UIImage imageNamed:@"wifi_normal"];
         videoImgView.tag = 100+idx;
         bottomImgView.tag = 200+idx;
+        bottomImgView.hidden = YES;
         videoImgView.userInteractionEnabled = YES;
         bottomImgView.userInteractionEnabled = YES;
         [_mapView addSubview:videoImgView];
@@ -256,17 +257,20 @@
     
     [streetLightMapArr enumerateObjectsUsingBlock:^(StreetLightModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         UIImageView *imageView = [_mapView viewWithTag:100+idx];
-        UIImageView *bottomImgView = [_mapView viewWithTag:200+idx];
+//        UIImageView *bottomImgView = [_mapView viewWithTag:200+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
-        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 65, 200);
-        bottomImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+//        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 65, 200);
+        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 130, 130);
+//        bottomImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
         if([model.DEVICE_TYPE isEqualToString:@"55-2"]){
             // 莲花灯
-            imageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
-            bottomImgView.frame = CGRectMake(bottomImgView.left-32, bottomImgView.top + 135, 130, 130);
+//            imageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
+            imageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+//            bottomImgView.frame = CGRectMake(bottomImgView.left-32, bottomImgView.top + 135, 130, 130);
         }else {
-            imageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
-            bottomImgView.frame = CGRectMake(bottomImgView.left-40, bottomImgView.top + 135, 130, 130);
+//            imageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
+            imageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+//            bottomImgView.frame = CGRectMake(bottomImgView.left-44, bottomImgView.top + 135, 130, 130);
         }
     }];
 }
@@ -391,16 +395,17 @@
     
     [LEDMapArr enumerateObjectsUsingBlock:^(LedListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         UIImageView *imageView = [_mapView viewWithTag:100+idx];
-        UIImageView *bottomImgView = [_mapView viewWithTag:200+idx];
+//        UIImageView *bottomImgView = [_mapView viewWithTag:200+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
-        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 120, 160);
-        bottomImgView.frame = CGRectMake(bottomImgView.left-8, bottomImgView.top + 105, 130, 130);
-        bottomImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+//        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 120, 160);
+        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 130, 130);
+//        bottomImgView.frame = CGRectMake(bottomImgView.left, bottomImgView.top + 96, 130, 130);
+//        bottomImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
         if ([model.mainstatus isEqualToString:@"1"]) {
 //            imageView.image = [UIImage imageNamed:@"LED_map_icon"];
-            imageView.image = [UIImage imageNamed:@"LED_map_icon"];
+            imageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
         }else{
-            imageView.image = [UIImage imageNamed:@"LED_map_icon"];
+            imageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
         }
         
     }];

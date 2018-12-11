@@ -51,6 +51,8 @@
 
 #import "Utils.h"
 
+#import "ParkOverViewController.h"
+
 //#import "ARSViewController.h"
 
 @interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate>
@@ -1200,7 +1202,7 @@
     
     _todayVisitorsView.userInteractionEnabled = YES;
     
-    //添加剩余车位跳转事件
+    //添加今日园区跳转事件
     UITapGestureRecognizer *todayVisTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(todayVisTap:)];
     [_todayVisitorsView addGestureRecognizer:todayVisTap];
 }
@@ -1342,8 +1344,8 @@
 
 - (void)todayClick {
     NSLog(@"todayClickDelegate");
-//    ARSViewController *arsVC = [[ARSViewController alloc] init];
-//    [self.navigationController pushViewController:arsVC animated:YES];
+    ParkOverViewController *parkOverVC = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"ParkOverViewController"];
+    [self.navigationController pushViewController:parkOverVC animated:YES];
 }
 
 #pragma mark 扫一扫

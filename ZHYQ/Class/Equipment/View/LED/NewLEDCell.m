@@ -68,6 +68,12 @@
 - (void)setLedListModel:(LedListModel *)ledListModel {
     _ledListModel = ledListModel;
     
+    if(ledListModel.deviceType == nil){
+        if(ledListModel.type != nil && ![ledListModel.type isKindOfClass:[NSNull class]] && [ledListModel.type isEqualToString:@"1"]){
+            ledListModel.deviceType = @"14-1";
+        }
+    }
+    
     ledNameLab.text = [NSString stringWithFormat:@"%@", ledListModel.deviceName];
     
     /*

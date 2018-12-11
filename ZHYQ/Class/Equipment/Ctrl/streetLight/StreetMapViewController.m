@@ -383,17 +383,18 @@
     
     // 复原之前选中图片效果
     if(_selectImageView != nil && _selectBottomImageView != nil){
+//        _selectImageView.layer.anchorPoint = CGPointMake(0.5, 0.5);
         [PointViewSelect recoverSelImgView:_selectImageView];
         [PointViewSelect recoverSelImgView:_selectBottomImageView];
         StreetLightModel *selectModel = self.cameraDataArr[_selectImageView.tag-100];
         _selectImageView.contentMode = UIViewContentModeScaleToFill;
         // 区分莲花灯和路灯
         if ([selectModel.DEVICE_TYPE isEqualToString:@"55-2"]) {
-            _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
-            _selectBottomImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+//            _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
+            _selectImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
         }else {
-            _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
-            _selectBottomImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+//            _selectImageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
+            _selectImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
         }
     }
     
@@ -401,16 +402,17 @@
     UIImageView *bottomImageView = [indoorView.mapView viewWithTag:[identity integerValue]+100];
     // 区分莲花灯和路灯
     if ([model.DEVICE_TYPE isEqualToString:@"55-2"]) {
-        imageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
-        bottomImageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
+//        imageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
+        imageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
     }else {
-        imageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
-        bottomImageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
+//        imageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
+        imageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
     }
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;
     _selectBottomImageView = bottomImageView;
     
+//    _selectImageView.layer.anchorPoint = CGPointMake(0.5, 0.6);
     [PointViewSelect pointImageSelect:_selectImageView];
     [PointViewSelect pointImageSelect:_selectBottomImageView];
     

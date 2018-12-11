@@ -431,7 +431,8 @@ typedef enum {
     // 复原之前选中图片效果
     if (_selectImageView != nil && _selectBottomImageView != nil) {
         _selectImageView.contentMode = UIViewContentModeScaleToFill;
-        _selectBottomImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        _selectImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+//        _selectImageView.layer.anchorPoint = CGPointMake(0.5, 0.5);
         [PointViewSelect recoverSelImgView:_selectImageView];
         [PointViewSelect recoverSelImgView:_selectBottomImageView];
     }
@@ -440,11 +441,12 @@ typedef enum {
     
     UIImageView *imageView = [indoorView.mapView viewWithTag:[identity integerValue]];
     UIImageView *bottomImageView = [indoorView.mapView viewWithTag:[identity integerValue] + 100];
-    bottomImageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
+    imageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;
     _selectBottomImageView = bottomImageView;
     
+//    _selectImageView.layer.anchorPoint = CGPointMake(0.5, 0.6);
     [PointViewSelect pointImageSelect:_selectImageView];
     [PointViewSelect pointImageSelect:_selectBottomImageView];
     
@@ -485,7 +487,7 @@ typedef enum {
 - (void)lookScreenShotWithModel:(LedListModel*)ledListModel {
     _ledMenuView.hidden = YES;
     LEDScreenShotViewController *ledScreenVc = [[LEDScreenShotViewController alloc] init];
-    if([ledListModel.type isEqualToString:@"1"]){
+    if([ledListModel.deviceType isEqualToString:@"14-1"]){
         // 路灯屏
         ledScreenVc.isStreetLight = YES;
     }
@@ -493,7 +495,7 @@ typedef enum {
     [self.navigationController pushViewController:ledScreenVc animated:YES];
 }
 - (void)ledSwitch:(BOOL)on withModel:(LedListModel*)ledListModel {
-    if([ledListModel.type isEqualToString:@"1"]){
+    if([ledListModel.deviceType isEqualToString:@"14-1"]){
         // 路灯屏
         [self streetOperate:on withModel:ledListModel];
     }else {
@@ -518,7 +520,7 @@ typedef enum {
     NSInteger index = [self.pointMapDataArr indexOfObject:ledListModel];
     UITableViewCell *cellView = [tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     [self alertOperate:@"是否确定重启设备主机" withBolck:^{
-        if([ledListModel.type isEqualToString:@"1"]){
+        if([ledListModel.deviceType isEqualToString:@"14-1"]){
             [self streetRestart:ledListModel];
         }else {
             [self operateLed:RestartPC withModel:ledListModel];

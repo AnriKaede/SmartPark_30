@@ -433,6 +433,7 @@
 		92B3BEC81FF5F46000C3AFEC /* PublicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B3BEC71FF5F46000C3AFEC /* PublicModel.m */; };
 		92B3D7FB20B9546000C6D91D /* InputKeyBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B3D7FA20B9546000C6D91D /* InputKeyBoardView.m */; };
 		92B3D7FE20B9591900C6D91D /* NumInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B3D7FC20B9591800C6D91D /* NumInputView.m */; };
+		92B85E8321BE124200054603 /* CarRoundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B85E8121BE124200054603 /* CarRoundView.m */; };
 		92B90BC1201C476B00F978A1 /* WaterListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B90BC0201C476B00F978A1 /* WaterListModel.m */; };
 		92B90BD3201C7AA100F978A1 /* MonthMeterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B90BD2201C7AA100F978A1 /* MonthMeterModel.m */; };
 		92B90BD6201DCFE700F978A1 /* EnergyInTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B90BD5201DCFE700F978A1 /* EnergyInTimeModel.m */; };
@@ -1668,6 +1669,8 @@
 		92B3D7FA20B9546000C6D91D /* InputKeyBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputKeyBoardView.m; sourceTree = "<group>"; };
 		92B3D7FC20B9591800C6D91D /* NumInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumInputView.m; sourceTree = "<group>"; };
 		92B3D7FD20B9591800C6D91D /* NumInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumInputView.h; sourceTree = "<group>"; };
+		92B85E8121BE124200054603 /* CarRoundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarRoundView.m; sourceTree = "<group>"; };
+		92B85E8221BE124200054603 /* CarRoundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarRoundView.h; sourceTree = "<group>"; };
 		92B90BBF201C476B00F978A1 /* WaterListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterListModel.h; sourceTree = "<group>"; };
 		92B90BC0201C476B00F978A1 /* WaterListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaterListModel.m; sourceTree = "<group>"; };
 		92B90BD1201C7AA100F978A1 /* MonthMeterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MonthMeterModel.h; sourceTree = "<group>"; };
@@ -3770,6 +3773,8 @@
 				92E83DF1208ED758006759E7 /* ScanNoDataView.m */,
 				92E83DF3208EDD15006759E7 /* ReportAlertView.h */,
 				92E83DF4208EDD15006759E7 /* ReportAlertView.m */,
+				92B85E8221BE124200054603 /* CarRoundView.h */,
+				92B85E8121BE124200054603 /* CarRoundView.m */,
 			);
 			name = View;
 			path = ZHYQ/Class/Home/View;
@@ -6063,6 +6068,7 @@
 				D6F665571FA1E0C700059931 /* SetHeaderView.m in Sources */,
 				927DC2002008953E005C65FB /* EquipmentFloorCell.m in Sources */,
 				922F360F20565DBB003DFB04 /* WaterMonitorViewController.m in Sources */,
+				92B85E8321BE124200054603 /* CarRoundView.m in Sources */,
 				928775531FBD872600BF708A /* CountMaxMinView.m in Sources */,
 				9225EC5F21B62BC0007645D2 /* StreetMapViewController.m in Sources */,
 				928426DD214B5D8800C909D4 /* ReservedModel.m in Sources */,
