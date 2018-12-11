@@ -30,6 +30,7 @@
 @property (nonatomic,copy) NSString *status;
 @property (nonatomic,copy) NSString *LATITUDE;
 @property (nonatomic,copy) NSString *LONGITUDE;
+@property (nonatomic,copy) NSString *LAYER_C;
 
 @property (nonatomic,copy) NSString *mainstatus;
 

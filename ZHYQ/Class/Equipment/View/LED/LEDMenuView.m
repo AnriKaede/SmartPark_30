@@ -125,6 +125,8 @@
         }
     }
     self.ledListModel = _modelAry[selBt.tag - 3000];
+    
+    [self loadLEDInfo:_modelAry[selBt.tag - 3000]];
 }
 
 #pragma mark 请求单个LED设备信息

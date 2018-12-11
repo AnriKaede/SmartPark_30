@@ -455,8 +455,29 @@ typedef enum {
     [_selectImageView.layer removeAnimationForKey:@"BaseSelectAnim"];
     [self addViewBaseAnim:_selectImageView withIsSel:YES];
     
-    _ledMenuView.modelAry = @[model];
+    _ledMenuView.modelAry = [self calculateModelAry:model];
     _ledMenuView.hidden = NO;
+}
+- (NSArray *)calculateModelAry:(LedListModel *)ledModel {
+    NSMutableArray *groupAry = @[].mutableCopy;
+    
+    NSString *selLayer_c = ledModel.LAYER_C;
+    if(selLayer_c != nil && ![selLayer_c isKindOfClass:[NSNull class]] && ![selLayer_c isEqualToString:@"0"] && selLayer_c.length > 3){
+        NSString *selFlagStr = [selLayer_c substringWithRange:NSMakeRange(0, 3)];
+        [_mapCoordinateData enumerateObjectsUsingBlock:^(LedListModel *ledListModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString *layer_c = ledListModel.LAYER_C;
+            if(layer_c != nil && ![layer_c isKindOfClass:[NSNull class]] && ![layer_c isEqualToString:@"0"] && layer_c.length > 3){
+                NSString *flagStr = [layer_c substringWithRange:NSMakeRange(0, 3)];
+                if([flagStr isEqualToString:selFlagStr]){
+                    [groupAry addObject:ledListModel];
+                }
+            }
+        }];
+    }
+    if(groupAry.count <= 0){
+        [groupAry addObject:ledModel];
+    }
+    return groupAry;
 }
 #pragma mark 添加图片变化 基础动画
 - (void)addViewBaseAnim:(UIView *)view withIsSel:(BOOL)isSel {
