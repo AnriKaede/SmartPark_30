@@ -198,6 +198,7 @@
         
         UIImageView *lightImgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 0, 130, 130)];
         lightImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        lightImgView.tag = 1000 + idx;
         lightImgView.userInteractionEnabled = YES;
         [pointView addSubview:lightImgView];
         
@@ -233,6 +234,10 @@
     [streetLightArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         SubDeviceModel *model = (SubDeviceModel *)obj;
         UIView *pointView = [_mapView viewWithTag:100+idx];
+        UIImageView *imgView = [pointView viewWithTag:1000+idx];
+        // 添加动画
+        [self addViewBaseAnim:imgView];
+        
         UILabel *label = [pointView viewWithTag:2000+idx];
         
         label.text = model.DEVICE_NAME;
@@ -257,6 +262,9 @@
     
     [streetLightMapArr enumerateObjectsUsingBlock:^(StreetLightModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        // 添加动画
+        [self addViewBaseAnim:imageView];
+        
 //        UIImageView *bottomImgView = [_mapView viewWithTag:200+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
 //        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 65, 200);
@@ -395,6 +403,9 @@
     
     [LEDMapArr enumerateObjectsUsingBlock:^(LedListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
         UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        // 添加动画
+        [self addViewBaseAnim:imageView];
+        
 //        UIImageView *bottomImgView = [_mapView viewWithTag:200+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
 //        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 120, 160);
@@ -409,6 +420,19 @@
         }
         
     }];
+}
+
+#pragma mark 添加图片变化 基础动画
+- (void)addViewBaseAnim:(UIView *)view {
+    CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@"contents"];
+    transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_01"].CGImage;
+    transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_02"].CGImage;
+    transformAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transformAnima.autoreverses = YES;
+    transformAnima.repeatCount = HUGE_VALF;
+    transformAnima.beginTime = CACurrentMediaTime();
+    transformAnima.duration = 0.5;
+    [view.layer addAnimation:transformAnima forKey:@"BaseNormalAnim"];
 }
 
 -(void)setAirConArr:(NSMutableArray *)airConArr

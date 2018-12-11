@@ -37,6 +37,8 @@
     PowerMenuView *_powerMenuView;
     
     NSMutableArray *_parkLightArr;
+    
+    UIImageView *_selImgView;
 }
 @end
 
@@ -152,10 +154,49 @@
 - (void)selInMapWithId:(NSString *)identity
 {
     NSInteger selIndex = identity.integerValue - 100;
+    
+    UIView *pointView = [_indoorView.mapView viewWithTag:100+selIndex];
+    UIImageView *selImgView = [pointView viewWithTag:1000+selIndex];
+    
+    if(_selImgView != nil){
+        _selImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        [PointViewSelect recoverSelImgView:_selImgView];
+        
+        [_selImgView.layer removeAnimationForKey:@"BaseNormalAnim"];
+        [self addViewBaseAnim:_selImgView withIsSel:NO];
+    }
+    
+    selImgView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
+    [PointViewSelect pointImageSelect:selImgView];
+    _selImgView = selImgView;
+    
+    [_selImgView.layer removeAnimationForKey:@"BaseSelectAnim"];
+    [self addViewBaseAnim:_selImgView withIsSel:YES];
+    
     if(_model.grapArr.count > selIndex){
         SubDeviceModel *deviceModel = _model.grapArr[selIndex];
         [self selDevice:deviceModel];
     }
+}
+#pragma mark 添加图片变化 基础动画
+- (void)addViewBaseAnim:(UIView *)view withIsSel:(BOOL)isSel {
+    CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@"contents"];
+    NSString *animKeyName;
+    if(isSel){
+        transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_sel_01"].CGImage;
+        transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_sel_02"].CGImage;
+        animKeyName = @"BaseSelectAnim";
+    }else {
+        transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_01"].CGImage;
+        transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_02"].CGImage;
+        animKeyName = @"BaseNormalAnim";
+    }
+    transformAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transformAnima.autoreverses = YES;
+    transformAnima.repeatCount = HUGE_VALF;
+    transformAnima.beginTime = CACurrentMediaTime();
+    transformAnima.duration = 0.5;
+    [view.layer addAnimation:transformAnima forKey:animKeyName];
 }
 
 #pragma mark 选择路灯子设备协议

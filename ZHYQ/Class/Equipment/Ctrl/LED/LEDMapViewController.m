@@ -435,6 +435,9 @@ typedef enum {
 //        _selectImageView.layer.anchorPoint = CGPointMake(0.5, 0.5);
         [PointViewSelect recoverSelImgView:_selectImageView];
         [PointViewSelect recoverSelImgView:_selectBottomImageView];
+        
+        [_selectImageView.layer removeAnimationForKey:@"BaseNormalAnim"];
+        [self addViewBaseAnim:_selectImageView withIsSel:NO];
     }
     
     _selectModel = model;
@@ -448,15 +451,35 @@ typedef enum {
     
 //    _selectImageView.layer.anchorPoint = CGPointMake(0.5, 0.6);
     [PointViewSelect pointImageSelect:_selectImageView];
-    [PointViewSelect pointImageSelect:_selectBottomImageView];
+//    [PointViewSelect pointImageSelect:_selectBottomImageView];
+    [_selectImageView.layer removeAnimationForKey:@"BaseSelectAnim"];
+    [self addViewBaseAnim:_selectImageView withIsSel:YES];
     
     _ledMenuView.modelAry = @[model];
     _ledMenuView.hidden = NO;
-    
+}
+#pragma mark 添加图片变化 基础动画
+- (void)addViewBaseAnim:(UIView *)view withIsSel:(BOOL)isSel {
+    CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@"contents"];
+    NSString *animKeyName;
+    if(isSel){
+        transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_sel_01"].CGImage;
+        transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_sel_02"].CGImage;
+        animKeyName = @"BaseSelectAnim";
+    }else {
+        transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_01"].CGImage;
+        transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_02"].CGImage;
+        animKeyName = @"BaseNormalAnim";
+    }
+    transformAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transformAnima.autoreverses = YES;
+    transformAnima.repeatCount = HUGE_VALF;
+    transformAnima.beginTime = CACurrentMediaTime();
+    transformAnima.duration = 0.5;
+    [view.layer addAnimation:transformAnima forKey:animKeyName];
 }
 
--(void)_rightBarBtnItemClick:(id)sender
-{
+-(void)_rightBarBtnItemClick:(id)sender {
     
     UIButton *btn = (UIButton *)sender;
     btn.selected = !btn.selected;
