@@ -26,6 +26,7 @@
     
     __weak IBOutlet UILabel *_pcStateLabel;
     
+    __weak IBOutlet UIButton *_currentScreeBt;
     __weak IBOutlet UIButton *_defaultBt;
     __weak IBOutlet UIButton *_restartBt;
     __weak IBOutlet UIButton *_playBt;
@@ -168,6 +169,7 @@
         _pcStateLabel.text = @"已开启";
         _pcStateLabel.backgroundColor = [UIColor colorWithHexString:@"#009CF3"];
         
+        _currentScreeBt.enabled = YES;
         _playBt.enabled = NO;
         _restartBt.enabled = YES;
         _closeBt.enabled = YES;
@@ -181,6 +183,7 @@
         _pcStateLabel.text = @"关闭";
         _pcStateLabel.backgroundColor = [UIColor colorWithHexString:@"#A5A5A5"];
         
+        _currentScreeBt.enabled = NO;
         _playBt.enabled = YES;
         _restartBt.enabled = NO;
         _closeBt.enabled = NO;

@@ -94,6 +94,7 @@
         _stateLabel.text = @"已开启";
         _stateLabel.backgroundColor = [UIColor colorWithHexString:@"#009CF3"];
         
+        screenshotView.userInteractionEnabled = YES;
         _playBt.enabled = NO;
         _restartBt.enabled = YES;
         _closeBt.enabled = YES;
@@ -107,6 +108,7 @@
         _stateLabel.text = @"关闭";
         _stateLabel.backgroundColor = [UIColor colorWithHexString:@"#A5A5A5"];
         
+        screenshotView.userInteractionEnabled = NO;
         _playBt.enabled = YES;
         _restartBt.enabled = NO;
         _closeBt.enabled = NO;
