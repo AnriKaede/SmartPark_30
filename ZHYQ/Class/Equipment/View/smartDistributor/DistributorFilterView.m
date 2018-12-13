@@ -180,7 +180,9 @@
                     DistributorLineModel *model = [[DistributorLineModel alloc] initWithDataDic:obj];
                     [self.lineGraphData addObject:model];
                 }];
-                [self drawLineInMap:lineModel.DEGREE.integerValue];
+                if(lineModel.DEGREE != nil && ![lineModel.DEGREE isKindOfClass:[NSNull class]]){
+                    [self drawLineInMap:lineModel.DEGREE.integerValue];
+                }
             }
         } failure:^(NSError *error) {
             

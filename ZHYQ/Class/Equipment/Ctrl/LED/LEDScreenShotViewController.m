@@ -156,7 +156,9 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/udpController/sendMsgToUdpSer",Main_Url];
     
     NSMutableDictionary *searchParam = @{}.mutableCopy;
-    [searchParam setObject:_ledListModel.deviceId forKey:@"deviceId"];
+    if(_ledListModel.deviceId != nil && ![_ledListModel.deviceId isKindOfClass:[NSNull class]]){
+        [searchParam setObject:_ledListModel.deviceId forKey:@"deviceId"];
+    }
     [searchParam setObject:@"NOWPLAYPIC" forKey:@"instructions"];
     
     //    NSString *jsonStr = [Utils convertToJsonData:searchParam];
@@ -194,9 +196,13 @@
     
     NSMutableDictionary *searchParam = @{}.mutableCopy;
     if(_subDeviceModel != nil){
-        [searchParam setObject:_subDeviceModel.TAGID forKey:@"tagId"];
+        if(_subDeviceModel.TAGID != nil && ![_subDeviceModel.TAGID isKindOfClass:[NSNull class]]){
+            [searchParam setObject:_subDeviceModel.TAGID forKey:@"tagId"];
+        }
     }else if(_ledListModel != nil){
-        [searchParam setObject:_ledListModel.tagid forKey:@"tagId"];
+        if(_ledListModel.tagid != nil && ![_ledListModel.tagid isKindOfClass:[NSNull class]]){
+            [searchParam setObject:_ledListModel.tagid forKey:@"tagId"];
+        }
     }
 //    [searchParam setObject:@100 forKey:@"arg1"];
 //    [searchParam setObject:@100 forKey:@"arg2"];

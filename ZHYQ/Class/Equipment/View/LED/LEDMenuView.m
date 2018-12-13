@@ -89,6 +89,9 @@
     _playBt.enabled = NO;
     _restartBt.enabled = NO;
     _closeBt.enabled = NO;
+    _currentScreeBt.enabled = NO;
+    
+    _currentLabel.text = @"";
     
     [self loadLEDInfo:modelAry.firstObject];
     
