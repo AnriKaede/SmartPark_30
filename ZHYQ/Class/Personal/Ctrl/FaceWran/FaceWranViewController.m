@@ -57,10 +57,12 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     
     _allSelBt = [UIButton buttonWithType:UIButtonTypeCustom];
-    _allSelBt.frame = CGRectMake(0, 0, 40, 40);
+    _allSelBt.frame = CGRectMake(0, 0, 50, 40);
     _allSelBt.hidden = YES;
     [_allSelBt setTitle:@"全选" forState:UIControlStateNormal];
+    [_allSelBt setTitle:@"全不选" forState:UIControlStateSelected];
     [_allSelBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _allSelBt.titleLabel.font = [UIFont systemFontOfSize:15];
     [_allSelBt addTarget:self action:@selector(allSelect) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:_allSelBt];
     

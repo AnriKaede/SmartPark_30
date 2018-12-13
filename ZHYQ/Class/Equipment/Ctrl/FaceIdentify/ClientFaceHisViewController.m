@@ -58,6 +58,7 @@
     _rightBt = [UIButton buttonWithType:UIButtonTypeCustom];
     _rightBt.frame = CGRectMake(0, 0, 50, 40);
     [_rightBt setTitle:@"删除" forState:UIControlStateNormal];
+    [_rightBt setTitle:@"全不选" forState:UIControlStateSelected];
     [_rightBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     _rightBt.titleLabel.font = [UIFont systemFontOfSize:15];
     [_rightBt addTarget:self action:@selector(rightAction) forControlEvents:UIControlEventTouchUpInside];
@@ -405,6 +406,9 @@
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if(_isDelete){
+        return;
+    }
      FaceHistoryModel *imgModel = _historyData[indexPath.section][indexPath.row];
     if(_selClientHistoryImgDelegate != nil && [_selClientHistoryImgDelegate respondsToSelector:@selector(selHistoryImg:)]){
         [_selClientHistoryImgDelegate selHistoryImg:imgModel];

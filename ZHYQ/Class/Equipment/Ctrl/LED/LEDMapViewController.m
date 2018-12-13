@@ -598,7 +598,10 @@ typedef enum {
     }
     
     NSMutableDictionary *searchParam = @{}.mutableCopy;
-    [searchParam setObject:ledListModel.deviceId forKey:@"deviceId"];
+    if(ledListModel.deviceId != nil && ![ledListModel.deviceId isKindOfClass:[NSNull class]]){
+        [searchParam setObject:ledListModel.deviceId forKey:@"deviceId"];
+    }
+    
     [searchParam setObject:[self conOperateType:operateType] forKey:@"instructions"];
     
     //    NSString *jsonStr = [Utils convertToJsonData:searchParam];
