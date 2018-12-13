@@ -635,6 +635,9 @@
 - (void)drawLineMap:(NSArray *)lineData withColor:(UIColor *)lineColor{
     self.contentOffset = CGPointZero;
     
+    // 图片高度
+    CGFloat imgHeight = _mapView.image.size.height;
+    
     if (m_shapeLayer != nil) {
         [m_shapeLayer removeFromSuperlayer];
     }
@@ -654,9 +657,9 @@
     for (int i = 0; i < lineData.count; i++) {
         DistributorLineModel *lineBeginModel = lineData[i];
         if (i == 0) {
-            CGPathMoveToPoint(path,NULL ,lineBeginModel.xx.floatValue,lineBeginModel.yy.floatValue);
+            CGPathMoveToPoint(path,NULL ,lineBeginModel.xx.floatValue,imgHeight - lineBeginModel.yy.floatValue - 50);
         }else{
-            CGPathAddLineToPoint(path,NULL ,lineBeginModel.xx.floatValue,lineBeginModel.yy.floatValue);
+            CGPathAddLineToPoint(path,NULL ,lineBeginModel.xx.floatValue,imgHeight - lineBeginModel.yy.floatValue - 50);
         }
     }
     

@@ -550,12 +550,13 @@ typedef enum {
         }
     }
     ledListModel.mainstatus = on ? @"1" : @"0";
+    ledListModel.status = on ? @"1" : @"0";
 }
 - (void)ledPlay:(LedListModel*)ledListModel {
     _ledMenuView.hidden = YES;
     NSInteger index = [self.pointMapDataArr indexOfObject:ledListModel];
     UITableViewCell *cellView = [tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-    [self alertOperate:@"是否确定开启设备主机" withBolck:^{
+    [self alertOperate:@"是否确定开启设备播放器" withBolck:^{
         [self operateLed:OpenPC withModel:ledListModel];
     } withShowView:cellView==nil?_headerView:cellView];
 }
@@ -563,7 +564,7 @@ typedef enum {
     _ledMenuView.hidden = YES;
     NSInteger index = [self.pointMapDataArr indexOfObject:ledListModel];
     UITableViewCell *cellView = [tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-    [self alertOperate:@"是否确定重启设备主机" withBolck:^{
+    [self alertOperate:@"是否确定重启设备播放器" withBolck:^{
         if([ledListModel.deviceType isEqualToString:@"14-1"]){
             [self streetRestart:ledListModel];
         }else {
@@ -575,7 +576,7 @@ typedef enum {
     _ledMenuView.hidden = YES;
     NSInteger index = [self.pointMapDataArr indexOfObject:ledListModel];
     UITableViewCell *cellView = [tabView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-    [self alertOperate:@"是否确定关闭设备主机" withBolck:^{
+    [self alertOperate:@"是否确定关闭设备播放器" withBolck:^{
         [self operateLed:ClosePC withModel:ledListModel];
     } withShowView:cellView==nil?_headerView:cellView];
 }
@@ -739,7 +740,9 @@ typedef enum {
     UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        _ledMenuView.hidden = NO;
+        if(tabView.hidden){
+            _ledMenuView.hidden = NO;
+        }
     }];
     UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         certain();

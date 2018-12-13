@@ -118,10 +118,10 @@
         _resumeBt.enabled = NO;
     }
     
-    if(_ledListModel.program != nil && ![_ledListModel.program isKindOfClass:[NSNull class]]){
+    if(_ledListModel.program != nil && ![_ledListModel.program isKindOfClass:[NSNull class]] && ![_ledListModel.program isEqualToString:@"null"]){
         [_currentProLabel setTitle:[NSString stringWithFormat:@"%@", _ledListModel.program] forState:UIControlStateNormal];
     }else {
-        [_currentProLabel setTitle:[NSString stringWithFormat:@"%@", @""] forState:UIControlStateNormal];
+        [_currentProLabel setTitle:[NSString stringWithFormat:@"%@", @"无"] forState:UIControlStateNormal];
     }
     
 //    _timeLabel.hidden = YES;

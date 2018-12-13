@@ -151,6 +151,7 @@
                 model.status = deviceModel.status;
                 model.tagid = deviceModel.tagid;
                 model.deviceId = deviceModel.deviceId;
+                model.program = deviceModel.program;
             }
             
             self.ledListModel = model;
@@ -193,10 +194,10 @@
         _defaultBt.enabled = NO;
     }
     
-    if(_ledListModel.program != nil && ![_ledListModel.program isKindOfClass:[NSNull class]]){
+    if(_ledListModel.program != nil && ![_ledListModel.program isKindOfClass:[NSNull class]] && ![_ledListModel.program isEqualToString:@"null"]){
         _currentLabel.text = [NSString stringWithFormat:@"%@", _ledListModel.program];
     }else {
-        _currentLabel.text = [NSString stringWithFormat:@"%@", @""];
+        _currentLabel.text = [NSString stringWithFormat:@"%@", @"无"];
     }
     
     // 路灯屏
