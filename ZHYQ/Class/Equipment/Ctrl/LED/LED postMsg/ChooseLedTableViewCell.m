@@ -42,7 +42,8 @@
             [button addTarget:self action:@selector(selBt:) forControlEvents:UIControlEventTouchUpInside];
             [_bgView addSubview:button];
             
-            button.imageView.frame = CGRectMake(2, 10, 20, 20);
+//            button.imageView.frame = CGRectMake(2, 10, 20, 20);
+            button.imageEdgeInsets = UIEdgeInsetsMake(0,0,0,20+(ledListModel.deviceName.length * 2));
         }
 //        [button setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, (KScreenWidth/3 - 20))];
     }];
