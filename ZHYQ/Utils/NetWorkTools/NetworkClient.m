@@ -112,7 +112,7 @@ static NetworkClient *netWorkClient = nil;
     
     [manager.requestSerializer setValue:jsonStr forHTTPHeaderField:@"wisehn-param"];
     
-    manager.requestSerializer.timeoutInterval = 10;
+    manager.requestSerializer.timeoutInterval = 30;
     
     //设置请求接口回来的时候支持什么类型的数据
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/xml",@"text/html",@"text/plain",@"text/json",@"application/xml",nil];

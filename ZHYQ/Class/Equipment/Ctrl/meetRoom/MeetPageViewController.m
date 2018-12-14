@@ -26,7 +26,8 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (instancetype)init {
+- (instancetype)initWithModel:(MeetRoomGroupModel *)model {
+    _model = model;
 //    self = [super initWithViewControllerClasses:@[[MeetWebViewController class], [SingleControlViewController class], [MeetRoomViewController class]] andTheirTitles:@[@"720度全景", @"单独控制", @"场景模式"]];
     self = [super init];
     if(self){
@@ -45,9 +46,14 @@
     self.menuBGColor = [UIColor whiteColor];
     self.menuViewStyle = WMMenuViewStyleLine;   // 下方进度模式
     //    self.progressWidth = KScreenWidth/2 + 40;    // 下方进度条宽度
-    self.progressWidth = KScreenWidth/3;    // 下方进度条宽度
+    if([_model.ROOM_ID isEqualToString:@"109"]){
+        self.progressWidth = KScreenWidth/3;    // 下方进度条宽度
+        self.menuItemWidth = KScreenWidth/3;
+    }else {
+        self.progressWidth = KScreenWidth/2;    // 下方进度条宽度
+        self.menuItemWidth = KScreenWidth/2;
+    }
     self.progressHeight = 5;    // 下方进度条高度
-    self.menuItemWidth = KScreenWidth/3;
     self.menuViewBottomSpace = 0.5;
     
     self.scrollEnable = NO;
@@ -55,9 +61,21 @@
 //    self.delegate = self;
 //    self.dataSource = self;
 }
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    //隐藏返回按钮
+    self.navigationItem.hidesBackButton = YES;
+    //禁止页面左侧滑动返回，注意，如果仅仅需要禁止此单个页面返回，还需要在viewWillDisapper下开放侧滑权限
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = [NSString stringWithFormat:@"%@", _model.ROOM_NAME];
     
     self.statusBarStyle = UIStatusBarStyleLightContent;
     
@@ -74,10 +92,14 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = leftItem;
     
-    for (int i=1; i<3; i++) {
+    int index = 2;
+    if([_model.ROOM_ID isEqualToString:@"109"]){
+        index = 3;
+    }
+    for (int i=1; i<index; i++) {
         UIImageView *hLineView = [[UIImageView alloc] init];
         hLineView.image = [UIImage imageNamed:@"LED_seperateline_blue"];
-        hLineView.frame = CGRectMake(KScreenWidth/3 * i, 15, 0.5, 32);
+        hLineView.frame = CGRectMake(KScreenWidth/index * i, 15, 0.5, 32);
         [self.menuView addSubview:hLineView];
     }
     
@@ -89,7 +111,11 @@
 
 #pragma mark WMPageController 协议
 - (NSInteger)numbersOfChildControllersInPageController:(WMPageController *)pageController {
-    return 3;
+    if([_model.ROOM_ID isEqualToString:@"109"]){
+        return 3;
+    }else {
+        return 2;
+    }
 }
 
 - (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
@@ -102,7 +128,9 @@
         meetVC.model = _model;
         return meetVC;
     }else {
-        return [[MeetWebViewController alloc] init];
+        MeetWebViewController *webVC = [[MeetWebViewController alloc] init];
+        webVC.model = _model;
+        return webVC;
     }
 }
 

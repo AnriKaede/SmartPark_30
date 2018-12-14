@@ -51,6 +51,10 @@
 
 #import "Utils.h"
 
+#import "ParkOverViewController.h"
+
+//#import "ARSViewController.h"
+
 @interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate>
 {
     UIScrollView *bottomBgView;
@@ -562,10 +566,10 @@
 #pragma mark 加载天气数据
 -(void)_loadWeatherData
 {
-    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/sensor",Main_Url];
+    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/sensorNew",Main_Url];
     
     NSMutableDictionary *param = @{}.mutableCopy;
-    [param setObject:@"" forKey:@"uid"];
+//    [param setObject:@"" forKey:@"uid"];
     
     NSDictionary *paramDic =@{@"param":[Utils convertToJsonData:param]};
     
@@ -581,7 +585,7 @@
             
             _cityLab.text = model.adv_name;
             if(model.smallWhite != nil && ![model.smallWhite isKindOfClass:[NSNull class]]){
-                [_weatherView sd_setImageWithURL:[NSURL URLWithString:model.smallWhite] placeholderImage:[UIImage imageNamed:@"未知"]];
+                [_weatherView sd_setImageWithURL:[NSURL URLWithString:[model.smallWhite stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:[UIImage imageNamed:@"未知"]];
             }
             _weaDataLab.text = [NSString stringWithFormat:@"%.1f℃",model.temperature.floatValue];
             _humDataLab.text = [NSString stringWithFormat:@"%.1f%%",model.humidity.floatValue];
@@ -1198,7 +1202,7 @@
     
     _todayVisitorsView.userInteractionEnabled = YES;
     
-    //添加剩余车位跳转事件
+    //添加今日园区跳转事件
     UITapGestureRecognizer *todayVisTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(todayVisTap:)];
     [_todayVisitorsView addGestureRecognizer:todayVisTap];
 }
@@ -1339,7 +1343,32 @@
 }
 
 - (void)todayClick {
-    NSLog(@"todayClickDelegate");
+    NSLog(@"%@", [self getNowTimeTimestamp]);
+    ParkOverViewController *parkOverVC = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"ParkOverViewController"];
+    [self.navigationController pushViewController:parkOverVC animated:YES];
+}
+- (NSString *)getNowTimeTimestamp{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"]; // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+    
+    //设置时区,这个对于时间的处理有时很重要
+    
+    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    
+    [formatter setTimeZone:timeZone];
+    
+    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
+    
+    return timeSp;
+    
 }
 
 #pragma mark 扫一扫

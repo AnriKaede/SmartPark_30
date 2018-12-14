@@ -18,6 +18,7 @@
 #import "WifiGroupViewController.h"
 //#import "StreetLightsViewController.h"
 #import "StreetLigGroupViewController.h"
+#import "StreetMapViewController.h"
 #import "ManholeCoverViewController.h"
 //#import "WaterViewController.h"
 #import "WaterConViewController.h"
@@ -31,7 +32,8 @@
 #import "AirCondGroupViewController.h"
 #import "ElevatorViewController.h"
 
-#import "LEDViewController.h"
+//#import "LEDViewController.h"
+#import "LEDMapViewController.h"
 #import "ParkNightViewController.h"
 //#import "MeetRoomCenterViewController.h"
 //#import "MeetPageViewController.h"
@@ -62,6 +64,8 @@
 #import "RepairsCenViewController.h"
 
 #import "LightLockWebViewController.h"
+
+#import "HotelViewController.h"
 
 #import "ParentMenuModel.h"
 #import "MenuModel.h"
@@ -476,10 +480,12 @@
                 break;
             case 9:
                 {
-                    StreetLigGroupViewController *streetLigVC = [[StreetLigGroupViewController alloc] init];
-                    streetLigVC.title = model.MENU_NAME;
-                    [self.navigationController pushViewController:streetLigVC animated:YES];
-                    
+//                    StreetLigGroupViewController *streetLigVC = [[StreetLigGroupViewController alloc] init];
+//                    streetLigVC.title = model.MENU_NAME;
+//                    [self.navigationController pushViewController:streetLigVC animated:YES];
+                    StreetMapViewController *streetMapVC = [[StreetMapViewController alloc] init];
+                    streetMapVC.title = model.MENU_NAME;
+                    [self.navigationController pushViewController:streetMapVC animated:YES];
                 }
                 break;
             case 10:
@@ -569,7 +575,10 @@
             case 19:
                 {
                     // led
-                    LEDViewController *ledVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"LEDViewController"];
+//                    LEDViewController *ledVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"LEDViewController"];
+//                    ledVC.title = model.MENU_NAME;
+//                    [self.navigationController pushViewController:ledVC animated:YES];
+                    LEDMapViewController *ledVC = [[LEDMapViewController alloc] init];
                     ledVC.title = model.MENU_NAME;
                     [self.navigationController pushViewController:ledVC animated:YES];
                 }
@@ -677,10 +686,10 @@
             case 30:
             {
                 // 智慧酒店
-                // 测试智慧配电
-                SmartDistributorViewController *distributorVC = [[SmartDistributorViewController alloc] init];
-                distributorVC.isHidenNaviBar = YES;
-                [self.navigationController pushViewController:distributorVC animated:YES];
+                HotelViewController *hotelVC = [[HotelViewController alloc] init];
+                hotelVC.isHidenNaviBar = YES;
+                [self.navigationController pushViewController:hotelVC animated:YES];
+                
                 break;
             }
                 
@@ -696,9 +705,22 @@
             case 33:
             {
                 // 智慧物业
-                // 测试取餐叫号
+                [self showHint:@"敬请期待"];
+                break;
+            }
+            case 34:
+            {
+                // 取餐叫号
                 MealCenViewController *mealVC = [[MealCenViewController alloc] init];
                 [self.navigationController pushViewController:mealVC animated:YES];
+                break;
+            }
+            case 123293:
+            {
+                // 智慧配电
+                SmartDistributorViewController *distributorVC = [[SmartDistributorViewController alloc] init];
+                distributorVC.isHidenNaviBar = YES;
+                [self.navigationController pushViewController:distributorVC animated:YES];
                 break;
             }
                 

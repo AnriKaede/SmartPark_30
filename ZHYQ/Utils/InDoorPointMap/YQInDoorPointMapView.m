@@ -14,8 +14,12 @@
 #import "ParkLightModel.h"
 #import "AirConditionModel.h"
 #import "DownParkMdel.h"
+#import "StreetLightModel.h"
 
 #import "SubDeviceModel.h"
+#import "LedListModel.h"
+
+#import "DistributorLineModel.h"
 
 #define scal 0.2
 
@@ -24,6 +28,7 @@
 @interface YQInDoorPointMapView ()
 {
     CGFloat _scale;
+    CAShapeLayer *m_shapeLayer;
 }
 @end
 
@@ -123,6 +128,10 @@
     UIImage *map = [UIImage imageNamed:imgName];
     
     _mapView.image = map;
+    
+    if(m_shapeLayer != nil){
+        [m_shapeLayer removeFromSuperlayer];
+    }
 }
 
 #pragma ScrollView 协议
@@ -144,23 +153,31 @@
         NSString *y = pointAry[1];
         
         UIImageView *videoImgView;
+        UIImageView *bottomImgView;
         if(_isLayCoord){
             videoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue, y.floatValue, PointImgWidth, PointImgWidth)];
+            bottomImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue, y.floatValue, PointImgWidth, PointImgWidth)];
         }else {
             // 楼层图高度
             if(_mapView.image != nil){            
                 CGFloat imgHeight = _mapView.image.size.height;
                 videoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue, imgHeight - y.floatValue, PointImgWidth, PointImgWidth)];
+                bottomImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue, imgHeight - y.floatValue, PointImgWidth, PointImgWidth)];
             }
         }
         
 //        UIImageView *videoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue/2.4f, y.floatValue/2.4f, 20, 20)];
 //        videoImgView.image = [UIImage imageNamed:@"wifi_normal"];
         videoImgView.tag = 100+idx;
+        bottomImgView.tag = 200+idx;
+        bottomImgView.hidden = YES;
         videoImgView.userInteractionEnabled = YES;
+        bottomImgView.userInteractionEnabled = YES;
         [_mapView addSubview:videoImgView];
+        [_mapView insertSubview:bottomImgView belowSubview:videoImgView];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
         [videoImgView addGestureRecognizer:tap];
+//        [bottomImgView addGestureRecognizer:tap];
     }];
 }
 
@@ -171,6 +188,30 @@
         NSArray *pointAry = [graphStr componentsSeparatedByString:@","];
         NSString *x = pointAry[0];
         NSString *y = pointAry[1];
+        
+        UIView *pointView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 160, 130)];
+        pointView.center = CGPointMake([x floatValue], [y floatValue]);
+        pointView.tag = 100 + idx;
+        [_mapView addSubview:pointView];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+        [pointView addGestureRecognizer:tap];
+        
+        UIImageView *lightImgView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 0, 130, 130)];
+        lightImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        lightImgView.tag = 1000 + idx;
+        lightImgView.userInteractionEnabled = YES;
+        [pointView addSubview:lightImgView];
+        
+        UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, lightImgView.bottom - 40, 160, 60)];
+        lable.tag = 2000+idx;
+        lable.textColor = [UIColor colorWithHexString:@"#34BFFF"];
+        lable.font = [UIFont systemFontOfSize:25];
+        lable.numberOfLines = 2;
+        lable.textAlignment = NSTextAlignmentCenter;
+        lable.userInteractionEnabled = YES;
+        [pointView addSubview:lable];
+        
+        /*
         UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 120, 30)];
         lable.center = CGPointMake([x floatValue], [y floatValue]);
         lable.tag = 100 + idx;
@@ -181,15 +222,27 @@
         [_mapView addSubview:lable];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
         [lable addGestureRecognizer:tap];
+         */
     }];
 }
 
+// 路灯挂载子设备地图
 -(void)setStreetLightArr:(NSMutableArray *)streetLightArr
 {
     _streetLightArr = streetLightArr;
     
     [streetLightArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         SubDeviceModel *model = (SubDeviceModel *)obj;
+        UIView *pointView = [_mapView viewWithTag:100+idx];
+        UIImageView *imgView = [pointView viewWithTag:1000+idx];
+        // 添加动画
+        [self addViewBaseAnim:imgView];
+        
+        UILabel *label = [pointView viewWithTag:2000+idx];
+        
+        label.text = model.DEVICE_NAME;
+        
+        /*
         UILabel *lab = [_mapView viewWithTag:100+idx];
         CGSize size = [model.DEVICE_NAME sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]}];
         lab.size = CGSizeMake(size.width+5, size.height+10);
@@ -199,6 +252,34 @@
         lab.font = [UIFont systemFontOfSize:13];
         lab.backgroundColor = [UIColor orangeColor];
         lab.text = model.DEVICE_NAME;
+         */
+    }];
+}
+
+// 路灯杆数据
+- (void)setStreetLightMapArr:(NSMutableArray *)streetLightMapArr {
+    _streetLightMapArr = streetLightMapArr;
+    
+    [streetLightMapArr enumerateObjectsUsingBlock:^(StreetLightModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        // 添加动画
+        [self addViewBaseAnim:imageView];
+        
+//        UIImageView *bottomImgView = [_mapView viewWithTag:200+idx];
+        imageView.contentMode = UIViewContentModeScaleToFill;
+//        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 65, 200);
+        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 130, 130);
+//        bottomImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        if([model.DEVICE_TYPE isEqualToString:@"55-2"]){
+            // 莲花灯
+//            imageView.image = [UIImage imageNamed:@"street_lamp_map_flower"];
+            imageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+//            bottomImgView.frame = CGRectMake(bottomImgView.left-32, bottomImgView.top + 135, 130, 130);
+        }else {
+//            imageView.image = [UIImage imageNamed:@"street_lamp_map_nor"];
+            imageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+//            bottomImgView.frame = CGRectMake(bottomImgView.left-44, bottomImgView.top + 135, 130, 130);
+        }
     }];
 }
 
@@ -315,6 +396,43 @@
         }
 
     }];
+}
+
+- (void)setLEDMapArr:(NSMutableArray *)LEDMapArr {
+    _LEDMapArr = LEDMapArr;
+    
+    [LEDMapArr enumerateObjectsUsingBlock:^(LedListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        // 添加动画
+        [self addViewBaseAnim:imageView];
+        
+//        UIImageView *bottomImgView = [_mapView viewWithTag:200+idx];
+        imageView.contentMode = UIViewContentModeScaleToFill;
+//        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 120, 160);
+        imageView.frame = CGRectMake(imageView.frame.origin.x, imageView.frame.origin.y, 130, 130);
+//        bottomImgView.frame = CGRectMake(bottomImgView.left, bottomImgView.top + 96, 130, 130);
+//        bottomImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        if ([model.mainstatus isEqualToString:@"1"]) {
+//            imageView.image = [UIImage imageNamed:@"LED_map_icon"];
+            imageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        }else{
+            imageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        }
+        
+    }];
+}
+
+#pragma mark 添加图片变化 基础动画
+- (void)addViewBaseAnim:(UIView *)view {
+    CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@"contents"];
+    transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_01"].CGImage;
+    transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_02"].CGImage;
+    transformAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transformAnima.autoreverses = YES;
+    transformAnima.repeatCount = HUGE_VALF;
+    transformAnima.beginTime = CACurrentMediaTime();
+    transformAnima.duration = 0.5;
+    [view.layer addAnimation:transformAnima forKey:@"BaseNormalAnim"];
 }
 
 -(void)setAirConArr:(NSMutableArray *)airConArr
@@ -511,6 +629,44 @@
     if(self.selInMapDelegate){
         [self.selInMapDelegate selInMapWithId:identity];
     }
+}
+
+#pragma mark 配电画线路地图
+- (void)drawLineMap:(NSArray *)lineData withColor:(UIColor *)lineColor{
+    self.contentOffset = CGPointZero;
+    
+    // 图片高度
+    CGFloat imgHeight = _mapView.image.size.height;
+    
+    if (m_shapeLayer != nil) {
+        [m_shapeLayer removeFromSuperlayer];
+    }
+    
+    m_shapeLayer = [CAShapeLayer layer];
+    [m_shapeLayer setBounds:self.bounds];
+    [m_shapeLayer setPosition:self.center];
+    [m_shapeLayer setFillColor:[[UIColor clearColor] CGColor]];
+    // 设置线颜色
+    [m_shapeLayer setStrokeColor:lineColor.CGColor];
+    // 3.0f设置线的宽度
+    [m_shapeLayer setLineWidth:15.0f];
+    //转折点圆角
+    [m_shapeLayer setLineJoin:kCALineJoinRound];
+    CGMutablePathRef path = CGPathCreateMutable();
+    
+    for (int i = 0; i < lineData.count; i++) {
+        DistributorLineModel *lineBeginModel = lineData[i];
+        if (i == 0) {
+            CGPathMoveToPoint(path,NULL ,lineBeginModel.xx.floatValue,imgHeight - lineBeginModel.yy.floatValue - 50);
+        }else{
+            CGPathAddLineToPoint(path,NULL ,lineBeginModel.xx.floatValue,imgHeight - lineBeginModel.yy.floatValue - 50);
+        }
+    }
+    
+    [m_shapeLayer setPath:path];
+    CGPathRelease(path);
+    [_mapView.layer addSublayer:m_shapeLayer];
+    
 }
 
 @end

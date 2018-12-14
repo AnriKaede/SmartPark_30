@@ -14,6 +14,7 @@
 #import "FaceQueryModel.h"
 
 #import "FaceListViewController.h"
+#import "UIImage+Zip.h"
 
 @interface VisitedViewController ()<UITableViewDelegate,UITableViewDataSource,isArraiveCallTelePhoneDelegate, CYLTableViewPlaceHolderDelegate>
 {
@@ -302,7 +303,7 @@
 
 #pragma mark 图片压缩至2M以内
 - (void)imageData:(UIImage *)image {
-    NSData *data = UIImageJPEGRepresentation(image, 0.8f);
+    NSData *data = [UIImage compressWithOrgImg:image];
     if(data.length/1024 < 2*1024){
         // 小于2M 结束
         [self uploadFaceImage:data];

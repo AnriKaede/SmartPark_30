@@ -41,7 +41,7 @@
 
 + (BOOL)valiMobile:(NSString *)mobile;
 
-+(NSString *)convertToJsonData:(NSDictionary *)dict;
++(NSString *)convertToJsonData:(id)dict;
 
 + (NSString*)weekdayStringFromDate:(NSDate*)inputDate;
 

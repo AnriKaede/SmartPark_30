@@ -15,7 +15,22 @@
 
 #import <SCLAlertView.h>
 
-@interface FountainViewController ()<UITableViewDelegate,UITableViewDataSource,ConSwitchDelegate, CYLTableViewPlaceHolderDelegate>
+// 语音识别
+#import "BDSEventManager.h"
+#import "BDSASRDefines.h"
+#import "BDSASRParameters.h"
+//如果需要使用内置识别控件，需要引入如下头文件：
+#import "BDTheme.h"
+#import "BDRecognizerViewParamsObject.h"
+#import "BDRecognizerViewController.h"
+#import "BDRecognizerViewDelegate.h"
+
+#import "FountainVoiceRecognition.h"
+#import "VoiceRecognitionModel.h"
+
+#import "TouchButton.h"
+
+@interface FountainViewController ()<UITableViewDelegate,UITableViewDataSource,ConSwitchDelegate, CYLTableViewPlaceHolderDelegate, BDRecognizerViewDelegate>
 {
     YQHeaderView *headerView;
     NSString *_leftNum;
@@ -25,10 +40,14 @@
     UIView *_bottomView;
     UIButton *_allCloseButton;
     UIButton *_allOpenButton;
+    
+    TouchButton *_voiceRecognitionBt;
 }
 @property (nonatomic,assign) NSInteger stateType;   // 0: 全关; 1: 全开; 2: 未控制
-
 @property (nonatomic,strong) NSMutableArray *dataArr;
+
+@property (strong, nonatomic) BDSEventManager *asrEventManager;
+@property(nonatomic, strong) BDRecognizerViewController *recognizerViewController;
 
 @end
 
@@ -42,6 +61,18 @@
     return _dataArr;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    //隐藏返回按钮
+    self.navigationItem.hidesBackButton = YES;
+    //禁止页面左侧滑动返回，注意，如果仅仅需要禁止此单个页面返回，还需要在viewWillDisapper下开放侧滑权限
+    // 禁用返回手势
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     _stateType = 2; // 未控制
@@ -51,6 +82,8 @@
     [self _initNavItems];
     
     [self _loadData];
+    
+    [self setupSpeak];
 }
 
 -(void)_initView
@@ -83,6 +116,14 @@
     [_allOpenButton setTitleColor:[UIColor colorWithHexString:@"#CCFF00"] forState:UIControlStateNormal];
     [_allOpenButton addTarget:self action:@selector(viewModel) forControlEvents:UIControlEventTouchUpInside];
     [_bottomView addSubview:_allOpenButton];
+    
+    _voiceRecognitionBt = [TouchButton buttonWithType:UIButtonTypeCustom];
+    _voiceRecognitionBt.frame = CGRectMake(3, KScreenHeight - 100 - 64 - 100, 63, 63);
+    [_voiceRecognitionBt setImage:[UIImage imageNamed:@"voice_bt_icon"] forState:UIControlStateNormal];
+    _voiceRecognitionBt.MoveEnable = YES;
+    [_voiceRecognitionBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_voiceRecognitionBt addTarget:self action:@selector(voiceRecognition) forControlEvents:UIControlEventTouchUpInside];
+    [self.view insertSubview:_voiceRecognitionBt aboveSubview:_bottomView];
 }
 
 -(void)_initNavItems
@@ -494,7 +535,7 @@
     [param setObject:operateType forKey:@"operateType"];
     [param setObject:@"1" forKey:@"tagValue"];
     
-    [self showHudInView:self.view hint:@""];
+//    [self showHudInView:self.view hint:@""];
     [[NetworkClient sharedInstance] POST:urlStr dict:param progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
@@ -539,6 +580,133 @@
 //    [logDic setObject:<#(nonnull id)#> forKey:@"expand1"];//扩展字段 (暂未用到)    操作前值比如音量
     
     [LogRecordObj recordLog:logDic];
+}
+
+#pragma mark 语音识别
+- (void)setupSpeak {
+    // 创建语音识别对象
+    self.asrEventManager = [BDSEventManager createEventManagerWithName:BDS_ASR_NAME];
+    // 设置语音识别代理
+    [self.asrEventManager setDelegate:self];
+    // 参数配置：在线身份验证
+    [self.asrEventManager setParameter:@[API_KEY, SECRET_KEY] forKey:BDS_ASR_API_SECRET_KEYS];
+    //设置 APPID
+    [self.asrEventManager setParameter:APP_ID forKey:BDS_ASR_OFFLINE_APP_CODE];
+    
+    //设置DEBUG_LOG的级别
+    [self.asrEventManager setParameter:@(EVRDebugLogLevelTrace) forKey:BDS_ASR_DEBUG_LOG_LEVEL];
+    //配置端点检测（二选一）
+    [self configModelVAD];
+    //      [self configDNNMFE];
+    
+    //     [self.asrEventManager setParameter:@"15361" forKey:BDS_ASR_PRODUCT_ID];
+    // ---- 语义与标点 -----
+    [self enableNLU];
+}
+- (void) enableNLU {
+    // ---- 开启语义理解 -----
+    [self.asrEventManager setParameter:@(YES) forKey:BDS_ASR_ENABLE_NLU];
+    [self.asrEventManager setParameter:@"1536" forKey:BDS_ASR_PRODUCT_ID];
+}
+- (void) enablePunctuation {
+    // ---- 开启标点输出 -----
+    [self.asrEventManager setParameter:@(NO) forKey:BDS_ASR_DISABLE_PUNCTUATION];
+    // 普通话标点
+    //    [self.asrEventManager setParameter:@"1537" forKey:BDS_ASR_PRODUCT_ID];
+    // 英文标点
+    [self.asrEventManager setParameter:@"1737" forKey:BDS_ASR_PRODUCT_ID];
+}
+- (void)configModelVAD {
+    NSString *modelVAD_filepath = [[NSBundle mainBundle] pathForResource:@"bds_easr_basic_model" ofType:@"dat"];
+    [self.asrEventManager setParameter:modelVAD_filepath forKey:BDS_ASR_MODEL_VAD_DAT_FILE];
+    [self.asrEventManager setParameter:@(YES) forKey:BDS_ASR_ENABLE_MODEL_VAD];
+}
+
+#pragma mark sdkUI 协议
+- (void)voiceRecognition {
+    if (!_voiceRecognitionBt.MoveEnabled) {
+        [self.asrEventManager setParameter:@"" forKey:BDS_ASR_AUDIO_FILE_PATH];
+        //    [self configFileHandler];
+        [self configRecognizerViewController];
+        [self.recognizerViewController startVoiceRecognition];
+    }
+}
+- (void)configRecognizerViewController {
+    BDRecognizerViewParamsObject *paramsObject = [[BDRecognizerViewParamsObject alloc] init];
+    paramsObject.isShowTipAfterSilence = YES;
+    paramsObject.isShowHelpButtonWhenSilence = NO;
+    paramsObject.tipsTitle = @"您可以这样问";
+    paramsObject.tipsList = [NSArray arrayWithObjects:@"打开所有喷泉", @"打开1号喷泉", @"关闭2号喷泉",@"关闭3号喷泉", nil];
+    paramsObject.waitTime2ShowTip = 0.7;
+    
+    paramsObject.isShowTipsOnStart = YES;
+    
+    paramsObject.isHidePleaseSpeakSection = YES;
+    paramsObject.disableCarousel = YES;
+    self.recognizerViewController = [[BDRecognizerViewController alloc] initRecognizerViewControllerWithOrigin:CGPointMake(9, 80)
+                                                                                                         theme:nil
+                                                                                              enableFullScreen:YES
+                                                                                                  paramsObject:paramsObject
+                                                                                                      delegate:self];
+}
+
+#pragma mark - BDRecognizerViewDelegate
+- (void)onRecordDataArrived:(NSData *)recordData sampleRate:(int)sampleRate {
+    //    [self.fileHandler writeData:(NSData *)recordData];
+}
+- (void)onEndWithViews:(BDRecognizerViewController *)aBDRecognizerViewController withResult:(id)aResult {
+    if (aResult) {
+        VoiceRecognitionModel *recognitionModel = [[VoiceRecognitionModel alloc] initWithDataDic:aResult];
+//        NSLog(@"%@", [self getDescriptionForDic:aResult]);
+        if(recognitionModel.results_recognition.count > 0){
+            NSArray *conArys = [FountainVoiceRecognition recognitionResult:recognitionModel.results_recognition.firstObject];
+            NSLog(@"++++++++++%@", conArys);
+            [self controlEquipment:conArys];
+        }else {
+            [self showConFailMsg];
+        }
+    }
+    [self.asrEventManager setDelegate:self];
+}
+
+- (NSString *)getDescriptionForDic:(NSDictionary *)dic {
+    if (dic) {
+        return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:dic
+                                                                              options:NSJSONWritingPrettyPrinted
+                                                                                error:nil] encoding:NSUTF8StringEncoding];
+    }
+    return nil;
+}
+
+- (void)showConFailMsg {
+    [self showHint:@"未检测到有效指令，请重试!"];
+}
+
+#pragma mark 根据语音控制指令 控制设备
+- (void)controlEquipment:(NSArray *)conArys {
+    __block BOOL noInclude = YES;
+    [conArys enumerateObjectsUsingBlock:^(NSNumber *conNum, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(conNum.integerValue == 1){
+            noInclude = NO;
+            if(_dataArr.count > idx){
+                FountainModel *model = _dataArr[idx];
+                [self conSwitch:YES withModel:model];
+            }
+            NSLog(@"打开 %lu 号喷泉", idx+1);
+        }else if (conNum.integerValue == 2) {
+            noInclude = NO;
+            if(_dataArr.count > idx){
+                FountainModel *model = _dataArr[idx];
+                [self conSwitch:NO withModel:model];
+            }
+            NSLog(@"关闭 %lu 号喷泉", idx+1);
+        }
+    }];
+    
+    if(noInclude){
+        // 无效
+        [self showHint:@"未检测到有效指令，请重试!"];
+    }
 }
 
 @end

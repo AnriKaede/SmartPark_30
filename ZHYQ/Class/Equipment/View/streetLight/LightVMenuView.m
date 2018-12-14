@@ -26,6 +26,7 @@
 //    NSString *_equipInfo; // 设备信息
     NSString *_lightTime; // 亮灯时长
 
+    BOOL _isOnline;
 }
 @end
 
@@ -82,7 +83,8 @@
 }
 
 - (NSInteger)menuNumInView {
-    return 7;
+//    return 7;
+    return 6;
 }
 
 - (NSString *)menuTitle:(NSInteger)index {
@@ -102,13 +104,10 @@
         case 4:
             return @"温度";
             break;
-        case 5:
-            return @"定时装置";
-            break;
-//        case 6:
-//            return @"设备信息";
+//        case 5:
+//            return @"定时装置";
 //            break;
-        case 6:
+        case 5:
             return @"运行时长";
             break;
             
@@ -138,9 +137,9 @@
         case 1:
             return SliderConMenu;
             break;
-        case 5:
-            return TextAndImgConMenu;
-            break;
+//        case 5:
+//            return TextAndImgConMenu;
+//            break;
             
         default:
             return DefaultConMenu;
@@ -173,9 +172,11 @@
         return _frequencyStr;
     }else if(index == 4){
         return _temperatureStr;
-    }else if(index == 5){
-        return _timeStr;
-    }else if(index == 6){
+    }
+//    else if(index == 5){
+//        return _timeStr;
+//    }
+    else if(index == 5){
         return _lightTime;
     }else {
         return @"";
@@ -188,11 +189,19 @@
         return;
     }
     
-    if(isOn){
-        [self operateLight:YES withOperateValue:@"ON"];
+    // 是否在线
+    if(_isOnline){
+        if(isOn){
+            [self operateLight:YES withOperateValue:@"ON"];
+        }else {
+            [self operateLight:YES withOperateValue:@"OFF"];
+        }
     }else {
-        [self operateLight:YES withOperateValue:@"OFF"];
+        // 离线
+        [[self viewController] showHint:@"设备离线，请稍后再试"];
+        [_showMenuView reloadMenuData];
     }
+    
     
 //    [_showMenuView reloadMenuData];
 }
@@ -223,7 +232,7 @@
     if(_subDeviceModel.DEVICE_ADDR != nil && ![_subDeviceModel.DEVICE_ADDR isKindOfClass:[NSNull class]]){
         [param setObject:_subDeviceModel.DEVICE_ADDR forKey:@"lampCtrlAddr"];
     }
-    [param setObject:@"13" forKey:@"lampCtrlType"];
+    [param setObject:@"24" forKey:@"lampCtrlType"];
     if(isOnOff){
         // 开关
         [param setObject:@"on" forKey:@"operateType"];
@@ -332,8 +341,10 @@
             if(online != nil && ![online isKindOfClass:[NSNull class]]){
                 if(online.integerValue == 1){
                     _menuTitle = [NSString stringWithFormat:@"照明(在线)"];
+                    _isOnline = YES;
                 }else {
                     _menuTitle = [NSString stringWithFormat:@"照明(离线)"];
+                    _isOnline = NO;
                 }
             }
             

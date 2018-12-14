@@ -309,7 +309,7 @@
 -(void)_loadWeatherData
 {
     [self showHudInView:self.view hint:@""];
-    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/sensor",Main_Url];
+    NSString *urkStr = [NSString stringWithFormat:@"%@/roadLamp/sensorNew",Main_Url];
     
     [[NetworkClient sharedInstance] POST:urkStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         
@@ -325,7 +325,7 @@
                 _weatherAndTempLab.text = [NSString stringWithFormat:@"%@ %.1f℃",model.weather,[model.temperature floatValue]];
                 
                 if(model.bigColor != nil && ![model.bigColor isKindOfClass:[NSNull class]]){
-                    [_weatherView sd_setImageWithURL:[NSURL URLWithString:model.bigColor] placeholderImage:[UIImage imageNamed:@"big_未知"]];
+                    [_weatherView sd_setImageWithURL:[NSURL URLWithString:[model.bigColor stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:[UIImage imageNamed:@"big_未知"]];
                 }
                 
                 _windLab.text = [NSString stringWithFormat:@"%@",model.winddirection];
@@ -342,7 +342,7 @@
                 
                 _titleView.size = CGSizeMake(size.width, 25);
                 
-                [self changeValueColor:[model.pm2_5 stringValue]];
+                [self changeValueColor:[NSString stringWithFormat:@"%@", model.pm2_5]];
             }
         }
     } failure:^(NSError *error) {

@@ -103,9 +103,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    MeetPageViewController *meetPageVC = [[MeetPageViewController alloc] init];
+    MeetPageViewController *meetPageVC = [[MeetPageViewController alloc] initWithModel:_groupData[indexPath.row]];
     meetPageVC.title = self.title;
-    meetPageVC.model = _groupData[indexPath.row];
+//    meetPageVC.model = _groupData[indexPath.row];
     [self.navigationController pushViewController:meetPageVC animated:YES];
 }
 

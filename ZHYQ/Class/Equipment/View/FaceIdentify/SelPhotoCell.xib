@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -38,13 +38,31 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X4t-S2-gBb">
+                        <rect key="frame" x="261" y="153.5" width="45" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="VUu-rN-HgF"/>
+                            <constraint firstAttribute="height" constant="40" id="zWp-n0-Nsm"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <inset key="titleEdgeInsets" minX="-13" minY="20" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="10" minY="-10" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="历史照片" image="face_history_icon">
+                            <color key="titleColor" red="0.1058823529" green="0.50980392159999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="historyAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Pps-Ns-SAU"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Es0-LC-UGb" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="7Aq-qQ-ybL"/>
                     <constraint firstItem="Es0-LC-UGb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="26" id="8Zz-hL-Njw"/>
+                    <constraint firstAttribute="trailing" secondItem="X4t-S2-gBb" secondAttribute="trailing" constant="14" id="HBB-3T-Ldt"/>
                     <constraint firstItem="jaS-m3-BWB" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="IIz-Wn-Dtj"/>
                     <constraint firstItem="jaS-m3-BWB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="Y1o-Au-TkE"/>
                     <constraint firstItem="kcL-T3-2JL" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ce3-R7-062"/>
+                    <constraint firstAttribute="bottom" secondItem="X4t-S2-gBb" secondAttribute="bottom" constant="7" id="gY9-Zb-Fb5"/>
                     <constraint firstItem="kcL-T3-2JL" firstAttribute="top" secondItem="Es0-LC-UGb" secondAttribute="bottom" constant="13" id="uCV-77-7kA"/>
                 </constraints>
             </tableViewCellContentView>
@@ -56,6 +74,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="face_history_icon" width="15.5" height="12"/>
         <image name="face_sel_photo" width="125" height="125"/>
     </resources>
 </document>

@@ -34,6 +34,7 @@
 
 - (void)_initView {
     
+//    NSString *actUrl = [NSString stringWithFormat:@"http://220.168.59.11/hntfHotel/m/smartHotel/html/zhjd.jsp"];
     NSString *actUrl = [NSString stringWithFormat:@"%@/h5/trainWx/html/indexNew.html", Main_Url];
     
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, -20, KScreenWidth, KScreenHeight + 20)];

@@ -11,6 +11,7 @@
 
 @interface MeetPageViewController : WMPageController
 
+- (instancetype)initWithModel:(MeetRoomGroupModel *)model;
 @property(nonatomic, retain) MeetRoomGroupModel *model;
 
 @end

@@ -14,6 +14,7 @@
 #import "OperateLogViewController.h"
 #import "ResetPswTableViewController.h"
 #import "WorkListCenViewController.h"
+#import "FaceWranViewController.h"
 
 #import "AboutViewController.h"
 
@@ -23,6 +24,8 @@
 #import "PublicModel.h"
 
 #import "Utils.h"
+
+#define listCellHeight 300
 
 @interface PersonalViewController ()<ContactCtrlDelegate>
 {
@@ -177,10 +180,10 @@
 {
     SetFooterView *footerView = [[SetFooterView alloc] init];
     if (kDevice_Is_iPhoneX) {
-        footerView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight-180-240);
+        footerView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight-180-listCellHeight);
     }else
     {
-        footerView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight-145-240);
+        footerView.frame = CGRectMake(0, 0, KScreenWidth, KScreenHeight-145-listCellHeight);
     }
     footerView.delegate = self;
     return footerView;
@@ -190,12 +193,12 @@
 {
     CGFloat height;
     if (kDevice_Is_iPhoneX) {
-        height = KScreenHeight-180-240-60;
+        height = KScreenHeight-180-listCellHeight-60;
     }else{
         if([[NSUserDefaults standardUserDefaults] boolForKey:KIsRepairman]){
-            height = KScreenHeight-145-240-60;
+            height = KScreenHeight-145-listCellHeight-60;
         }else {
-            height = KScreenHeight-145-240;
+            height = KScreenHeight-145-listCellHeight;
         }
     }
     return height;
@@ -220,6 +223,27 @@
         case 0:
         {
             if ([kUserDefaults boolForKey:KLoginState]) {
+                // 人像告警
+                FaceWranViewController *faceWranVC = [[FaceWranViewController alloc] init];
+                faceWranVC.hidesBottomBarWhenPushed = YES;
+                
+                //拿到我们的LitterLCenterViewController，让它去push
+                RootNavigationController* nav = (RootNavigationController*)self.mm_drawerController.centerViewController.childViewControllers.firstObject;
+                [nav pushViewController:faceWranVC animated:NO];
+            }else{
+                RootNavigationController *loginVC = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginNavViewController"];
+                [self presentViewController:loginVC animated:YES completion:nil];
+            }
+            //当我们push成功之后，关闭我们的抽屉
+            [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+                //设置打开抽屉模式为MMOpenDrawerGestureModeNone，也就是没有任何效果。
+                [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
+            }];
+            break;
+        }
+        case 1:
+        {
+            if ([kUserDefaults boolForKey:KLoginState]) {
                 // 修改密码
                 ResetPswTableViewController *resetPswVC = [[UIStoryboard storyboardWithName:@"Personal" bundle:nil] instantiateViewControllerWithIdentifier:@"ResetPswTableViewController"];
                 resetPswVC.hidesBottomBarWhenPushed = YES;
@@ -238,7 +262,7 @@
             }];
             break;
         }
-        case 1:
+        case 2:
             {
                 // 操作日志
                 if ([kUserDefaults boolForKey:KLoginState]) {
@@ -260,7 +284,7 @@
                 break;
             }
             
-        case 2:
+        case 3:
         {
             // 维修工单
             if ([kUserDefaults boolForKey:KLoginState]) {
@@ -283,7 +307,7 @@
             break;
         }
             
-        case 3:
+        case 4:
         {
             // 清除缓存
             [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
@@ -292,7 +316,7 @@
             }];
             break;
         }
-        case 4:
+        case 5:
         {
             // 关于我们
             AboutViewController *aboutVC = [[UIStoryboard storyboardWithName:@"Personal" bundle:nil] instantiateViewControllerWithIdentifier:@"AboutViewController"];

@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "SubDeviceModel.h"
+#import "StreetLightModel.h"
 
 @interface WifiMenuView : UIView
 - (void)showMenu;
 - (void)hidMenu;
 
 @property (nonatomic, retain) SubDeviceModel *subDeviceModel;
+@property (nonatomic, retain) StreetLightModel *streetLightModel;
 @end

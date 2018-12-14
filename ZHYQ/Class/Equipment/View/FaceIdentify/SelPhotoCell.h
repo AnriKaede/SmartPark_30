@@ -11,6 +11,7 @@
 @protocol SelFacePhotoDelegate <NSObject>
 
 - (void)selFacePhoto;
+- (void)faceHistory;
 
 @end
 

@@ -17,7 +17,15 @@
 
 #import "FaceListViewController.h"
 
-@interface SelFaceViewController ()<UITableViewDelegate, UITableViewDataSource, SelFacePhotoDelegate, TZImagePickerControllerDelegate, FaceQueryDelegate>
+//#import "FaceHistoryViewController.h"
+#import "ClientFaceHisViewController.h"
+#import "FaceWranViewController.h"
+
+#import "FaceCoreDataManager.h"
+#import "FaceImgHistory+CoreDataClass.h"
+#import "UIImage+Zip.h"
+
+@interface SelFaceViewController ()<UITableViewDelegate, UITableViewDataSource, SelFacePhotoDelegate, TZImagePickerControllerDelegate, FaceQueryDelegate, SelClientHistoryImgDelegate>
 {
     UITableView *_selTableView;
     
@@ -46,7 +54,7 @@
 }
 
 - (void)_initView {
-//    self.title = @"人脸轨迹";
+    //    self.title = @"人脸轨迹";
     
     UIButton *leftBtn = [[UIButton alloc] init];
     leftBtn.frame = CGRectMake(0, 0, 40, 40);
@@ -56,6 +64,17 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = leftItem;
     
+    UIButton *imgWranBtn = [[UIButton alloc] init];
+    imgWranBtn.frame = CGRectMake(0, 0, 40, 40);
+    [imgWranBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+//    face_history_icon
+    [imgWranBtn setImage:[UIImage imageNamed:@"face_nav_picture"] forState:UIControlStateNormal];
+    [imgWranBtn setTitle:@"历史照片" forState:UIControlStateNormal];
+    imgWranBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+    [imgWranBtn addTarget:self action:@selector(faceHistory) forControlEvents:UIControlEventTouchUpInside];
+    [imgWranBtn setTitleEdgeInsets:UIEdgeInsetsMake(imgWranBtn.imageView.frame.size.height ,-imgWranBtn.imageView.frame.size.width, -5,0.0)];
+    [imgWranBtn setImageEdgeInsets:UIEdgeInsetsMake(-10, 20,0.0, -imgWranBtn.titleLabel.bounds.size.width)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:imgWranBtn];
     
     _selTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64) style:UITableViewStylePlain];
     _selTableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
@@ -69,17 +88,6 @@
     [_selTableView registerNib:[UINib nibWithNibName:@"SelTimeCell" bundle:nil] forCellReuseIdentifier:@"EndTimeCell"];
     [_selTableView registerNib:[UINib nibWithNibName:@"SimilarValueCell" bundle:nil] forCellReuseIdentifier:@"SimilarValueCell"];
     [_selTableView registerNib:[UINib nibWithNibName:@"FaceQueryCell" bundle:nil] forCellReuseIdentifier:@"FaceQueryCell"];
-    
-    /*
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(0, KScreenHeight - 64 - 60, KScreenWidth, 60);
-    button.backgroundColor = CNavBgColor;
-    [button setTitle:@"立即查询" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(queryAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-     */
-    
     
     // 时间默认一个月
     NSDateFormatter *showFormat = [[NSDateFormatter alloc] init];
@@ -133,7 +141,7 @@
     }
     
     // 查询接口，根据图片和时间查询人脸信息。list中在更具id查询列表轨迹信息
-//    [self imageData:_selPhotoCell.selImgView.image];
+    //    [self imageData:_selPhotoCell.selImgView.image];
     
     // 跳转查询轨迹列表
     FaceListViewController *faceListVC = [[FaceListViewController alloc] init];
@@ -147,18 +155,18 @@
 
 #pragma mark 图片压缩至2M以内
 - (void)imageData:(UIImage *)image {
-    NSData *data = UIImageJPEGRepresentation(image, 0.8f);
+    NSData *data = [UIImage compressWithOrgImg:image];
     if(data.length/1024 < 2*1024){
         // 小于2M 结束
-        [self uploadFaceImage:data];
+        [self uploadFaceImage:data withImg:image];
     }else {
         UIImage *dataImage = [UIImage imageWithData:data];
         [self imageData:dataImage];
     }
 }
 
-- (void)uploadFaceImage:(NSData *)data {
-//    NSData *data = UIImageJPEGRepresentation(_selPhotoCell.selImgView.image, 1.0f);
+- (void)uploadFaceImage:(NSData *)data withImg:(UIImage *)selImage {
+    //    NSData *data = UIImageJPEGRepresentation(_selPhotoCell.selImgView.image, 1.0f);
     
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     encodedImageStr = [NSString stringWithFormat:@"data:image/jpeg;base64,%@", encodedImageStr];
@@ -184,6 +192,8 @@
             
             _model = [[FaceQueryModel alloc] initWithDataDic:responseObject[@"responseData"]];
             
+            // 保存图片到沙盒并存储数据库
+            [self saveImgToFile:selImage withId:_model.faceImageId];
         }else {
             if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]] ) {
                 [self showHint:responseObject[@"message"]];
@@ -299,6 +309,55 @@
     }];
     [self presentViewController:imagePickerVc animated:YES completion:nil];
 }
+- (void)faceHistory {
+    ClientFaceHisViewController *hisVC = [[ClientFaceHisViewController alloc] init];
+    hisVC.selClientHistoryImgDelegate = self;
+    [self.navigationController pushViewController:hisVC animated:YES];
+}
+
+// 保存图片到沙盒
+- (void)saveImgToFile:(UIImage *)image withId:(NSString *)faceImgId {
+    NSString *imageName;
+    if(faceImgId != nil && ![faceImgId isKindOfClass:[NSNull class]]){
+        imageName = [NSString stringWithFormat:@"%@.jpg", faceImgId];
+    }else {
+        imageName = [NSString stringWithFormat:@"%@.jpg", [self getNowTimeTimestamp2]];
+    }
+    NSString *imagePath = [NSString stringWithFormat:@"%@%@", FaceHistoryPath, imageName];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    // 文件是否存在
+    if([fileManager fileExistsAtPath:FaceHistoryPath]){
+        [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:NO];
+    }else {
+        NSError *createError = nil;
+        [fileManager createDirectoryAtPath:FaceHistoryPath withIntermediateDirectories:YES attributes:nil error:&createError];
+        if(createError == nil){
+            [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:NO];
+        }
+    }
+    
+    [self saveHistoryImg:imageName];
+}
+// 获取当前时间戳
+- (NSString *)getNowTimeTimestamp2 {
+    NSDate *dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval a=[dat timeIntervalSince1970];
+    NSString *timeString = [NSString stringWithFormat:@"%0.f", a*1000];//转为字符型
+    return timeString;
+}
+
+// 保存记录到数据库
+- (void)saveHistoryImg:(NSString *)imgPath {
+    FaceCoreDataManager *managed = [FaceCoreDataManager shareManager];
+    // 保存
+    FaceImgHistory *faceImg = [managed createMO:@"FaceImgHistory"];
+    faceImg.selTime = [NSDate date];
+//    faceImg.selTime = [self formatMonthDate];
+    faceImg.imgFilePath = imgPath;
+    
+    [managed save:faceImg];
+}
 
 // 前一个月时间
 - (NSDate *)formatMonthDate {
@@ -312,6 +371,19 @@
     NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:[NSDate date] options:0];
     
     return newdate;
+}
+
+#pragma mark 选择历史照片协议
+- (void)selHistoryImg:(FaceHistoryModel *)faceHistoryModel {
+//    UIImage *selImg = [[UIImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@%@", FaceHistoryPath, faceImgHistory.imgFilePath]];
+    
+    NSString *base64Str = [faceHistoryModel.faceInfo componentsSeparatedByString:@"base64,"].lastObject;
+    NSData *decodedImageData = [[NSData alloc] initWithBase64EncodedString:base64Str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
+    
+    [self imageData:decodedImage];
+    
+    _selPhotoCell.selImgView.image = decodedImage;
 }
 
 @end

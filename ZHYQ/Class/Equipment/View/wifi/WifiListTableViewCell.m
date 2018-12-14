@@ -14,16 +14,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-    
-//    YQSwitch *wifiSwitch = (YQSwitch *)_wifiSwitch;
-    _wifiSwitch.onText = @"ON";
-    _wifiSwitch.offText = @"OFF";
-    _wifiSwitch.on = YES;
-    _wifiSwitch.backgroundColor = [UIColor clearColor];
-    _wifiSwitch.onTintColor = [UIColor colorWithHexString:@"6BDB6A"];
-    _wifiSwitch.tintColor = [UIColor colorWithHexString:@"FF4359"];
-    [_wifiSwitch addTarget:self action:@selector(_waterOnOrOffClick:) forControlEvents:UIControlEventValueChanged];
     
     _selectView.backgroundColor = [UIColor colorWithHexString:@"1B82D1"];
     
@@ -45,11 +35,11 @@
     _model = model;
     
     _wifiNameLab.text = [NSString stringWithFormat:@"%@",model.DEVICE_NAME];
-    if ([model.WIFI_STATUS isEqualToString:@"1"]) {
-        _wifiSwitch.on = YES;
-    }else{
-        _wifiSwitch.on = NO;
-    }
+//    if ([model.WIFI_STATUS isEqualToString:@"1"]) {
+//        _wifiSwitch.on = YES;
+//    }else{
+//        _wifiSwitch.on = NO;
+//    }
     
     _locationNumLab.text = [NSString stringWithFormat:@"%@",model.DEVICE_ADDR];
     
@@ -61,11 +51,11 @@
     _mapModel = mapModel;
     
     _wifiNameLab.text = [NSString stringWithFormat:@"%@",mapModel.DEVICE_NAME];
-    if ([mapModel.WIFI_STATUS isEqualToString:@"1"]) {
-        _wifiSwitch.on = YES;
-    }else{
-        _wifiSwitch.on = NO;
-    }
+//    if ([mapModel.WIFI_STATUS isEqualToString:@"1"]) {
+//        _wifiSwitch.on = YES;
+//    }else{
+//        _wifiSwitch.on = NO;
+//    }
     
     _locationNumLab.text = [NSString stringWithFormat:@"%@",mapModel.DEVICE_ADDR];
     
@@ -104,5 +94,22 @@
     }
     [[self viewController].navigationController pushViewController:wifiStiVc animated:YES];
 }
+
+- (IBAction)restartAction:(id)sender {
+    if(_wifiConDelegate != nil && [_wifiConDelegate respondsToSelector:@selector(wifiConType:)]){
+        [_wifiConDelegate wifiConType:0];
+    }
+}
+- (IBAction)openAction:(id)sender {
+    if(_wifiConDelegate != nil && [_wifiConDelegate respondsToSelector:@selector(wifiConType:)]){
+        [_wifiConDelegate wifiConType:1];
+    }
+}
+- (IBAction)closeAction:(id)sender {
+    if(_wifiConDelegate != nil && [_wifiConDelegate respondsToSelector:@selector(wifiConType:)]){
+        [_wifiConDelegate wifiConType:2];
+    }
+}
+
 
 @end

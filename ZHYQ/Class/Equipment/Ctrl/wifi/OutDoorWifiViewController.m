@@ -23,7 +23,7 @@
 #import "WifiInfoModel.h"
 #import "wifiSticalCenterViewController.h"
 
-@interface OutDoorWifiViewController ()<MAMapViewDelegate, MenuControlDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+@interface OutDoorWifiViewController ()<MAMapViewDelegate, MenuControlDelegate,UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate, WifiConDelegate>
 {
     // 弹窗
     ShowMenuView *_showMenuView;
@@ -241,6 +241,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WifiListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"WifiListTableViewCell" forIndexPath:indexPath];
+    cell.wifiConDelegate = self;
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     if (indexPath.row == _selectedIndex.row && _selectedIndex != nil) {
         //如果是展开
@@ -537,32 +538,38 @@
 
 #pragma mark 菜单协议
 - (CGFloat)menuHeightInView:(NSInteger)index {
-    if(index == 0){
-        return 60;
+    if(index == 0 || index == 1 || index == 2){
+        return 45;
     }else{
         return 40;
     }
 }
 
 - (NSInteger)menuNumInView {
-    return 5;
+    return 7;
 }
 
 - (NSString *)menuTitle:(NSInteger)index {
     switch (index) {
         case 0:
-            return _stateStr;
+            return @"重启设备";
             break;
         case 1:
-            return @"位置";
+            return @"开启射频";
             break;
         case 2:
-            return @"接收速率";
+            return @"关闭射频";
             break;
         case 3:
-            return @"发送速率";
+            return @"位置";
             break;
         case 4:
+            return @"接收速率";
+            break;
+        case 5:
+            return @"发送速率";
+            break;
+        case 6:
             return @"接入用户数";
             break;
             
@@ -573,11 +580,7 @@
 }
 
 - (UIColor *)menuTitleColor:(NSInteger)index {
-    if(index == 0){
-        return _stateColor;
-    }else {
-        return [UIColor blackColor];
-    }
+    return [UIColor blackColor];
 }
 
 - (NSString *)menuTitleViewText {
@@ -587,9 +590,15 @@
 - (ShowMenuStyle)menuViewStyle:(NSInteger)index {
     switch (index) {
         case 0:
-            return SwitchConMenu;
+            return ImgConMenu;
             break;
-        case 4:
+        case 1:
+            return ImgConMenu;
+            break;
+        case 2:
+            return ImgConMenu;
+            break;
+        case 6:
             return TextAndImgConMenu;
             break;
         default:
@@ -597,19 +606,22 @@
             break;
     }
 }
+- (CGSize)imageSize:(NSInteger)index {
+    return CGSizeMake(32, 32);
+}
 
 - (NSString *)menuMessage:(NSInteger)index {
     switch (index) {
-        case 1:
+        case 3:
             return _locationStr;
             break;
-        case 2:
+        case 4:
             return _accessNum;
             break;
-        case 3:
+        case 5:
             return _sendNum;
             break;
-        case 4:
+        case 6:
             return _userNum;
             break;
             
@@ -619,35 +631,56 @@
     }
 }
 - (NSString *)imageName:(NSInteger)index {
-    return @"wifi_list";
+    if(index == 0){
+        return @"led_restart_icon";
+    }else if(index == 1){
+        return @"led_play_icon";
+    }else if(index == 2){
+        return @"led_close_icon";
+    }else if(index == 6){
+        return @"wifi_list";
+    }
+    return @"";
 }
 
-// 为SwitchConMenu时实现，默认开关状态
-- (BOOL)isSwitch:(NSInteger)index {
-    return _isRuning;
-}
 #pragma mark 点击开关回调
-- (void)switchState:(NSInteger)index withSwitch:(BOOL)isOn {
-    if([_stateStr isEqualToString:@"设备故障"]){
-        return;
-    }
-    
-    _isRuning = isOn;
-    if(isOn){
-        _stateStr = @"正常开启中";
-        _stateColor = [UIColor colorWithHexString:@"#189517"];
-    }else {
-        _stateStr = @"离线";
-        _stateColor = [UIColor blackColor];
-    }
-    
-    [_showMenuView reloadMenuData];
-}
-
 - (void)didSelectMenu:(NSInteger)index {
-    if(index == 4){
+    if(index == 0){
+        [self wifiControl:0];
+    }else if(index == 1){
+        [self wifiControl:1];
+    }else if(index == 2){
+        [self wifiControl:2];
+    }else if(index == 6){
         [self goWifiUser];
     }
+}
+
+#pragma mark 调用开关wifi接口
+- (void)wifiControl:(NSInteger)conType {
+    // conType: 0重启，1开射频，2关射频
+    NSString *operation;
+    if(conType == 0){
+        operation = @"reboot";
+    }else if(conType == 1){
+        operation = @"enable_radio";
+    }else if(conType == 2){
+        operation = @"disable_radio";
+    }
+    NSString *urlStr = [NSString stringWithFormat:@"%@/wifi/setWifiState?layerId=%@&operation=%@&mode=%@&deviceId=%@",Main_Url, _wifiMapModel.LAYER_ID, operation, @"all", _wifiMapModel.DEVICE_ID];
+    
+    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
+        NSNumber *success = responseObject[@"success"];
+        if(!success.boolValue){
+            if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]] ) {
+                [self showHint:responseObject[@"message"]];
+            }
+        }else {
+            [_showMenuView reloadMenuData];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 -(void)closeMenu {
@@ -779,6 +812,11 @@
     NoDataView *noDateView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 49, KScreenWidth, tabView.height-49)];
     noDateView.label.text = @"无结果";
     return noDateView;
+}
+
+#pragma mark cell控制协议
+- (void)wifiConType:(NSInteger)type {
+    [self wifiControl:type];
 }
 
 @end

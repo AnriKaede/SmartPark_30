@@ -15,7 +15,22 @@
 #import "SingleCtrlTableViewCell.h"
 //#import "AloneConCell.h"    // 不带silder
 
-@interface SingleControlViewController ()<UITableViewDelegate,UITableViewDataSource, SliderLightDelegate, CYLTableViewPlaceHolderDelegate>
+#import "BDSEventManager.h"
+#import "BDSASRDefines.h"
+#import "BDSASRParameters.h"
+
+//如果需要使用内置识别控件，需要引入如下头文件：
+#import "BDTheme.h"
+#import "BDRecognizerViewParamsObject.h"
+#import "BDRecognizerViewController.h"
+#import "BDRecognizerViewDelegate.h"
+
+#import "VoiceRecognitionResult.h"
+#import "VoiceRecognitionModel.h"
+
+#import "TouchButton.h"
+
+@interface SingleControlViewController ()<UITableViewDelegate,UITableViewDataSource, SliderLightDelegate, CYLTableViewPlaceHolderDelegate, BDRecognizerViewDelegate>
 {
     UIView *_bottomView;
     UIButton *_allCloseButton;
@@ -23,10 +38,15 @@
     
     NSMutableArray *_sceneData;
     BOOL _isSceneModel; // 是否是场景模式变换
+    
+    TouchButton *_voiceRecognitionBt;
+    
 }
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 
+@property (strong, nonatomic) BDSEventManager *asrEventManager;
+@property(nonatomic, strong) BDRecognizerViewController *recognizerViewController;
 @end
 
 @implementation SingleControlViewController
@@ -48,6 +68,8 @@
     
     [self _loadData];
     
+    [self setupSpeak];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_loadData) name:@"changeSceneModel" object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSceneModel:) name:@"changeSceneModel" object:nil];
 }
@@ -62,7 +84,7 @@
  */
 
 - (void)changeModel:(NSString *)modelId {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/lighting/model/%@",Main_Url, modelId];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/lighting/model/%@/%@",Main_Url, modelId, _model.ROOM_ID];
     
     [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
@@ -72,7 +94,16 @@
                 SceneEquipmentModel *model = [[SceneEquipmentModel alloc] initWithDataDic:obj];
                 [_sceneData addObject:model];
             }];
-            _isSceneModel = YES;
+            
+            [_dataArr enumerateObjectsUsingBlock:^(MeetRoomModel *meetModel, NSUInteger idx, BOOL * _Nonnull stop) {
+                [_sceneData enumerateObjectsUsingBlock:^(SceneEquipmentModel *sceneModel, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if([meetModel.TAGID isEqualToString:sceneModel.tagId] && [meetModel.DEVICE_TYPE isEqualToString:sceneModel.deviceType]){
+                        meetModel.current_state = sceneModel.tagStatus;
+                    }
+                }];
+            }];
+            
+//            _isSceneModel = YES;
             [self.tableView cyl_reloadData];
             
             // 记录日志
@@ -123,6 +154,14 @@
     [_allOpenButton setTitleColor:[UIColor colorWithHexString:@"#CCFF00"] forState:UIControlStateNormal];
     [_allOpenButton addTarget:self action:@selector(allOpen) forControlEvents:UIControlEventTouchUpInside];
     [_bottomView addSubview:_allOpenButton];
+    
+    _voiceRecognitionBt = [TouchButton buttonWithType:UIButtonTypeCustom];
+    _voiceRecognitionBt.frame = CGRectMake(3, KScreenHeight - 100 - 64 - 100, 63, 63);
+    _voiceRecognitionBt.MoveEnable = YES;
+    [_voiceRecognitionBt setImage:[UIImage imageNamed:@"voice_bt_icon"] forState:UIControlStateNormal];
+    [_voiceRecognitionBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_voiceRecognitionBt addTarget:self action:@selector(voiceRecognition) forControlEvents:UIControlEventTouchUpInside];
+    [self.view insertSubview:_voiceRecognitionBt aboveSubview:_bottomView];
 }
 // 下拉刷新
 -(void)headerRereshing{
@@ -324,7 +363,7 @@
         
     }else {
         MeetRoomModel *model = _dataArr[indexPath.row];
-        if([model.DEVICE_TYPE isEqualToString:@"18-1"] && model.current_state != nil &&  ![model.current_state isKindOfClass:[NSNull class]] && ![model.current_state isEqualToString:@"0"]){
+        if([model.DEVICE_TYPE isEqualToString:@"18-1"] && model.current_state != nil &&  ![model.current_state isKindOfClass:[NSNull class]] && ![model.current_state isEqualToString:@"0"] && model.current_state.length > 0){
             // 灯筒
             return 120;
         }
@@ -332,7 +371,7 @@
             // 空调
             __block BOOL isOpen = NO;
             [model.airList enumerateObjectsUsingBlock:^(MeetRoomDeviceModel *deviceModel, NSUInteger idx, BOOL * _Nonnull stop) {
-                if([deviceModel.TAGNAME isEqualToString:@"AIRSTATUS"] && deviceModel.current_state!= nil && ![deviceModel.current_state isKindOfClass:[NSNull class]] && ![deviceModel.current_state isEqualToString:@"0"]){
+                if([deviceModel.TAGNAME isEqualToString:@"AIRSTATUS"] && deviceModel.current_state!= nil && ![deviceModel.current_state isKindOfClass:[NSNull class]] && ![deviceModel.current_state isEqualToString:@"0"] && deviceModel.current_state.length > 0){
                     isOpen = YES;
                 }
             }];
@@ -362,12 +401,42 @@
 
 #pragma mark 设备全关
 - (void)allClose {
-    [self allConScene:@"off"];
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否关闭所有设备" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"全关" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self allConScene:@"off"];
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = _bottomView;
+        alertCon.popoverPresentationController.sourceRect = _bottomView.bounds;
+    }
+    
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
 }
 
 #pragma mark 设备全开
 - (void)allOpen {
-    [self allConScene:@"on"];
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否开启所有设备" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"全开" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self allConScene:@"on"];
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = _bottomView;
+        alertCon.popoverPresentationController.sourceRect = _bottomView.bounds;
+    }
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
 }
 
 #pragma mark 灯桶协议(可调节亮度)
@@ -667,6 +736,174 @@
     //    [logDic setObject:<#(nonnull id)#> forKey:@"expand1"];//扩展字段 (暂未用到)    操作前值比如音量
     
     [LogRecordObj recordLog:logDic];
+}
+
+#pragma mark 语音识别
+- (void)setupSpeak {
+    // 创建语音识别对象
+    self.asrEventManager = [BDSEventManager createEventManagerWithName:BDS_ASR_NAME];
+    // 设置语音识别代理
+    [self.asrEventManager setDelegate:self];
+    // 参数配置：在线身份验证
+    [self.asrEventManager setParameter:@[API_KEY, SECRET_KEY] forKey:BDS_ASR_API_SECRET_KEYS];
+    //设置 APPID
+    [self.asrEventManager setParameter:APP_ID forKey:BDS_ASR_OFFLINE_APP_CODE];
+    
+    //设置DEBUG_LOG的级别
+    [self.asrEventManager setParameter:@(EVRDebugLogLevelTrace) forKey:BDS_ASR_DEBUG_LOG_LEVEL];
+    //配置端点检测（二选一）
+    [self configModelVAD];
+    //      [self configDNNMFE];
+    
+    //     [self.asrEventManager setParameter:@"15361" forKey:BDS_ASR_PRODUCT_ID];
+    // ---- 语义与标点 -----
+    [self enableNLU];
+}
+- (void) enableNLU {
+    // ---- 开启语义理解 -----
+    [self.asrEventManager setParameter:@(YES) forKey:BDS_ASR_ENABLE_NLU];
+    [self.asrEventManager setParameter:@"1536" forKey:BDS_ASR_PRODUCT_ID];
+}
+- (void) enablePunctuation {
+    // ---- 开启标点输出 -----
+    [self.asrEventManager setParameter:@(NO) forKey:BDS_ASR_DISABLE_PUNCTUATION];
+    // 普通话标点
+    //    [self.asrEventManager setParameter:@"1537" forKey:BDS_ASR_PRODUCT_ID];
+    // 英文标点
+    [self.asrEventManager setParameter:@"1737" forKey:BDS_ASR_PRODUCT_ID];
+}
+- (void)configModelVAD {
+    NSString *modelVAD_filepath = [[NSBundle mainBundle] pathForResource:@"bds_easr_basic_model" ofType:@"dat"];
+    [self.asrEventManager setParameter:modelVAD_filepath forKey:BDS_ASR_MODEL_VAD_DAT_FILE];
+    [self.asrEventManager setParameter:@(YES) forKey:BDS_ASR_ENABLE_MODEL_VAD];
+}
+
+#pragma mark sdkUI 协议
+- (void)voiceRecognition {
+    if (!_voiceRecognitionBt.MoveEnabled) {
+        [self.asrEventManager setParameter:@"" forKey:BDS_ASR_AUDIO_FILE_PATH];
+        //    [self configFileHandler];
+        [self configRecognizerViewController];
+        [self.recognizerViewController startVoiceRecognition];
+    }
+}
+- (void)configRecognizerViewController {
+    BDRecognizerViewParamsObject *paramsObject = [[BDRecognizerViewParamsObject alloc] init];
+    paramsObject.isShowTipAfterSilence = YES;
+    paramsObject.isShowHelpButtonWhenSilence = NO;
+    paramsObject.tipsTitle = @"您可以这样问";
+    paramsObject.tipsList = [NSArray arrayWithObjects:@"开灯", @"关闭窗帘", @"关闭空调", @"打开幕布", @"打开纱窗", nil];
+    paramsObject.waitTime2ShowTip = 0.7;
+    
+    paramsObject.isShowTipsOnStart = YES;
+    
+    paramsObject.isHidePleaseSpeakSection = YES;
+    paramsObject.disableCarousel = YES;
+    self.recognizerViewController = [[BDRecognizerViewController alloc] initRecognizerViewControllerWithOrigin:CGPointMake(9, 80)
+                                                                                                         theme:nil
+                                                                                              enableFullScreen:YES
+                                                                                                  paramsObject:paramsObject
+                                                                                                      delegate:self];
+}
+
+#pragma mark - BDRecognizerViewDelegate
+- (void)onRecordDataArrived:(NSData *)recordData sampleRate:(int)sampleRate {
+//    [self.fileHandler writeData:(NSData *)recordData];
+}
+- (void)onEndWithViews:(BDRecognizerViewController *)aBDRecognizerViewController withResult:(id)aResult {
+    if (aResult) {
+        VoiceRecognitionModel *recognitionModel = [[VoiceRecognitionModel alloc] initWithDataDic:aResult];
+        NSLog(@"%@", [self getDescriptionForDic:aResult]);
+        if(recognitionModel.results_recognition.count > 0){
+            MeetRoomControlStyle controlStyle = [VoiceRecognitionResult recognitionResult:recognitionModel.results_recognition.firstObject];
+            [self controlEquipment:controlStyle];
+            NSLog(@"++++++++++%d", controlStyle);
+        }else {
+            [self showConFailMsg];
+        }
+    }
+    [self.asrEventManager setDelegate:self];
+}
+
+- (NSString *)getDescriptionForDic:(NSDictionary *)dic {
+    if (dic) {
+        return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:dic
+                                                                              options:NSJSONWritingPrettyPrinted
+                                                                                error:nil] encoding:NSUTF8StringEncoding];
+    }
+    return nil;
+}
+
+- (void)showConFailMsg {
+    [self showHint:@"未检测到有效指令，请重试!"];
+}
+
+#pragma mark 根据语音控制指令 控制设备
+- (void)controlEquipment:(MeetRoomControlStyle)controlStyle {
+    switch (controlStyle) {
+        case OpenLight:
+            [self allConScene:@"AI_LED_ON"];
+            break;
+        case CloseLight:
+            [self allConScene:@"AI_LED_OFF"];
+            break;
+        case OpenCurtain:
+            [self allConScene:@"AI_WINDOW_ON"];
+            break;
+        case CloseCurtain:
+            [self allConScene:@"AI_WINDOW_OFF"];
+            break;
+        case OpenAirCondit:
+            [self voiceAloneCon:@"6" withOpen:YES];
+            break;
+        case CloseAirCondit:
+            [self voiceAloneCon:@"6" withOpen:NO];
+            break;
+        case OpenShadow:
+            [self voiceAloneCon:@"20" withOpen:NO]; // 投影取反
+            break;
+        case CloseShadow:
+            [self voiceAloneCon:@"20" withOpen:YES];
+            break;
+        case NotSupport:
+            [self showConFailMsg];
+            break;
+    }
+}
+
+- (void)voiceAloneCon:(NSString *)deviceType withOpen:(BOOL)isOpen {
+    // 空调、投影幕布
+    if(_isSceneModel){
+        [_sceneData enumerateObjectsUsingBlock:^(SceneEquipmentModel *sceneModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            // 空调
+            if([sceneModel.deviceType isEqualToString:@"6"] && [sceneModel.deviceType isEqualToString:deviceType]){
+//                [self aloneCon:sceneModel.tagId withOpen:isOpen withMeetModel:nil withSceneModel:sceneModel withIsScene:YES withDeviceName:@"空调"];
+//                [self modelCutData:sceneModel.tagId withDeviceId:sceneModel.tagId withTagName:@"AIRSTATUS" withValue:[NSString stringWithFormat:@"%d", isOpen] withMeetModel:meetModel];
+                *stop = YES;
+            }else if ([sceneModel.deviceType isEqualToString:@"20"] && [sceneModel.deviceType isEqualToString:deviceType]) {
+                [self aloneCon:sceneModel.tagId withOpen:isOpen withMeetModel:nil withSceneModel:sceneModel withIsScene:YES withDeviceName:@"投影幕布"];
+                *stop = YES;
+            }
+        }];
+    }else {
+        [_dataArr enumerateObjectsUsingBlock:^(MeetRoomModel *meetModel, NSUInteger idx, BOOL * _Nonnull stop) {
+            // 空调
+            if([meetModel.DEVICE_TYPE isEqualToString:@"6"] && [meetModel.DEVICE_TYPE isEqualToString:deviceType]){
+//                [self aloneCon:meetModel.TAGID withOpen:isOpen withMeetModel:meetModel withSceneModel:nil withIsScene:NO withDeviceName:@"空调"];
+                __block NSString *tagId;
+                [meetModel.airList enumerateObjectsUsingBlock:^(MeetRoomDeviceModel *deviceModel, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if([deviceModel.TAGNAME isEqualToString:@"AIRSTATUS"]){
+                        tagId = deviceModel.WRITE_ID;
+                    }
+                }];
+                [self modelCutData:tagId withDeviceId:meetModel.DEVICE_ID withTagName:@"AIRSTATUS" withValue:[NSString stringWithFormat:@"%d", isOpen] withMeetModel:meetModel];
+                *stop = YES;
+            }else if ([meetModel.DEVICE_TYPE isEqualToString:@"20"] && [meetModel.DEVICE_TYPE isEqualToString:deviceType]) {
+                [self aloneCon:meetModel.TAGID withOpen:isOpen withMeetModel:meetModel withSceneModel:nil withIsScene:NO withDeviceName:@"投影幕布"];
+                *stop = YES;
+            }
+        }];
+    }
 }
 
 @end

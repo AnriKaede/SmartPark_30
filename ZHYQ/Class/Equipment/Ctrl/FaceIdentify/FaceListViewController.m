@@ -109,9 +109,9 @@
     _traceTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 10, KScreenWidth, KScreenHeight - 64 - 10) style:UITableViewStylePlain];
     _traceTableView.delegate = self;
     _traceTableView.dataSource = self;
-//    _traceTableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
+    //    _traceTableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     _traceTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    _traceTableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
+    //    _traceTableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
     _traceTableView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_traceTableView];
     
@@ -130,7 +130,7 @@
         _page ++;
         [self _loadData];
     }];
-//    _traceTableView.mj_footer.automaticallyHidden = NO;
+    //    _traceTableView.mj_footer.automaticallyHidden = NO;
     _traceTableView.mj_footer.hidden = YES;
     
     // 筛选视图
@@ -272,12 +272,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     FaceListModel *model = _traceData[indexPath.row];
- 
+    
     FaceDetailViewController *faceDetVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"FaceDetailViewController"];
     faceDetVC.faceListModel = model;
     faceDetVC.faceBase64 = _faceModel.imgBase64;
     faceDetVC.orgImage = _orgImage;
-
+    
     [self presentViewController:faceDetVC animated:YES completion:nil];
 }
 
@@ -325,8 +325,8 @@
 }
 - (void)filterWithStart:(NSString *)startTime withEndTime:(NSString *)endTime withSimValue:(NSNumber *)simValue {
     NSMutableDictionary *infoDic = @{@"startTime":startTime,
-                                      @"endTime":endTime,
-                                      @"threshold":simValue
+                                     @"endTime":endTime,
+                                     @"threshold":simValue
                                      }.mutableCopy;
     
     [self filterDataDic:infoDic];

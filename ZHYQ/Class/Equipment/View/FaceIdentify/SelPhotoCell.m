@@ -7,6 +7,7 @@
 //
 
 #import "SelPhotoCell.h"
+#import "FaceHistoryViewController.h"
 
 @implementation SelPhotoCell
 
@@ -35,6 +36,12 @@
 - (void)selFace {
     if(_selFaceDelegate && [_selFaceDelegate respondsToSelector:@selector(selFacePhoto)]){
         [_selFaceDelegate selFacePhoto];
+    }
+}
+
+- (IBAction)historyAction:(id)sender {
+    if(_selFaceDelegate && [_selFaceDelegate respondsToSelector:@selector(faceHistory)]){
+        [_selFaceDelegate faceHistory];
     }
 }
 

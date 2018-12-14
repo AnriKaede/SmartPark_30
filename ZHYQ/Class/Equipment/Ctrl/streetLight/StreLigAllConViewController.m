@@ -99,7 +99,7 @@
 }
 
 -(void)_loadData {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/common/getSubDeviceListByType?deviceType=55&subDeviceType=18",Main_Url];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/common/getSubDeviceListByType?deviceType=55,55-1,55-2&subDeviceType=18",Main_Url];
     
     [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         [self removeNoDataImage];
@@ -128,30 +128,59 @@
 
 #pragma mark 批量关
 - (void)allClose {
-    NSMutableArray *closeData = @[].mutableCopy;
-    [_lampData enumerateObjectsUsingBlock:^(StreetLampSubModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if(model.isConSelect){
-            NSDictionary *lampDic = @{@"uid":model.SUB_TAGID,
-                                      @"lampCtrlAddr":model.SUB_DEVICE_ADDR,
-                                      };
-            [closeData addObject:lampDic];
-        }
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否全部关闭" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
-    [self batchesCon:closeData withOnOff:@"OFF"];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSMutableArray *closeData = @[].mutableCopy;
+        [_lampData enumerateObjectsUsingBlock:^(StreetLampSubModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(model.isConSelect){
+                NSDictionary *lampDic = @{@"uid":model.SUB_TAGID,
+                                          @"lampCtrlAddr":model.SUB_DEVICE_ADDR,
+                                          };
+                [closeData addObject:lampDic];
+            }
+        }];
+        [self batchesCon:closeData withOnOff:@"OFF"];
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = _bottomView;
+        alertCon.popoverPresentationController.sourceRect = _bottomView.bounds;
+    }
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
 }
 
 #pragma mark 批量开
 - (void)allOpen {
-    NSMutableArray *openData = @[].mutableCopy;
-    [_lampData enumerateObjectsUsingBlock:^(StreetLampSubModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if(model.isConSelect){
-            NSDictionary *lampDic = @{@"uid":model.SUB_TAGID,
-                                      @"lampCtrlAddr":model.SUB_DEVICE_ADDR,
-                                      };
-            [openData addObject:lampDic];
-        }
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否全部开启" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
     }];
-    [self batchesCon:openData withOnOff:@"ON"];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"开启" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSMutableArray *openData = @[].mutableCopy;
+        [_lampData enumerateObjectsUsingBlock:^(StreetLampSubModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(model.isConSelect){
+                NSDictionary *lampDic = @{@"uid":model.SUB_TAGID,
+                                          @"lampCtrlAddr":model.SUB_DEVICE_ADDR,
+                                          };
+                [openData addObject:lampDic];
+            }
+        }];
+        [self batchesCon:openData withOnOff:@"ON"];
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = _bottomView;
+        alertCon.popoverPresentationController.sourceRect = _bottomView.bounds;
+    }
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
+    
 }
 
 - (void)batchesCon:(NSArray *)lamps withOnOff:(NSString *)onOff {
@@ -159,7 +188,7 @@
     
     NSMutableDictionary *param = @{}.mutableCopy;
     [param setObject:lamps forKey:@"lamps"];
-    [param setObject:@"13" forKey:@"lampCtrlType"];
+    [param setObject:@"24" forKey:@"lampCtrlType"];
     [param setObject:@"on" forKey:@"operateType"];
     [param setObject:onOff forKey:@"operateValue"];
     
