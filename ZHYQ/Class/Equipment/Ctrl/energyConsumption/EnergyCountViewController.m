@@ -66,8 +66,10 @@ typedef enum {
 - (void)_initView {
     
     _bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight - 49)];
+    // 添加渐变色
+    [NavGradient viewAddGradient:_bgScrollView];
     _bgScrollView.contentSize = CGSizeMake(0, 1065);
-    _bgScrollView.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
+//    _bgScrollView.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
     [self.view addSubview:_bgScrollView];
  
     [self _createPostView];
@@ -198,7 +200,7 @@ typedef enum {
 - (void)_createPostView {
     // 头部日期背景
     UIView *filterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 40)];
-    filterView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+    filterView.backgroundColor = [UIColor clearColor];
     [_bgScrollView addSubview:filterView];
     
     UILabel *elcLabel = [[UILabel alloc] init];
@@ -256,7 +258,7 @@ typedef enum {
     self.postChartView.contentWidth = KScreenWidth*(postData.count/10);
     self.postChartView.contentHeight = 260;
     self.postChartView.isClearBackgroundColor = YES;
-    self.postChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+    self.postChartView.backgroundColor = [UIColor clearColor];
     [_chartScrollView addSubview:self.postChartView];
     
     // 混合Y轴
@@ -369,14 +371,15 @@ typedef enum {
         _chartScrollView.contentSize = CGSizeMake(snapChartWidth, 0);
         [_chartScrollView setContentOffset:CGPointMake(_chartScrollView.contentSize.width - KScreenWidth, 0) animated:YES];
         
+        [self.postChartView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.postChartView removeFromSuperview];
         self.postChartView = nil;
-        [_postChartView removeFromSuperview];
         
         self.postChartView = [[AAChartView alloc]initWithFrame:CGRectMake(0, 0, snapChartWidth, 275)];
         self.postChartView.contentHeight = 255;
         self.postChartView.userInteractionEnabled = YES;
         self.postChartView.isClearBackgroundColor = YES;
-        self.postChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+        self.postChartView.backgroundColor = [UIColor clearColor];
         [_chartScrollView addSubview:self.postChartView];
         
     }else {

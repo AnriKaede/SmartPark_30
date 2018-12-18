@@ -269,6 +269,7 @@
 		9257EED421C74C9A009C4230 /* HpFaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9257EED221C74C9A009C4230 /* HpFaceCell.xib */; };
 		9257EED821C74DC7009C4230 /* HpCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EED621C74DC7009C4230 /* HpCarCell.m */; };
 		9257EED921C74DC7009C4230 /* HpCarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9257EED721C74DC7009C4230 /* HpCarCell.xib */; };
+		9257EEDD21C893F8009C4230 /* NavGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EEDC21C893F8009C4230 /* NavGradient.m */; };
 		925EEFC91FB04C3B003DB93B /* ShowMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925EEFC81FB04C3B003DB93B /* ShowMenuView.m */; };
 		92643D8C201818340007C007 /* VisSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8B201818340007C007 /* VisSearchViewController.m */; };
 		92643D8F201876970007C007 /* VisCountNumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8E201876970007C007 /* VisCountNumModel.m */; };
@@ -1373,6 +1374,8 @@
 		9257EED521C74DC7009C4230 /* HpCarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpCarCell.h; sourceTree = "<group>"; };
 		9257EED621C74DC7009C4230 /* HpCarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpCarCell.m; sourceTree = "<group>"; };
 		9257EED721C74DC7009C4230 /* HpCarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HpCarCell.xib; sourceTree = "<group>"; };
+		9257EEDB21C893F8009C4230 /* NavGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavGradient.h; sourceTree = "<group>"; };
+		9257EEDC21C893F8009C4230 /* NavGradient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavGradient.m; sourceTree = "<group>"; };
 		925EEFC71FB04C3A003DB93B /* ShowMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMenuView.h; sourceTree = "<group>"; };
 		925EEFC81FB04C3B003DB93B /* ShowMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMenuView.m; sourceTree = "<group>"; };
 		92643D8A201818340007C007 /* VisSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisSearchViewController.h; sourceTree = "<group>"; };
@@ -3364,6 +3367,15 @@
 			path = HappinessDoor;
 			sourceTree = "<group>";
 		};
+		9257EEDA21C893B4009C4230 /* NavGradient */ = {
+			isa = PBXGroup;
+			children = (
+				9257EEDB21C893F8009C4230 /* NavGradient.h */,
+				9257EEDC21C893F8009C4230 /* NavGradient.m */,
+			);
+			path = NavGradient;
+			sourceTree = "<group>";
+		};
 		925EEFC31FB04B6B003DB93B /* ShowMenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -4342,6 +4354,7 @@
 		D60262411F9C455600A66D5A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9257EEDA21C893B4009C4230 /* NavGradient */,
 				92EECFE121A65BF1002ED8CD /* TouchButton.h */,
 				92EECFE221A65BF2002ED8CD /* TouchButton.m */,
 				92669403219D4FC1004583B2 /* HtmlEdit */,
@@ -6062,6 +6075,7 @@
 				92B90BD3201C7AA100F978A1 /* MonthMeterModel.m in Sources */,
 				D63922B81FB42FBF00E1A00A /* AirConditionViewController.m in Sources */,
 				D60262581F9C493D00A66D5A /* YQTransition.m in Sources */,
+				9257EEDD21C893F8009C4230 /* NavGradient.m in Sources */,
 				9276A5A22088747300F6667B /* WorkListCenViewController.m in Sources */,
 				9273EB2020521BB900723C5D /* WaterTaskEditTableViewController.m in Sources */,
 				9253BD7920BFA58E00AB4767 /* SBJsonStreamWriter.m in Sources */,

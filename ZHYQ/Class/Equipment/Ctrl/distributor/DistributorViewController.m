@@ -12,6 +12,7 @@
 
 @interface DistributorViewController ()<UITableViewDelegate, UITableViewDataSource, CYLTableViewPlaceHolderDelegate>
 {
+    __weak IBOutlet UIView *_topBgView;
     __weak IBOutlet UILabel *_normalLabel;
     __weak IBOutlet UILabel *_outTempLabel;
     __weak IBOutlet UILabel *_tripLabel;
@@ -36,6 +37,9 @@
 }
 
 - (void)_initView {
+    // 添加渐变色
+    [NavGradient viewAddGradient:_topBgView];
+    
     UIButton *leftBtn = [[UIButton alloc] init];
     leftBtn.frame = CGRectMake(0, 0, 40, 40);
     [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];

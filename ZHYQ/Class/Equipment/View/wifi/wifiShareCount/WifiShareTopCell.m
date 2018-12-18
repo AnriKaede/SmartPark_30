@@ -30,8 +30,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    _topBgView.backgroundColor = CNavBgColor;
-    _bgView.backgroundColor = CNavBgColor;
+//    _topBgView.backgroundColor = CNavBgColor;
+    // 添加渐变色
+    [NavGradient viewAddGradient:_topBgView];
+    _bgView.backgroundColor = [UIColor clearColor];
     
     _ringBgView.layer.cornerRadius = _ringBgView.width/2;
     _bgView.layer.cornerRadius = _bgView.width/2;

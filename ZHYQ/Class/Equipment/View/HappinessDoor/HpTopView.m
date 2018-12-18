@@ -7,6 +7,7 @@
 //
 
 #import "HpTopView.h"
+#import "NavGradient.h"
 
 @implementation HpTopView
 
@@ -29,7 +30,7 @@
     [self addSubview:topBgView];
     
     // 添加渐变色
-    [self addGradient:topBgView];
+    [NavGradient viewAddGradient:topBgView];
     
     CGFloat itemWidth = topBgView.height - 10;
     UIView *roundView = [[UIView alloc] initWithFrame:CGRectMake((KScreenWidth - itemWidth)/2, 5, itemWidth, itemWidth)];
@@ -103,38 +104,5 @@
     return itemView;
 }
 
-- (void)addGradient:(UIView *)view {
-    view.backgroundColor = [UIColor colorWithHexString:@"#0D46B9"];
-    [self addRoundLayerOne:view];
-    [self addRoundLayerTow:view];
-}
-- (void)addRoundLayerOne:(UIView *)view {
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = CGRectMake(0, 0, view.width, view.height);
-    gradient.colors = [NSArray arrayWithObjects:(id)[UIColor colorWithHexString:@"#285ab9"].CGColor,(id)[UIColor colorWithHexString:@"#4287cd"].CGColor, nil];
-    gradient.locations = @[@0.5, @1.0];    // 颜色的起点位置，递增，并且数量跟颜色数量相等
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(1, 0);
-    
-    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(KScreenWidth/5, -142, KScreenWidth*1.5, 280)];
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = path.CGPath;
-    gradient.mask = maskLayer;
-    [view.layer addSublayer:gradient];
-}
-- (void)addRoundLayerTow:(UIView *)view {
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = CGRectMake(0, 0, view.width, view.height);
-    gradient.colors = [NSArray arrayWithObjects:(id)[UIColor colorWithHexString:@"#3b72c4"].CGColor,(id)[UIColor colorWithHexString:@"#4a8ecf"].CGColor, nil];
-    gradient.locations = @[@0.0, @1.0];    // 颜色的起点位置，递增，并且数量跟颜色数量相等
-    gradient.startPoint = CGPointMake(0, 0);
-    gradient.endPoint = CGPointMake(1, 0);
-    
-    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(KScreenWidth*3/5, -142, KScreenWidth, 260)];
-    CAShapeLayer *maskLayer = [CAShapeLayer layer];
-    maskLayer.path = path.CGPath;
-    gradient.mask = maskLayer;
-    [view.layer addSublayer:gradient];
-}
 
 @end

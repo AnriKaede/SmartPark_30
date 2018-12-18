@@ -5055,6 +5055,7 @@
                         <outlet property="_failLabel" destination="lvH-AC-SMi" id="r9r-5L-mx9"/>
                         <outlet property="_normalLabel" destination="Kh5-Cv-vIe" id="pCE-1c-6YK"/>
                         <outlet property="_outTempLabel" destination="a5p-SP-XuA" id="7MA-xW-6JT"/>
+                        <outlet property="_topBgView" destination="ner-wR-VLk" id="lXN-o6-HL3"/>
                         <outlet property="_tripLabel" destination="bOE-xK-T0Q" id="zQw-LN-uQp"/>
                     </connections>
                 </viewController>

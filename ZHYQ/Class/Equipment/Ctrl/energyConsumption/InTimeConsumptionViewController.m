@@ -59,6 +59,8 @@
 - (void)_initView {
     
     _bgScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight - 49)];
+    // 添加渐变色
+    [NavGradient viewAddGradient:_bgScrollView];
     _bgScrollView.contentSize = CGSizeMake(0, 750);
     _bgScrollView.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
     [self.view addSubview:_bgScrollView];
@@ -81,7 +83,7 @@
     self.aaChartView.contentHeight = 255
     ;
     self.aaChartView.isClearBackgroundColor = YES;
-    self.aaChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+    self.aaChartView.backgroundColor = [UIColor clearColor];
     [_chartScrollView addSubview:self.aaChartView];
     
     // 混合Y轴
@@ -152,6 +154,7 @@
 #pragma mark 区域能耗视图
 - (void)_createParkView {
     _partBgView = [[UIView alloc] initWithFrame:CGRectMake(0, _summaryView.bottom, KScreenWidth, 290)];
+    _partBgView.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
     [_bgScrollView addSubview:_partBgView];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 45, KScreenWidth/2, 5)];
@@ -336,13 +339,14 @@
         _chartScrollView.contentSize = CGSizeMake(snapChartWidth, 0);
         [_chartScrollView setContentOffset:CGPointMake(_chartScrollView.contentSize.width - KScreenWidth, 0) animated:YES];
         
+        [self.aaChartView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.aaChartView removeFromSuperview];
         self.aaChartView = nil;
-        [_aaChartView removeFromSuperview];
         
         self.aaChartView = [[AAChartView alloc]initWithFrame:CGRectMake(0, 0, snapChartWidth, 275)];
         self.aaChartView.contentHeight = 255;
         self.aaChartView.isClearBackgroundColor = YES;
-        self.aaChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+        self.aaChartView.backgroundColor = [UIColor clearColor];
         [_chartScrollView addSubview:self.aaChartView];
         
     }

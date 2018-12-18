@@ -47,6 +47,9 @@
 }
 
 - (void)_crateSnapView {
+    // 添加渐变色
+    [NavGradient viewAddGradient:_snapBgView];
+    
     _chartScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 40, KScreenWidth, 275)];
     _chartScrollView.bounces = NO;
     //    _chartScrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, 0);
@@ -55,7 +58,7 @@
     self.snapChartView = [[AAChartView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 275)];
     self.snapChartView.contentHeight = 260;
     self.snapChartView.isClearBackgroundColor = YES;
-    self.snapChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+    self.snapChartView.backgroundColor = [UIColor clearColor];
     [_chartScrollView addSubview:self.snapChartView];
     
     self.snapChartModel= AAObject(AAChartModel)
@@ -133,13 +136,14 @@
         _chartScrollView.contentSize = CGSizeMake(snapChartWidth, 0);
         [_chartScrollView setContentOffset:CGPointMake(_chartScrollView.contentSize.width - KScreenWidth, 0) animated:YES];
         
+        [self.snapChartView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.snapChartView removeFromSuperview];
         self.snapChartView = nil;
-        [_snapChartView removeFromSuperview];
         
         self.snapChartView = [[AAChartView alloc]initWithFrame:CGRectMake(0, 0, snapChartWidth, 275)];
         self.snapChartView.contentHeight = 260;
         self.snapChartView.isClearBackgroundColor = YES;
-        self.snapChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+        self.snapChartView.backgroundColor = [UIColor clearColor];
         [_chartScrollView addSubview:self.snapChartView];
         
     }

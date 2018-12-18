@@ -111,6 +111,9 @@
 
 -(void)_initView
 {
+    // 添加渐变色
+    [NavGradient viewAddGradient:self];
+    
     [self addSubview:self.leftLab];
     [self addSubview:self.leftNumLab];
     

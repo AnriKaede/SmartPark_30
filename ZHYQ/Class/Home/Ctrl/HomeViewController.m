@@ -907,6 +907,8 @@
     _WeatherBgView.frame = CGRectMake(0,0,KScreenWidth,84.5*hScale);
     _WeatherBgView.backgroundColor = CNavBgColor;
     [bottomBgView addSubview:_WeatherBgView];
+    // 添加渐变色
+    [NavGradient viewAddGradient:_WeatherBgView];
     
     UITapGestureRecognizer *weatherTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(weatherAction)];
     [_WeatherBgView addGestureRecognizer:weatherTap];
