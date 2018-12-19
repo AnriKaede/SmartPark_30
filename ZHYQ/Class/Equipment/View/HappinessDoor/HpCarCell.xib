@@ -68,6 +68,12 @@
                     <constraint firstItem="e4R-4c-A43" firstAttribute="top" secondItem="O02-Ae-Rto" secondAttribute="top" constant="4" id="xOt-Es-USQ"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="_addresLabel" destination="AoD-R1-BOM" id="BXy-tD-xej"/>
+                <outlet property="_carImgView" destination="Cr4-TF-VeN" id="ctU-Cr-cSr"/>
+                <outlet property="_carNoLabel" destination="e4R-4c-A43" id="val-Tr-mEr"/>
+                <outlet property="_timeLabel" destination="sZo-5o-8FV" id="nP3-OR-Ugz"/>
+            </connections>
             <point key="canvasLocation" x="139.19999999999999" y="201.49925037481262"/>
         </tableViewCell>
     </objects>

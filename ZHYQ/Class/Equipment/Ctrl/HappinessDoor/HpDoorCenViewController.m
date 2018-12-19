@@ -76,7 +76,7 @@
     [self _createBottomMoreView];
 }
 - (void)_createTopView {
-    HpTopView *topView = [[HpTopView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 244*hScale)];
+    HpTopView *topView = [[HpTopView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 240*hScale)];
     [self.view addSubview:topView];
 }
 - (void)_createBottomMoreView {
@@ -85,7 +85,7 @@
     [self.view addSubview:moreImgView];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(moreImgView.left - 60, KScreenHeight - 40 - kTopHeight, 60, 40);
+    button.frame = CGRectMake(moreImgView.left - 60, KScreenHeight - 35 - kTopHeight, 60, 35);
     [button setTitle:@"查看更多" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor colorWithHexString:@"#1B82D1"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(moreAction) forControlEvents:UIControlEventTouchUpInside];
@@ -118,12 +118,14 @@
         case 0:
         {
             HpFaceViewController *faceVC = [[HpFaceViewController alloc] init];
+            faceVC.isCount = YES;
             return faceVC;
             break;
         }
         case 1:
         {
             HpCarViewController *carVC = [[HpCarViewController alloc] init];
+            carVC.isCount = YES;
             return carVC;
             break;
         }

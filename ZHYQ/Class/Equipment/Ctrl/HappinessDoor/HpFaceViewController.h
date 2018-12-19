@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface HpFaceViewController : RootViewController
-
+@property (nonatomic,assign) BOOL isCount;
 @end
 
 NS_ASSUME_NONNULL_END

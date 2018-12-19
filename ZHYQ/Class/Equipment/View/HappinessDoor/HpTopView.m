@@ -23,10 +23,13 @@
     [self createTopView];
     
     [self createScroolView];
+    
+    [self _loadData];
 }
 
 - (void)createTopView {
     UIView *topBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 142*hScale)];
+    topBgView.tag = 100;
     [self addSubview:topBgView];
     
     // 添加渐变色
@@ -34,6 +37,7 @@
     
     CGFloat itemWidth = topBgView.height - 10;
     UIView *roundView = [[UIView alloc] initWithFrame:CGRectMake((KScreenWidth - itemWidth)/2, 5, itemWidth, itemWidth)];
+    roundView.tag = 101;
     roundView.backgroundColor = [UIColor clearColor];
     roundView.layer.cornerRadius = itemWidth/2;
     roundView.layer.borderColor = [UIColor colorWithHexString:@"#A0D6FF"].CGColor;
@@ -41,7 +45,8 @@
     [topBgView addSubview:roundView];
     
     UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 40, itemWidth - 10, 25)];
-    numLabel.text = @"00";
+    numLabel.tag = 102;
+    numLabel.text = @"-";
     numLabel.textColor = [UIColor whiteColor];
     numLabel.font = [UIFont systemFontOfSize:25];
     numLabel.textAlignment = NSTextAlignmentCenter;
@@ -57,7 +62,10 @@
 }
 
 - (void)createScroolView {
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 142*hScale, KScreenWidth, self.height - 142*hScale)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 138*hScale, KScreenWidth, self.height - 142*hScale)];
+    scrollView.showsVerticalScrollIndicator = NO;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.tag = 200;
     scrollView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
     CGFloat contentWidth = 568;
     if(KScreenWidth >= 568){
@@ -80,6 +88,7 @@
 }
 - (UIView *)createItemView:(CGRect)frame withMessage:(NSString *)msg withIndex:(NSInteger)index {
     UIView *itemView = [[UIView alloc] initWithFrame:frame];
+    itemView.tag = 1000+index;
     
     CGFloat itemWidth = frame.size.width;
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((itemWidth - 27)/2, 12, 27, 27)];
@@ -87,7 +96,7 @@
     [itemView addSubview:imgView];
     
     UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, imgView.bottom + 11, itemWidth, 20)];
-    numLabel.text = @"00";
+    numLabel.text = @"-";
     numLabel.tag = 2000+index;
     numLabel.textColor = [UIColor colorWithHexString:@"#3699FF"];
     numLabel.font = [UIFont systemFontOfSize:18];
@@ -104,5 +113,50 @@
     return itemView;
 }
 
+#pragma mark 加载数据
+- (void)_loadData {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/fumenController/getAllTypeNum", Main_Url];
+    
+    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            NSArray *data = responseObject[@"responseData"];
+            if(data != nil && data.count > 0){
+                [self dealData:data.firstObject];
+            }
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
+- (void)dealData:(NSDictionary *)responseData {
+    NSString *peopleNum = [self formatParam:responseData[@"peopleNum"]];
+    NSString *workerNum = [self formatParam:responseData[@"workerNum"]];
+    NSString *visitorNum = [self formatParam:responseData[@"visitorNum"]];
+    NSString *carNum = [self formatParam:responseData[@"carNum"]];
+    NSString *longOpen = [self formatParam:responseData[@"longOpen"]];
+    
+    UIView *topBgView = [self viewWithTag:100];
+    UIView *roundView = [topBgView viewWithTag:101];
+    UILabel *numLabel = [roundView viewWithTag:102];
+    numLabel.text = peopleNum;
+    
+    NSArray *dataAry = @[workerNum,visitorNum,carNum,longOpen];
+    
+    UIScrollView *scrollView = [self viewWithTag:200];
+    [dataAry enumerateObjectsUsingBlock:^(NSString *num, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIView *itemView = [scrollView viewWithTag:1000+idx];
+        UILabel *numLabel = [itemView viewWithTag:2000+idx];
+        numLabel.text = num;
+    }];
+    
+}
+- (NSString *)formatParam:(id)param {
+    if(param != nil && ![param isKindOfClass:[NSNull class]]){
+        return [NSString stringWithFormat:@"%@", param];
+    }else {
+        return @"";
+    }
+}
 
 @end

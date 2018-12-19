@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HpCarViewController : RootViewController
 
+@property (nonatomic,assign) BOOL isCount;
+
 @end
 
 NS_ASSUME_NONNULL_END

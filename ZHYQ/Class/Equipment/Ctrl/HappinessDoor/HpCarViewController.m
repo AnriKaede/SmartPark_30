@@ -8,8 +8,10 @@
 
 #import "HpCarViewController.h"
 #import "HpCarCell.h"
+#import "HpCarModel.h"
+#import "ParkRecordCenViewController.h"
 
-@interface HpCarViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HpCarViewController ()<UITableViewDelegate, UITableViewDataSource, CYLTableViewPlaceHolderDelegate>
 {
     UITableView *_carTableView;
     NSMutableArray *_carData;
@@ -29,7 +31,11 @@
     _carData = @[].mutableCopy;
     
     _page = 1;
-    _length = 32;
+    if(_isCount){
+        _length = 3;
+    }else {
+        _length = 10;
+    }
     
     [self _initView];
     
@@ -60,10 +66,12 @@
         [self loadCarData];
     }];
     // 上拉刷新
-    _carTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        _page ++;
-        [self loadCarData];
-    }];
+    if(!_isCount){
+        _carTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            _page ++;
+            [self loadCarData];
+        }];
+    }
     _carTableView.mj_footer.hidden = YES;
     
     // 无数据视图
@@ -78,79 +86,74 @@
 
 #pragma mark 请求数据
 - (void)loadCarData {
-    /*
-     NSString *urlStr = [NSString stringWithFormat:@"%@/faceRecognition/getAlarmIamges", Main_Url];
-     
-     NSMutableDictionary *paramDic = @{}.mutableCopy;
-     [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
-     [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
-     
-     [paramDic setObject:@"19" forKey:@"repository"];
-     
-     NSString *paramStr = [Utils convertToJsonData:paramDic];
-     NSDictionary *params = @{@"param":paramStr};
-     
-     [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
-     [self removeNoDataImage];
-     
-     [_carTableView.mj_header endRefreshing];
-     [_carTableView.mj_footer endRefreshing];
-     
-     NSString *code = responseObject[@"code"];
-     
-     if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
-     if(_page == 1){
-     [_carData removeAllObjects];
-     }
-     
-     NSDictionary *dic = responseObject[@"responseData"];
-     NSArray *arr = dic[@"items"];
-     
-     if(arr.count > _length-1){
-     _carTableView.mj_footer.state = MJRefreshStateIdle;
-     _carTableView.mj_footer.hidden = NO;
-     }else {
-     _carTableView.mj_footer.state = MJRefreshStateNoMoreData;
-     _carTableView.mj_footer.hidden = YES;
-     }
-     [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-     FaceWranModel *model = [[FaceWranModel alloc] initWithDataDic:obj];
-     [_carData addObject:model];
-     }];
-     
-     }
-     [self reloadCarTableView];
-     
-     } failure:^(NSError *error) {
-     [_carTableView.mj_header endRefreshing];
-     [_carTableView.mj_footer endRefreshing];
-     
-     if(_carData.count <= 0){
-     [self showNoDataImage];
-     }else {
-     [self showHint:KRequestFailMsg];
-     }
-     }];
-     */
+    NSString *urlStr = [NSString stringWithFormat:@"%@/fumenController/getAllCar", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"param":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self removeNoDataImage];
+        
+        [_carTableView.mj_header endRefreshing];
+        [_carTableView.mj_footer endRefreshing];
+        
+        NSString *code = responseObject[@"code"];
+        
+        if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
+            if(_page == 1){
+                [_carData removeAllObjects];
+            }
+            
+            NSArray *responseData = responseObject[@"responseData"];
+            if(responseData.count > 0){
+                NSDictionary *dic = responseData.firstObject;
+                NSArray *arr = dic[@"returnList"];
+                if(arr.count > _length-1){
+                    _carTableView.mj_footer.state = MJRefreshStateIdle;
+                    _carTableView.mj_footer.hidden = NO;
+                }else {
+                    _carTableView.mj_footer.state = MJRefreshStateNoMoreData;
+                    _carTableView.mj_footer.hidden = YES;
+                }
+                [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    HpCarModel *model = [[HpCarModel alloc] initWithDataDic:obj];
+                    [_carData addObject:model];
+                }];
+            }
+        }
+        [_carTableView cyl_reloadData];
+        
+    } failure:^(NSError *error) {
+        [_carTableView.mj_header endRefreshing];
+        [_carTableView.mj_footer endRefreshing];
+        
+        if(_carData.count <= 0){
+            [self showNoDataImage];
+        }else {
+            [self showHint:KRequestFailMsg];
+        }
+    }];
 }
 // 无网络重载
 - (void)reloadTableData {
     [self loadCarData];
 }
 
-- (void)reloadCarTableView {
-    if(_carData.count <= 0){
-        _noDataView.hidden = NO;
-    }else {
-        _noDataView.hidden = YES;
-    }
-    [_carTableView reloadData];
+#pragma mark 无数据协议
+- (UIView *)makePlaceHolderView {
+    NoDataView *noDateView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - 64 - 200)];
+    return noDateView;
+}
+- (BOOL)enableScrollWhenPlaceHolderViewShowing {
+    return YES;
 }
 
-#pragma mark UICollectionView 协议
+#pragma mark UITableView 协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //    return _carData.count;
-    return 3;
+    return _carData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 95;
@@ -158,11 +161,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HpCarCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HpCarCell" forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    //    cell.faceWranModel = _carData[indexPath.row];
+    cell.hpCarModel = _carData[indexPath.row];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HpCarModel *hpCarModel = _carData[indexPath.row];
     
+    ParkRecordCenViewController *parkRecordCenVC = [[ParkRecordCenViewController alloc] init];
+    parkRecordCenVC.carNo = [NSString stringWithFormat:@"%@", hpCarModel.PLATE];
+    [self.navigationController pushViewController:parkRecordCenVC animated:YES];
 }
 
 @end
