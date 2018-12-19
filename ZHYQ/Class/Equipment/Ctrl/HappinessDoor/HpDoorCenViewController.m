@@ -54,7 +54,7 @@
     self.menuItemWidth = KScreenWidth/topMenuCount;
     self.menuViewBottomSpace = 0.5;
     
-    self.viewFrame = CGRectMake(0, 244*hScale, KScreenWidth, KScreenHeight - kTopHeight - 244*hScale);
+    self.viewFrame = CGRectMake(0, 240*hScale, KScreenWidth, KScreenHeight - kTopHeight - 240*hScale);
     
     [self _loadView];
 }
@@ -80,7 +80,7 @@
     [self.view addSubview:topView];
 }
 - (void)_createBottomMoreView {
-    UIImageView *moreImgView = [[UIImageView alloc] initWithFrame:CGRectMake(KScreenWidth - 22, KScreenHeight - kTopHeight - 27, 14, 14)];
+    UIImageView *moreImgView = [[UIImageView alloc] initWithFrame:CGRectMake(KScreenWidth - 22, KScreenHeight - kTopHeight - 25, 14, 14)];
     moreImgView.image = [UIImage imageNamed:@"list_right_narrow_blue"];
     [self.view addSubview:moreImgView];
     

@@ -28,7 +28,7 @@
 }
 
 - (void)createTopView {
-    UIView *topBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 142*hScale)];
+    UIView *topBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 138*hScale)];
     topBgView.tag = 100;
     [self addSubview:topBgView];
     
@@ -62,7 +62,7 @@
 }
 
 - (void)createScroolView {
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 138*hScale, KScreenWidth, self.height - 142*hScale)];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 138*hScale, KScreenWidth, self.height - 138*hScale)];
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.tag = 200;

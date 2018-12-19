@@ -56,7 +56,7 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.minimumInteritemSpacing = 3;
+    layout.minimumInteritemSpacing = 8;
     layout.minimumLineSpacing = 4;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight - 60) collectionViewLayout:layout];
     _collectionView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
