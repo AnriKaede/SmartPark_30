@@ -44,7 +44,7 @@
 		92216EFA1FEE0D06008B09EA /* RemoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92216EF91FEE0D06008B09EA /* RemoteModel.m */; };
 		9222431B21CCD2840096EEC8 /* LockMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222431A21CCD2840096EEC8 /* LockMenuView.m */; };
 		9222431E21CCD29B0096EEC8 /* CoverMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222431D21CCD29B0096EEC8 /* CoverMenuView.m */; };
-		9222432021CCD3810096EEC8 /* LockMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222431F21CCD3810096EEC8 /* LockMenu.xib */; };
+		9222432021CCD3810096EEC8 /* LockMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222431F21CCD3810096EEC8 /* LockMenuView.xib */; };
 		9222432221CCD3960096EEC8 /* CoverMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222432121CCD3960096EEC8 /* CoverMenuView.xib */; };
 		9222432521CCE3080096EEC8 /* LockWranViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222432421CCE3080096EEC8 /* LockWranViewController.m */; };
 		9222432921CCE4060096EEC8 /* CommunLockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222432721CCE4060096EEC8 /* CommunLockCell.m */; };
@@ -177,6 +177,11 @@
 		9241A35E1FDFC7C700D640E6 /* MusicTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9241A35D1FDFC7C600D640E6 /* MusicTimeModel.m */; };
 		9243E836209FDBE0000FD182 /* WranConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9243E835209FDBE0000FD182 /* WranConfirmView.m */; };
 		9243E83A20A02CF7000FD182 /* WranUndealModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9243E83920A02CF7000FD182 /* WranUndealModel.m */; };
+		925348A421D0690C00B05593 /* CommnncLockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348A321D0690C00B05593 /* CommnncLockModel.m */; };
+		925348A721D0692A00B05593 /* CommnncCoverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348A621D0692A00B05593 /* CommnncCoverModel.m */; };
+		925348AB21D0B9B800B05593 /* CommncWranCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348A921D0B9B800B05593 /* CommncWranCell.m */; };
+		925348AC21D0B9B800B05593 /* CommncWranCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925348AA21D0B9B800B05593 /* CommncWranCell.xib */; };
+		925348AF21D0CE8600B05593 /* CommncQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348AE21D0CE8600B05593 /* CommncQueryViewController.m */; };
 		9253BC7720BF9BE500AB4767 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D60262211F9B45DD00A66D5A /* AppDelegate.mm */; };
 		9253BD5220BFA58E00AB4767 /* MonitorTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */; };
 		9253BD5320BFA58E00AB4767 /* PlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCF120BFA58D00AB4767 /* PlayVideoViewController.m */; };
@@ -987,7 +992,7 @@
 		9222431A21CCD2840096EEC8 /* LockMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockMenuView.m; sourceTree = "<group>"; };
 		9222431C21CCD29B0096EEC8 /* CoverMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverMenuView.h; sourceTree = "<group>"; };
 		9222431D21CCD29B0096EEC8 /* CoverMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverMenuView.m; sourceTree = "<group>"; };
-		9222431F21CCD3810096EEC8 /* LockMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LockMenu.xib; sourceTree = "<group>"; };
+		9222431F21CCD3810096EEC8 /* LockMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LockMenuView.xib; sourceTree = "<group>"; };
 		9222432121CCD3960096EEC8 /* CoverMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoverMenuView.xib; sourceTree = "<group>"; };
 		9222432321CCE3080096EEC8 /* LockWranViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockWranViewController.h; sourceTree = "<group>"; };
 		9222432421CCE3080096EEC8 /* LockWranViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockWranViewController.m; sourceTree = "<group>"; };
@@ -1226,6 +1231,15 @@
 		9243E835209FDBE0000FD182 /* WranConfirmView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranConfirmView.m; sourceTree = "<group>"; };
 		9243E83820A02CF7000FD182 /* WranUndealModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WranUndealModel.h; sourceTree = "<group>"; };
 		9243E83920A02CF7000FD182 /* WranUndealModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranUndealModel.m; sourceTree = "<group>"; };
+		925348A221D0690C00B05593 /* CommnncLockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommnncLockModel.h; sourceTree = "<group>"; };
+		925348A321D0690C00B05593 /* CommnncLockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommnncLockModel.m; sourceTree = "<group>"; };
+		925348A521D0692A00B05593 /* CommnncCoverModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommnncCoverModel.h; sourceTree = "<group>"; };
+		925348A621D0692A00B05593 /* CommnncCoverModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommnncCoverModel.m; sourceTree = "<group>"; };
+		925348A821D0B9B800B05593 /* CommncWranCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommncWranCell.h; sourceTree = "<group>"; };
+		925348A921D0B9B800B05593 /* CommncWranCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommncWranCell.m; sourceTree = "<group>"; };
+		925348AA21D0B9B800B05593 /* CommncWranCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommncWranCell.xib; sourceTree = "<group>"; };
+		925348AD21D0CE8600B05593 /* CommncQueryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommncQueryViewController.h; sourceTree = "<group>"; };
+		925348AE21D0CE8600B05593 /* CommncQueryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommncQueryViewController.m; sourceTree = "<group>"; };
 		9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorTimeViewController.m; sourceTree = "<group>"; };
 		9253BCEF20BFA58D00AB4767 /* MonitorLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorLogin.h; sourceTree = "<group>"; };
 		9253BCF020BFA58D00AB4767 /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
@@ -2846,13 +2860,16 @@
 			children = (
 				9222431921CCD2840096EEC8 /* LockMenuView.h */,
 				9222431A21CCD2840096EEC8 /* LockMenuView.m */,
-				9222431F21CCD3810096EEC8 /* LockMenu.xib */,
+				9222431F21CCD3810096EEC8 /* LockMenuView.xib */,
 				9222431C21CCD29B0096EEC8 /* CoverMenuView.h */,
 				9222431D21CCD29B0096EEC8 /* CoverMenuView.m */,
 				9222432121CCD3960096EEC8 /* CoverMenuView.xib */,
 				9222432621CCE4060096EEC8 /* CommunLockCell.h */,
 				9222432721CCE4060096EEC8 /* CommunLockCell.m */,
 				9222432821CCE4060096EEC8 /* CommunLockCell.xib */,
+				925348A821D0B9B800B05593 /* CommncWranCell.h */,
+				925348A921D0B9B800B05593 /* CommncWranCell.m */,
+				925348AA21D0B9B800B05593 /* CommncWranCell.xib */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
@@ -3157,6 +3174,17 @@
 				9243E83920A02CF7000FD182 /* WranUndealModel.m */,
 			);
 			path = Wran;
+			sourceTree = "<group>";
+		};
+		925348A121D068BB00B05593 /* CommncEquipment */ = {
+			isa = PBXGroup;
+			children = (
+				925348A221D0690C00B05593 /* CommnncLockModel.h */,
+				925348A321D0690C00B05593 /* CommnncLockModel.m */,
+				925348A521D0692A00B05593 /* CommnncCoverModel.h */,
+				925348A621D0692A00B05593 /* CommnncCoverModel.m */,
+			);
+			path = CommncEquipment;
 			sourceTree = "<group>";
 		};
 		9253BCED20BFA58D00AB4767 /* playMonitorVideo */ = {
@@ -3755,6 +3783,8 @@
 				9257EF2321CCD100009C4230 /* CommunicationViewController.m */,
 				9222432321CCE3080096EEC8 /* LockWranViewController.h */,
 				9222432421CCE3080096EEC8 /* LockWranViewController.m */,
+				925348AD21D0CE8600B05593 /* CommncQueryViewController.h */,
+				925348AE21D0CE8600B05593 /* CommncQueryViewController.m */,
 			);
 			path = LightLock;
 			sourceTree = "<group>";
@@ -5556,6 +5586,7 @@
 		D6F556631FA6C02800AFD721 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				925348A121D068BB00B05593 /* CommncEquipment */,
 				9257EF0021C9DBAB009C4230 /* HpDoor */,
 				9225EC6D21B7D9AD007645D2 /* smartDistributor */,
 				92AC03B021A40F65009A73F3 /* LED */,
@@ -5921,7 +5952,7 @@
 				D69A2F5E21815D58001C7571 /* WifiUserBatchAptCell.xib in Resources */,
 				92E87D4A1FB6D9CD0045D2FF /* EnergyConCell.xib in Resources */,
 				92B3BEBE1FF3E73300C3AFEC /* ParkLightTaskCell.xib in Resources */,
-				9222432021CCD3810096EEC8 /* LockMenu.xib in Resources */,
+				9222432021CCD3810096EEC8 /* LockMenuView.xib in Resources */,
 				9298ECD22004C6E900A8B270 /* TimeRangeCell.xib in Resources */,
 				921894DF1FA95596001C1A41 /* AAHighchartsLibrary.js in Resources */,
 				922B40EE21548EE800B9F6E4 /* VisitRecordTableViewCell.xib in Resources */,
@@ -5958,6 +5989,7 @@
 				D6DD4CA31FB54EC400CFC384 /* LEDmsgTitleTableViewCell.xib in Resources */,
 				D6DD4C9E1FB549CC00CFC384 /* PostTimeTableViewCell.xib in Resources */,
 				D60AC457217EC4A600A22391 /* ClockTimeCell.xib in Resources */,
+				925348AC21D0B9B800B05593 /* CommncWranCell.xib in Resources */,
 				D60CA2E11FBC2D1A00725389 /* ManholeListTableViewCell.xib in Resources */,
 				D68A2F221FC02A6800E541A6 /* YQCommpanyHeadView.xib in Resources */,
 				D6F556651FA6C03800AFD721 /* Equipment.storyboard in Resources */,
@@ -6188,10 +6220,12 @@
 				922B40E621548C6B00B9F6E4 /* BookRecordModel.m in Sources */,
 				92E83DE9208D8D09006759E7 /* ScanViewController.m in Sources */,
 				9257EECF21C73DCC009C4230 /* HpTopView.m in Sources */,
+				925348AF21D0CE8600B05593 /* CommncQueryViewController.m in Sources */,
 				D629A5C41F9C5AD500FA5EE1 /* SetPasWdViewController.m in Sources */,
 				9257EF2421CCD100009C4230 /* CommunicationViewController.m in Sources */,
 				92D8B8C8206B2B350001263F /* SelFaceViewController.m in Sources */,
 				921909301FCE938D002F6270 /* IllegaListModel.m in Sources */,
+				925348A421D0690C00B05593 /* CommnncLockModel.m in Sources */,
 				D60262391F9C406700A66D5A /* AppDelegate+AppService.m in Sources */,
 				D6B34DFA2088742B00DF8DCC /* InquiryDeviceViewController.m in Sources */,
 				D6EAE6A71FB53BC8006E4C2F /* LEDpostMsgTableViewCell.m in Sources */,
@@ -6346,6 +6380,7 @@
 				92D8B8BF206A1FD50001263F /* AAOptions3d.m in Sources */,
 				D68A2EFA1FBFF19200E541A6 /* YQFooterReusableView.m in Sources */,
 				92FC1E4A20C8C36800C8364A /* AppointMentParkFilterViewController.m in Sources */,
+				925348AB21D0B9B800B05593 /* CommncWranCell.m in Sources */,
 				9213C04D1FE617F9009E7B67 /* AloneConCell.m in Sources */,
 				929142C3218069D800FFE7C4 /* ParkFeeTopCell.m in Sources */,
 				922770DD20BD38A5009010F7 /* ParkRecordViewController.m in Sources */,
@@ -6486,6 +6521,7 @@
 				9226845F20AD2BB2006628B3 /* HandLogModel.m in Sources */,
 				D63922D91FB478B100E1A00A /* YQPointAnnotation.m in Sources */,
 				92B3BEBF1FF3E73300C3AFEC /* ParkLightTaskCell.m in Sources */,
+				925348A721D0692A00B05593 /* CommnncCoverModel.m in Sources */,
 				D64020501FCE404F0028568D /* YQSearchBar.m in Sources */,
 				92CD2385209AACA000BDF1AF /* FindCarNoModel.m in Sources */,
 				9230011D2047AA2300088227 /* EnvTimeCell.m in Sources */,

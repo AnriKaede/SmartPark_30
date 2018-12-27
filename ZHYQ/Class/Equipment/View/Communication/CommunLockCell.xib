@@ -223,6 +223,8 @@
             <connections>
                 <outlet property="_addressLabel" destination="Sbi-uy-O0a" id="Ffa-hm-P5Q"/>
                 <outlet property="_bgView" destination="Yu1-YS-6MV" id="ewu-In-HRr"/>
+                <outlet property="_findLeft" destination="YBR-VN-uUP" id="gz1-Ch-NxD"/>
+                <outlet property="_lockBt" destination="5YL-En-blp" id="4o0-x3-SqD"/>
                 <outlet property="_modelLabel" destination="ZTF-ia-yO3" id="X1f-cZ-seW"/>
                 <outlet property="_nameLabel" destination="kkf-J1-fSW" id="Fiw-Ac-nKQ"/>
                 <outlet property="_numLabel" destination="9Bh-9H-tnX" id="OMO-Xb-7Z9"/>

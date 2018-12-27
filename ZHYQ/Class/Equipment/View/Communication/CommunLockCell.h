@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CommnncLockModel.h"
+#import "CommnncCoverModel.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CommunLockCell : UITableViewCell
+
+@property (nonatomic,retain) CommnncLockModel *lockModel;
+@property (nonatomic,retain) CommnncCoverModel *coverModel;
 
 @end
 

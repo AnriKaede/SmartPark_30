@@ -19,7 +19,8 @@
 #import "CoverMenuView.h"
 
 #warning 替换对应模型
-#import "LedListModel.h"
+#import "CommnncLockModel.h"
+#import "CommnncCoverModel.h"
 
 @interface CommunicationViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate, LockMenuDelegate, CoverMenuDelegate, DidSelInMapPopDelegate>
 {
@@ -32,7 +33,6 @@
     UIButton *rightBtn;
     CRSearchBar *searchBar;
     UITableView *_commncTableView;
-    BOOL isOpen;
     
     NSMutableArray *_dataArr;
     
@@ -49,7 +49,7 @@
 @property (nonatomic,strong) NSIndexPath * selectedIndex;
 
 @property (nonatomic,strong) NSMutableArray *mapCoordinateData;
-@property (nonatomic,strong) NSMutableArray *pointMapDataArr;
+@property (nonatomic,strong) NSMutableArray *pointMapDataArr;   // 点位数据，井盖第一组，光交锁第二组。
 @property (nonatomic,strong) NSMutableArray *graphData;
 
 @end
@@ -117,8 +117,6 @@
     
     _page = 1;
     _length = 3;
-    
-    isOpen = YES;
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"E2E2E2"];
     
@@ -198,6 +196,23 @@
         NSLog(@"LED错误 %@", error);
     }];
      */
+    
+    // 测试数据
+    NSMutableArray *lockData = @[].mutableCopy;
+    for (int i=0; i<5; i++) {
+        [lockData addObject:[[CommnncLockModel alloc] init]];
+    }
+    [self.pointMapDataArr addObject:lockData];
+    NSMutableArray *coverData = @[].mutableCopy;
+    for (int i=0; i<5; i++) {
+        [coverData addObject:[[CommnncCoverModel alloc] init]];
+    }
+    [self.pointMapDataArr addObject:coverData];
+    [_commncTableView cyl_reloadData];
+    
+    [self.graphData addObject:@"500,300"];
+    indoorView.graphData = self.graphData;
+    indoorView.commncArr = _mapCoordinateData;
 }
 
 #pragma mark 加载LED顶部统计数据
@@ -231,6 +246,10 @@
     
     _headerView = [[YQHeaderView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 85)];
     _headerView.backgroundColor = [UIColor colorWithHexString:@"1B82D1"];
+    _headerView.leftLab.text = @"正常";
+    _headerView.centerLab.text = @"异常";
+    _headerView.centerLab.textColor = [UIColor colorWithHexString:@"#FF2A2A"];
+    _headerView.rightLab.textColor = [UIColor colorWithHexString:@"#FF2A2A"];
     [self.view addSubview:_headerView];
     UITapGestureRecognizer *hidKeybTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidKeyB)];
     _headerView.userInteractionEnabled = YES;
@@ -277,7 +296,7 @@
     UIButton *sendBtn = [[UIButton alloc] init];
     sendBtn.frame = CGRectMake(0, 0, 40, 40);
     [sendBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 15, 0, 0)];
-    [sendBtn setImage:[UIImage imageNamed:@"LED_publish_icon"] forState:UIControlStateNormal];
+    [sendBtn setImage:[UIImage imageNamed:@"nav_lock_wran"] forState:UIControlStateNormal];
     [sendBtn addTarget:self action:@selector(_rightBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *sendItem = [[UIBarButtonItem alloc] initWithCustomView:sendBtn];
@@ -292,18 +311,35 @@
 #pragma mark UITableView协议
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.pointMapDataArr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.pointMapDataArr.count;
+    NSArray *eqData = self.pointMapDataArr[section];
+    return eqData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 205;
+    NSArray *eqData = self.pointMapDataArr[indexPath.section];
+    if(indexPath.section == 0){
+        CommnncCoverModel *coverModel = eqData[indexPath.row];
+        if(coverModel.isSelect){
+            return 295;
+        }
+    }else if(indexPath.section == 1){
+        CommnncLockModel *lockModel = eqData[indexPath.row];
+        if(lockModel.isSelect){
+            return 295;
+        }
+    }
+    return 54;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CommunLockCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunLockCell" forIndexPath:indexPath];
-//    cell.ledListModel = self.pointMapDataArr[indexPath.row];
+    if(indexPath.section == 0){
+        cell.coverModel = self.pointMapDataArr[indexPath.section][indexPath.row];
+    }else {
+        cell.lockModel = self.pointMapDataArr[indexPath.section][indexPath.row];
+    }
 //    cell.delegate = self;
     return cell;
 }
@@ -317,9 +353,18 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 49;
+    return 42;
+//    if(section == 0){
+//        return 49;
+//    }else {
+//        return 0.1;
+//    }
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    /*
+    if(section != 0){
+        return [UIView new];
+    }
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 49)];
     headerView.backgroundColor = [UIColor whiteColor];
     searchBar = [[CRSearchBar alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 44) leftImage:[UIImage imageNamed:@"icon_search"] placeholderColor:[UIColor colorWithHexString:@"#E2E2E2"]];
@@ -338,10 +383,48 @@
     [headerView addSubview:lineView];
     
     return headerView;
+     */
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 42)];
+    headerView.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 11, 100, 20)];
+    if(section == 0){
+        label.text = @"井盖设备";
+    }else {
+        label.text = @"光交锁设备";
+    }
+    label.textColor = [UIColor blackColor];
+    label.font = [UIFont systemFontOfSize:16];
+    label.textAlignment = NSTextAlignmentLeft;
+    [headerView addSubview:label];
+    
+    return headerView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     [searchBar resignFirstResponder];
+    
+    [self.pointMapDataArr enumerateObjectsUsingBlock:^(NSArray *eqData, NSUInteger eqIdx, BOOL * _Nonnull stop) {
+        if(eqIdx == 0){
+            [eqData enumerateObjectsUsingBlock:^(CommnncCoverModel *coverModel, NSUInteger idx, BOOL * _Nonnull stop) {
+                if(eqIdx == indexPath.section && idx == indexPath.row){
+                    coverModel.isSelect = YES;
+                }else {
+                    coverModel.isSelect = NO;
+                }
+            }];
+        }else if(eqIdx == 1){
+            [eqData enumerateObjectsUsingBlock:^(CommnncLockModel *lockModel, NSUInteger idx, BOOL * _Nonnull stop) {
+                if(eqIdx == indexPath.section && idx == indexPath.row){
+                    lockModel.isSelect = YES;
+                }else {
+                    lockModel.isSelect = NO;
+                }
+            }];
+        }
+    }];
+    
+    [tableView cyl_reloadData];
 }
 
 #pragma mark uisearchBar delegate
@@ -356,7 +439,7 @@
         [self.pointMapDataArr addObjectsFromArray:_dataArr];
     }else{
         /*
-        [_dataArr enumerateObjectsUsingBlock:^(LedListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
+        [_mapCoordinateData enumerateObjectsUsingBlock:^(LedListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
             BOOL isContain = [pred evaluateWithObject:model.deviceName];
             if (isContain) {
                 [self.pointMapDataArr addObject:_dataArr[idx]];
@@ -380,7 +463,17 @@
         return;
     }
     
-    LedListModel *model = _mapCoordinateData[selectIndex];
+    if(_mapCoordinateData != nil && _mapCoordinateData.count >= 2){
+        NSArray *coverData = _mapCoordinateData.firstObject;
+        NSArray *lockData = _mapCoordinateData[1];
+        if(selectIndex < coverData.count){
+            CommnncCoverModel *coverModel = coverData[selectIndex];
+        }else if(selectIndex - coverData.count < lockData.count){
+            CommnncLockModel *lockModel = lockData[selectIndex-coverData.count];
+        }
+    }
+    
+//    LedListModel *model = _mapCoordinateData[selectIndex];
     
     // 复原之前选中图片效果
     if (_selectImageView != nil) {
@@ -395,7 +488,6 @@
 //    _selectModel = model;
     
     UIImageView *imageView = [indoorView.mapView viewWithTag:[identity integerValue]];
-    UIImageView *bottomImageView = [indoorView.mapView viewWithTag:[identity integerValue] + 100];
     imageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;

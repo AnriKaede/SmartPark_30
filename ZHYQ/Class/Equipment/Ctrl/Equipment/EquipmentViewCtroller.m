@@ -52,6 +52,7 @@
 #import "TrainViewController.h"
 #import "LightViewController.h"
 #import "SmartDistributorViewController.h"
+#import "CommunicationViewController.h"
 
 #import "HpDoorCenViewController.h"
 
@@ -538,10 +539,15 @@
             case 150:
             {
                 // 光交锁
+                /*
                 LightLockWebViewController *lightLockVC = [[LightLockWebViewController alloc] init];
                 lightLockVC.title = model.MENU_NAME;
                 lightLockVC.isHidenNaviBar = YES;
                 [self.navigationController pushViewController:lightLockVC animated:YES];
+                 */
+                CommunicationViewController *commncVC = [[CommunicationViewController alloc] init];
+                commncVC.title = model.MENU_NAME;
+                [self.navigationController pushViewController:commncVC animated:YES];
                 break;
             }
             
