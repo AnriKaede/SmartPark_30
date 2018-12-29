@@ -249,7 +249,6 @@
     _headerView.leftLab.text = @"正常";
     _headerView.centerLab.text = @"异常";
     _headerView.centerLab.textColor = [UIColor colorWithHexString:@"#FF2A2A"];
-    _headerView.rightLab.textColor = [UIColor colorWithHexString:@"#FF2A2A"];
     [self.view addSubview:_headerView];
     UITapGestureRecognizer *hidKeybTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hidKeyB)];
     _headerView.userInteractionEnabled = YES;
@@ -408,7 +407,7 @@
         if(eqIdx == 0){
             [eqData enumerateObjectsUsingBlock:^(CommnncCoverModel *coverModel, NSUInteger idx, BOOL * _Nonnull stop) {
                 if(eqIdx == indexPath.section && idx == indexPath.row){
-                    coverModel.isSelect = YES;
+                    coverModel.isSelect = !coverModel.isSelect;
                 }else {
                     coverModel.isSelect = NO;
                 }
@@ -416,7 +415,7 @@
         }else if(eqIdx == 1){
             [eqData enumerateObjectsUsingBlock:^(CommnncLockModel *lockModel, NSUInteger idx, BOOL * _Nonnull stop) {
                 if(eqIdx == indexPath.section && idx == indexPath.row){
-                    lockModel.isSelect = YES;
+                    lockModel.isSelect = !lockModel.isSelect;
                 }else {
                     lockModel.isSelect = NO;
                 }

@@ -182,6 +182,7 @@
 		925348AB21D0B9B800B05593 /* CommncWranCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348A921D0B9B800B05593 /* CommncWranCell.m */; };
 		925348AC21D0B9B800B05593 /* CommncWranCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925348AA21D0B9B800B05593 /* CommncWranCell.xib */; };
 		925348AF21D0CE8600B05593 /* CommncQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348AE21D0CE8600B05593 /* CommncQueryViewController.m */; };
+		925348B521D4D20C00B05593 /* EquipmQueryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348B321D4D20C00B05593 /* EquipmQueryCell.m */; };
 		9253BC7720BF9BE500AB4767 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D60262211F9B45DD00A66D5A /* AppDelegate.mm */; };
 		9253BD5220BFA58E00AB4767 /* MonitorTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */; };
 		9253BD5320BFA58E00AB4767 /* PlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCF120BFA58D00AB4767 /* PlayVideoViewController.m */; };
@@ -1240,6 +1241,8 @@
 		925348AA21D0B9B800B05593 /* CommncWranCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommncWranCell.xib; sourceTree = "<group>"; };
 		925348AD21D0CE8600B05593 /* CommncQueryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommncQueryViewController.h; sourceTree = "<group>"; };
 		925348AE21D0CE8600B05593 /* CommncQueryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommncQueryViewController.m; sourceTree = "<group>"; };
+		925348B221D4D20C00B05593 /* EquipmQueryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EquipmQueryCell.h; sourceTree = "<group>"; };
+		925348B321D4D20C00B05593 /* EquipmQueryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EquipmQueryCell.m; sourceTree = "<group>"; };
 		9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorTimeViewController.m; sourceTree = "<group>"; };
 		9253BCEF20BFA58D00AB4767 /* MonitorLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorLogin.h; sourceTree = "<group>"; };
 		9253BCF020BFA58D00AB4767 /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
@@ -2870,6 +2873,8 @@
 				925348A821D0B9B800B05593 /* CommncWranCell.h */,
 				925348A921D0B9B800B05593 /* CommncWranCell.m */,
 				925348AA21D0B9B800B05593 /* CommncWranCell.xib */,
+				925348B221D4D20C00B05593 /* EquipmQueryCell.h */,
+				925348B321D4D20C00B05593 /* EquipmQueryCell.m */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
@@ -6641,6 +6646,7 @@
 				921A840C1FA962CC00EE4F41 /* GraphListTableViewController.m in Sources */,
 				922770E420BD3B11009010F7 /* CarRecordModel.m in Sources */,
 				D60CA2A81FB9489800725389 /* YQPageContentScrollView.m in Sources */,
+				925348B521D4D20C00B05593 /* EquipmQueryCell.m in Sources */,
 				D674A8451FD40D4C00E773FD /* ParkAreasModel.m in Sources */,
 				D629A5CA1F9C5B0F00FA5EE1 /* ForgetPdViewController.m in Sources */,
 				92E87D5B1FB6E8D50045D2FF /* EntranceGuardViewController.m in Sources */,

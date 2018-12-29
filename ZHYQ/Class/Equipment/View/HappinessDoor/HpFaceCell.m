@@ -40,7 +40,7 @@
     
     _timeLabel.text = [NSString stringWithFormat:@"%@", [self timeFormat:hpFaceModel.OPEN_TIME]];
     
-    _addressLabel.text = [NSString stringWithFormat:@"%@", [self timeFormat:hpFaceModel.FM_DEVICE_NAME]];
+    _addressLabel.text = [NSString stringWithFormat:@"%@", hpFaceModel.FM_DEVICE_NAME];
 }
 
 - (NSString *)timeFormat:(NSString *)timeStr {
@@ -50,7 +50,7 @@
         NSDate *orgData = [formatter dateFromString:timeStr];
         
         NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
-        [inputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [inputFormatter setDateFormat:@"MM-dd HH:mm:ss"];
         NSString *inputTime = [inputFormatter stringFromDate:orgData];
         return inputTime;
     }else {

@@ -47,6 +47,7 @@
 
 - (void)DSSPlayDeviceType:(NSString *)deviceType withCareraId:(NSString *)careraID {
     DeviceTreeNode* tasksGroup =  [DHDataCenter sharedInstance].CamerasGroups;
+    
     [tasksGroup queryNodeByCareraId:careraID withBlock:^(DeviceTreeNode *node) {
         NSLog(@"在线离线状态：------- %d", node.bOnline);
         if(node.bOnline){

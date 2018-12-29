@@ -176,12 +176,15 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     HpFaceModel *hpFaceModel = _faceData[indexPath.row];
     
+    [self showHudInView:self.view hint:@""];
     if(hpFaceModel.FACEPHOTO != nil && ![hpFaceModel.FACEPHOTO isKindOfClass:[NSNull class]] && [hpFaceModel.FACEPHOTO containsString:@"base64,"]){
         NSString *base64Str = [hpFaceModel.FACEPHOTO componentsSeparatedByString:@"base64,"].lastObject;
         NSData *decodedImageData = [[NSData alloc] initWithBase64EncodedString:base64Str options:NSDataBase64DecodingIgnoreUnknownCharacters];
         UIImage *decodedImage = [UIImage imageWithData:decodedImageData];
         
         [self imageData:decodedImage];
+    }else {
+        [self hideHud];
     }
 }
 

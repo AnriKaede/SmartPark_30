@@ -62,8 +62,16 @@
     _topBgView.backgroundColor = CNavBgColor;
     _bgView.backgroundColor = CNavBgColor;
     
-    _ringBgView.layer.cornerRadius = _ringBgView.width/2;
     _bgView.layer.cornerRadius = _bgView.width/2;
+    _bgView.backgroundColor = [UIColor clearColor];
+    
+    _ringBgView.layer.cornerRadius = _ringBgView.width/2;
+    _ringBgView.backgroundColor = [UIColor clearColor];
+    _ringBgView.layer.borderColor = [UIColor colorWithHexString:@"5BD3FF"].CGColor;
+    _ringBgView.layer.borderWidth = 5;
+    
+    // 添加渐变色
+    [NavGradient viewAddGradient:_topBgView];
 }
 
 #pragma mark 柱状图按日期筛选

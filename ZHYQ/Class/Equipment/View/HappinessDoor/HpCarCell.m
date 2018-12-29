@@ -50,7 +50,7 @@
         NSDate *orgData = [formatter dateFromString:timeStr];
         
         NSDateFormatter *inputFormatter = [[NSDateFormatter alloc] init];
-        [inputFormatter setDateFormat:@"MM-dd HH:mm:ss"];
+        [inputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSString *inputTime = [inputFormatter stringFromDate:orgData];
         return inputTime;
     }else {
