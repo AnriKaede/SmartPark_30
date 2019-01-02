@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *FACEPHOTO;
 @property (nonatomic,strong) NSNumber *ROW_ID;
 @property (nonatomic,copy) NSString *FM_DEVICE_NAME;
+@property (nonatomic,copy) NSString *FM_JOIN_ID;
 
 @end
 

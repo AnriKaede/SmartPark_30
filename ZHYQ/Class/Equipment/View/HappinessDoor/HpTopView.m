@@ -44,7 +44,7 @@
     roundView.layer.borderWidth = 10;
     [topBgView addSubview:roundView];
     
-    UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 40, itemWidth - 10, 25)];
+    UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, itemWidth - 10, 25)];
     numLabel.tag = 102;
     numLabel.text = @"-";
     numLabel.textColor = [UIColor whiteColor];

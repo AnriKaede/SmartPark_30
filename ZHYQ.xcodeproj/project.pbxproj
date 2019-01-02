@@ -183,6 +183,7 @@
 		925348AC21D0B9B800B05593 /* CommncWranCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925348AA21D0B9B800B05593 /* CommncWranCell.xib */; };
 		925348AF21D0CE8600B05593 /* CommncQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348AE21D0CE8600B05593 /* CommncQueryViewController.m */; };
 		925348B521D4D20C00B05593 /* EquipmQueryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348B321D4D20C00B05593 /* EquipmQueryCell.m */; };
+		925348B921D6F7E800B05593 /* CommncWranModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348B821D6F7E700B05593 /* CommncWranModel.m */; };
 		9253BC7720BF9BE500AB4767 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D60262211F9B45DD00A66D5A /* AppDelegate.mm */; };
 		9253BD5220BFA58E00AB4767 /* MonitorTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */; };
 		9253BD5320BFA58E00AB4767 /* PlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCF120BFA58D00AB4767 /* PlayVideoViewController.m */; };
@@ -1243,6 +1244,8 @@
 		925348AE21D0CE8600B05593 /* CommncQueryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommncQueryViewController.m; sourceTree = "<group>"; };
 		925348B221D4D20C00B05593 /* EquipmQueryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EquipmQueryCell.h; sourceTree = "<group>"; };
 		925348B321D4D20C00B05593 /* EquipmQueryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EquipmQueryCell.m; sourceTree = "<group>"; };
+		925348B721D6F7E700B05593 /* CommncWranModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommncWranModel.h; sourceTree = "<group>"; };
+		925348B821D6F7E700B05593 /* CommncWranModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommncWranModel.m; sourceTree = "<group>"; };
 		9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorTimeViewController.m; sourceTree = "<group>"; };
 		9253BCEF20BFA58D00AB4767 /* MonitorLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorLogin.h; sourceTree = "<group>"; };
 		9253BCF020BFA58D00AB4767 /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
@@ -3188,6 +3191,8 @@
 				925348A321D0690C00B05593 /* CommnncLockModel.m */,
 				925348A521D0692A00B05593 /* CommnncCoverModel.h */,
 				925348A621D0692A00B05593 /* CommnncCoverModel.m */,
+				925348B721D6F7E700B05593 /* CommncWranModel.h */,
+				925348B821D6F7E700B05593 /* CommncWranModel.m */,
 			);
 			path = CommncEquipment;
 			sourceTree = "<group>";
@@ -6151,6 +6156,7 @@
 				D6F556581FA6BE4900AFD721 /* BaseTableViewController.m in Sources */,
 				D60CA2CE1FBBD1AA00725389 /* SingleControlViewController.m in Sources */,
 				92C217091FC57A890072564C /* AboutViewController.m in Sources */,
+				925348B921D6F7E800B05593 /* CommncWranModel.m in Sources */,
 				9253BD6920BFA58E00AB4767 /* LoginManager.mm in Sources */,
 				92E83DEF208EB896006759E7 /* EquipmentInfoViewController.m in Sources */,
 				9257EF0321C9DBCA009C4230 /* HpFaceModel.m in Sources */,

@@ -231,6 +231,7 @@
                 <outlet property="_reasonLabel" destination="nBR-lZ-AMH" id="qmI-k5-gWC"/>
                 <outlet property="_stateLabel" destination="p0E-oZ-6RW" id="eBR-G9-jcA"/>
                 <outlet property="_timeLabel" destination="QtW-ub-jpO" id="MkV-wb-t6X"/>
+                <outlet property="_topStateLabel" destination="7Kf-jc-PYA" id="bj2-s8-PDv"/>
             </connections>
             <point key="canvasLocation" x="184" y="267.61619190404798"/>
         </tableViewCell>

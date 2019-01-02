@@ -8,6 +8,7 @@
 
 #import "LockWranViewController.h"
 #import "CommncWranCell.h"
+#import "CommncWranModel.h"
 
 @interface LockWranViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -72,82 +73,58 @@
 }
 
 - (void)_loadData {
-    /*
-    NSString *urlStr = [NSString stringWithFormat:@"%@/faceRecognition/getMatching", Main_Url];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/iot/alarm", Main_Url];
     
     NSMutableDictionary *paramDic = @{}.mutableCopy;
     [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
     [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
     
-    [paramDic setObject:_faceModel.faceImageIdStr forKey:@"faceImageIdStr"];
     
-    if([_filterDic.allKeys containsObject:@"threshold"]){
-        [paramDic setObject:_filterDic[@"threshold"] forKey:@"threshold"];
-    }else {
-        [paramDic setObject:_threshold forKey:@"threshold"];
-    }
     
-    if([_filterDic.allKeys containsObject:@"startTime"]){
-        [paramDic setObject:_filterDic[@"startTime"] forKey:@"startTime"];
-    }else {
-        if([self dateStrFormat:_beginTime] != nil){
-            [paramDic setObject:[self dateStrFormat:_beginTime] forKey:@"startTime"];
-        }
-    }
-    
-    if([_filterDic.allKeys containsObject:@"endTime"]){
-        [paramDic setObject:_filterDic[@"endTime"] forKey:@"endTime"];
-    }else {
-        if([self dateStrFormat:_endTime] != nil){
-            [paramDic setObject:[self dateStrFormat:_endTime] forKey:@"endTime"];
-        }
-    }
-    
-    NSString *paramStr = [self convertToJsonData:paramDic];
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
     NSDictionary *params = @{@"param":paramStr};
     
     [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
         [self removeNoDataImage];
         
-        [_traceTableView.mj_header endRefreshing];
-        [_traceTableView.mj_footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
         
         NSString *code = responseObject[@"code"];
         
         if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
             if(_page == 1){
-                [_traceData removeAllObjects];
+                [_wranData removeAllObjects];
             }
             
             NSDictionary *dic = responseObject[@"responseData"];
-            NSArray *arr = dic[@"items"];
+            NSArray *arr = dic[@"list"];
             
             if(arr.count > _length-1){
-                _traceTableView.mj_footer.state = MJRefreshStateIdle;
-                _traceTableView.mj_footer.hidden = NO;
+                _tableView.mj_footer.state = MJRefreshStateIdle;
+                _tableView.mj_footer.hidden = NO;
             }else {
-                _traceTableView.mj_footer.state = MJRefreshStateNoMoreData;
-                _traceTableView.mj_footer.hidden = YES;
+                _tableView.mj_footer.state = MJRefreshStateNoMoreData;
+                _tableView.mj_footer.hidden = YES;
             }
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                FaceListModel *model = [[FaceListModel alloc] initWithDataDic:obj];
-                [_traceData addObject:model];
+                CommncWranModel *model = [[CommncWranModel alloc] initWithDataDic:obj];
+                [_wranData addObject:model];
             }];
             
         }
-        [_traceTableView cyl_reloadData];
+        [_tableView cyl_reloadData];
         
     } failure:^(NSError *error) {
-        [_traceTableView.mj_header endRefreshing];
-        [_traceTableView.mj_footer endRefreshing];
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
         
-        if(_traceData.count <= 0){
+        if(_wranData.count <= 0){
             [self showNoDataImage];
         }else {
             [self showHint:KRequestFailMsg];
         }
     }];
-    */
 }
 
 // 无网络重载
@@ -166,8 +143,7 @@
 
 #pragma mark UItableView协议
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    //    return _wranData.count;
-    return 3;
+    return _wranData.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
@@ -215,11 +191,11 @@
     return 0.1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    FaceListModel *model = _traceData[indexPath.row];
+    CommncWranModel *model = _wranData[indexPath.row];
     
     CommncWranCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommncWranCell" forIndexPath:indexPath];
     
-//    cell.faceListModel = model;
+    cell.wranModel = model;
     
     return cell;
 }

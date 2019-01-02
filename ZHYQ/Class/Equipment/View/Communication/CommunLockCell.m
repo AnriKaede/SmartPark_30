@@ -12,6 +12,7 @@
 @implementation CommunLockCell
 {
     __weak IBOutlet UILabel *_nameLabel;
+    __weak IBOutlet UILabel *_topStateLabel;
     
     __weak IBOutlet UIView *_bgView;
     
@@ -48,6 +49,8 @@
     }];
     
     _lockBt.hidden = YES;
+    
+    [self fullData:coverModel];
 }
 - (void)setLockModel:(CommnncLockModel *)lockModel {
     _lockModel = lockModel;
@@ -62,6 +65,32 @@
             obj.hidden = YES;
         }
     }];
+    
+    [self fullData:(CommnncCoverModel *)lockModel];
+}
+
+- (void)fullData:(CommnncCoverModel *)model {
+    _nameLabel.text = model.deviceName;
+    
+    if([model.runingStatus isEqualToString:@"ABNORMAL"]){
+        _topStateLabel.text = @"异常";
+        _topStateLabel.textColor = [UIColor colorWithHexString:@"#FF2A2A"];
+        _stateLabel.text = @"异常";
+    }else if([model.runingStatus isEqualToString:@"FAULT"]) {
+        _topStateLabel.text = @"故障";
+        _topStateLabel.textColor = [UIColor colorWithHexString:@"#FFB400"];
+        _stateLabel.text = @"故障";
+    }else {
+        _topStateLabel.text = @"正常";
+        _topStateLabel.textColor = [UIColor colorWithHexString:@"#189517"];
+        _stateLabel.text = @"正常";
+    }
+    
+    _numLabel.text = [NSString stringWithFormat:@"%@", model.equipSn];
+    _reasonLabel.text = [NSString stringWithFormat:@"%@", model.stateDetail];
+    _timeLabel.text = [NSString stringWithFormat:@"%@", model.triggerDate];
+    _addressLabel.text = [NSString stringWithFormat:@"%@", model.addressInfo];
+    _modelLabel.text = [NSString stringWithFormat:@"%@(%@)", model.modelCode, model.manufactureName];
 }
 
 - (IBAction)openLockAction:(id)sender {

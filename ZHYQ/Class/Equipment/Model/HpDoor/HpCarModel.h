@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *PLATEPIC;
 @property (nonatomic,strong) NSNumber *ROW_ID;
 @property (nonatomic,copy) NSString *TYPE;
+@property (nonatomic,copy) NSString *FM_JOIN_ID;
 
 @end
 

@@ -187,7 +187,7 @@
     // 初始化查询
     [[PlaybackManager sharedInstance]initPlaybackManager];
     
-    [PlaybackManager sharedInstance].recordResourceValue = 3;
+    [PlaybackManager sharedInstance].recordResourceValue = DPSDK_CORE_PB_RECSOURCE_DEVICE;
     [PlaybackManager sharedInstance].recordTypeValue = 0;
     [PlaybackManager sharedInstance].isPlayBackByFile = YES;
     

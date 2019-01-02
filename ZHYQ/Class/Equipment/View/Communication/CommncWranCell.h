@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommncWranModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CommncWranCell : UITableViewCell
+
+@property (nonatomic,retain) CommncWranModel *wranModel;
 
 @end
 

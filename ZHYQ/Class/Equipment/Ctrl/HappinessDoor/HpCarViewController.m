@@ -20,6 +20,8 @@
     NSInteger _length;
     
     NoDataView *_noDataView;
+    
+    NSTimer *_timer;
 }
 @end
 
@@ -52,7 +54,7 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = leftItem;
     
-    _carTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight - 60) style:UITableViewStylePlain];
+    _carTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight - 40) style:UITableViewStylePlain];
     _carTableView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
     _carTableView.delegate = self;
     _carTableView.dataSource = self;
@@ -61,10 +63,12 @@
     [_carTableView registerNib:[UINib nibWithNibName:@"HpCarCell" bundle:nil] forCellReuseIdentifier:@"HpCarCell"];
     [self.view addSubview:_carTableView];
     
-    _carTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        _page = 1;
-        [self loadCarData];
-    }];
+    if(!_isCount){
+        _carTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            _page = 1;
+            [self loadCarData];
+        }];
+    }
     // 上拉刷新
     if(!_isCount){
         _carTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -86,9 +90,20 @@
 
 #pragma mark 请求数据
 - (void)loadCarData {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/fumenController/getAllCar", Main_Url];
+    NSString *urlStr;
+    if(_isCount){
+        urlStr = [NSString stringWithFormat:@"%@/fumenController/getAllCarByTime", Main_Url];
+    }else {
+        urlStr = [NSString stringWithFormat:@"%@/fumenController/getAllCar", Main_Url];
+    }
     
     NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(_isCount && _carData.count > 0){
+        HpCarModel *model = _carData.firstObject;
+        if(model.FM_JOIN_ID != nil && ![model.FM_JOIN_ID isKindOfClass:[NSNull class]]){
+            [paramDic setObject:model.FM_JOIN_ID forKey:@"joinId"];
+        }
+    }
     [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
     [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
     NSString *paramStr = [Utils convertToJsonData:paramDic];
@@ -101,9 +116,10 @@
         [_carTableView.mj_footer endRefreshing];
         
         NSString *code = responseObject[@"code"];
+        NSMutableArray *animData = @[].mutableCopy;
         
         if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
-            if(_page == 1){
+            if(_page == 1 && !_isCount){
                 [_carData removeAllObjects];
             }
             
@@ -120,11 +136,17 @@
                 }
                 [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     HpCarModel *model = [[HpCarModel alloc] initWithDataDic:obj];
-                    [_carData addObject:model];
+                    [animData addObject:model];
                 }];
             }
         }
-        [_carTableView cyl_reloadData];
+        
+        if(_isCount){
+            [self animData:animData];
+        }else {
+            _carData = animData.mutableCopy;
+            [_carTableView cyl_reloadData];
+        }
         
     } failure:^(NSError *error) {
         [_carTableView.mj_header endRefreshing];
@@ -137,6 +159,44 @@
         }
     }];
 }
+#pragma mark 根据数据设置动画
+- (void)animData:(NSArray *)responseData {
+    if(responseData.count <= 0){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self loadCarData];
+        });
+        return;
+    }
+    
+    if (@available(iOS 10.0, *)) {
+        __block int index = 0;
+        //        __block BOOL isLoad = NO;
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            if(index < responseData.count){
+                HpCarModel *HpCarModel = responseData[responseData.count - index - 1];
+                [_carData insertObject:HpCarModel atIndex:0];
+                [_carTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+                
+                if(_carData.count > 3){
+                    [_carData removeLastObject];
+                    [_carTableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                }
+                
+                index ++;
+            }else {
+                [timer invalidate];
+                timer = nil;
+                
+                [self loadCarData];
+            }
+            
+        }];
+    } else {
+        _carData = responseData.mutableCopy;
+        [_carTableView cyl_reloadData];
+    }
+}
+
 // 无网络重载
 - (void)reloadTableData {
     [self loadCarData];
@@ -170,6 +230,19 @@
     ParkRecordCenViewController *parkRecordCenVC = [[ParkRecordCenViewController alloc] init];
     parkRecordCenVC.carNo = [NSString stringWithFormat:@"%@", hpCarModel.PLATE];
     [self.navigationController pushViewController:parkRecordCenVC animated:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [_timer setFireDate:[NSDate date]];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [_timer setFireDate:[NSDate distantFuture]];
+}
+- (void)dealloc {
+    [_timer invalidate];
+    _timer = nil;
 }
 
 @end

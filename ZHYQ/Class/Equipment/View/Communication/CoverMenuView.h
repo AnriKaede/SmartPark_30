@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommnncCoverModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CoverMenuView : UIView
 
 @property (nonatomic,assign) id<CoverMenuDelegate> coverMenuDelegate;
+
+@property (nonatomic,retain) CommnncCoverModel *coverModel;
 
 - (void)reloadMenu;
 

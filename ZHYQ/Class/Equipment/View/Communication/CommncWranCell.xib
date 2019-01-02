@@ -174,6 +174,17 @@
                     <constraint firstItem="qpr-Zn-SME" firstAttribute="centerY" secondItem="WCl-I1-aUL" secondAttribute="centerY" id="zxE-6K-eyF"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="_valueLabel" destination="7bD-TA-Eju" id="WAZ-Z4-gwW"/>
+                <outlet property="_wranAddressLabel" destination="9Bu-3R-kYa" id="9uF-Ah-uaq"/>
+                <outlet property="_wranCodeLabel" destination="qpr-Zn-SME" id="4ag-sS-MPX"/>
+                <outlet property="_wranEquLabel" destination="sgp-IY-KaL" id="Fjq-AK-nIh"/>
+                <outlet property="_wranLevelNameLabel" destination="xq1-lq-nMI" id="QZE-8N-B6A"/>
+                <outlet property="_wranNameLabel" destination="JIt-h5-uSp" id="sfh-H4-8yK"/>
+                <outlet property="_wranRepTimeLabel" destination="5Sk-tC-eql" id="4SI-gQ-1zc"/>
+                <outlet property="_wranStateLabel" destination="Oz2-A6-D7J" id="dUO-qX-S5R"/>
+                <outlet property="_wranTimeLabel" destination="eMS-Zb-2vG" id="BRn-Pz-Z5B"/>
+            </connections>
             <point key="canvasLocation" x="215.19999999999999" y="200.59970014992504"/>
         </tableViewCell>
     </objects>

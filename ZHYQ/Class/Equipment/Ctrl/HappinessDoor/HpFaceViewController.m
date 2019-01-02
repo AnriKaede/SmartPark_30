@@ -14,7 +14,7 @@
 #import "FaceQueryModel.h"
 #import "FaceListViewController.h"
 
-@interface HpFaceViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface HpFaceViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate>
 {
     UICollectionView *_collectionView;
     NSMutableArray *_faceData;
@@ -23,6 +23,8 @@
     NSInteger _length;
     
     NoDataView *_noDataView;
+    
+    NSTimer *_timer;
 }
 @end
 
@@ -58,7 +60,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 8;
     layout.minimumLineSpacing = 4;
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight - 60) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight - 40) collectionViewLayout:layout];
     _collectionView.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
@@ -66,10 +68,12 @@
     [_collectionView registerNib:[UINib nibWithNibName:@"HpFaceCell" bundle:nil] forCellWithReuseIdentifier:@"HpFaceCell"];
     [self.view addSubview:_collectionView];
     
-    _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        _page = 1;
-        [self loadFaceData];
-    }];
+    if(!_isCount){
+        _collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            _page = 1;
+            [self loadFaceData];
+        }];
+    }
     // 上拉刷新
     if(!_isCount){
         _collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -91,9 +95,21 @@
 
 #pragma mark 请求数据
 - (void)loadFaceData {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/fumenController/getAllPic", Main_Url];
+    NSString *urlStr;
+    if(_isCount){
+        urlStr = [NSString stringWithFormat:@"%@/fumenController/getAllPicByTime", Main_Url];
+    }else {
+        urlStr = [NSString stringWithFormat:@"%@/fumenController/getAllPic", Main_Url];
+    }
     
     NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(_isCount && _faceData.count > 0){
+        HpFaceModel *model = _faceData.firstObject;
+        if(model.FM_JOIN_ID != nil && ![model.FM_JOIN_ID isKindOfClass:[NSNull class]]){
+            [paramDic setObject:model.FM_JOIN_ID forKey:@"joinId"];
+        }
+    }
+    
     [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
     [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
     NSString *paramStr = [Utils convertToJsonData:paramDic];
@@ -106,9 +122,10 @@
         [_collectionView.mj_footer endRefreshing];
         
         NSString *code = responseObject[@"code"];
+        NSMutableArray *animData = @[].mutableCopy;
         
         if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
-            if(_page == 1){
+            if(_page == 1 && !_isCount){
                 [_faceData removeAllObjects];
             }
             NSArray *responseData = responseObject[@"responseData"];
@@ -123,14 +140,21 @@
                     _collectionView.mj_footer.state = MJRefreshStateNoMoreData;
                     _collectionView.mj_footer.hidden = YES;
                 }
+                
                 [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     HpFaceModel *model = [[HpFaceModel alloc] initWithDataDic:obj];
-                    [_faceData addObject:model];
+                    [animData addObject:model];
                 }];
             }
             
         }
-        [self reloadCollectionView];
+        
+        if(_isCount){
+            [self animData:animData];
+        }else {
+            _faceData = animData.mutableCopy;
+            [self reloadCollectionView];
+        }
         
     } failure:^(NSError *error) {
         [_collectionView.mj_header endRefreshing];
@@ -143,6 +167,61 @@
         }
     }];
 }
+
+#pragma mark 根据数据设置动画
+- (void)animData:(NSArray *)responseData {
+    if(responseData.count <= 0){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self loadFaceData];
+        });
+        return;
+    }
+    
+    if (@available(iOS 10.0, *)) {
+        __block int index = 0;
+//        __block BOOL isLoad = NO;
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            if(index < responseData.count){
+                HpFaceModel *hpFaceModel = responseData[responseData.count - index - 1];
+                [_faceData insertObject:hpFaceModel atIndex:0];
+                [_collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]]];
+                
+                if(_faceData.count > 6){
+                    [_faceData removeLastObject];
+                    [_collectionView deleteItemsAtIndexPaths:@[[NSIndexPath indexPathForRow:6 inSection:0]]];
+                }
+                
+                index ++;
+            }else {
+                [timer invalidate];
+                timer = nil;
+                
+                [self loadFaceData];
+            }
+            
+//            if(index >= responseData.count - 1 && !isLoad){
+//                isLoad = YES;
+//            }
+        }];
+    } else {
+        _faceData = responseData.mutableCopy;
+        [_collectionView reloadData];
+    }
+}
+
+#pragma mark 返回前n秒 时间  单位秒
+- (NSDate *)getNSecond:(NSInteger)n{
+    NSDate*nowDate = [NSDate date];
+    NSDate* theDate;
+    if(n!=0){
+        NSTimeInterval oneDay = n;
+        theDate = [nowDate initWithTimeIntervalSinceNow: -oneDay*n ];
+    }else{
+        theDate = nowDate;
+    }
+    return theDate;
+}
+
 // 无网络重载
 - (void)reloadTableData {
     [self loadFaceData];
@@ -163,7 +242,7 @@
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat itemWidth = KScreenWidth/3 - 10;
-    return CGSizeMake(itemWidth, 1.28*itemWidth);
+    return CGSizeMake(itemWidth, 1.27*itemWidth);
 }
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(2.0, 4.0, 1.0, 4.0);
@@ -270,6 +349,19 @@
     NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:[NSDate date] options:0];
     
     return newdate;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [_timer setFireDate:[NSDate date]];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [_timer setFireDate:[NSDate distantFuture]];
+}
+- (void)dealloc {
+    [_timer invalidate];
+    _timer = nil;
 }
 
 @end

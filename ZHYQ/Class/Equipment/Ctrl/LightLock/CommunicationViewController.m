@@ -18,7 +18,6 @@
 #import "LockMenuView.h"
 #import "CoverMenuView.h"
 
-#warning 替换对应模型
 #import "CommnncLockModel.h"
 #import "CommnncCoverModel.h"
 
@@ -48,8 +47,8 @@
 @property (strong, nonatomic) YQHeaderView *headerView;
 @property (nonatomic,strong) NSIndexPath * selectedIndex;
 
-@property (nonatomic,strong) NSMutableArray *mapCoordinateData;
-@property (nonatomic,strong) NSMutableArray *pointMapDataArr;   // 点位数据，井盖第一组，光交锁第二组。
+@property (nonatomic,strong) NSMutableArray *pointMapDataArr;   // 点位数据，井盖第一组，光交锁第二组。   分组数据
+@property (nonatomic,strong) NSMutableArray *mapCoordinateData; // 未分组数据
 @property (nonatomic,strong) NSMutableArray *graphData;
 
 @end
@@ -131,8 +130,6 @@
     
     [_commncTableView.mj_header beginRefreshing];
     
-    // 加载顶部统计数
-    [self _loadCountData];
 }
 
 -(void)_initTableView
@@ -154,81 +151,57 @@
     _commncTableView.estimatedRowHeight = 0;
     _commncTableView.estimatedSectionHeaderHeight = 0;
     _commncTableView.estimatedSectionFooterHeight = 0;
-    
-    /*
-    _commncTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        _page = 1;
-        [self _loadPointMapData];
-    }];
-    // 上拉刷新
-    _commncTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        _page ++;
-        [self _loadPointMapData];
-    }];
-    _commncTableView.mj_footer.hidden = YES;
-     */
 }
 
-#pragma mark 加载LED地图点位数据
+#pragma mark 加载设备 地图点位数据
 - (void)_loadCoordinateData {
-    /*
-    NSString *urlStr = [NSString stringWithFormat:@"%@/ledController/getAppLedInfoMsg",Main_Url];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/iot/list",Main_Url];
     [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         [self.graphData removeAllObjects];
-        [_mapCoordinateData removeAllObjects];
+        [self.pointMapDataArr removeAllObjects];
+        [self.mapCoordinateData removeAllObjects];
         
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
             NSDictionary *dic = responseObject[@"responseData"];
-            NSArray *arr = dic[@"rows"];
             
-            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                LedListModel *model = [[LedListModel alloc] initWithDataDic:obj];
-                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LONGITUDE, model.LATITUDE];
+            NSArray *coverData = dic[@"ManholeCover"];
+            NSMutableArray *covers = @[].mutableCopy;
+            [coverData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CommnncCoverModel *model = [[CommnncCoverModel alloc] initWithDataDic:obj];
+                //                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.longitude, model.latitude];
+                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",@400, @500];
                 [self.graphData addObject:graphStr];
-                [_mapCoordinateData addObject:model];
+                [covers addObject:model];
             }];
+            [self.pointMapDataArr addObject:covers];
+            [self.mapCoordinateData addObjectsFromArray:covers];
+            
+            NSArray *lockData = dic[@"InterBoxLock"];
+            NSMutableArray *locks = @[].mutableCopy;
+            [lockData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CommnncLockModel *model = [[CommnncLockModel alloc] initWithDataDic:obj];
+//                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.longitude, model.latitude];
+                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",@600, @500];
+                [self.graphData addObject:graphStr];
+                [locks addObject:model];
+            }];
+            [self.pointMapDataArr addObject:locks];
+            [self.mapCoordinateData addObjectsFromArray:locks];
+            
+            // 顶部统计
+            _headerView.leftNumLab.text = [NSString stringWithFormat:@"%@",dic[@"ok"]];
+            _headerView.centerNumLab.text = [NSString stringWithFormat:@"%@",dic[@"error"]];
+            _headerView.rightNumLab.text = [NSString stringWithFormat:@"%@",dic[@"fault"]];
+            
         }
         
         indoorView.graphData = self.graphData;
-        indoorView.LEDMapArr = _mapCoordinateData;
-        [_commncTableView reloadData];
+        indoorView.commncArr = self.mapCoordinateData;
+        [_commncTableView cyl_reloadData];
     } failure:^(NSError *error) {
-        NSLog(@"LED错误 %@", error);
+        NSLog(@"光交锁错误 %@", error);
     }];
-     */
     
-    // 测试数据
-    NSMutableArray *lockData = @[].mutableCopy;
-    for (int i=0; i<5; i++) {
-        [lockData addObject:[[CommnncLockModel alloc] init]];
-    }
-    [self.pointMapDataArr addObject:lockData];
-    NSMutableArray *coverData = @[].mutableCopy;
-    for (int i=0; i<5; i++) {
-        [coverData addObject:[[CommnncCoverModel alloc] init]];
-    }
-    [self.pointMapDataArr addObject:coverData];
-    [_commncTableView cyl_reloadData];
-    
-    [self.graphData addObject:@"500,300"];
-    indoorView.graphData = self.graphData;
-    indoorView.commncArr = _mapCoordinateData;
-}
-
-#pragma mark 加载LED顶部统计数据
-- (void)_loadCountData {
-    /*
-    NSString *urlStr = [NSString stringWithFormat:@"%@/equipment/getLedScreenList",Main_Url];
-    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
-        if ([responseObject[@"code"] isEqualToString:@"1"]) {
-            NSDictionary *dic = responseObject[@"responseData"];
-            _headerView.leftNumLab.text = [NSString stringWithFormat:@"%@",dic[@"okCount"]];
-            _headerView.centerNumLab.text = [NSString stringWithFormat:@"%@",dic[@"outCount"]];
-            _headerView.rightNumLab.text = [NSString stringWithFormat:@"%@",dic[@"errorCount"]];
-        }
-    } failure:^(NSError *error) {
-    }];
-     */
 }
 
 -(void)_initView
@@ -308,8 +281,7 @@
 }
 
 #pragma mark UITableView协议
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.pointMapDataArr.count;
 }
 
@@ -458,69 +430,56 @@
 #pragma mark 选中点位
 - (void)selInMapWithId:(NSString *)identity {
     NSInteger selectIndex = [identity integerValue]-100;
-    if(_mapCoordinateData.count <= selectIndex){
+    if(self.mapCoordinateData.count <= selectIndex){
         return;
     }
     
-    if(_mapCoordinateData != nil && _mapCoordinateData.count >= 2){
-        NSArray *coverData = _mapCoordinateData.firstObject;
-        NSArray *lockData = _mapCoordinateData[1];
-        if(selectIndex < coverData.count){
-            CommnncCoverModel *coverModel = coverData[selectIndex];
-        }else if(selectIndex - coverData.count < lockData.count){
-            CommnncLockModel *lockModel = lockData[selectIndex-coverData.count];
+    id model = _mapCoordinateData[selectIndex];
+    if([model isKindOfClass:[CommnncCoverModel class]]){
+        // 井盖
+        _coverMenuView.hidden = NO;
+        
+        CommnncCoverModel *model = _mapCoordinateData[selectIndex];
+        _coverMenuView.coverModel = model;
+    }else if([model isKindOfClass:[CommnncLockModel class]]){
+        // 光交锁
+        _lockMenuView.hidden = NO;
+        
+        CommnncLockModel *model = _mapCoordinateData[selectIndex];
+    }
+    
+    _inDoorWifiModel = model;
+    
+    _menuTitle = model.DEVICE_NAME;
+    _locationStr = model.DEVICE_ADDR;
+    
+    if (_selectImageView) {
+        InDoorWifiModel *selectModel = self.wifiDataArr[_selectImageView.tag-100];
+        _selectImageView.contentMode = UIViewContentModeScaleToFill;
+        if ([selectModel.WIFI_STATUS isEqualToString:@"1"]||[selectModel.WIFI_STATUS isEqualToString:@"2"]) {
+            _selectImageView.image = [UIImage imageNamed:@"wifi_normal"];
+        }else{
+            _selectImageView.image = [UIImage imageNamed:@"wifi_error"];
         }
     }
     
-//    LedListModel *model = _mapCoordinateData[selectIndex];
-    
     // 复原之前选中图片效果
-    if (_selectImageView != nil) {
-        _selectImageView.contentMode = UIViewContentModeScaleToFill;
-        _selectImageView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+    if(_selectImageView != nil){
         [PointViewSelect recoverSelImgView:_selectImageView];
-        
-        [_selectImageView.layer removeAnimationForKey:@"BaseNormalAnim"];
-        [self addViewBaseAnim:_selectImageView withIsSel:NO];
     }
     
-//    _selectModel = model;
-    
     UIImageView *imageView = [indoorView.mapView viewWithTag:[identity integerValue]];
-    imageView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
+    if ([model.WIFI_STATUS isEqualToString:@"1"]||[model.WIFI_STATUS isEqualToString:@"2"]) {
+        imageView.image = [UIImage imageNamed:@"wifi_normal"];
+    }else {
+        imageView.image = [UIImage imageNamed:@"wifi_error"];
+    }
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;
     
-    //    _selectImageView.layer.anchorPoint = CGPointMake(0.5, 0.6);
     [PointViewSelect pointImageSelect:_selectImageView];
-    //    [PointViewSelect pointImageSelect:_selectBottomImageView];
-    [_selectImageView.layer removeAnimationForKey:@"BaseSelectAnim"];
-    [self addViewBaseAnim:_selectImageView withIsSel:YES];
     
-#warning 根据选中类型判断显示对应menu
-//    _lockMenuView.modelAry = [self calculateModelAry:model];
-//    _lockMenuView.hidden = NO;
-}
-
-#pragma mark 添加图片变化 基础动画
-- (void)addViewBaseAnim:(UIView *)view withIsSel:(BOOL)isSel {
-    CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@"contents"];
-    NSString *animKeyName;
-    if(isSel){
-        transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_sel_01"].CGImage;
-        transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_sel_02"].CGImage;
-        animKeyName = @"BaseSelectAnim";
-    }else {
-        transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_01"].CGImage;
-        transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_02"].CGImage;
-        animKeyName = @"BaseNormalAnim";
-    }
-    transformAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transformAnima.autoreverses = YES;
-    transformAnima.repeatCount = HUGE_VALF;
-    transformAnima.beginTime = CACurrentMediaTime();
-    transformAnima.duration = 0.5;
-    [view.layer addAnimation:transformAnima forKey:animKeyName];
+    [_showMenuView reloadMenuData]; //  刷新菜单，加载完成在刷新
 }
 
 -(void)_rightBarBtnItemClick:(id)sender {
