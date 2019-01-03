@@ -58,8 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy) NSString *equipName;
 @property (nonatomic,copy) NSString *deviceName;
-//@property (nonatomic,copy) NSString *state; //运行状态，NORMAL：正常;ABNORMAL：异常;FAULT：故障
+@property (nonatomic,copy) NSString *state; // 状态，ONLINE:在线，OFFLINE：离线，INBOX：停用
 @property (nonatomic,copy) NSString *equipSn;
+@property (nonatomic,copy) NSString *equipCode;
 @property (nonatomic,copy) NSString *stateDetail;
 @property (nonatomic,copy) NSString *triggerDate;
 @property (nonatomic,copy) NSString *addressInfo;

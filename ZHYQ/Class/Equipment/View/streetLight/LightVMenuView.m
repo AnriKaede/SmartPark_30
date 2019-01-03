@@ -43,7 +43,7 @@
 - (void)_initView {
     
     _menuTitle = @"照明";
-    _stateStr = @"正常开启中";
+    _stateStr = @"设备状态";
     _voltageStr = @"-";
     _frequencyStr = @"-";
     _temperatureStr = @"-";
@@ -336,18 +336,6 @@
                 return ;
             }
             
-            // 状态(在线、离线)
-            NSNumber *online = lightDic[@"online"];
-            if(online != nil && ![online isKindOfClass:[NSNull class]]){
-                if(online.integerValue == 1){
-                    _menuTitle = [NSString stringWithFormat:@"照明(在线)"];
-                    _isOnline = YES;
-                }else {
-                    _menuTitle = [NSString stringWithFormat:@"照明(离线)"];
-                    _isOnline = NO;
-                }
-            }
-            
             // 开关状态
             NSNumber *on = lightDic[@"on"];
             if(on != nil && ![on isKindOfClass:[NSNull class]]){
@@ -361,6 +349,21 @@
                     _stateStr = @"正常开启中";
                     _stateColor = [UIColor colorWithHexString:@"#189517"];
                 }else {
+                    _stateStr = @"关闭";
+                    _stateColor = [UIColor blackColor];
+                }
+            }
+            
+            // 状态(在线、离线)
+            NSNumber *online = lightDic[@"online"];
+            if(online != nil && ![online isKindOfClass:[NSNull class]]){
+                if(online.integerValue == 1){
+                    _menuTitle = [NSString stringWithFormat:@"照明(在线)"];
+                    _isOnline = YES;
+                }else {
+                    _menuTitle = [NSString stringWithFormat:@"照明(离线)"];
+                    _isOnline = NO;
+                    
                     _stateStr = @"关闭";
                     _stateColor = [UIColor blackColor];
                 }

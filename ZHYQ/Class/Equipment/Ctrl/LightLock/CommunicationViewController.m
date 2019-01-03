@@ -21,7 +21,9 @@
 #import "CommnncLockModel.h"
 #import "CommnncCoverModel.h"
 
-@interface CommunicationViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate, LockMenuDelegate, CoverMenuDelegate, DidSelInMapPopDelegate>
+#import "CommncQueryViewController.h"
+
+@interface CommunicationViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate, LockMenuDelegate, CoverMenuDelegate, DidSelInMapPopDelegate, CellLockMenuDelegate>
 {
     YQInDoorPointMapView *indoorView;
     UIView *bottomView;
@@ -37,6 +39,8 @@
     
     LockMenuView *_lockMenuView;
     CoverMenuView *_coverMenuView;
+    
+    id _selModel;   // 选中数据
     
     NSInteger _page;
     NSInteger _length;
@@ -294,12 +298,20 @@
     if(indexPath.section == 0){
         CommnncCoverModel *coverModel = eqData[indexPath.row];
         if(coverModel.isSelect){
-            return 295;
+            if(coverModel.runingStatus != nil && ![coverModel.runingStatus isKindOfClass:[NSNull class]] && [coverModel.runingStatus isEqualToString:@"ABNORMAL"]){
+                return 325;
+            }else {
+                return 263;
+            }
         }
     }else if(indexPath.section == 1){
         CommnncLockModel *lockModel = eqData[indexPath.row];
         if(lockModel.isSelect){
-            return 295;
+            if(lockModel.runingStatus != nil && ![lockModel.runingStatus isKindOfClass:[NSNull class]] && [lockModel.runingStatus isEqualToString:@"ABNORMAL"]){
+                return 325;
+            }else {
+                return 263;
+            }
         }
     }
     return 54;
@@ -311,7 +323,7 @@
     }else {
         cell.lockModel = self.pointMapDataArr[indexPath.section][indexPath.row];
     }
-//    cell.delegate = self;
+    cell.cellMemuDelegate = self;
     return cell;
 }
 
@@ -441,26 +453,21 @@
         
         CommnncCoverModel *model = _mapCoordinateData[selectIndex];
         _coverMenuView.coverModel = model;
+        _selModel = model;
     }else if([model isKindOfClass:[CommnncLockModel class]]){
         // 光交锁
         _lockMenuView.hidden = NO;
         
         CommnncLockModel *model = _mapCoordinateData[selectIndex];
+        _lockMenuView.lockModel = model;
+        _selModel = model;
     }
     
-    _inDoorWifiModel = model;
-    
-    _menuTitle = model.DEVICE_NAME;
-    _locationStr = model.DEVICE_ADDR;
-    
     if (_selectImageView) {
-        InDoorWifiModel *selectModel = self.wifiDataArr[_selectImageView.tag-100];
+        id selectModel = self.mapCoordinateData[_selectImageView.tag-100];
         _selectImageView.contentMode = UIViewContentModeScaleToFill;
-        if ([selectModel.WIFI_STATUS isEqualToString:@"1"]||[selectModel.WIFI_STATUS isEqualToString:@"2"]) {
-            _selectImageView.image = [UIImage imageNamed:@"wifi_normal"];
-        }else{
-            _selectImageView.image = [UIImage imageNamed:@"wifi_error"];
-        }
+        
+        [self changePointImg:selectModel withImgView:_selectImageView];
     }
     
     // 复原之前选中图片效果
@@ -469,17 +476,41 @@
     }
     
     UIImageView *imageView = [indoorView.mapView viewWithTag:[identity integerValue]];
-    if ([model.WIFI_STATUS isEqualToString:@"1"]||[model.WIFI_STATUS isEqualToString:@"2"]) {
-        imageView.image = [UIImage imageNamed:@"wifi_normal"];
-    }else {
-        imageView.image = [UIImage imageNamed:@"wifi_error"];
-    }
+    [self changePointImg:model withImgView:imageView];
     imageView.contentMode = UIViewContentModeScaleToFill;
     _selectImageView = imageView;
     
     [PointViewSelect pointImageSelect:_selectImageView];
-    
-    [_showMenuView reloadMenuData]; //  刷新菜单，加载完成在刷新
+}
+- (void)changePointImg:(id)selModel withImgView:(UIImageView *)imageView {
+    if([selModel isKindOfClass:[CommnncCoverModel class]]){
+        imageView.image = [UIImage imageNamed:@"cover_normal_icon"];
+        // 井盖
+        CommnncCoverModel *model = (CommnncCoverModel *)selModel;
+        if ([model.runingStatus isEqualToString:@"NORMAL"]) {
+            // 正常
+            imageView.image = [UIImage imageNamed:@"cover_normal_icon"];
+        }else if ([model.runingStatus isEqualToString:@"ABNORMAL"]) {
+            // 异常
+            imageView.image = [UIImage imageNamed:@"cover_wran_icon"];
+        }else if ([model.runingStatus isEqualToString:@"FAULT"]) {
+            // 故障
+            imageView.image = [UIImage imageNamed:@"cover_fail_icon"];
+        }
+    }else {
+        imageView.image = [UIImage imageNamed:@"lock_normal_icon"];
+        CommnncLockModel *model = (CommnncLockModel *)selModel;
+        if ([model.runingStatus isEqualToString:@"NORMAL"]) {
+            // 正常
+            imageView.image = [UIImage imageNamed:@"lock_normal_icon"];
+        }else if ([model.runingStatus isEqualToString:@"ABNORMAL"]) {
+            // 异常
+            imageView.image = [UIImage imageNamed:@"lock_wran_icon"];
+        }else if ([model.runingStatus isEqualToString:@"FAULT"]) {
+            // 故障
+            imageView.image = [UIImage imageNamed:@"lock_fail_icon"];
+        }
+    }
 }
 
 -(void)_rightBarBtnItemClick:(id)sender {
@@ -496,6 +527,66 @@
     }
 }
 
+#pragma mark MenuView协议
+- (void)unLock:(CommnncLockModel *)lockModel {
+    _lockMenuView.hidden = YES;
+    UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确认开锁" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        _lockMenuView.hidden = NO;
+    }];
+    UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self openLock:lockModel];
+    }];
+    [alertCon addAction:cancelAction];
+    [alertCon addAction:removeAction];
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = _headerView;
+        alertCon.popoverPresentationController.sourceRect = _headerView.bounds;
+    }
+    [self presentViewController:alertCon animated:YES completion:^{
+    }];
+}
+- (void)queryLock:(CommnncLockModel *)lockModel {
+    _lockMenuView.hidden = YES;
+    CommncQueryViewController *queryVC = [[CommncQueryViewController alloc] init];
+    queryVC.lockModel = lockModel;
+    [self.navigationController pushViewController:queryVC animated:YES];
+}
+
+- (void)queryCover:(CommnncCoverModel *)coverModel {
+    _coverMenuView.hidden = YES;
+    CommncQueryViewController *queryVC = [[CommncQueryViewController alloc] init];
+    queryVC.coverModel = coverModel;
+    [self.navigationController pushViewController:queryVC animated:YES];
+}
+
+#pragma mark 开锁
+- (void)openLock:(CommnncLockModel *)lockModel {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/iot/open", Main_Url];
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(lockModel.equipSn != nil){
+        [paramDic setObject:lockModel.equipSn forKey:@"equipSn"];
+    }
+    if(lockModel.equipCode != nil){
+        [paramDic setObject:lockModel.equipCode forKey:@"equipCode"];
+    }
+    NSDictionary *param = @{@"param":[Utils convertToJsonData:paramDic]};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:param progressFloat:nil succeed:^(id responseObject) {
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+        }
+        
+        NSString *message = responseObject[@"message"];
+        if(message != nil && ![message isKindOfClass:[NSNull class]]){
+            [self showHint:message];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -503,8 +594,12 @@
 
 #pragma mark 无数据协议
 - (UIView *)makePlaceHolderView {
-    NoDataView *noDateView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 49, KScreenWidth, _commncTableView.height-49)];
-    noDateView.label.text = @"无结果";
+    NoDataView *noDateView = [self.view viewWithTag:3000];
+    if(noDateView == nil){
+        noDateView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 49, KScreenWidth, _commncTableView.height-49)];
+        noDateView.tag = 3000;
+        noDateView.label.text = @"无结果";
+    }
     return noDateView;
 }
 @end

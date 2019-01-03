@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommncInfoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EquipmQueryCell : UITableViewCell
+
+@property (nonatomic,retain) CommncInfoModel *infoModel;
 
 @end
 

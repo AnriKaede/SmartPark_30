@@ -13,14 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol CoverMenuDelegate <NSObject>
 
-//- (void)lookScreenShotWithModel:(LedListModel*)ledListModel;
-//
-//- (void)ledSwitch:(BOOL)on withModel:(LedListModel*)ledListModel;
-//- (void)ledPlay:(LedListModel*)ledListModel;
-//- (void)ledRestart:(LedListModel*)ledListModel;
-//- (void)ledClose:(LedListModel*)ledListModel;
-//
-//- (void)resumeDefault:(LedListModel*)ledListModel;
+- (void)queryCover:(CommnncCoverModel *)coverModel;
 
 @end
 

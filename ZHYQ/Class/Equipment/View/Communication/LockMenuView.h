@@ -7,17 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CommnncLockModel.h"
 
 @protocol LockMenuDelegate <NSObject>
 
-//- (void)lookScreenShotWithModel:(LedListModel*)ledListModel;
-//
-//- (void)ledSwitch:(BOOL)on withModel:(LedListModel*)ledListModel;
-//- (void)ledPlay:(LedListModel*)ledListModel;
-//- (void)ledRestart:(LedListModel*)ledListModel;
-//- (void)ledClose:(LedListModel*)ledListModel;
-//
-//- (void)resumeDefault:(LedListModel*)ledListModel;
+- (void)unLock:(CommnncLockModel *)lockModel;
+- (void)queryLock:(CommnncLockModel *)lockModel;
 
 @end
 
@@ -26,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LockMenuView : UIView
 
 @property (nonatomic,assign) id<LockMenuDelegate> lockMenuDelegate;
+
+@property (nonatomic,retain) CommnncLockModel *lockModel;
 
 - (void)reloadMenu;
 

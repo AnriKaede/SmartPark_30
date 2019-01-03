@@ -13,10 +13,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol CellLockMenuDelegate <NSObject>
+
+- (void)unLock:(CommnncLockModel *)lockModel;
+- (void)queryLock:(CommnncLockModel *)lockModel;
+
+- (void)queryCover:(CommnncCoverModel *)coverModel;
+
+@end
+
 @interface CommunLockCell : UITableViewCell
 
 @property (nonatomic,retain) CommnncLockModel *lockModel;
 @property (nonatomic,retain) CommnncCoverModel *coverModel;
+
+@property (nonatomic,assign) id<CellLockMenuDelegate> cellMemuDelegate;
 
 @end
 

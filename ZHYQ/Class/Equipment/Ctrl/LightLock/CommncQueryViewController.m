@@ -8,6 +8,7 @@
 
 #import "CommncQueryViewController.h"
 #import "EquipmQueryCell.h"
+#import "CommncInfoModel.h"
 
 @interface CommncQueryViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -29,6 +30,8 @@
     
     [self _initNavItems];
     [self _initView];
+    
+    [self _loadData];
 }
 
 -(void)_initNavItems {
@@ -80,7 +83,6 @@
     _tableView.dataSource = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
-    _tableView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_tableView];
     
     _tableView.estimatedRowHeight = 0;
@@ -93,16 +95,53 @@
         _page = 1;
         [self _loadData];
     }];
-    // 上拉刷新
-    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        _page ++;
-        [self _loadData];
-    }];
-    _tableView.mj_footer.hidden = YES;
+//    // 上拉刷新
+//    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        _page ++;
+//        [self _loadData];
+//    }];
+//    _tableView.mj_footer.hidden = YES;
 }
 
 - (void)_loadData {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/iot/realTime", Main_Url];
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(_lockModel != nil && _lockModel.equipSn != nil){
+        [paramDic setObject:_lockModel.equipSn forKey:@"equipSn"];
+    }else if(_coverModel != nil && _coverModel.equipSn != nil){
+        [paramDic setObject:_coverModel.equipSn forKey:@"equipSn"];
+    }
+    if(_lockModel != nil && _lockModel.equipCode != nil){
+        [paramDic setObject:_lockModel.equipCode forKey:@"equipCode"];
+    }else if(_coverModel != nil && _coverModel.equipCode != nil){
+        [paramDic setObject:_coverModel.equipCode forKey:@"equipCode"];
+    }
+    NSDictionary *param = @{@"param":[Utils convertToJsonData:paramDic]};
     
+    [[NetworkClient sharedInstance] POST:urlStr dict:param progressFloat:nil succeed:^(id responseObject) {
+        [_tableView.mj_header endRefreshing];
+        
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            [_traceData removeAllObjects];
+            
+            NSArray *items = responseObject[@"responseData"][@"items"];
+            [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                CommncInfoModel *infoModel = [[CommncInfoModel alloc] initWithDataDic:obj];
+                [_traceData addObject:infoModel];
+            }];
+            
+            [_tableView cyl_reloadData];
+        }else {
+            NSString *message = responseObject[@"message"];
+            if(message != nil && ![message isKindOfClass:[NSNull class]]){
+                [self showHint:message];
+            }
+        }
+        
+    } failure:^(NSError *error) {
+        [_tableView.mj_header endRefreshing];
+    }];
 }
 
 // 无网络重载
@@ -121,8 +160,7 @@
 
 #pragma mark UItableView协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return _traceData.count;
-    return 4;
+    return _traceData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 54;
@@ -140,12 +178,11 @@
     return 0.1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    FaceListModel *model = _traceData[indexPath.row];
+    CommncInfoModel *model = _traceData[indexPath.row];
     
     EquipmQueryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EquipmQueryCell" forIndexPath:indexPath];
-    
-//    cell.faceListModel = model;
-    
+    cell.infoModel = model;
+    cell.contentView.backgroundColor = [UIColor whiteColor];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
