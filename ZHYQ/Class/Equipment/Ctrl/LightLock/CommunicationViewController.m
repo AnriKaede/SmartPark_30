@@ -533,7 +533,9 @@
     UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否确认开锁" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        _lockMenuView.hidden = NO;
+        if(_commncTableView.hidden){
+            _lockMenuView.hidden = NO;
+        }
     }];
     UIAlertAction *removeAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self openLock:lockModel];
