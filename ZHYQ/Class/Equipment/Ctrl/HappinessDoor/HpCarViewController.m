@@ -119,11 +119,14 @@
         NSMutableArray *animData = @[].mutableCopy;
         
         if (code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]) {
+            NSArray *responseData = responseObject[@"responseData"];
             if(_page == 1 && !_isCount){
                 [_carData removeAllObjects];
             }
+            if(_isCount && responseData != nil && responseData.count > 0 && _carData.count > 0){
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"HpDoorDataUpdate" object:nil];
+            }
             
-            NSArray *responseData = responseObject[@"responseData"];
             if(responseData.count > 0){
                 NSDictionary *dic = responseData.firstObject;
                 NSArray *arr = dic[@"returnList"];

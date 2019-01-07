@@ -172,8 +172,8 @@
             NSMutableArray *covers = @[].mutableCopy;
             [coverData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 CommnncCoverModel *model = [[CommnncCoverModel alloc] initWithDataDic:obj];
-                //                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.longitude, model.latitude];
-                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",@400, @500];
+                                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.longitude, model.latitude];
+//                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",@400, @500];
                 [self.graphData addObject:graphStr];
                 [covers addObject:model];
             }];
@@ -184,8 +184,8 @@
             NSMutableArray *locks = @[].mutableCopy;
             [lockData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 CommnncLockModel *model = [[CommnncLockModel alloc] initWithDataDic:obj];
-//                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.longitude, model.latitude];
-                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",@600, @500];
+                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.longitude, model.latitude];
+//                NSString *graphStr = [NSString stringWithFormat:@"%@,%@",@600, @500];
                 [self.graphData addObject:graphStr];
                 [locks addObject:model];
             }];

@@ -291,6 +291,20 @@
 		925EEFC91FB04C3B003DB93B /* ShowMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925EEFC81FB04C3B003DB93B /* ShowMenuView.m */; };
 		92643D8C201818340007C007 /* VisSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8B201818340007C007 /* VisSearchViewController.m */; };
 		92643D8F201876970007C007 /* VisCountNumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8E201876970007C007 /* VisCountNumModel.m */; };
+		9265606D21E2E1AB006D1FDB /* UnOnlineHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265606C21E2E1AB006D1FDB /* UnOnlineHomeViewController.m */; };
+		9265607021E2E348006D1FDB /* WranHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265606F21E2E348006D1FDB /* WranHomeViewController.m */; };
+		9265607321E2E362006D1FDB /* CloseEqHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265607221E2E362006D1FDB /* CloseEqHomeViewController.m */; };
+		9265607621E2E385006D1FDB /* CheckTaskHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265607521E2E385006D1FDB /* CheckTaskHomeViewController.m */; };
+		9265607B21E2E84D006D1FDB /* UnOnlineHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265607921E2E84D006D1FDB /* UnOnlineHomeCell.m */; };
+		9265607C21E2E84D006D1FDB /* UnOnlineHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9265607A21E2E84D006D1FDB /* UnOnlineHomeCell.xib */; };
+		9265608021E2E86E006D1FDB /* WranHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265607E21E2E86E006D1FDB /* WranHomeCell.m */; };
+		9265608121E2E86E006D1FDB /* WranHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9265607F21E2E86E006D1FDB /* WranHomeCell.xib */; };
+		9265608821E2E8A7006D1FDB /* CloseEqHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265608621E2E8A7006D1FDB /* CloseEqHomeCell.m */; };
+		9265608921E2E8A7006D1FDB /* CloseEqHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9265608721E2E8A7006D1FDB /* CloseEqHomeCell.xib */; };
+		9265608D21E2E8C2006D1FDB /* CheckTaskHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265608B21E2E8C2006D1FDB /* CheckTaskHomeCell.m */; };
+		9265608E21E2E8C2006D1FDB /* CheckTaskHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9265608C21E2E8C2006D1FDB /* CheckTaskHomeCell.xib */; };
+		9265609121E2EF30006D1FDB /* WranHomeCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265609021E2EF30006D1FDB /* WranHomeCenViewController.m */; };
+		9265609421E2EF4E006D1FDB /* CheckHomeCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265609321E2EF4E006D1FDB /* CheckHomeCenViewController.m */; };
 		92669419219D4FD3004583B2 /* UIWebView+KWHideAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92669407219D4FD1004583B2 /* UIWebView+KWHideAccessoryView.m */; };
 		9266941A219D4FD3004583B2 /* UIWebView+KWWebViewJSTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 92669408219D4FD1004583B2 /* UIWebView+KWWebViewJSTool.m */; };
 		9266941B219D4FD3004583B2 /* UIControl+KWButtonExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 92669409219D4FD1004583B2 /* UIControl+KWButtonExtension.m */; };
@@ -1432,6 +1446,30 @@
 		92643D8B201818340007C007 /* VisSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisSearchViewController.m; sourceTree = "<group>"; };
 		92643D8D201876970007C007 /* VisCountNumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisCountNumModel.h; sourceTree = "<group>"; };
 		92643D8E201876970007C007 /* VisCountNumModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisCountNumModel.m; sourceTree = "<group>"; };
+		9265606B21E2E1AB006D1FDB /* UnOnlineHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnOnlineHomeViewController.h; sourceTree = "<group>"; };
+		9265606C21E2E1AB006D1FDB /* UnOnlineHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnOnlineHomeViewController.m; sourceTree = "<group>"; };
+		9265606E21E2E348006D1FDB /* WranHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WranHomeViewController.h; sourceTree = "<group>"; };
+		9265606F21E2E348006D1FDB /* WranHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranHomeViewController.m; sourceTree = "<group>"; };
+		9265607121E2E362006D1FDB /* CloseEqHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloseEqHomeViewController.h; sourceTree = "<group>"; };
+		9265607221E2E362006D1FDB /* CloseEqHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloseEqHomeViewController.m; sourceTree = "<group>"; };
+		9265607421E2E385006D1FDB /* CheckTaskHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckTaskHomeViewController.h; sourceTree = "<group>"; };
+		9265607521E2E385006D1FDB /* CheckTaskHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckTaskHomeViewController.m; sourceTree = "<group>"; };
+		9265607821E2E84D006D1FDB /* UnOnlineHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnOnlineHomeCell.h; sourceTree = "<group>"; };
+		9265607921E2E84D006D1FDB /* UnOnlineHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnOnlineHomeCell.m; sourceTree = "<group>"; };
+		9265607A21E2E84D006D1FDB /* UnOnlineHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnOnlineHomeCell.xib; sourceTree = "<group>"; };
+		9265607D21E2E86E006D1FDB /* WranHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WranHomeCell.h; sourceTree = "<group>"; };
+		9265607E21E2E86E006D1FDB /* WranHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranHomeCell.m; sourceTree = "<group>"; };
+		9265607F21E2E86E006D1FDB /* WranHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WranHomeCell.xib; sourceTree = "<group>"; };
+		9265608521E2E8A7006D1FDB /* CloseEqHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloseEqHomeCell.h; sourceTree = "<group>"; };
+		9265608621E2E8A7006D1FDB /* CloseEqHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloseEqHomeCell.m; sourceTree = "<group>"; };
+		9265608721E2E8A7006D1FDB /* CloseEqHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloseEqHomeCell.xib; sourceTree = "<group>"; };
+		9265608A21E2E8C2006D1FDB /* CheckTaskHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckTaskHomeCell.h; sourceTree = "<group>"; };
+		9265608B21E2E8C2006D1FDB /* CheckTaskHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckTaskHomeCell.m; sourceTree = "<group>"; };
+		9265608C21E2E8C2006D1FDB /* CheckTaskHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckTaskHomeCell.xib; sourceTree = "<group>"; };
+		9265608F21E2EF30006D1FDB /* WranHomeCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WranHomeCenViewController.h; sourceTree = "<group>"; };
+		9265609021E2EF30006D1FDB /* WranHomeCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranHomeCenViewController.m; sourceTree = "<group>"; };
+		9265609221E2EF4E006D1FDB /* CheckHomeCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckHomeCenViewController.h; sourceTree = "<group>"; };
+		9265609321E2EF4E006D1FDB /* CheckHomeCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckHomeCenViewController.m; sourceTree = "<group>"; };
 		92669405219D4FD1004583B2 /* UIWebView+KWWebViewJSTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+KWWebViewJSTool.h"; sourceTree = "<group>"; };
 		92669406219D4FD1004583B2 /* UIControl+KWButtonExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+KWButtonExtension.h"; sourceTree = "<group>"; };
 		92669407219D4FD1004583B2 /* UIWebView+KWHideAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+KWHideAccessoryView.m"; sourceTree = "<group>"; };
@@ -3016,6 +3054,18 @@
 			children = (
 				922B40C4215250F600B9F6E4 /* ParkOverViewController.h */,
 				922B40C5215250F600B9F6E4 /* ParkOverViewController.m */,
+				9265606B21E2E1AB006D1FDB /* UnOnlineHomeViewController.h */,
+				9265606C21E2E1AB006D1FDB /* UnOnlineHomeViewController.m */,
+				9265608F21E2EF30006D1FDB /* WranHomeCenViewController.h */,
+				9265609021E2EF30006D1FDB /* WranHomeCenViewController.m */,
+				9265606E21E2E348006D1FDB /* WranHomeViewController.h */,
+				9265606F21E2E348006D1FDB /* WranHomeViewController.m */,
+				9265607121E2E362006D1FDB /* CloseEqHomeViewController.h */,
+				9265607221E2E362006D1FDB /* CloseEqHomeViewController.m */,
+				9265609221E2EF4E006D1FDB /* CheckHomeCenViewController.h */,
+				9265609321E2EF4E006D1FDB /* CheckHomeCenViewController.m */,
+				9265607421E2E385006D1FDB /* CheckTaskHomeViewController.h */,
+				9265607521E2E385006D1FDB /* CheckTaskHomeViewController.m */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -3482,6 +3532,25 @@
 			path = ShowMenuView;
 			sourceTree = "<group>";
 		};
+		9265607721E2E820006D1FDB /* ParkOver */ = {
+			isa = PBXGroup;
+			children = (
+				9265607821E2E84D006D1FDB /* UnOnlineHomeCell.h */,
+				9265607921E2E84D006D1FDB /* UnOnlineHomeCell.m */,
+				9265607A21E2E84D006D1FDB /* UnOnlineHomeCell.xib */,
+				9265607D21E2E86E006D1FDB /* WranHomeCell.h */,
+				9265607E21E2E86E006D1FDB /* WranHomeCell.m */,
+				9265607F21E2E86E006D1FDB /* WranHomeCell.xib */,
+				9265608521E2E8A7006D1FDB /* CloseEqHomeCell.h */,
+				9265608621E2E8A7006D1FDB /* CloseEqHomeCell.m */,
+				9265608721E2E8A7006D1FDB /* CloseEqHomeCell.xib */,
+				9265608A21E2E8C2006D1FDB /* CheckTaskHomeCell.h */,
+				9265608B21E2E8C2006D1FDB /* CheckTaskHomeCell.m */,
+				9265608C21E2E8C2006D1FDB /* CheckTaskHomeCell.xib */,
+			);
+			path = ParkOver;
+			sourceTree = "<group>";
+		};
 		92669403219D4FC1004583B2 /* HtmlEdit */ = {
 			isa = PBXGroup;
 			children = (
@@ -3931,6 +4000,7 @@
 		92C8EEC42022B8D100AC6337 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9265607721E2E820006D1FDB /* ParkOver */,
 				92C8EEC52022B8F000AC6337 /* MealIntimeCell.h */,
 				92C8EEC62022B8F000AC6337 /* MealIntimeCell.m */,
 				92C8EEC72022B8F000AC6337 /* MealIntimeCell.xib */,
@@ -5892,6 +5962,7 @@
 				9230FF441FD3D663002098A6 /* Main.storyboard in Resources */,
 				92FAC4E3219ACF2200FB1489 /* FaceHistoryCell.xib in Resources */,
 				9253BD6420BFA58E00AB4767 /* playback_progress_n.png in Resources */,
+				9265608E21E2E8C2006D1FDB /* CheckTaskHomeCell.xib in Resources */,
 				9253BD5920BFA58E00AB4767 /* playback_mute_n.png in Resources */,
 				D63199A11FCBBC3B00B78805 /* FgUnParkTableViewCell.xib in Resources */,
 				D6A6649E1FCBB6F5001172B2 /* FrontGroundTableViewCell.xib in Resources */,
@@ -5954,6 +6025,7 @@
 				D64454CE1FCD047C005CBD7B /* SingleCtrlTableViewCell.xib in Resources */,
 				D60CA2D91FBC1C1800725389 /* WifiListTableViewCell.xib in Resources */,
 				D63922A01FB3E28800E1A00A /* CarBlackListTabCell.xib in Resources */,
+				9265608121E2E86E006D1FDB /* WranHomeCell.xib in Resources */,
 				D68A2F1A1FC018DE00E541A6 /* VisitedTableViewCell.xib in Resources */,
 				922B41102154950200B9F6E4 /* BillCell.xib in Resources */,
 				92C8EECE2022B90D00AC6337 /* MealCountCell.xib in Resources */,
@@ -6025,6 +6097,7 @@
 				92669420219D4FD4004583B2 /* article_editor.js in Resources */,
 				D629A5BB1F9C58B400FA5EE1 /* image.xcassets in Resources */,
 				9240BB111FC2F0C60019AF07 /* VIsListCell.xib in Resources */,
+				9265608921E2E8A7006D1FDB /* CloseEqHomeCell.xib in Resources */,
 				925576C72182999300B4A1A3 /* WifiSpeedCell.xib in Resources */,
 				9257EED421C74C9A009C4230 /* HpFaceCell.xib in Resources */,
 				9231FDB921AE41A300736A74 /* BatchAddFaceCell.xib in Resources */,
@@ -6039,6 +6112,7 @@
 				92CE43CA1FD4EAAA00ED9F98 /* README.md in Resources */,
 				9213C04E1FE617F9009E7B67 /* AloneConCell.xib in Resources */,
 				921894E01FA95596001C1A41 /* AAHighchartsMore.js in Resources */,
+				9265607C21E2E84D006D1FDB /* UnOnlineHomeCell.xib in Resources */,
 				9240BAF21FC2847E0019AF07 /* ParkCountNumCell.xib in Resources */,
 				92C7D22A1FD938D600650E73 /* appVersion.plist in Resources */,
 				9256C45B21A55D8200501014 /* bds_easr_basic_model.dat in Resources */,
@@ -6198,6 +6272,7 @@
 				922770D320BCE7AD009010F7 /* MessageCenViewController.m in Sources */,
 				D697E0D31FAB3FE800966B62 /* OutDoorWifiViewController.m in Sources */,
 				9290352F20B80E1D003FDECC /* NewCoverModel.m in Sources */,
+				9265609421E2EF4E006D1FDB /* CheckHomeCenViewController.m in Sources */,
 				92E87D041FB4387F0045D2FF /* DevelopViewController.m in Sources */,
 				922B410F2154950200B9F6E4 /* BillCell.m in Sources */,
 				927A0D562085F1D300C3F8DE /* RepairProgressView.m in Sources */,
@@ -6292,6 +6367,7 @@
 				9226846220AED00A006628B3 /* DeviceInfoModel.m in Sources */,
 				9253BD8520BFA58E00AB4767 /* TimeConvert.m in Sources */,
 				D63922BF1FB43CC400E1A00A /* ElevatorViewController.m in Sources */,
+				9265608821E2E8A7006D1FDB /* CloseEqHomeCell.m in Sources */,
 				D6F556751FA701E000AFD721 /* YQButton.m in Sources */,
 				9273EB0A204E8B3900723C5D /* EvnDataModel.m in Sources */,
 				9290353220B82706003FDECC /* NewCoverInfoModel.m in Sources */,
@@ -6314,6 +6390,7 @@
 				927DC2102008AAB0005C65FB /* StreetLightPointViewController.m in Sources */,
 				9266941E219D4FD4004583B2 /* KWEditorBar.m in Sources */,
 				922770E920BD3B79009010F7 /* ParkAllRcordTableViewCell.m in Sources */,
+				9265608021E2E86E006D1FDB /* WranHomeCell.m in Sources */,
 				9298EBAF2003514500A8B270 /* StreLigAllConViewController.m in Sources */,
 				9222CAD4215E5B3700C519FF /* ParkTop10Cell.m in Sources */,
 				9287751C1FBA81E800BF708A /* LightVMenuView.m in Sources */,
@@ -6353,11 +6430,13 @@
 				92643D8C201818340007C007 /* VisSearchViewController.m in Sources */,
 				D6928CD11FBD763F00CB9C18 /* BgMusicListTabViewCell.m in Sources */,
 				92FC1E9E1FDBBE06004A3901 /* CallMenuView.m in Sources */,
+				9265609121E2EF30006D1FDB /* WranHomeCenViewController.m in Sources */,
 				929AB9B020D3B14B001D9878 /* AptSelAllView.m in Sources */,
 				D65A61A51FBC611A00FE3AA4 /* YQInDoorPointMapView.m in Sources */,
 				926D9B5321250B8B00D6E0C1 /* DistributorModel.m in Sources */,
 				927FA73A2192C288002CB32C /* WifiNewUserModel.m in Sources */,
 				D6A2DEE72180139800D76AB6 /* ParkFeeListViewController.m in Sources */,
+				9265607021E2E348006D1FDB /* WranHomeViewController.m in Sources */,
 				923DBDE61FEA092E00736CAE /* SceneEditCell.m in Sources */,
 				92E87D101FB44EAD0045D2FF /* LightLEDViewController.m in Sources */,
 				92D0E8B22089834A003BC75E /* BillConfirmView.m in Sources */,
@@ -6376,6 +6455,7 @@
 				92E8207B21AFBBB4002F8325 /* ClientFaceHisViewController.m in Sources */,
 				92D8B8BC206A1FD50001263F /* AASubtitle.m in Sources */,
 				D60262301F9B45DE00A66D5A /* main.m in Sources */,
+				9265607621E2E385006D1FDB /* CheckTaskHomeViewController.m in Sources */,
 				92FC1E951FDB88B2004A3901 /* FlowTraceModel.m in Sources */,
 				9231FDB321AE3DF200736A74 /* AddBatchViewController.m in Sources */,
 				D6928CC41FBD333800CB9C18 /* InDoorMonitorMapModel.m in Sources */,
@@ -6519,6 +6599,7 @@
 				9240BAF51FC2B3280019AF07 /* WarnTabbarController.m in Sources */,
 				D639229B1FB3E0D400E1A00A /* CarBlackListViewController.m in Sources */,
 				921A841F1FA9661A00EE4F41 /* UIViewController+HUD.m in Sources */,
+				9265607B21E2E84D006D1FDB /* UnOnlineHomeCell.m in Sources */,
 				92D78B1C2071CC79003596C4 /* FaceQueryCell.m in Sources */,
 				9298EBA920031A7500A8B270 /* EnvInfoModel.m in Sources */,
 				D629A5C71F9C5AF700FA5EE1 /* SetPerMsgViewController.m in Sources */,
@@ -6638,6 +6719,7 @@
 				92D8B8EA206B8FC20001263F /* FaceListModel.m in Sources */,
 				922B4122215499E400B9F6E4 /* BookDetailsViewController.m in Sources */,
 				92343BF020D8D50400A28603 /* ParkSpaceModel.m in Sources */,
+				9265606D21E2E1AB006D1FDB /* UnOnlineHomeViewController.m in Sources */,
 				92CE43FE1FD6C32F00ED9F98 /* ParkCardModel.m in Sources */,
 				92D8B8BA206A1FD50001263F /* AALegend.m in Sources */,
 				D60CA2AB1FB98C8500725389 /* FloorModel.m in Sources */,
@@ -6671,6 +6753,7 @@
 				928CD905205FAE8000058727 /* LauchViewController.m in Sources */,
 				922B40CD2154899D00B9F6E4 /* AttendanceDetailViewController.m in Sources */,
 				D6B1B27F1FC2DFD600852BE8 /* DCContentItem.m in Sources */,
+				9265607321E2E362006D1FDB /* CloseEqHomeViewController.m in Sources */,
 				929142CD2181BE6F00FFE7C4 /* WifiShareCountViewController.m in Sources */,
 				92669427219D5111004583B2 /* FaceHtmlView.m in Sources */,
 				D60AC45D217F12D000A22391 /* LEDScreenShotViewController.m in Sources */,
@@ -6755,6 +6838,7 @@
 				92E87D5A1FB6E8D50045D2FF /* AuthorityViewController.m in Sources */,
 				9290352A20B7BF7D003FDECC /* LightLockWebViewController.m in Sources */,
 				D63922C81FB444A700E1A00A /* AirConditionCollViewCell.m in Sources */,
+				9265608D21E2E8C2006D1FDB /* CheckTaskHomeCell.m in Sources */,
 				D629A5F81F9F39AC00FA5EE1 /* RootWebViewController.m in Sources */,
 				D60CA2B71FB9BBD600725389 /* BgMusicCenterViewController.m in Sources */,
 				92E87D711FB702B00045D2FF /* ECardViewController.m in Sources */,

@@ -8,6 +8,10 @@
 
 #import "ParkOverViewController.h"
 #import "CarRoundView.h"
+#import "UnOnlineHomeViewController.h"
+#import "WranHomeCenViewController.h"
+#import "CloseEqHomeViewController.h"
+#import "CheckHomeCenViewController.h"
 
 @interface ParkOverViewController ()
 {
@@ -131,6 +135,45 @@
     [headerView addSubview:flagImgView];
     
     return headerView;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0:
+        {
+            UnOnlineHomeViewController *onLineVC = [[UnOnlineHomeViewController alloc] init];
+            onLineVC.title = @"离线设备";
+            [self pushVC:onLineVC];
+            break;
+        }
+        case 1:
+        {
+            WranHomeCenViewController *wranVC = [[WranHomeCenViewController alloc] init];
+            wranVC.title = @"告警数据";
+            [self pushVC:wranVC];
+            break;
+        }
+        case 2:
+        {
+            CloseEqHomeViewController *closeVC = [[CloseEqHomeViewController alloc] init];
+            closeVC.title = @"关闭设备";
+            [self pushVC:closeVC];
+            break;
+        }
+        case 3:
+        {
+            CheckHomeCenViewController *checkVC = [[CheckHomeCenViewController alloc] init];
+            checkVC.title = @"巡检任务";
+            [self pushVC:checkVC];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+- (void)pushVC:(UIViewController *)viewCon {
+    [self.navigationController pushViewController:viewCon animated:YES];
 }
 
 @end

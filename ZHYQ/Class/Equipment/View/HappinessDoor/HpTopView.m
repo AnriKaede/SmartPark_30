@@ -25,6 +25,8 @@
     [self createScroolView];
     
     [self _loadData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_loadData) name:@"HpDoorDataUpdate" object:nil];
 }
 
 - (void)createTopView {
