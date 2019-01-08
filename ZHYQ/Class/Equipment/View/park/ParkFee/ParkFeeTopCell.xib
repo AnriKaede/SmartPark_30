@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.15" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.9"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ParkFeeTopCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="349.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="349.66666666666669"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LbA-AI-694">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xeo-Td-vfP">
-                                <rect key="frame" x="107.5" y="30" width="160" height="160"/>
+                                <rect key="frame" x="127" y="30" width="160" height="160"/>
                                 <color key="backgroundColor" red="0.35686274509803922" green="0.82745098039215681" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="160" id="6Eh-t6-qhP"/>
@@ -30,7 +30,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fYW-4R-LjR">
-                                <rect key="frame" x="112.5" y="35" width="150" height="150"/>
+                                <rect key="frame" x="132" y="35" width="150" height="150"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h4e-Hx-Tj2">
                                         <rect key="frame" x="12" y="74" width="126" height="2"/>
@@ -40,7 +40,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g3q-6K-IyI">
-                                        <rect key="frame" x="68" y="55" width="14.5" height="17"/>
+                                        <rect key="frame" x="68" y="55" width="14.333333333333329" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -58,7 +58,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5TV-kg-ZVn">
-                                        <rect key="frame" x="39.5" y="84" width="35" height="30"/>
+                                        <rect key="frame" x="39.666666666666657" y="84" width="35" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <color key="textColor" red="0.0" green="1" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -70,7 +70,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="park_fee_up" translatesAutoresizingMaskIntoConstraints="NO" id="k7X-ZY-nwz">
-                                        <rect key="frame" x="81.5" y="83" width="19" height="29"/>
+                                        <rect key="frame" x="81.666666666666657" y="83" width="19" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="TZ7-7r-nrB"/>
                                             <constraint firstAttribute="width" constant="19" id="ccI-tN-zRW"/>
@@ -110,10 +110,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K4N-xA-B6m">
-                        <rect key="frame" x="0.0" y="199.5" width="375" height="150"/>
+                        <rect key="frame" x="0.0" y="199.66666666666663" width="414" height="150"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LED_seperateline_blue" translatesAutoresizingMaskIntoConstraints="NO" id="lR2-WK-pKl">
-                                <rect key="frame" x="187" y="10" width="1" height="130"/>
+                                <rect key="frame" x="206.66666666666666" y="10" width="1" height="130"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="OTk-0J-rCS"/>
@@ -128,70 +128,70 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000.00元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGz-z7-d1H">
-                                <rect key="frame" x="67" y="24" width="118" height="21"/>
+                                <rect key="frame" x="66.999999999999986" y="24" width="137.66666666666663" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.1058823529" green="0.50980392159999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信缴费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hVG-VM-k04">
-                                <rect key="frame" x="80" y="52" width="53.5" height="16"/>
+                                <rect key="frame" x="80" y="52" width="53.666666666666657" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="park_payment_yi" translatesAutoresizingMaskIntoConstraints="NO" id="XXw-SK-bPh">
-                                <rect key="frame" x="30" y="89" width="25" height="25"/>
+                                <rect key="frame" x="30" y="89.000000000000028" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="ZQu-Qd-92z"/>
                                     <constraint firstAttribute="height" constant="25" id="hCC-yg-cxR"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000.00元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OaN-4s-KM4">
-                                <rect key="frame" x="67" y="91" width="80" height="21"/>
+                                <rect key="frame" x="67" y="91.000000000000028" width="80" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.1058823529" green="0.50980392159999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="翼支付缴费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJ9-lT-5iF">
-                                <rect key="frame" x="72" y="119" width="66.5" height="16"/>
+                                <rect key="frame" x="72" y="119.00000000000003" width="66.666666666666686" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="park_payment_alipay" translatesAutoresizingMaskIntoConstraints="NO" id="Tu0-8k-jTa">
-                                <rect key="frame" x="232" y="22" width="25" height="25"/>
+                                <rect key="frame" x="251.66666666666663" y="22" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="ALx-ej-4kf"/>
                                     <constraint firstAttribute="width" constant="25" id="Ukn-1m-IZQ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000.00元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MW2-5Q-hq3">
-                                <rect key="frame" x="269" y="24" width="80" height="21"/>
+                                <rect key="frame" x="288.66666666666669" y="24" width="80" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.1058823529" green="0.50980392159999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付宝缴费" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I8t-NN-RZY">
-                                <rect key="frame" x="276" y="52" width="66.5" height="16"/>
+                                <rect key="frame" x="295.66666666666669" y="52" width="66.666666666666686" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="park_payment_cash" translatesAutoresizingMaskIntoConstraints="NO" id="SrX-em-UGt">
-                                <rect key="frame" x="232" y="89" width="25" height="25"/>
+                                <rect key="frame" x="251.66666666666663" y="89.000000000000028" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="cXW-xn-WZf"/>
                                     <constraint firstAttribute="width" constant="25" id="kBc-4X-PJQ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000.00元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xP-5u-0fo">
-                                <rect key="frame" x="269" y="91" width="80" height="21"/>
+                                <rect key="frame" x="288.66666666666669" y="91.000000000000028" width="80" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.1058823529" green="0.50980392159999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="现金交易" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GY2-Fn-rZs">
-                                <rect key="frame" x="284" y="119" width="53.5" height="16"/>
+                                <rect key="frame" x="303.66666666666669" y="119.00000000000003" width="53.666666666666686" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -251,11 +251,11 @@
                 <outlet property="_wechatLabel" destination="uGz-z7-d1H" id="mcp-HA-tFz"/>
                 <outlet property="_yipayLabel" destination="OaN-4s-KM4" id="nF7-Vp-QsY"/>
             </connections>
-            <point key="canvasLocation" x="136.80000000000001" y="153.82308845577214"/>
+            <point key="canvasLocation" x="135.50724637681159" y="153.2608695652174"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="LED_seperateline_blue" width="1" height="1"/>
+        <image name="LED_seperateline_blue" width="0.66666668653488159" height="32.666667938232422"/>
         <image name="park_fee_up" width="19" height="29"/>
         <image name="park_payment_alipay" width="15" height="15"/>
         <image name="park_payment_cash" width="15" height="15"/>

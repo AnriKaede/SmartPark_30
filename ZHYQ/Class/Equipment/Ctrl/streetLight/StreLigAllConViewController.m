@@ -109,6 +109,9 @@
             [_lampData removeAllObjects];
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 StreetLampSubModel *model = [[StreetLampSubModel alloc] initWithDataDic:obj];
+                if(idx%2 == 0){
+                    model.isColor = YES;
+                }
                 [_lampData addObject:model];
             }];
         }

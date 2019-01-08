@@ -10,14 +10,14 @@
 
 @implementation NavGradient
 
-#define NRoundOneWidth KScreenWidth*1.5 // 第一个椭圆宽度
-#define NRoundTowWidth KScreenWidth // 第二个椭圆宽度
+#define NRoundOneWidth 414*1.5 // 第一个椭圆宽度
+#define NRoundTowWidth 414 // 第二个椭圆宽度
 
-#define NRoundOneHeight 340 // 第一个椭圆高度
-#define NRoundTowHeight 280 // 第二个椭圆高度
+#define NRoundOneHeight 480 // 第一个椭圆高度
+#define NRoundTowHeight 378 // 第二个椭圆高度
 
-#define NOneViewTop (-200) // 第一个椭圆向上偏移量
-#define NTowViewTop (-150) // 第二个椭圆向上偏移量
+#define NOneViewTop (-360) // 第一个椭圆向上偏移量
+#define NTowViewTop (-270) // 第二个椭圆向上偏移量
 
 #pragma mark 导航栏渐变视图
 + (UIImage *)navBgColorImg {
@@ -55,6 +55,9 @@
     [self addGradient:view withIsNav:isNav];
     [self addRoundLayerOne:view withIsNav:isNav];
     [self addRoundLayerTow:view withIsNav:isNav];
+    
+    [self addRoundLayerThree:view withIsNav:isNav];
+    [self addRoundLayerFour:view withIsNav:isNav];
 }
 + (void)addGradient:(UIView *)view withIsNav:(BOOL)isNav {
     CAGradientLayer *gradient = [CAGradientLayer layer];
@@ -110,6 +113,36 @@
     gradient.mask = maskLayer;
     [view.layer insertSublayer:gradient atIndex:2];
 //    [view.layer addSublayer:gradient];
+}
++ (void)addRoundLayerThree:(UIView *)view withIsNav:(BOOL)isNav {
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, view.width, view.height);
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithHexString:@"#285ab9"] colorWithAlphaComponent:0.5].CGColor,(id)[[UIColor colorWithHexString:@"#4287cd"] colorWithAlphaComponent:0.5].CGColor, nil];
+    gradient.locations = @[@0.0, @1.0];    // 颜色的起点位置，递增，并且数量跟颜色数量相等
+    gradient.startPoint = CGPointMake(0, 0);
+    gradient.endPoint = CGPointMake(1, 0);
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-KScreenWidth/2,100, KScreenWidth, KScreenWidth)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = path.CGPath;
+    gradient.mask = maskLayer;
+    [view.layer insertSublayer:gradient atIndex:3];
+    //    [view.layer addSublayer:gradient];
+}
++ (void)addRoundLayerFour:(UIView *)view withIsNav:(BOOL)isNav {
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = CGRectMake(0, 0, view.width, view.height);
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithHexString:@"#4287cd"] colorWithAlphaComponent:0.5].CGColor,(id)[[UIColor colorWithHexString:@"#285ab9"] colorWithAlphaComponent:0.5].CGColor, nil];
+    gradient.locations = @[@0.0, @1.0];    // 颜色的起点位置，递增，并且数量跟颜色数量相等
+    gradient.startPoint = CGPointMake(0, 0);
+    gradient.endPoint = CGPointMake(1, 0);
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(-KScreenWidth/2-45 + 60,155, KScreenWidth+80, KScreenWidth+80)];
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = path.CGPath;
+    gradient.mask = maskLayer;
+    [view.layer insertSublayer:gradient atIndex:4];
+    //    [view.layer addSublayer:gradient];
 }
 
 @end

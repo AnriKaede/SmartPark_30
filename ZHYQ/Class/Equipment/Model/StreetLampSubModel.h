@@ -41,4 +41,6 @@
 
 @property (nonatomic,assign) BOOL isConSelect;
 
+@property (nonatomic,assign) BOOL isColor;
+
 @end

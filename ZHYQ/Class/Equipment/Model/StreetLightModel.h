@@ -40,4 +40,6 @@
 
 @property (nonatomic,assign) BOOL isConSelect;    // 全部通知的是否选中状态
 
+@property (nonatomic,assign) BOOL isColor;
+
 @end

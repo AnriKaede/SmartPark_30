@@ -10,6 +10,7 @@
 
 @interface WaterTaskEditTableViewController ()<UITextFieldDelegate>
 {
+    __weak IBOutlet UITableViewCell *_topBgView;
     
     __weak IBOutlet UITextField *_nameTF;
     
@@ -27,6 +28,8 @@
 }
 
 - (void)_initView {
+    [NavGradient viewAddGradient:_topBgView];
+    
     UIButton *leftBtn = [[UIButton alloc] init];
     leftBtn.frame = CGRectMake(0, 0, 40, 40);
     [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
