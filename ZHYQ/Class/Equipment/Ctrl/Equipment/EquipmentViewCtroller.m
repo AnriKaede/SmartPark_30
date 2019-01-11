@@ -493,9 +493,16 @@
                 break;
             case 10:
                 {
+                    /*
                     ManholeCoverViewController *mholeCoverVC = [[ManholeCoverViewController alloc] init];
                     mholeCoverVC.title = model.MENU_NAME;
                     [self.navigationController pushViewController:mholeCoverVC animated:YES];
+                     */
+                    
+                    CommunicationViewController *commncVC = [[CommunicationViewController alloc] init];
+                    commncVC.title = model.MENU_NAME;
+                    [self.navigationController pushViewController:commncVC animated:YES];
+                    break;
                 }
                 break;
             case 11:
