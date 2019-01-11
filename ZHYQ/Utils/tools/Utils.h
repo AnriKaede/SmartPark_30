@@ -63,5 +63,7 @@
 
 + (NSString *)getMonthBeginAndEndWith:(NSString *)dateStr;
 
++ (CGFloat)getStringHeightWithText:(NSString *)text fontSize:(float)fontSize viewWidth:(CGFloat)width;
+
 @end
 

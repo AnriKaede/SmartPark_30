@@ -8,6 +8,7 @@
 
 #import "UnOnlineHomeViewController.h"
 #import "UnOnlineHomeCell.h"
+#import "OverOffLineModel.h"
 
 @interface UnOnlineHomeViewController ()<UITableViewDelegate, UITableViewDataSource, CYLTableViewPlaceHolderDelegate>
 {
@@ -28,6 +29,8 @@
     _length = 10;
     
     [self _initView];
+    
+    [self _loadData];
 }
 
 - (void)_initView {
@@ -69,7 +72,54 @@
 }
 
 - (void)_loadData {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parkSituation/offlineList", Main_Url];
     
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    [paramDic setObject:@"0" forKey:@"status"]; // 0离线 1在线
+    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"param":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self removeNoDataImage];
+        
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            if(_page == 1){
+                [_unOnLineData removeAllObjects];
+            }
+            
+            NSArray *data = responseObject[@"responseData"];
+            if(data.count > _length-1){
+                _tableView.mj_footer.state = MJRefreshStateIdle;
+                _tableView.mj_footer.hidden = NO;
+            }else {
+                _tableView.mj_footer.state = MJRefreshStateNoMoreData;
+                _tableView.mj_footer.hidden = YES;
+            }
+            
+            [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                OverOffLineModel *model = [[OverOffLineModel alloc] initWithDataDic:obj];
+                [_unOnLineData addObject:model];
+            }];
+            
+            [_tableView cyl_reloadData];
+        }
+        
+    } failure:^(NSError *error) {
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        if(_unOnLineData.count <= 0){
+            [self showNoDataImageWithY:KScreenHeight/2];
+        }else {
+            [self showHint:KRequestFailMsg];
+        }
+        
+    }];
 }
 
 // 无网络重载
@@ -88,8 +138,7 @@
 
 #pragma mark UItableView协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return _unOnLineData.count;
-    return 5;
+    return _unOnLineData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 75;
@@ -121,11 +170,11 @@
     return 0.1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    FaceListModel *model = _traceData[indexPath.row];
+    OverOffLineModel *model = _unOnLineData[indexPath.row];
     
     UnOnlineHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UnOnlineHomeCell" forIndexPath:indexPath];
     
-//    cell.faceListModel = model;
+    cell.offlineModel = model;
     
     return cell;
 }

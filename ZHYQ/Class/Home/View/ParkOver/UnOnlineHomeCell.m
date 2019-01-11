@@ -21,4 +21,24 @@
     // Initialization code
 }
 
+- (void)setOfflineModel:(OverOffLineModel *)offlineModel {
+    _offlineModel = offlineModel;
+    
+    _nameLabel.text = [NSString stringWithFormat:@"%@", offlineModel.deviceName];
+    _adressLabel.text = [NSString stringWithFormat:@"%@", offlineModel.deviceAddr];
+    
+    _timeLabel.text = [self timeStrWithInt:offlineModel.offlineTime];
+}
+
+- (NSString *)timeStrWithInt:(NSNumber *)time {
+    if(time == nil || [time isKindOfClass:[NSNull class]]){
+        return @"";
+    }
+    //时间戳转化成时间
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:time.doubleValue/1000.0];
+    return [stampFormatter stringFromDate:stampDate];
+}
+
 @end

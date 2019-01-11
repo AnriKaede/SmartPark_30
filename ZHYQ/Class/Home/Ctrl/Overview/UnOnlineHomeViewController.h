@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UnOnlineHomeViewController : RootViewController
 
+@property (nonatomic,copy) NSArray *onlines;
+
 @end
 
 NS_ASSUME_NONNULL_END

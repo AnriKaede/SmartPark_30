@@ -7,6 +7,7 @@
 //
 
 #import "RootViewController.h"
+#import "OverAlarmModel.h"
 
 typedef enum {
     EqWran = 0,
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WranHomeViewController : RootViewController
 
 @property (nonatomic,assign) HomeWranType wranType;
+@property (nonatomic,retain) OverAlarmModel *alarmModel;
 
 @end
 

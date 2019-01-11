@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OverOffLineModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UnOnlineHomeCell : UITableViewCell
+
+@property (nonatomic,retain) OverOffLineModel *offlineModel;
 
 @end
 

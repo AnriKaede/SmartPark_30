@@ -8,10 +8,14 @@
 
 #import "WranHomeCenViewController.h"
 #import "WranHomeViewController.h"
+#import "OverAlarmModel.h"
 
-#define topMenuCount 3
+#define topMenuCount _wrans.count
 
 @interface WranHomeCenViewController ()
+{
+    NSArray *_wrans;
+}
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
 @end
 
@@ -26,7 +30,8 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (instancetype)init {
+- (instancetype)initWithWrans:(NSArray *)wrans {
+    _wrans = wrans;
     self = [super init];
     if(self){
         [self _initView];
@@ -87,26 +92,14 @@
 }
 
 - (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    switch (index) {
-        case 0:
-        {
-            return [self wranListVC:EqWran];
-            break;
-        }
-        case 1:
-        {
-            return [self wranListVC:ApWran];
-            break;
-        }case 2:
-        {
-            return [self wranListVC:OtherWran];
-            break;
-        }
-    }
-    return [UIViewController new];
+    OverAlarmModel *alarmModel = _wrans[index];
+    return [self wranListVC:OtherWran withModel:alarmModel];
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
+    OverAlarmModel *alarmModel = _wrans[index];
+    return [NSString stringWithFormat:@"%@", alarmModel.alarmLevelName];
+    /*
     switch (index) {
         case 0:
             return @"设备告警";
@@ -124,11 +117,13 @@
             return @"";
             break;
     }
+     */
 }
 
-- (WranHomeViewController *)wranListVC:(HomeWranType)wranType {
+- (WranHomeViewController *)wranListVC:(HomeWranType)wranType withModel:(OverAlarmModel *)model {
     WranHomeViewController *repairVC = [[WranHomeViewController alloc] init];
     repairVC.wranType = wranType;
+    repairVC.alarmModel = model;
     return repairVC;
 }
 

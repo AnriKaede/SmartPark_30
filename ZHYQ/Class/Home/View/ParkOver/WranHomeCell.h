@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OverDetailWranModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WranHomeCell : UITableViewCell
+
+@property (nonatomic,retain) OverDetailWranModel *detailWranModel;
 
 @end
 

@@ -21,4 +21,12 @@
     // Initialization code
 }
 
+- (void)setDetailWranModel:(OverDetailWranModel *)detailWranModel {
+    _detailWranModel = detailWranModel;
+    
+    _nameLabel.text = [NSString stringWithFormat:@"%@", detailWranModel.reportName];
+    _timeLabel.text = [NSString stringWithFormat:@"%@", detailWranModel.alarmTime];
+    _contenntLabel.text = [NSString stringWithFormat:@"%@", detailWranModel.alarmInfo];
+}
+
 @end
