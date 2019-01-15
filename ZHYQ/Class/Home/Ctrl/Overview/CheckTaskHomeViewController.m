@@ -8,6 +8,7 @@
 
 #import "CheckTaskHomeViewController.h"
 #import "CheckTaskHomeCell.h"
+#import "OverTaskModel.h"
 
 @interface CheckTaskHomeViewController ()<UITableViewDelegate, UITableViewDataSource, CYLTableViewPlaceHolderDelegate>
 {
@@ -28,6 +29,8 @@
     _length = 10;
     
     [self _initView];
+    
+    [_tableView.mj_header beginRefreshing];
 }
 
 - (void)_initView {
@@ -57,7 +60,56 @@
 }
 
 - (void)_loadData {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parkSituation/inspectionList", Main_Url];
     
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(_checkModel.routingOrderStatus != nil){
+        [paramDic setObject:_checkModel.routingOrderStatus forKey:@"status"]; // 0离线 1在线
+    }
+    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"params":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self removeNoDataImage];
+        
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            if(_page == 1){
+                [_taskData removeAllObjects];
+            }
+            
+            NSArray *data = responseObject[@"responseData"];
+            if(data.count > _length-1){
+                _tableView.mj_footer.state = MJRefreshStateIdle;
+                _tableView.mj_footer.hidden = NO;
+            }else {
+                _tableView.mj_footer.state = MJRefreshStateNoMoreData;
+                _tableView.mj_footer.hidden = YES;
+            }
+            
+            [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                OverTaskModel *model = [[OverTaskModel alloc] initWithDataDic:obj];
+                [_taskData addObject:model];
+            }];
+            
+            [_tableView cyl_reloadData];
+        }
+        
+    } failure:^(NSError *error) {
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        if(_taskData.count <= 0){
+            [self showNoDataImageWithY:60];
+        }else {
+            [self showHint:KRequestFailMsg];
+        }
+        
+    }];
 }
 
 // 无网络重载
@@ -76,8 +128,7 @@
 
 #pragma mark UItableView协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //    return _taskData.count;
-    return 5;
+    return _taskData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 125;
@@ -95,11 +146,11 @@
     return 0.1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    FaceListModel *model = _traceData[indexPath.row];
+    OverTaskModel *model = _taskData[indexPath.row];
     
     CheckTaskHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CheckTaskHomeCell" forIndexPath:indexPath];
     
-    //    cell.faceListModel = model;
+    cell.taskModel = model;
     
     return cell;
 }

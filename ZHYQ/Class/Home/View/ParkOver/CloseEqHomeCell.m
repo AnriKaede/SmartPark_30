@@ -21,5 +21,11 @@
     // Initialization code
 }
 
+- (void)setUseModel:(OverUseListModel *)useModel {
+    _useModel = useModel;
+    
+    _nameLabel.text = [NSString stringWithFormat:@"%@", useModel.deviceTypeName];
+    _numLabel.text = [NSString stringWithFormat:@"%@", useModel.cnt];
+}
 
 @end

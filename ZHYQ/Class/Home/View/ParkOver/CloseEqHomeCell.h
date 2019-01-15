@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OverUseListModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CloseEqHomeCell : UITableViewCell
+
+@property (nonatomic,retain) OverUseListModel *useModel;
 
 @end
 

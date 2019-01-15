@@ -196,6 +196,7 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 40)];
+    headerView.tag = 100+section;
     headerView.backgroundColor = [UIColor clearColor];
     
     UILabel *pointLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,35/2, 5, 5)];
@@ -213,10 +214,15 @@
     flagImgView.image = [UIImage imageNamed:@"door_list_right_narrow"];
     [headerView addSubview:flagImgView];
     
+    UITapGestureRecognizer *headerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerAction:)];
+    [headerView addGestureRecognizer:headerTap];
     return headerView;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
+    [self indexPush:indexPath.section];
+}
+- (void)indexPush:(NSInteger)index {
+    switch (index) {
         case 0:
         {
             UnOnlineHomeViewController *onLineVC = [[UnOnlineHomeViewController alloc] init];
@@ -241,7 +247,7 @@
         }
         case 3:
         {
-            CheckHomeCenViewController *checkVC = [[CheckHomeCenViewController alloc] init];
+            CheckHomeCenViewController *checkVC = [[CheckHomeCenViewController alloc] initWithTasks:_overModel.inspections];
             checkVC.title = @"巡检任务";
             [self pushVC:checkVC];
             break;
@@ -251,9 +257,12 @@
             break;
     }
 }
-
 - (void)pushVC:(UIViewController *)viewCon {
     [self.navigationController pushViewController:viewCon animated:YES];
+}
+
+- (void)headerAction:(UITapGestureRecognizer *)tap {
+    [self indexPush:tap.view.tag - 100];
 }
 
 @end

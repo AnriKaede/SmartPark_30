@@ -9,9 +9,12 @@
 #import "CheckHomeCenViewController.h"
 #import "CheckTaskHomeViewController.h"
 
-#define topMenuCount 2
+#define topMenuCount _tasks.count
 
 @interface CheckHomeCenViewController ()
+{
+    NSArray *_tasks;
+}
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
 @end
 
@@ -26,7 +29,8 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (instancetype)init {
+- (instancetype)initWithTasks:(NSArray *)tasks {
+    _tasks = tasks;
     self = [super init];
     if(self){
         [self _initView];
@@ -87,40 +91,22 @@
 }
 
 - (__kindof UIViewController *)pageController:(WMPageController *)pageController viewControllerAtIndex:(NSInteger)index {
-    switch (index) {
-        case 0:
-        {
-            return [self taskListVC:UnActionTask];
-            break;
-        }
-        case 1:
-        {
-            return [self taskListVC:CompleteTask];
-            break;
-        }
-    }
-    return [UIViewController new];
+    return [self taskListVC:UnActionTask withIndex:index];
 }
 
 - (NSString *)pageController:(WMPageController *)pageController titleAtIndex:(NSInteger)index {
-    switch (index) {
-        case 0:
-            return @"未执行任务";
-            break;
-            
-        case 1:
-            return @"待执行任务";
-            break;
-            
-        default:
-            return @"";
-            break;
+    OverCheckModel *checkModel = _tasks[index];
+    if(checkModel.routingOrderStatusName != nil && ![checkModel.routingOrderStatusName isKindOfClass:[NSNull class]]){
+        return checkModel.routingOrderStatusName;
+    }else {
+        return @"";
     }
 }
 
-- (CheckTaskHomeViewController *)taskListVC:(HomeCheckTaskType)taskType {
+- (CheckTaskHomeViewController *)taskListVC:(HomeCheckTaskType)taskType withIndex:(NSInteger)index {
     CheckTaskHomeViewController *repairVC = [[CheckTaskHomeViewController alloc] init];
     repairVC.checkTaskType = taskType;
+    repairVC.checkModel = _tasks[index];
     return repairVC;
 }
 

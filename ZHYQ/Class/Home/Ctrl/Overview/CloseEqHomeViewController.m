@@ -8,6 +8,7 @@
 
 #import "CloseEqHomeViewController.h"
 #import "CloseEqHomeCell.h"
+#import "OverUseListModel.h"
 
 @interface CloseEqHomeViewController ()<UITableViewDelegate, UITableViewDataSource, CYLTableViewPlaceHolderDelegate>
 {
@@ -28,6 +29,8 @@
     _length = 10;
     
     [self _initView];
+    
+    [_tableView.mj_header beginRefreshing];
 }
 
 - (void)_initView {
@@ -69,7 +72,53 @@
 }
 
 - (void)_loadData {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parkSituation/shutdwonList", Main_Url];
     
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"params":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self removeNoDataImage];
+        
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            if(_page == 1){
+                [_closeData removeAllObjects];
+            }
+            
+            NSArray *data = responseObject[@"responseData"];
+            if(data.count > _length-1){
+                _tableView.mj_footer.state = MJRefreshStateIdle;
+                _tableView.mj_footer.hidden = NO;
+            }else {
+                _tableView.mj_footer.state = MJRefreshStateNoMoreData;
+                _tableView.mj_footer.hidden = YES;
+            }
+            
+            [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                OverUseListModel *model = [[OverUseListModel alloc] initWithDataDic:obj];
+                [_closeData addObject:model];
+            }];
+            
+        }
+        [_tableView cyl_reloadData];
+        
+    } failure:^(NSError *error) {
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        if(_closeData.count <= 0){
+            [self showNoDataImageWithY:60];
+        }else {
+            [self showHint:KRequestFailMsg];
+        }
+        
+    }];
 }
 
 // 无网络重载
@@ -88,8 +137,7 @@
 
 #pragma mark UItableView协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //    return _closeData.count;
-    return 2;
+    return _closeData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 60;
@@ -107,11 +155,11 @@
     return 0.1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //    FaceListModel *model = _traceData[indexPath.row];
+    OverUseListModel *model = _closeData[indexPath.row];
     
     CloseEqHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CloseEqHomeCell" forIndexPath:indexPath];
     
-    //    cell.faceListModel = model;
+    cell.useModel = model;
     
     return cell;
 }

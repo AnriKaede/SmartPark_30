@@ -7,6 +7,7 @@
 //
 
 #import "RootViewController.h"
+#import "OverCheckModel.h"
 
 typedef enum {
     UnActionTask = 0,
@@ -18,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CheckTaskHomeViewController : RootViewController
 
 @property (nonatomic,assign) HomeCheckTaskType checkTaskType;
+@property (nonatomic,retain) OverCheckModel *checkModel;
 
 @end
 

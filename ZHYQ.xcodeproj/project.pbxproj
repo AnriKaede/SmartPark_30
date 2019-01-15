@@ -354,6 +354,8 @@
 		926DB8DE202A9C3300529BE0 /* OperateLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8DD202A9C3300529BE0 /* OperateLogModel.m */; };
 		926DB8E1202AF59300529BE0 /* LogFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8E0202AF59300529BE0 /* LogFilterViewController.m */; };
 		926DB8E5202BDE1100529BE0 /* LogRecordObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8E4202BDE1100529BE0 /* LogRecordObj.m */; };
+		926EA70821EC13A800BE56F4 /* OverTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA70721EC13A800BE56F4 /* OverTaskModel.m */; };
+		926EA8CB21ED75A100BE56F4 /* OverUseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */; };
 		9273EB0A204E8B3900723C5D /* EvnDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB09204E8B3900723C5D /* EvnDataModel.m */; };
 		9273EB0E204E8D0700723C5D /* EvnDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB0C204E8D0700723C5D /* EvnDataCell.m */; };
 		9273EB0F204E8D0700723C5D /* EvnDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9273EB0D204E8D0700723C5D /* EvnDataCell.xib */; };
@@ -1578,6 +1580,10 @@
 		926DB8E0202AF59300529BE0 /* LogFilterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogFilterViewController.m; sourceTree = "<group>"; };
 		926DB8E3202BDE1100529BE0 /* LogRecordObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogRecordObj.h; sourceTree = "<group>"; };
 		926DB8E4202BDE1100529BE0 /* LogRecordObj.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogRecordObj.m; sourceTree = "<group>"; };
+		926EA70621EC13A800BE56F4 /* OverTaskModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverTaskModel.h; sourceTree = "<group>"; };
+		926EA70721EC13A800BE56F4 /* OverTaskModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverTaskModel.m; sourceTree = "<group>"; };
+		926EA8C921ED75A100BE56F4 /* OverUseListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverUseListModel.h; sourceTree = "<group>"; };
+		926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverUseListModel.m; sourceTree = "<group>"; };
 		9273EB08204E8B3900723C5D /* EvnDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvnDataModel.h; sourceTree = "<group>"; };
 		9273EB09204E8B3900723C5D /* EvnDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvnDataModel.m; sourceTree = "<group>"; };
 		9273EB0B204E8D0700723C5D /* EvnDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvnDataCell.h; sourceTree = "<group>"; };
@@ -3012,6 +3018,10 @@
 				9223613421E88D9E00E412F4 /* OverDeviceInfoModel.m */,
 				9223613621E8942A00E412F4 /* OverDetailWranModel.h */,
 				9223613721E8942A00E412F4 /* OverDetailWranModel.m */,
+				926EA8C921ED75A100BE56F4 /* OverUseListModel.h */,
+				926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */,
+				926EA70621EC13A800BE56F4 /* OverTaskModel.h */,
+				926EA70721EC13A800BE56F4 /* OverTaskModel.m */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -6533,6 +6543,7 @@
 				D60CA2BD1FB9BC2C00725389 /* OutDoorBgMusicViewController.m in Sources */,
 				92E87D651FB6FC6A0045D2FF /* OpenRecordCell.m in Sources */,
 				92A308051FF60BA30024538A /* SelWeekView.m in Sources */,
+				926EA8CB21ED75A100BE56F4 /* OverUseListModel.m in Sources */,
 				D6F6655A1FA3062200059931 /* SetFooterView.m in Sources */,
 				D63922DC1FB5352A00E1A00A /* YQTextView.m in Sources */,
 				922770D020BCE4A9009010F7 /* MessageTypeViewController.m in Sources */,
@@ -6809,6 +6820,7 @@
 				D653D73C1FB14F7000798E1F /* FountainTableViewCell.m in Sources */,
 				921A840C1FA962CC00EE4F41 /* GraphListTableViewController.m in Sources */,
 				922770E420BD3B11009010F7 /* CarRecordModel.m in Sources */,
+				926EA70821EC13A800BE56F4 /* OverTaskModel.m in Sources */,
 				D60CA2A81FB9489800725389 /* YQPageContentScrollView.m in Sources */,
 				925348B521D4D20C00B05593 /* EquipmQueryCell.m in Sources */,
 				D674A8451FD40D4C00E773FD /* ParkAreasModel.m in Sources */,

@@ -21,5 +21,16 @@
     // Initialization code
 }
 
+- (void)setTaskModel:(OverTaskModel *)taskModel {
+    _taskModel = taskModel;
+    
+    _nameLabel.text = [NSString stringWithFormat:@"%@", taskModel.taskName];
+    if(taskModel.beginTime != nil && [taskModel.beginTime isKindOfClass:[NSNumber class]]){
+        _timeLabel.text = [Utils timeStrWithInt:taskModel.beginTime];
+    }else {
+        _timeLabel.text = @"";
+    }
+    _contenntLabel.text = [NSString stringWithFormat:@"%@", taskModel.taskDesc];
+}
 
 @end

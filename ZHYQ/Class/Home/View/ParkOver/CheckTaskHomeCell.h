@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OverTaskModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CheckTaskHomeCell : UITableViewCell
+
+@property (nonatomic,retain) OverTaskModel *taskModel;
 
 @end
 

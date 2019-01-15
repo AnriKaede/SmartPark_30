@@ -30,7 +30,7 @@
     
     [self _initView];
     
-    [self _loadData];
+    [_tableView.mj_header beginRefreshing];
 }
 
 - (void)_initView {
@@ -70,7 +70,7 @@
     [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
     
     NSString *paramStr = [Utils convertToJsonData:paramDic];
-    NSDictionary *params = @{@"param":paramStr};
+    NSDictionary *params = @{@"params":paramStr};
     
     [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
         [self removeNoDataImage];
@@ -97,8 +97,8 @@
                 [_wranData addObject:model];
             }];
             
-            [_tableView cyl_reloadData];
         }
+        [_tableView cyl_reloadData];
         
     } failure:^(NSError *error) {
         [_tableView.mj_header endRefreshing];

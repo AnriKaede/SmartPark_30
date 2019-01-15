@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CheckHomeCenViewController : WMPageController
-
+- (instancetype)initWithTasks:(NSArray *)tasks;
 @end
 
 NS_ASSUME_NONNULL_END
