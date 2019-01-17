@@ -6,6 +6,12 @@
 //  Copyright © 2018年 焦平. All rights reserved.
 //
 
+typedef enum {
+    ParkFeeDay = 0,
+    ParkFeeWeek,
+    ParkFeeMonth
+}ParkFeeType;
+
 #import "ParkFeeViewController.h"
 #import "ParkFeeListViewController.h"
 #import "ParkFeeTopCell.h"
@@ -21,6 +27,8 @@
     [super viewDidLoad];
     
     [self initNav];
+    
+    [self _loadData];
 }
 
 -(void)initNav{
@@ -57,6 +65,54 @@
 {
     ParkFeeListViewController *parkFeeListVc = [[ParkFeeListViewController alloc] init];
     [self.navigationController pushViewController:parkFeeListVc animated:YES];
+}
+
+- (void)_loadData:(ParkFeeType)parkFeeType {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parking/chargeStatistics", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(parkFeeType == ParkFeeDay){
+        [paramDic setObject:@"day" forKey:@"timeType"];
+    }else if(parkFeeType == ParkFeeWeek){
+        [paramDic setObject:@"week" forKey:@"timeType"];
+    }else if(parkFeeType == ParkFeeMonth){
+        [paramDic setObject:@"month" forKey:@"timeType"];
+    }
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"params":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            
+            NSArray *data = responseObject[@"responseData"];
+            if(data.count > _length-1){
+                _tableView.mj_footer.state = MJRefreshStateIdle;
+                _tableView.mj_footer.hidden = NO;
+            }else {
+                _tableView.mj_footer.state = MJRefreshStateNoMoreData;
+                _tableView.mj_footer.hidden = YES;
+            }
+            
+            [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                OverUseListModel *model = [[OverUseListModel alloc] initWithDataDic:obj];
+                [_closeData addObject:model];
+            }];
+            
+        }
+        [_tableView cyl_reloadData];
+        
+    } failure:^(NSError *error) {
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        if(_closeData.count <= 0){
+            [self showNoDataImageWithY:60];
+        }else {
+            [self showHint:KRequestFailMsg];
+        }
+        
+    }];
 }
 
 #pragma mark UITableView协议

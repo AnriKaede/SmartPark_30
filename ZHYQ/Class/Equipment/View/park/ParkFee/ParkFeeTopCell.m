@@ -28,7 +28,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if(self){
-        [self _initView];
+//        [self _initView];
     }
     return self;
 }
@@ -52,12 +52,14 @@
             [dateBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
         [dateBt addTarget:self action:@selector(dateFilterAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_bgView addSubview:dateBt];
+        [_topBgView addSubview:dateBt];
     }];
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     _topBgView.backgroundColor = CNavBgColor;
     _bgView.backgroundColor = CNavBgColor;
@@ -72,6 +74,11 @@
     
     // 添加渐变色
     [NavGradient viewAddGradient:_topBgView];
+    
+    UIButton *bt = [_topBgView viewWithTag:100];
+    if(!bt){
+        [self _initView];
+    }
 }
 
 #pragma mark 柱状图按日期筛选

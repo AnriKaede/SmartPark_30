@@ -94,6 +94,10 @@
     _isShow = YES;
     [view addSubview:self];
     __weak typeof(self) _weakSelf = self;
+    
+    UITableView *tableView = (UITableView *)view;
+    
+    self.frame = CGRectMake(0, tableView.contentOffset.y, KScreenWidth, KScreenHeight);
     self.contentView.frame = CGRectMake(0, -kATTR_VIEW_HEIGHT, kWidth, kATTR_VIEW_HEIGHT);
     
     [UIView animateWithDuration:0.3 animations:^{

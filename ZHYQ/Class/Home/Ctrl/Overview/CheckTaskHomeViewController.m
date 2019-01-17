@@ -97,8 +97,8 @@
                 [_taskData addObject:model];
             }];
             
-            [_tableView cyl_reloadData];
         }
+        [_tableView cyl_reloadData];
         
     } failure:^(NSError *error) {
         [_tableView.mj_header endRefreshing];
@@ -131,7 +131,12 @@
     return _taskData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 125;
+    OverTaskModel *model = _taskData[indexPath.row];
+    
+    NSString *text = [NSString stringWithFormat:@"%@", model.taskDesc];
+    CGFloat height = [Utils getStringHeightWithText:text fontSize:17 viewWidth:KScreenWidth];
+    
+    return 110 + height;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return [UIView new];
