@@ -30,6 +30,15 @@
     _timeLabel.text = [self timeStrWithInt:offlineModel.offlineTime];
 }
 
+- (void)setOverCloseListModel:(OverCloseListModel *)overCloseListModel {
+    _overCloseListModel = overCloseListModel;
+    
+    _nameLabel.text = [NSString stringWithFormat:@"%@", overCloseListModel.deviceName];
+    _adressLabel.text = [NSString stringWithFormat:@"%@", overCloseListModel.deviceAddr];
+    
+    _timeLabel.text = [self timeStrWithInt:overCloseListModel.statusTime];
+}
+
 - (NSString *)timeStrWithInt:(NSNumber *)time {
     if(time == nil || [time isKindOfClass:[NSNull class]]){
         return @"";

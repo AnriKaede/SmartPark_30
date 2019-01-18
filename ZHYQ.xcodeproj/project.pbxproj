@@ -339,6 +339,10 @@
 		926748E82136A2840007BDA1 /* VisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 926748E72136A2840007BDA1 /* VisFilterView.m */; };
 		926A818D21F16706008A46ED /* ParkFeeCountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A818C21F16706008A46ED /* ParkFeeCountModel.m */; };
 		926A819021F1672B008A46ED /* ParkFeePayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A818F21F1672B008A46ED /* ParkFeePayModel.m */; };
+		926A819321F1D035008A46ED /* ParkConsumeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A819221F1D035008A46ED /* ParkConsumeModel.m */; };
+		926A819621F1D2ED008A46ED /* OverColseCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A819521F1D2ED008A46ED /* OverColseCenViewController.m */; };
+		926A819921F1D312008A46ED /* OverCloseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A819821F1D312008A46ED /* OverCloseListViewController.m */; };
+		926A819C21F1DB59008A46ED /* OverCloseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A819B21F1DB59008A46ED /* OverCloseListModel.m */; };
 		926B69721FD137B100DEFEDD /* IllegalListTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 926B69711FD137B100DEFEDD /* IllegalListTabCell.xib */; };
 		926B69751FD142CA00DEFEDD /* IllegalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926B69741FD142CA00DEFEDD /* IllegalDetailViewController.m */; };
 		926B69791FD24B2F00DEFEDD /* CarIllegeaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 926B69771FD24B2F00DEFEDD /* CarIllegeaCell.m */; };
@@ -1544,6 +1548,14 @@
 		926A818C21F16706008A46ED /* ParkFeeCountModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkFeeCountModel.m; sourceTree = "<group>"; };
 		926A818E21F1672B008A46ED /* ParkFeePayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkFeePayModel.h; sourceTree = "<group>"; };
 		926A818F21F1672B008A46ED /* ParkFeePayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkFeePayModel.m; sourceTree = "<group>"; };
+		926A819121F1D035008A46ED /* ParkConsumeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkConsumeModel.h; sourceTree = "<group>"; };
+		926A819221F1D035008A46ED /* ParkConsumeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkConsumeModel.m; sourceTree = "<group>"; };
+		926A819421F1D2ED008A46ED /* OverColseCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverColseCenViewController.h; sourceTree = "<group>"; };
+		926A819521F1D2ED008A46ED /* OverColseCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverColseCenViewController.m; sourceTree = "<group>"; };
+		926A819721F1D312008A46ED /* OverCloseListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverCloseListViewController.h; sourceTree = "<group>"; };
+		926A819821F1D312008A46ED /* OverCloseListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverCloseListViewController.m; sourceTree = "<group>"; };
+		926A819A21F1DB59008A46ED /* OverCloseListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverCloseListModel.h; sourceTree = "<group>"; };
+		926A819B21F1DB59008A46ED /* OverCloseListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverCloseListModel.m; sourceTree = "<group>"; };
 		926B69711FD137B100DEFEDD /* IllegalListTabCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IllegalListTabCell.xib; sourceTree = "<group>"; };
 		926B69731FD142CA00DEFEDD /* IllegalDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IllegalDetailViewController.h; sourceTree = "<group>"; };
 		926B69741FD142CA00DEFEDD /* IllegalDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IllegalDetailViewController.m; sourceTree = "<group>"; };
@@ -3026,6 +3038,8 @@
 				9223613721E8942A00E412F4 /* OverDetailWranModel.m */,
 				926EA8C921ED75A100BE56F4 /* OverUseListModel.h */,
 				926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */,
+				926A819A21F1DB59008A46ED /* OverCloseListModel.h */,
+				926A819B21F1DB59008A46ED /* OverCloseListModel.m */,
 				926EA70621EC13A800BE56F4 /* OverTaskModel.h */,
 				926EA70721EC13A800BE56F4 /* OverTaskModel.m */,
 			);
@@ -3135,6 +3149,10 @@
 				9265606F21E2E348006D1FDB /* WranHomeViewController.m */,
 				9265607121E2E362006D1FDB /* CloseEqHomeViewController.h */,
 				9265607221E2E362006D1FDB /* CloseEqHomeViewController.m */,
+				926A819421F1D2ED008A46ED /* OverColseCenViewController.h */,
+				926A819521F1D2ED008A46ED /* OverColseCenViewController.m */,
+				926A819721F1D312008A46ED /* OverCloseListViewController.h */,
+				926A819821F1D312008A46ED /* OverCloseListViewController.m */,
 				9265609221E2EF4E006D1FDB /* CheckHomeCenViewController.h */,
 				9265609321E2EF4E006D1FDB /* CheckHomeCenViewController.m */,
 				9265607421E2E385006D1FDB /* CheckTaskHomeViewController.h */,
@@ -3685,6 +3703,8 @@
 				926A818C21F16706008A46ED /* ParkFeeCountModel.m */,
 				926A818E21F1672B008A46ED /* ParkFeePayModel.h */,
 				926A818F21F1672B008A46ED /* ParkFeePayModel.m */,
+				926A819121F1D035008A46ED /* ParkConsumeModel.h */,
+				926A819221F1D035008A46ED /* ParkConsumeModel.m */,
 			);
 			path = parkFee;
 			sourceTree = "<group>";
@@ -6441,7 +6461,9 @@
 				92E83DF5208EDD15006759E7 /* ReportAlertView.m in Sources */,
 				D629A62F1FA16D7400FA5EE1 /* PersonalViewController.m in Sources */,
 				9226845C20AC4463006628B3 /* CompleteConfirmViewController.m in Sources */,
+				926A819621F1D2ED008A46ED /* OverColseCenViewController.m in Sources */,
 				928775401FBC1F7800BF708A /* EnergyCountViewController.m in Sources */,
+				926A819C21F1DB59008A46ED /* OverCloseListModel.m in Sources */,
 				92FAC4E6219AD10E00FB1489 /* FaceHistory.xcdatamodeld in Sources */,
 				9226845620AC1102006628B3 /* RejectBillView.m in Sources */,
 				928775221FBA820000BF708A /* WifiMenuView.m in Sources */,
@@ -6723,6 +6745,7 @@
 				92D8DDBC2046A09800E8185A /* EnvDataViewController.m in Sources */,
 				D6928CC11FBD226500CB9C18 /* InDoorWifiModel.m in Sources */,
 				D653D73F1FB1587300798E1F /* BgMusicViewController.m in Sources */,
+				926A819921F1D312008A46ED /* OverCloseListViewController.m in Sources */,
 				D65685701FB0897F00BDFFF3 /* YQHeaderView.m in Sources */,
 				D695D1AC1FB6C5F3005255E9 /* MenuModel.m in Sources */,
 				922B41262154A08C00B9F6E4 /* AttDetailTableViewCell.m in Sources */,
@@ -6977,6 +7000,7 @@
 				927FA6F42191B179002CB32C /* WifiCountTimeModel.m in Sources */,
 				D63199A01FCBBC3B00B78805 /* FgUnParkTableViewCell.m in Sources */,
 				9276A5A5208875D900F6667B /* WorkListViewController.m in Sources */,
+				926A819321F1D035008A46ED /* ParkConsumeModel.m in Sources */,
 				92D96C1420F73784000B8DC4 /* AirMenuView.m in Sources */,
 				928426E8214B976400C909D4 /* ReservedFilterView.m in Sources */,
 				927FA6F72191B185002CB32C /* WifiCountSpeedModel.m in Sources */,

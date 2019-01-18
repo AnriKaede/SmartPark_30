@@ -10,17 +10,25 @@
 #import "ParkFeeListCell.h"
 #import "ParkFeeDetailViewController.h"
 #import "ParkFeeFilterView.h"
+#import "ParkConsumeModel.h"
 
-@interface ParkFeeListViewController ()<ParkFeeFaliterPopViewDelegate>
+@interface ParkFeeListViewController ()<ParkFeeFaliterPopViewDelegate, UITableViewDelegate, UITableViewDataSource>
 
+{
+    UITableView *_tableView;
+    int _page;
+    int _length;
+    
+    NSMutableArray *_consumeData;
+}
 @property (nonatomic,retain) ParkFeeFilterView *filterView;
-
 @end
 
 @implementation ParkFeeListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _consumeData = @[].mutableCopy;
     
     [self initNav];
     
@@ -65,10 +73,95 @@
 }
 
 -(void)initView{
-    [self.tableView registerNib:[UINib nibWithNibName:@"ParkFeeListCell" bundle:nil] forCellReuseIdentifier:@"ParkFeeListCell"];
-    self.tableView.separatorColor = [UIColor clearColor];
-    self.tableView.showsVerticalScrollIndicator = NO;
-    self.tableView.showsHorizontalScrollIndicator = NO;
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight) style:UITableViewStylePlain];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    _tableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
+    [self.view addSubview:_tableView];
+    
+    _tableView.estimatedRowHeight = 0;
+    _tableView.estimatedSectionHeaderHeight = 0;
+    _tableView.estimatedSectionFooterHeight = 0;
+    
+    [_tableView registerNib:[UINib nibWithNibName:@"ParkFeeListCell" bundle:nil] forCellReuseIdentifier:@"ParkFeeListCell"];
+
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        _page = 1;
+        [self _loadData];
+    }];
+    // 上拉刷新
+    _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        _page ++;
+        [self _loadData];
+    }];
+    _tableView.mj_footer.hidden = YES;
+}
+
+- (void)_loadData {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parkSituation/shutdwonList", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"params":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        [self removeNoDataImage];
+        
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            if(_page == 1){
+                [_consumeData removeAllObjects];
+            }
+            
+            NSArray *data = responseObject[@"responseData"][@"items"];
+            if(data.count > _length-1){
+                _tableView.mj_footer.state = MJRefreshStateIdle;
+                _tableView.mj_footer.hidden = NO;
+            }else {
+                _tableView.mj_footer.state = MJRefreshStateNoMoreData;
+                _tableView.mj_footer.hidden = YES;
+            }
+            
+#warning 需要根据ParkConsumeModel中 isMonthFirst 重新组合数组
+            /*
+            [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                ParkConsumeModel *model = [[ParkConsumeModel alloc] initWithDataDic:obj];
+                [_consumeData addObject:model];
+            }];
+            */
+        }
+        [_tableView cyl_reloadData];
+        
+    } failure:^(NSError *error) {
+        [_tableView.mj_header endRefreshing];
+        [_tableView.mj_footer endRefreshing];
+        if(_consumeData.count <= 0){
+            [self showNoDataImageWithY:60];
+        }else {
+            [self showHint:KRequestFailMsg];
+        }
+        
+    }];
+}
+
+// 无网络重载
+- (void)reloadTableData {
+    [self _loadData];
+}
+
+#pragma mark 无数据协议
+- (UIView *)makePlaceHolderView {
+    NoDataView *noDataView = [[NoDataView alloc] initWithFrame:CGRectMake(0, 60, KScreenWidth, KScreenHeight - 63)];
+    return noDataView;
+}
+- (BOOL)enableScrollWhenPlaceHolderViewShowing {
+    return YES;
 }
 
 #pragma mark - Table view data source
@@ -83,6 +176,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ParkFeeListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ParkFeeListCell" forIndexPath:indexPath];
+//    cell.parkConsumeModel =
     return cell;
 }
 
@@ -132,6 +226,14 @@
 {
     ParkFeeDetailViewController *parkFeeDetailVc = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"ParkFeeDetailViewController"];
     [self.navigationController pushViewController:parkFeeDetailVc animated:YES];
+}
+
+#pragma mark 筛选协议
+-(void)resetCallBackAction {
+    
+}
+-(void)completeCallBackAction {
+    
 }
 
 @end

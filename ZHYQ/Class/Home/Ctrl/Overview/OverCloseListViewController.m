@@ -1,17 +1,16 @@
 //
-//  CloseEqHomeViewController.m
+//  OverCloseListViewController.m
 //  ZHYQ
 //
-//  Created by 魏唯隆 on 2019/1/7.
+//  Created by 魏唯隆 on 2019/1/18.
 //  Copyright © 2019 焦平. All rights reserved.
 //
 
-#import "CloseEqHomeViewController.h"
-#import "CloseEqHomeCell.h"
-#import "OverUseListModel.h"
 #import "OverCloseListViewController.h"
+#import "UnOnlineHomeCell.h"
+#import "OverCloseListModel.h"
 
-@interface CloseEqHomeViewController ()<UITableViewDelegate, UITableViewDataSource, CYLTableViewPlaceHolderDelegate>
+@interface OverCloseListViewController ()<UITableViewDelegate, UITableViewDataSource, CYLTableViewPlaceHolderDelegate>
 {
     UITableView *_tableView;
     NSMutableArray *_closeData;
@@ -21,13 +20,13 @@
 }
 @end
 
-@implementation CloseEqHomeViewController
+@implementation OverCloseListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     _closeData = @[].mutableCopy;
     _page = 1;
-    _length = 20;
+    _length = 10;
     
     [self _initView];
     
@@ -35,6 +34,16 @@
 }
 
 - (void)_initView {
+    self.title = @"关闭设备";
+    
+    UIButton *leftBtn = [[UIButton alloc] init];
+    leftBtn.frame = CGRectMake(0, 0, 40, 40);
+    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight - kTopHeight) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -46,7 +55,7 @@
     _tableView.estimatedSectionHeaderHeight = 0;
     _tableView.estimatedSectionFooterHeight = 0;
     
-    [_tableView registerNib:[UINib nibWithNibName:@"CloseEqHomeCell" bundle:nil] forCellReuseIdentifier:@"CloseEqHomeCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"UnOnlineHomeCell" bundle:nil] forCellReuseIdentifier:@"UnOnlineHomeCell"];
     
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         _page = 1;
@@ -58,24 +67,18 @@
         [self _loadData];
     }];
     _tableView.mj_footer.hidden = YES;
-
-    UIButton *leftBtn = [[UIButton alloc] init];
-    leftBtn.frame = CGRectMake(0, 0, 40, 40);
-    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
-    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
-    self.navigationItem.leftBarButtonItem = leftItem;
 }
-
 - (void)_leftBarBtnItemClick {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)_loadData {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/parkSituation/shutdownList", Main_Url];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parkSituation/shutdownListDetail", Main_Url];
     
     NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(_overUseListModel.deviceType != nil){
+        [paramDic setObject:_overUseListModel.deviceType forKey:@"deviceType"]; // 0离线 1在线
+    }
     [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
     [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
     
@@ -103,7 +106,7 @@
             }
             
             [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                OverUseListModel *model = [[OverUseListModel alloc] initWithDataDic:obj];
+                OverCloseListModel *model = [[OverCloseListModel alloc] initWithDataDic:obj];
                 [_closeData addObject:model];
             }];
             
@@ -141,13 +144,27 @@
     return _closeData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60;
+    return 75;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [UIView new];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 40)];
+    headerView.backgroundColor = [UIColor colorWithHexString:@"efefef"];
+    
+    CGFloat itemWidth = KScreenWidth/3;
+    NSArray *titles = @[@"设备名称",@"设备位置",@"关闭时间"];
+    for (int i=0; i<3; i++) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(itemWidth*i, 0, itemWidth, 40)];
+        label.text = titles[i];
+        label.textColor = [UIColor blackColor];
+        label.font = [UIFont systemFontOfSize:17];
+        label.textAlignment = NSTextAlignmentCenter;
+        [headerView addSubview:label];
+    }
+    
+    return headerView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.1;
+    return 40;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [UIView new];
@@ -156,20 +173,15 @@
     return 0.1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    OverUseListModel *model = _closeData[indexPath.row];
+    OverCloseListModel *model = _closeData[indexPath.row];
     
-    CloseEqHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CloseEqHomeCell" forIndexPath:indexPath];
+    UnOnlineHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UnOnlineHomeCell" forIndexPath:indexPath];
     
-    cell.useModel = model;
+    cell.overCloseListModel = model;
     
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    OverUseListModel *model = _closeData[indexPath.row];
-    OverCloseListViewController *listVC = [[OverCloseListViewController alloc] init];
-    listVC.overUseListModel = model;
-    [self.navigationController pushViewController:listVC animated:YES];
 }
 @end
