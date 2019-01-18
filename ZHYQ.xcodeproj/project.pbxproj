@@ -337,6 +337,8 @@
 		9266944D219EA4F4004583B2 /* LEDForworkDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266944C219EA4F4004583B2 /* LEDForworkDetailViewController.m */; };
 		926748E2213682BF0007BDA1 /* UITextField+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 926748E1213682BF0007BDA1 /* UITextField+Position.m */; };
 		926748E82136A2840007BDA1 /* VisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 926748E72136A2840007BDA1 /* VisFilterView.m */; };
+		926A818D21F16706008A46ED /* ParkFeeCountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A818C21F16706008A46ED /* ParkFeeCountModel.m */; };
+		926A819021F1672B008A46ED /* ParkFeePayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A818F21F1672B008A46ED /* ParkFeePayModel.m */; };
 		926B69721FD137B100DEFEDD /* IllegalListTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 926B69711FD137B100DEFEDD /* IllegalListTabCell.xib */; };
 		926B69751FD142CA00DEFEDD /* IllegalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926B69741FD142CA00DEFEDD /* IllegalDetailViewController.m */; };
 		926B69791FD24B2F00DEFEDD /* CarIllegeaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 926B69771FD24B2F00DEFEDD /* CarIllegeaCell.m */; };
@@ -1538,6 +1540,10 @@
 		926748E1213682BF0007BDA1 /* UITextField+Position.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Position.m"; sourceTree = "<group>"; };
 		926748E62136A2840007BDA1 /* VisFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisFilterView.h; sourceTree = "<group>"; };
 		926748E72136A2840007BDA1 /* VisFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisFilterView.m; sourceTree = "<group>"; };
+		926A818B21F16706008A46ED /* ParkFeeCountModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkFeeCountModel.h; sourceTree = "<group>"; };
+		926A818C21F16706008A46ED /* ParkFeeCountModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkFeeCountModel.m; sourceTree = "<group>"; };
+		926A818E21F1672B008A46ED /* ParkFeePayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkFeePayModel.h; sourceTree = "<group>"; };
+		926A818F21F1672B008A46ED /* ParkFeePayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkFeePayModel.m; sourceTree = "<group>"; };
 		926B69711FD137B100DEFEDD /* IllegalListTabCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IllegalListTabCell.xib; sourceTree = "<group>"; };
 		926B69731FD142CA00DEFEDD /* IllegalDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IllegalDetailViewController.h; sourceTree = "<group>"; };
 		926B69741FD142CA00DEFEDD /* IllegalDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IllegalDetailViewController.m; sourceTree = "<group>"; };
@@ -3085,6 +3091,7 @@
 		922770E120BD3AFE009010F7 /* Park */ = {
 			isa = PBXGroup;
 			children = (
+				926A818A21F166A1008A46ED /* parkFee */,
 				9222CAE0215FAEC000C519FF /* StopParkManager */,
 				922770E220BD3B11009010F7 /* CarRecordModel.h */,
 				922770E320BD3B11009010F7 /* CarRecordModel.m */,
@@ -3669,6 +3676,17 @@
 				92669418219D4FD3004583B2 /* richText_editor.html */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		926A818A21F166A1008A46ED /* parkFee */ = {
+			isa = PBXGroup;
+			children = (
+				926A818B21F16706008A46ED /* ParkFeeCountModel.h */,
+				926A818C21F16706008A46ED /* ParkFeeCountModel.m */,
+				926A818E21F1672B008A46ED /* ParkFeePayModel.h */,
+				926A818F21F1672B008A46ED /* ParkFeePayModel.m */,
+			);
+			path = parkFee;
 			sourceTree = "<group>";
 		};
 		926B69C71FD27DB300DEFEDD /* Bluetooth */ = {
@@ -6546,6 +6564,7 @@
 				926EA8CB21ED75A100BE56F4 /* OverUseListModel.m in Sources */,
 				D6F6655A1FA3062200059931 /* SetFooterView.m in Sources */,
 				D63922DC1FB5352A00E1A00A /* YQTextView.m in Sources */,
+				926A819021F1672B008A46ED /* ParkFeePayModel.m in Sources */,
 				922770D020BCE4A9009010F7 /* MessageTypeViewController.m in Sources */,
 				D63922CF1FB46DAE00E1A00A /* BaseModel.m in Sources */,
 				92D8B8BF206A1FD50001263F /* AAOptions3d.m in Sources */,
@@ -6877,6 +6896,7 @@
 				92343BFC20D8FE6A00A28603 /* BatchLockCell.m in Sources */,
 				922B40D0215489E500B9F6E4 /* CardRecordViewController.m in Sources */,
 				92E87D301FB59AAE0045D2FF /* DrainWaterViewController.m in Sources */,
+				926A818D21F16706008A46ED /* ParkFeeCountModel.m in Sources */,
 				9253BD7620BFA58E00AB4767 /* SBJsonUTF8Stream.m in Sources */,
 				927DC20420089E8E005C65FB /* MusicGroupViewController.m in Sources */,
 				92D8B8E3206B49620001263F /* FaceFilterViewController.m in Sources */,

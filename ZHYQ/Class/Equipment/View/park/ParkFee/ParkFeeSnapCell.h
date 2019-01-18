@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ParkFeeSnapCell : UITableViewCell
 
+@property (nonatomic,copy) NSArray *items;
+
 @end
 
 NS_ASSUME_NONNULL_END

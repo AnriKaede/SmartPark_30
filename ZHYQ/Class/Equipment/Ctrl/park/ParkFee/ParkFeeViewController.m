@@ -17,18 +17,24 @@ typedef enum {
 #import "ParkFeeTopCell.h"
 #import "ParkFeeSnapCell.h"
 
-@interface ParkFeeViewController ()
+#import "ParkFeeCountModel.h"
 
+@interface ParkFeeViewController ()<ParkFeeDateFilterDelegate>
+{
+    ParkFeeCountModel *_parkFeeCountModel;
+    NSMutableArray *_itemsData;
+}
 @end
 
 @implementation ParkFeeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _itemsData = @[].mutableCopy;
     
     [self initNav];
     
-    [self _loadData];
+    [self _loadData:ParkFeeDay];
 }
 
 -(void)initNav{
@@ -86,32 +92,45 @@ typedef enum {
         NSString *code = responseObject[@"code"];
         if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
             
-            NSArray *data = responseObject[@"responseData"];
-            if(data.count > _length-1){
-                _tableView.mj_footer.state = MJRefreshStateIdle;
-                _tableView.mj_footer.hidden = NO;
-            }else {
-                _tableView.mj_footer.state = MJRefreshStateNoMoreData;
-                _tableView.mj_footer.hidden = YES;
-            }
-            
-            [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                OverUseListModel *model = [[OverUseListModel alloc] initWithDataDic:obj];
-                [_closeData addObject:model];
-            }];
-            
+            NSDictionary *responseData = responseObject[@"responseData"];
+            _parkFeeCountModel = [[ParkFeeCountModel alloc] initWithDataDic:responseData];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         }
-        [_tableView cyl_reloadData];
         
     } failure:^(NSError *error) {
-        [_tableView.mj_header endRefreshing];
-        [_tableView.mj_footer endRefreshing];
-        if(_closeData.count <= 0){
-            [self showNoDataImageWithY:60];
-        }else {
-            [self showHint:KRequestFailMsg];
+        [self showHint:KRequestFailMsg];
+    }];
+    
+    [self loadSnapData:parkFeeType];
+}
+
+- (void)loadSnapData:(ParkFeeType)parkFeeType {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parking/periodStatistics", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(parkFeeType == ParkFeeDay){
+        [paramDic setObject:@"day" forKey:@"timeType"];
+    }else if(parkFeeType == ParkFeeWeek){
+        [paramDic setObject:@"week" forKey:@"timeType"];
+    }else if(parkFeeType == ParkFeeMonth){
+        [paramDic setObject:@"month" forKey:@"timeType"];
+    }
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"params":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            
+            NSDictionary *responseData = responseObject[@"responseData"];
+            NSArray *items = responseData[@"items"];
+            _itemsData = items.mutableCopy;
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
         }
         
+    } failure:^(NSError *error) {
+        [self showHint:KRequestFailMsg];
     }];
 }
 
@@ -154,10 +173,34 @@ typedef enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 0){
         ParkFeeTopCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ParkFeeTopCell" forIndexPath:indexPath];
+        cell.parkFeeCountModel = _parkFeeCountModel;
+        cell.filterDelegate = self;
         return cell;
     }else {
         ParkFeeSnapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ParkFeeSnapCell" forIndexPath:indexPath];
+        cell.items = _itemsData;
         return cell;
+    }
+}
+
+#pragma mark 日周月切换协议
+- (void)filterDelegate:(FilterDateStyle)filterDateStyle {
+    switch (filterDateStyle) {
+        case FilterDay:
+            {
+                [self _loadData:ParkFeeDay];
+                break;
+            }
+        case FilterWeek:
+        {
+            [self _loadData:ParkFeeWeek];
+            break;
+        }
+        case FilterMonth:
+        {
+            [self _loadData:ParkFeeMonth];
+            break;
+        }
     }
 }
 

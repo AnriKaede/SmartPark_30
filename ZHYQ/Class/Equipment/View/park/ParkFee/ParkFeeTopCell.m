@@ -16,7 +16,7 @@
     __weak IBOutlet UIView *_bgView;
     
     __weak IBOutlet UILabel *_numLabel;
-    __weak IBOutlet UIView *_ratioLabel;    // %
+    __weak IBOutlet UILabel *_ratioLabel;    // %
     __weak IBOutlet UIImageView *_upDownImgView;
     
     __weak IBOutlet UILabel *_wechatLabel;
@@ -88,19 +88,22 @@
     switch (dateBt.tag - 100) {
         case 0:
             // 日
+            [self filter:FilterDay];
             break;
         case 1:
             // 周
+            [self filter:FilterWeek];
             break;
         case 2:
             // 月
+            [self filter:FilterMonth];
             break;
             
     }
 }
 - (void)changeBtState:(UIButton *)dateBt {
     for (int i=0; i<3; i++) {
-        UIButton *button = [_bgView viewWithTag:100 + i];
+        UIButton *button = [_topBgView viewWithTag:100 + i];
         if(button == dateBt){
             button.backgroundColor = [UIColor colorWithHexString:@"#D1E6F6"];
             [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -110,19 +113,39 @@
         }
     }
     
-    if(dateBt.tag - 100 == 0){
-        [self filter:FilterDay];
-    }else if(dateBt.tag - 100 == 1){
-        [self filter:FilterWeek];
-    }else if(dateBt.tag - 100 == 2){
-        [self filter:FilterMonth];
-    }
-    
 }
 - (void)filter:(FilterDateStyle)style {
     if(_filterDelegate && [_filterDelegate respondsToSelector:@selector(filterDelegate:)]){
         [_filterDelegate filterDelegate:style];
     }
+}
+
+#pragma mark 设置数据
+- (void)setParkFeeCountModel:(ParkFeeCountModel *)parkFeeCountModel {
+    _parkFeeCountModel = parkFeeCountModel;
+    
+    _numLabel.text = [NSString stringWithFormat:@"%@", parkFeeCountModel.totalFee];
+    
+    _ratioLabel.text = [NSString stringWithFormat:@"%@%%", parkFeeCountModel.dodValue];
+    
+    _wechatLabel.text = @"";
+    _alipayLabel.text = @"";
+    _yipayLabel.text = @"";
+    _cashLabel.text = @"";
+    
+    [parkFeeCountModel.items enumerateObjectsUsingBlock:^(ParkFeePayModel *payModel, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(payModel.payType != nil && ![payModel.payType isKindOfClass:[NSNull class]]){
+            if([payModel.payType isEqualToString:@"010"]){
+                _wechatLabel.text = [NSString stringWithFormat:@"%@", payModel.totalFee];
+            }else if([payModel.payType isEqualToString:@"020"]){
+                _alipayLabel.text = [NSString stringWithFormat:@"%@", payModel.totalFee];
+            }else if([payModel.payType isEqualToString:@"100"]){
+                _yipayLabel.text = [NSString stringWithFormat:@"%@", payModel.totalFee];
+            }else if([payModel.payType isEqualToString:@"000"]){
+                _cashLabel.text = [NSString stringWithFormat:@"%@", payModel.totalFee];
+            }
+        }
+    }];
 }
 
 @end

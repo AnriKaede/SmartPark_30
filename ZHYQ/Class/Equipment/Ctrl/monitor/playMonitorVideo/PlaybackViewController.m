@@ -14,7 +14,7 @@
 
 #import "MonitorTimeViewController.h"
 
-@interface PlaybackViewController ()<SelTimeDelegate>
+@interface PlaybackViewController ()<SelTimeDelegate, PlayControlDelegate>
 {
     UILabel *startLabel;
     UILabel *endLabel;
@@ -355,7 +355,6 @@
     
     //设置播放进度条(未处于seek状态时才更新)
 //    if (!isSeeking_)
-    
     // 判断回放是否播放完毕
     {
         [controlBar_ updatePlayProgress:playedTime];

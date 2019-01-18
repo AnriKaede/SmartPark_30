@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ParkFeeCountModel.h"
 
 typedef enum {
     FilterDay = 0,
@@ -25,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ParkFeeTopCell : UITableViewCell
 
 @property (nonatomic,assign) id<ParkFeeDateFilterDelegate> filterDelegate;
+@property (nonatomic,retain) ParkFeeCountModel *parkFeeCountModel;
 
 @end
 

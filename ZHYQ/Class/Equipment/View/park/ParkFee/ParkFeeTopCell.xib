@@ -114,7 +114,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LED_seperateline_blue" translatesAutoresizingMaskIntoConstraints="NO" id="lR2-WK-pKl">
                                 <rect key="frame" x="206.66666666666666" y="10" width="1" height="130"/>
-                                <color key="backgroundColor" red="0.0" green="1" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="OTk-0J-rCS"/>
                                     <constraint firstAttribute="height" constant="130" id="R7r-J3-sOc"/>
@@ -244,7 +243,7 @@
                 <outlet property="_bgView" destination="fYW-4R-LjR" id="SVX-XQ-fqG"/>
                 <outlet property="_cashLabel" destination="0xP-5u-0fo" id="1eO-jY-yu4"/>
                 <outlet property="_numLabel" destination="ST2-Ie-fC4" id="cok-7g-5gv"/>
-                <outlet property="_ratioLabel" destination="5TV-kg-ZVn" id="2Yv-N4-q3F"/>
+                <outlet property="_ratioLabel" destination="5TV-kg-ZVn" id="YLU-Pw-odm"/>
                 <outlet property="_ringBgView" destination="xeo-Td-vfP" id="Cuk-31-UMK"/>
                 <outlet property="_topBgView" destination="LbA-AI-694" id="okV-xP-Pq2"/>
                 <outlet property="_upDownImgView" destination="k7X-ZY-nwz" id="l3q-uy-BbG"/>
