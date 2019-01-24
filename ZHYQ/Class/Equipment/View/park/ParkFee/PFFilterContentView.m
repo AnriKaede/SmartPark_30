@@ -7,6 +7,7 @@
 //
 
 #import "PFFilterContentView.h"
+#import "WSDatePickerView.h"
 
 #define ZLUnselectedColor [UIColor colorWithRed:(241)/255.0 green:(242)/255.0 blue:(243)/255.0 alpha:1.0]
 #define ZLSelectedColor [UIColor colorWithRed:(128)/255.0 green:(177)/255.0 blue:(34)/255.0 alpha:1.0]
@@ -140,6 +141,7 @@
     
     // 按钮背景
     UIView *btnsBgView = [[UIView alloc] initWithFrame:CGRectMake(_paymentLab.right+12, _moneyNumTex1.bottom+10, KScreenWidth-_paymentLab.right-24, height)];
+    btnsBgView.tag = 2000;
     btnsBgView.backgroundColor = [UIColor whiteColor];
     [self addSubview:btnsBgView];
     
@@ -149,6 +151,7 @@
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.backgroundColor = ZLUnselectedColor;
+        btn.tag = 3000+i;
         btn.layer.cornerRadius = 3.0; // 按钮的边框弧度
         btn.clipsToBounds = YES;
         btn.titleLabel.font = [UIFont boldSystemFontOfSize:14];
@@ -167,6 +170,56 @@
         [btn setImageEdgeInsets:UIEdgeInsetsMake(0, -4, 0, 0)];
         [btnsBgView addSubview:btn];
     }
+    
+    // 日历按钮点击事件
+    UITapGestureRecognizer *beginCalendarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(beginCalendar)];
+    _beginTimeLab.userInteractionEnabled = YES;
+    _beginCalendarView.userInteractionEnabled = YES;
+    [_beginTimeLab addGestureRecognizer:beginCalendarTap];
+    [_beginCalendarView addGestureRecognizer:beginCalendarTap];
+    
+    UITapGestureRecognizer *endCalendarTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endCalendar)];
+    _endTimeLab.userInteractionEnabled = YES;
+    _endCalendarView.userInteractionEnabled = YES;
+    [_endTimeLab addGestureRecognizer:endCalendarTap];
+    [_endCalendarView addGestureRecognizer:endCalendarTap];
+}
+
+- (void)beginCalendar {
+    WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay scrollToDate:[self formatDayDate] CompleteBlock:^(NSDate *selectDate) {
+        NSString *date = [selectDate stringWithFormat:@"yyyy-MM-dd"];
+        _beginTimeLab.text = date;
+    }];
+    datepicker.dateLabelColor = [UIColor colorWithHexString:@"1B82D1"];//年-月-日-时-分 颜色
+    datepicker.datePickerColor = [UIColor blackColor];//滚轮日期颜色
+    datepicker.doneButtonColor = [UIColor colorWithHexString:@"1B82D1"];//确定按钮的颜色
+    datepicker.yearLabelColor = [UIColor clearColor];//大号年份字体颜色
+    [datepicker show];
+}
+- (void)endCalendar {
+    WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay scrollToDate:[NSDate date] CompleteBlock:^(NSDate *selectDate) {
+        NSString *date = [selectDate stringWithFormat:@"yyyy-MM-dd"];
+        _endTimeLab.text = date;
+    }];
+    datepicker.dateLabelColor = [UIColor colorWithHexString:@"1B82D1"];//年-月-日-时-分 颜色
+    datepicker.datePickerColor = [UIColor blackColor];//滚轮日期颜色
+    datepicker.doneButtonColor = [UIColor colorWithHexString:@"1B82D1"];//确定按钮的颜色
+    datepicker.yearLabelColor = [UIColor clearColor];//大号年份字体颜色
+    [datepicker show];
+}
+
+// 前一天时间
+- (NSDate *)formatDayDate {
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = nil;
+    comps = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
+    NSDateComponents *adcomps = [[NSDateComponents alloc] init];
+    [adcomps setYear:0];
+    [adcomps setMonth:0];
+    [adcomps setDay:-1];
+    NSDate *newdate = [calendar dateByAddingComponents:adcomps toDate:[NSDate date] options:0];
+    
+    return newdate;
 }
 
 /**
@@ -175,6 +228,35 @@
 - (void)chooseMark:(UIButton *)btn {
     
     btn.selected = !btn.selected;
+    
+    UIView *btnsBgView = [self viewWithTag:2000];
+    if(btn.tag == 3000){
+        if(btn.isSelected){
+            [self.selectedMarkArray removeAllObjects];
+            [self.selectedMarkStrArray removeAllObjects];
+            for (int i=1; i<5; i++) {
+                UIButton *itemBt = [btnsBgView viewWithTag:3000+i];
+                itemBt.backgroundColor = ZLUnselectedColor;
+                itemBt.selected = NO;
+            }
+        }
+    }else {
+        UIButton *allBt = [btnsBgView viewWithTag:3000];
+        [self.selectedMarkArray enumerateObjectsUsingBlock:^(NSString *str, NSUInteger idx, BOOL * _Nonnull stop) {
+            if([str isEqualToString:@"0"]){
+                allBt.selected = NO;
+                allBt.backgroundColor = ZLUnselectedColor;
+                [self.selectedMarkArray removeObjectAtIndex:idx];
+            }
+        }];
+        [self.selectedMarkStrArray enumerateObjectsUsingBlock:^(NSString *str, NSUInteger idx, BOOL * _Nonnull stop) {
+            if([str isEqualToString:@"全部"]){
+                allBt.selected = NO;
+                allBt.backgroundColor = ZLUnselectedColor;
+                [self.selectedMarkStrArray removeObjectAtIndex:idx];
+            }
+        }];
+    }
     
     if (btn.isSelected) {
         btn.backgroundColor = ZLSelectedColor;
@@ -195,12 +277,48 @@
 
 //重置
 - (IBAction)resetBtnAction:(id)sender {
-    
+    if([_delegate respondsToSelector:@selector(resetBtnCallBackAction)]){
+        [_delegate resetBtnCallBackAction];
+    }
 }
 
 //确定
 - (IBAction)sureBtnAction:(id)sender {
+    if(_moneyNumTex1.text.length > 0 && _moneyNumTex2.text.length > 0 && _moneyNumTex1.text.integerValue > _moneyNumTex2.text.integerValue){
+        [self.viewController showHint:@"结束时间不能小于开始时间"];
+    }
     
+    NSDateFormatter *showFormat = [[NSDateFormatter alloc] init];
+    [showFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    [showFormat setDateFormat:@"yyyy-MM-dd"];
+    NSDate *showStartDate = [showFormat dateFromString:_beginTimeLab.text];
+    NSDate *showEndDate = [showFormat dateFromString:_endTimeLab.text];
+    
+    // 结束时间不能小于开始时间
+    NSComparisonResult result = [showStartDate compare:showEndDate];
+    if (result == NSOrderedDescending) {
+        //end比start小
+        [self.viewController showHint:@"结束时间不能小于开始时间"];
+        return;
+    }
+    
+    ParkFeeFilterModel *filterModel = [[ParkFeeFilterModel alloc] init];
+    filterModel.orderCode = [NSString stringWithFormat:@"%@", _orderNumTex.text];
+    filterModel.carNo = [NSString stringWithFormat:@"%@", _carNumTex.text];
+    filterModel.lowMoney = [NSString stringWithFormat:@"%@", _moneyNumTex1.text];
+    filterModel.heightMoney = [NSString stringWithFormat:@"%@", _moneyNumTex2.text];
+    filterModel.parkPayTypes = [self payTypes];
+    filterModel.beginTime = [NSString stringWithFormat:@"%@", _beginTimeLab.text];
+    filterModel.endTime = [NSString stringWithFormat:@"%@", _endTimeLab.text];
+    
+    if([_delegate respondsToSelector:@selector(completeBtnCallBackAction:)]){
+        [_delegate completeBtnCallBackAction:filterModel];
+    }
+}
+
+- (NSArray *)payTypes {
+    NSMutableArray *pays = self.selectedMarkArray.mutableCopy;
+    return pays;
 }
 
 

@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ParkFeeFilterModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ParkFeeFaliterPopViewDelegate <NSObject>
 
 -(void)resetCallBackAction;
--(void)completeCallBackAction;
+-(void)completeCallBackAction:(ParkFeeFilterModel *)parkFeeFilterModel;
+-(void)hideShowAction;
 
 @end
 

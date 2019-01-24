@@ -36,7 +36,7 @@
  */
 - (void)setupViews {
     // 添加手势，点击背景视图消失
-    UITapGestureRecognizer *tapBackGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
+    UITapGestureRecognizer *tapBackGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenView)];
     tapBackGesture.delegate = self;
     [self addGestureRecognizer:tapBackGesture];
     
@@ -46,6 +46,13 @@
     [self addSubview:contentView];
     self.contentView = contentView;
     
+}
+
+- (void)hiddenView {
+    if([_delegate respondsToSelector:@selector(hideShowAction)]){
+        [_delegate hideShowAction];
+    }
+    [self removeView];
 }
 
 #pragma mark - PopContentDelegate
@@ -61,14 +68,9 @@
     [self removeView];
 }
 
--(void)completeBtnCallBackAction
-{
-//    _visitName = self.contentView.visitNameTex.text;
-//    _visitCarNum = self.contentView.visitCarNumTex.text;
-//    _arriveTime = self.contentView.arriveTimeLab.text;
-//    _leaveTime = self.contentView.leaveTimeLab.text;
-    if (self.delegate != nil&&[self.delegate respondsToSelector:@selector(completeCallBackAction)]) {
-        [self.delegate completeCallBackAction];
+-(void)completeBtnCallBackAction:(ParkFeeFilterModel *)prkFeeFilterModel {
+    if (self.delegate != nil&&[self.delegate respondsToSelector:@selector(completeCallBackAction:)]) {
+        [self.delegate completeCallBackAction:prkFeeFilterModel];
     }
     [self removeView];
 }

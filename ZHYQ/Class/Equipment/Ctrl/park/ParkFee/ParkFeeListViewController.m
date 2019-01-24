@@ -20,6 +20,8 @@
     int _length;
     
     NSMutableArray *_consumeData;
+    
+    ParkFeeFilterModel *_parkFeeFilterModel;
 }
 @property (nonatomic,retain) ParkFeeFilterView *filterView;
 @end
@@ -69,7 +71,8 @@
     _filterView = [[ParkFeeFilterView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     //显示
     _filterView.delegate = self;
-    [_filterView showInView:self.view];
+    [_filterView showInView:_tableView];
+    _tableView.scrollEnabled = NO;
 }
 
 -(void)initView{
@@ -88,25 +91,20 @@
 
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         _page = 1;
-        [self _loadData];
+        [self _loadData:_parkFeeFilterModel];
     }];
     // 上拉刷新
     _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         _page ++;
-        [self _loadData];
+        [self _loadData:_parkFeeFilterModel];
     }];
     _tableView.mj_footer.hidden = YES;
 }
 
-- (void)_loadData {
-    NSString *urlStr = [NSString stringWithFormat:@"%@/parkSituation/shutdwonList", Main_Url];
+- (void)_loadData:(ParkFeeFilterModel *)filterModel {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parking/payDetailList", Main_Url];
     
-    NSMutableDictionary *paramDic = @{}.mutableCopy;
-    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
-    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
-    
-    NSString *paramStr = [Utils convertToJsonData:paramDic];
-    NSDictionary *params = @{@"params":paramStr};
+    NSDictionary *params = [self fullParam:filterModel];
     
     [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
         [self removeNoDataImage];
@@ -119,7 +117,7 @@
                 [_consumeData removeAllObjects];
             }
             
-            NSArray *data = responseObject[@"responseData"][@"items"];
+            NSArray *data = responseObject[@"responseData"][@"responseData"][@"items"];
             if(data.count > _length-1){
                 _tableView.mj_footer.state = MJRefreshStateIdle;
                 _tableView.mj_footer.hidden = NO;
@@ -128,13 +126,18 @@
                 _tableView.mj_footer.hidden = YES;
             }
             
-#warning 需要根据ParkConsumeModel中 isMonthFirst 重新组合数组
-            /*
+            __block NSMutableArray *monthData = @[].mutableCopy;
             [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 ParkConsumeModel *model = [[ParkConsumeModel alloc] initWithDataDic:obj];
-                [_consumeData addObject:model];
+                if(model.isMonthFirst && monthData.count > 0){
+                    [_consumeData addObject:monthData];
+                    monthData = @[].mutableCopy;
+                }
+                [monthData addObject:model];
+                if(idx >= data.count-1 && monthData.count > 0){
+                    [_consumeData addObject:monthData];
+                }
             }];
-            */
         }
         [_tableView cyl_reloadData];
         
@@ -150,9 +153,73 @@
     }];
 }
 
+- (NSDictionary *)fullParam:(ParkFeeFilterModel *)filterModel {
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
+    [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
+    
+    if(filterModel != nil){
+        if(filterModel.orderCode != nil){
+            [paramDic setObject:filterModel.orderCode forKey:@"orderId"];
+        }
+        if(filterModel.carNo != nil){
+            [paramDic setObject:filterModel.carNo forKey:@"carNo"];
+        }
+        // 缴费范围
+        if(filterModel.lowMoney != nil && filterModel.heightMoney != nil){
+            [paramDic setObject:filterModel.lowMoney forKey:@"beginFee"];
+            [paramDic setObject:filterModel.heightMoney forKey:@"endFee"];
+        }
+        if(filterModel.parkPayTypes != nil && filterModel.parkPayTypes.count > 0){
+            NSString *payType = [self payType:filterModel.parkPayTypes];
+            [paramDic setObject:payType forKey:@"payType"];
+        }
+        if(filterModel.beginTime != nil){
+            [paramDic setObject:filterModel.beginTime forKey:@"startDate"];
+        }
+        if(filterModel.endTime != nil){
+            [paramDic setObject:filterModel.endTime forKey:@"endDate"];
+        }
+    }
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"params":paramStr};
+    
+    return params;
+}
+
+- (NSString *)payType:(NSArray *)pays {
+    __block NSMutableString *payType = @"".mutableCopy;
+    [pays enumerateObjectsUsingBlock:^(NSString *typeStr, NSUInteger idx, BOOL * _Nonnull stop) {
+        /* 010微信，020 支付宝，060qq钱包，080京东钱包，090口碑，100翼支付，110银联二维码 000现金非必填
+        @"全部" : @"0" ,
+        @"微信" : @"1",
+        @"现金" : @"2",
+        @"翼支付" : @"3",
+        @"支付宝" : @"4",
+         */
+        if([typeStr isEqualToString:@"0"]){
+            payType = @"".mutableCopy;
+            *stop = YES;
+        }else if ([typeStr isEqualToString:@"1"]) {
+            [payType appendString:@"010,"];
+        }else if ([typeStr isEqualToString:@"2"]) {
+            [payType appendString:@"000,"];
+        }else if ([typeStr isEqualToString:@"3"]) {
+            [payType appendString:@"100,"];
+        }else if ([typeStr isEqualToString:@"4"]) {
+            [payType appendString:@"020,"];
+        }
+    }];
+    if(payType.length > 0){
+        [payType deleteCharactersInRange:NSMakeRange(payType.length - 1, 1)];
+    }
+    return payType;
+}
+
 // 无网络重载
 - (void)reloadTableData {
-    [self _loadData];
+    [self _loadData:nil];
 }
 
 #pragma mark 无数据协议
@@ -167,16 +234,18 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return _consumeData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    NSArray *items = _consumeData[section];
+    return items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ParkFeeListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ParkFeeListCell" forIndexPath:indexPath];
-//    cell.parkConsumeModel =
+    ParkConsumeModel *model = _consumeData[indexPath.section][indexPath.row];
+    cell.parkConsumeModel = model;
     return cell;
 }
 
@@ -230,10 +299,17 @@
 
 #pragma mark 筛选协议
 -(void)resetCallBackAction {
-    
+    _parkFeeFilterModel = nil;
+    _tableView.scrollEnabled = YES;
+    [self _loadData:nil];
 }
--(void)completeCallBackAction {
-    
+-(void)completeCallBackAction:(ParkFeeFilterModel *)parkFeeFilterModel {
+    _tableView.scrollEnabled = YES;
+    _parkFeeFilterModel = parkFeeFilterModel;
+    [self _loadData:parkFeeFilterModel];
+}
+-(void)hideShowAction {
+    _tableView.scrollEnabled = YES;
 }
 
 @end

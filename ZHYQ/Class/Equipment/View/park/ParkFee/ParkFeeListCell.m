@@ -9,16 +9,20 @@
 #import "ParkFeeListCell.h"
 
 @implementation ParkFeeListCell
-
+{
+    __weak IBOutlet UILabel *_dayTitleLabel;
+    __weak IBOutlet UILabel *_timeLabel;
+    
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setParkConsumeModel:(ParkConsumeModel *)parkConsumeModel {
+    _parkConsumeModel = parkConsumeModel;
+    
+    
 }
 
 @end
