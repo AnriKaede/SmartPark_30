@@ -183,6 +183,11 @@
     _endCalendarView.userInteractionEnabled = YES;
     [_endTimeLab addGestureRecognizer:endCalendarTap];
     [_endCalendarView addGestureRecognizer:endCalendarTap];
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd"];
+    _beginTimeLab.text = [dateFormat stringFromDate:[NSDate dateYesterday]];
+    _endTimeLab.text = [dateFormat stringFromDate:[NSDate date]];
 }
 
 - (void)beginCalendar {

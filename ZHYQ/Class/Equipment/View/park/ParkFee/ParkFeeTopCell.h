@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,assign) id<ParkFeeDateFilterDelegate> filterDelegate;
 @property (nonatomic,retain) ParkFeeCountModel *parkFeeCountModel;
+@property (nonatomic,assign) FilterDateStyle filterDateStyle;
 
 @end
 

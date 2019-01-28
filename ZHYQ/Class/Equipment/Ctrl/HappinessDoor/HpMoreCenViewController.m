@@ -7,8 +7,8 @@
 //
 
 #import "HpMoreCenViewController.h"
-#import "HpFaceViewController.h"
-#import "HpCarViewController.h"
+#import "HpFaceListViewController.h"
+#import "HpCarListViewController.h"
 
 #define topMenuCount 2
 
@@ -91,13 +91,13 @@
     switch (index) {
         case 0:
         {
-            HpFaceViewController *faceVC = [[HpFaceViewController alloc] init];
+            HPFaceListViewController *faceVC = [[HPFaceListViewController alloc] init];
             return faceVC;
             break;
         }
         case 1:
         {
-            HpCarViewController *carVC = [[HpCarViewController alloc] init];
+            HPCarListViewController *carVC = [[HPCarListViewController alloc] init];
             return carVC;
             break;
         }

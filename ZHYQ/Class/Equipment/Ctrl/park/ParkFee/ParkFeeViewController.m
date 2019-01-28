@@ -23,6 +23,7 @@ typedef enum {
 {
     ParkFeeCountModel *_parkFeeCountModel;
     NSMutableArray *_itemsData;
+    FilterDateStyle _filterDateStyle;
 }
 @end
 
@@ -175,6 +176,7 @@ typedef enum {
         ParkFeeTopCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ParkFeeTopCell" forIndexPath:indexPath];
         cell.parkFeeCountModel = _parkFeeCountModel;
         cell.filterDelegate = self;
+        cell.filterDateStyle = _filterDateStyle;
         return cell;
     }else {
         ParkFeeSnapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ParkFeeSnapCell" forIndexPath:indexPath];
@@ -185,6 +187,7 @@ typedef enum {
 
 #pragma mark 日周月切换协议
 - (void)filterDelegate:(FilterDateStyle)filterDateStyle {
+    _filterDateStyle = filterDateStyle;
     switch (filterDateStyle) {
         case FilterDay:
             {

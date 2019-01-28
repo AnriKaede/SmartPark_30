@@ -35,6 +35,8 @@
     [self initNav];
     
     [self initView];
+    
+    [_tableView.mj_header beginRefreshing];
 }
 
 -(void)initNav{
@@ -81,6 +83,7 @@
     _tableView.dataSource = self;
     _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
+    _tableView.tableFooterView = [UIView new];
     [self.view addSubview:_tableView];
     
     _tableView.estimatedRowHeight = 0;
@@ -158,6 +161,10 @@
     [paramDic setObject:[NSNumber numberWithInteger:_page] forKey:@"pageNumber"];
     [paramDic setObject:[NSNumber numberWithInteger:_length] forKey:@"pageSize"];
     
+    if(_parkFeeFilterModel != nil){
+        filterModel = _parkFeeFilterModel;
+    }
+    
     if(filterModel != nil){
         if(filterModel.orderCode != nil){
             [paramDic setObject:filterModel.orderCode forKey:@"orderId"];
@@ -166,9 +173,9 @@
             [paramDic setObject:filterModel.carNo forKey:@"carNo"];
         }
         // 缴费范围
-        if(filterModel.lowMoney != nil && filterModel.heightMoney != nil){
-            [paramDic setObject:filterModel.lowMoney forKey:@"beginFee"];
-            [paramDic setObject:filterModel.heightMoney forKey:@"endFee"];
+        if(filterModel.lowMoney != nil && filterModel.heightMoney != nil && filterModel.lowMoney.length > 0 && filterModel.heightMoney.length > 0){
+            [paramDic setObject:[NSString stringWithFormat:@"%.0f", filterModel.lowMoney.floatValue * 100] forKey:@"beginFee"];
+            [paramDic setObject:[NSString stringWithFormat:@"%.0f", filterModel.heightMoney.floatValue * 100] forKey:@"endFee"];
         }
         if(filterModel.parkPayTypes != nil && filterModel.parkPayTypes.count > 0){
             NSString *payType = [self payType:filterModel.parkPayTypes];
@@ -274,26 +281,69 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor colorWithHexString:@"#EFEFEF"];
     
-    UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(9, 16, 120, 18)];
-    timeLab.text = @"2017年12月";
+    UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(9, 16, KScreenWidth, 18)];
+    timeLab.text = @"";
     timeLab.textColor = [UIColor colorWithHexString:@"#333333"];
     timeLab.textAlignment = NSTextAlignmentLeft;
     timeLab.font = [UIFont systemFontOfSize:17];
     [view addSubview:timeLab];
     
     UILabel *incomeLab = [[UILabel alloc] initWithFrame:CGRectMake(9, timeLab.bottom + 11, 120, 18)];
-    incomeLab.text = @"收入1234.0元";
+    incomeLab.text = @"";
     incomeLab.textColor = [UIColor colorWithHexString:@"#333333"];
     incomeLab.textAlignment = NSTextAlignmentLeft;
     incomeLab.font = [UIFont systemFontOfSize:16];
     [view addSubview:incomeLab];
     
+    NSArray *groups = _consumeData[section];
+    if(groups != nil && groups.count > 0){
+        ParkConsumeModel *model = groups.firstObject;
+        
+        timeLab.text = [self monthFormat:model.payTime];
+        incomeLab.text = [NSString stringWithFormat:@"收入%.2f元", model.monthTotalFee.floatValue/100];
+        
+        NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:incomeLab.text];
+        [attri addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(2, incomeLab.text.length - 3)];
+        incomeLab.attributedText = attri;
+    }
+    
     return view;
+}
+
+- (NSString *)monthFormat:(NSNumber *)timeNum {
+    // 是否有时间筛选
+    if(_parkFeeFilterModel != nil && _parkFeeFilterModel.beginTime != nil && _parkFeeFilterModel.endTime != nil){
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd"];
+        NSDate *beginDate = [dateFormat dateFromString:_parkFeeFilterModel.beginTime];
+        NSDate *endDate = [dateFormat dateFromString:_parkFeeFilterModel.endTime];
+        
+        NSDateFormatter *inputFormat = [[NSDateFormatter alloc] init];
+        [inputFormat setDateFormat:@"yyyy年MM月dd日"];
+        NSString *beginStr = [inputFormat stringFromDate:beginDate];
+        NSString *endStr = [inputFormat stringFromDate:endDate];
+        return [NSString stringWithFormat:@"%@——%@", beginStr, endStr];
+    }else {
+        NSString *monthStr = @"";
+        if(timeNum != nil && ![timeNum isKindOfClass:[NSNull class]]){
+            NSString *timeStr = [NSString stringWithFormat:@"%@", [Utils timeStrWithInt:timeNum]];
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSDate *date = [dateFormat dateFromString:timeStr];
+            
+            NSDateFormatter *inputFormat = [[NSDateFormatter alloc] init];
+            [inputFormat setDateFormat:@"yyyy年MM月"];
+            monthStr = [inputFormat stringFromDate:date];
+        }
+        return monthStr;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ParkFeeDetailViewController *parkFeeDetailVc = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"ParkFeeDetailViewController"];
+    ParkConsumeModel *model = _consumeData[indexPath.section][indexPath.row];
+    parkFeeDetailVc.parkConsumeModel = model;
     [self.navigationController pushViewController:parkFeeDetailVc animated:YES];
 }
 
@@ -301,12 +351,14 @@
 -(void)resetCallBackAction {
     _parkFeeFilterModel = nil;
     _tableView.scrollEnabled = YES;
-    [self _loadData:nil];
+//    [self _loadData:nil];
+    [_tableView.mj_header beginRefreshing];
 }
 -(void)completeCallBackAction:(ParkFeeFilterModel *)parkFeeFilterModel {
     _tableView.scrollEnabled = YES;
     _parkFeeFilterModel = parkFeeFilterModel;
-    [self _loadData:parkFeeFilterModel];
+//    [self _loadData:parkFeeFilterModel];
+    [_tableView.mj_header beginRefreshing];
 }
 -(void)hideShowAction {
     _tableView.scrollEnabled = YES;

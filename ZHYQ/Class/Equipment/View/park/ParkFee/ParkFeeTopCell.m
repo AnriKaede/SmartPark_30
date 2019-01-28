@@ -120,6 +120,13 @@
     }
 }
 
+- (void)setFilterDateStyle:(FilterDateStyle)filterDateStyle {
+    _filterDateStyle = filterDateStyle;
+    
+    UIButton *bt = [_topBgView viewWithTag:100+filterDateStyle];
+    [self changeBtState:bt];
+}
+
 #pragma mark 设置数据
 - (void)setParkFeeCountModel:(ParkFeeCountModel *)parkFeeCountModel {
     _parkFeeCountModel = parkFeeCountModel;

@@ -301,6 +301,8 @@
 		925A8BAC21DE001A0044C8AD /* CommncInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925A8BAB21DE001A0044C8AD /* CommncInfoModel.m */; };
 		925EEFC91FB04C3B003DB93B /* ShowMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925EEFC81FB04C3B003DB93B /* ShowMenuView.m */; };
 		9262C75921F9524600DBFFD5 /* ParkFeeFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9262C75821F9524600DBFFD5 /* ParkFeeFilterModel.m */; };
+		9262C78E21FE980800DBFFD5 /* HPFaceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9262C78D21FE980700DBFFD5 /* HPFaceListViewController.m */; };
+		9262C79121FE981300DBFFD5 /* HPCarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9262C79021FE981300DBFFD5 /* HPCarListViewController.m */; };
 		92643D8C201818340007C007 /* VisSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8B201818340007C007 /* VisSearchViewController.m */; };
 		92643D8F201876970007C007 /* VisCountNumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8E201876970007C007 /* VisCountNumModel.m */; };
 		9265606D21E2E1AB006D1FDB /* UnOnlineHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265606C21E2E1AB006D1FDB /* UnOnlineHomeViewController.m */; };
@@ -1485,6 +1487,10 @@
 		925EEFC81FB04C3B003DB93B /* ShowMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMenuView.m; sourceTree = "<group>"; };
 		9262C75721F9524600DBFFD5 /* ParkFeeFilterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkFeeFilterModel.h; sourceTree = "<group>"; };
 		9262C75821F9524600DBFFD5 /* ParkFeeFilterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkFeeFilterModel.m; sourceTree = "<group>"; };
+		9262C78C21FE980700DBFFD5 /* HPFaceListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPFaceListViewController.h; sourceTree = "<group>"; };
+		9262C78D21FE980700DBFFD5 /* HPFaceListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPFaceListViewController.m; sourceTree = "<group>"; };
+		9262C78F21FE981300DBFFD5 /* HPCarListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCarListViewController.h; sourceTree = "<group>"; };
+		9262C79021FE981300DBFFD5 /* HPCarListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCarListViewController.m; sourceTree = "<group>"; };
 		92643D8A201818340007C007 /* VisSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisSearchViewController.h; sourceTree = "<group>"; };
 		92643D8B201818340007C007 /* VisSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisSearchViewController.m; sourceTree = "<group>"; };
 		92643D8D201876970007C007 /* VisCountNumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisCountNumModel.h; sourceTree = "<group>"; };
@@ -3578,6 +3584,10 @@
 				9257EEC721C730E1009C4230 /* HpCarViewController.m */,
 				9257EEC921C73B0B009C4230 /* HpMoreCenViewController.h */,
 				9257EECA21C73B0B009C4230 /* HpMoreCenViewController.m */,
+				9262C78C21FE980700DBFFD5 /* HPFaceListViewController.h */,
+				9262C78D21FE980700DBFFD5 /* HPFaceListViewController.m */,
+				9262C78F21FE981300DBFFD5 /* HPCarListViewController.h */,
+				9262C79021FE981300DBFFD5 /* HPCarListViewController.m */,
 			);
 			path = HappinessDoor;
 			sourceTree = "<group>";
@@ -6322,6 +6332,7 @@
 				9253BD7420BFA58E00AB4767 /* SBJsonParser.m in Sources */,
 				9233330E1FC983AC00664852 /* MusicGroupModel.m in Sources */,
 				92D8B8B0206A1FD50001263F /* AAChart.m in Sources */,
+				9262C78E21FE980800DBFFD5 /* HPFaceListViewController.m in Sources */,
 				D63922D21FB46E0100E1A00A /* WifiMapModel.m in Sources */,
 				9273EB1C2051319E00723C5D /* WaterTimeCell.m in Sources */,
 				92E77D9C20D9FE4500B87F9B /* AptListModel.m in Sources */,
@@ -6464,6 +6475,7 @@
 				92E87D141FB4503D0045D2FF /* LEDDetailCell.m in Sources */,
 				92D8B8B2206A1FD50001263F /* AATitle.m in Sources */,
 				92E83DF5208EDD15006759E7 /* ReportAlertView.m in Sources */,
+				9262C79121FE981300DBFFD5 /* HPCarListViewController.m in Sources */,
 				D629A62F1FA16D7400FA5EE1 /* PersonalViewController.m in Sources */,
 				9226845C20AC4463006628B3 /* CompleteConfirmViewController.m in Sources */,
 				926A819621F1D2ED008A46ED /* OverColseCenViewController.m in Sources */,

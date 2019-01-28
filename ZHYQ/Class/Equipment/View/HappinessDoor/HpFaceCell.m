@@ -36,7 +36,11 @@
         _faceImgView.image = nil;
     }
     
-    _nameLabel.text = [NSString stringWithFormat:@"%@", hpFaceModel.NAME];
+    if(hpFaceModel.NAME != nil && ![hpFaceModel.NAME isKindOfClass:[NSNull class]] && ![hpFaceModel.NAME isEqualToString:@"null"]){
+        _nameLabel.text = [NSString stringWithFormat:@"%@", hpFaceModel.NAME];
+    }else {
+        _nameLabel.text = [NSString stringWithFormat:@"%@", @"未知"];
+    }
     
     _timeLabel.text = [NSString stringWithFormat:@"%@", [self timeFormat:hpFaceModel.OPEN_TIME]];
     
