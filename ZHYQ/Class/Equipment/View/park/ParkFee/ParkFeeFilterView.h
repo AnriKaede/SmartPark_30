@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *arriveTime;
 @property (nonatomic,copy) NSString *leaveTime;
 
+@property (nonatomic,retain) ParkFeeFilterModel *parkFeeFilterModel;
+
 @end
 
 NS_ASSUME_NONNULL_END

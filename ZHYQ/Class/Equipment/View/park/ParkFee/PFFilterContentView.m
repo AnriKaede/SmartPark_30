@@ -326,5 +326,60 @@
     return pays;
 }
 
+- (void)setParkFeeFilterModel:(ParkFeeFilterModel *)parkFeeFilterModel {
+    _parkFeeFilterModel = parkFeeFilterModel;
+    
+//    filterModel.orderCode = [NSString stringWithFormat:@"%@", _orderNumTex.text];
+//    filterModel.carNo = [NSString stringWithFormat:@"%@", _carNumTex.text];
+//    filterModel.lowMoney = [NSString stringWithFormat:@"%@", _moneyNumTex1.text];
+//    filterModel.heightMoney = [NSString stringWithFormat:@"%@", _moneyNumTex2.text];
+//    filterModel.parkPayTypes = [self payTypes];
+//    filterModel.beginTime = [NSString stringWithFormat:@"%@", _beginTimeLab.text];
+//    filterModel.endTime = [NSString stringWithFormat:@"%@", _endTimeLab.text];
+    
+    if(parkFeeFilterModel.orderCode != nil){
+        _orderNumTex.text = [NSString stringWithFormat:@"%@", parkFeeFilterModel.orderCode];
+    }
+    if(parkFeeFilterModel.carNo != nil){
+        _carNumTex.text = [NSString stringWithFormat:@"%@", parkFeeFilterModel.carNo];
+    }
+    if(parkFeeFilterModel.lowMoney != nil){
+        _moneyNumTex1.text = [NSString stringWithFormat:@"%@", parkFeeFilterModel.lowMoney];
+    }
+    if(parkFeeFilterModel.heightMoney != nil){
+        _moneyNumTex2.text = [NSString stringWithFormat:@"%@", parkFeeFilterModel.heightMoney];
+    }
+    if(parkFeeFilterModel.beginTime != nil){
+        _beginTimeLab.text = [NSString stringWithFormat:@"%@", parkFeeFilterModel.beginTime];
+    }
+    if(parkFeeFilterModel.endTime != nil){
+        _endTimeLab.text = [NSString stringWithFormat:@"%@", parkFeeFilterModel.endTime];
+    }
+    
+    [parkFeeFilterModel.parkPayTypes enumerateObjectsUsingBlock:^(NSString *string, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self payType:string];
+    }];
+    
+}
+
+- (void)payType:(NSString *)typeStr {
+    UIView *btnsBgView = [self viewWithTag:2000];
+    if ([typeStr isEqualToString:@"0"]) {
+        UIButton *bt = [btnsBgView viewWithTag:3000];
+        [self chooseMark:bt];
+    }else if ([typeStr isEqualToString:@"1"]) {
+        UIButton *bt = [btnsBgView viewWithTag:3001];
+        [self chooseMark:bt];
+    }else if ([typeStr isEqualToString:@"2"]) {
+        UIButton *bt = [btnsBgView viewWithTag:3002];
+        [self chooseMark:bt];
+    }else if ([typeStr isEqualToString:@"3"]) {
+        UIButton *bt = [btnsBgView viewWithTag:3003];
+        [self chooseMark:bt];
+    }else if ([typeStr isEqualToString:@"4"]) {
+        UIButton *bt = [btnsBgView viewWithTag:3004];
+        [self chooseMark:bt];
+    }
+}
 
 @end

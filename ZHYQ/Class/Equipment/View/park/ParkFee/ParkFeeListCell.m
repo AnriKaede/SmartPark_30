@@ -53,12 +53,12 @@
     _typeImgView.image = [UIImage imageNamed:[self payType:parkConsumeModel.payType isImg:YES]];
     _payTypeLabel.text = [NSString stringWithFormat:@"%@", [self payType:parkConsumeModel.payType isImg:NO]];
     if(parkConsumeModel.totalFee.floatValue > 0){
-        _valueLabel.text = [NSString stringWithFormat:@"+%.2f", parkConsumeModel.totalFee.floatValue/100];
+        _valueLabel.text = [NSString stringWithFormat:@"+%.2f 元", parkConsumeModel.totalFee.floatValue/100];
     }else {
-        _valueLabel.text = [NSString stringWithFormat:@"%.2f", parkConsumeModel.totalFee.floatValue/100];
+        _valueLabel.text = [NSString stringWithFormat:@"%.2f 元", parkConsumeModel.totalFee.floatValue/100];
     }
     _carNoLabel.text = [NSString stringWithFormat:@"缴费车辆 : %@", parkConsumeModel.carNo];
-    _orderCodeLabel.text = [NSString stringWithFormat:@"%@", parkConsumeModel.orderId];
+    _orderCodeLabel.text = [NSString stringWithFormat:@"订单号 : %@", parkConsumeModel.orderId];
 }
 
 - (NSString *)payType:(NSString *)payType isImg:(BOOL)isImg {

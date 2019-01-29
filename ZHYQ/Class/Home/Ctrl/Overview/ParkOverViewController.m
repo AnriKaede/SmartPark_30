@@ -39,6 +39,9 @@
     NSArray *_titleData;
     
     ParkOverModel *_overModel;
+    
+    UILabel *_timeLabel;
+    NSString *_timeStr;
 }
 @end
 
@@ -92,7 +95,9 @@
 - (void)_loadData {
     NSString *urlStr = [NSString stringWithFormat:@"%@/parkSituation/all", Main_Url];
     [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
-        [self.tableView.mj_header endEditing:YES];
+        [self.tableView.mj_header endRefreshing];
+        _timeStr = [NSString stringWithFormat:@"%@", [self refreshTime]];
+        _timeLabel.text = _timeStr;
         NSString *code = responseObject[@"code"];
         if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
             _overModel = [[ParkOverModel alloc] initWithDataDic:responseObject[@"responseData"]];
@@ -105,7 +110,7 @@
         }
         
     } failure:^(NSError *error) {
-        [self.tableView.mj_header endEditing:YES];
+        [self.tableView.mj_header endRefreshing];
     }];
 }
 
@@ -178,12 +183,12 @@
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 40)];
     footerView.backgroundColor = [UIColor clearColor];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 40)];
-    label.text = @"数据截止至2018-08-08 00:00:00";
-    label.textColor = [UIColor colorWithHexString:@"#C4C4C4"];
-    label.font = [UIFont systemFontOfSize:13];
-    label.textAlignment = NSTextAlignmentCenter;
-    [footerView addSubview:label];
+    _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 40)];
+    _timeLabel.text = _timeStr;
+    _timeLabel.textColor = [UIColor colorWithHexString:@"#C4C4C4"];
+    _timeLabel.font = [UIFont systemFontOfSize:13];
+    _timeLabel.textAlignment = NSTextAlignmentCenter;
+    [footerView addSubview:_timeLabel];
     
     if(section == 3){
         return footerView;
@@ -263,6 +268,13 @@
 
 - (void)headerAction:(UITapGestureRecognizer *)tap {
     [self indexPush:tap.view.tag - 100];
+}
+
+- (NSString *)refreshTime {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *outputTime = [NSString stringWithFormat:@"数据截止至%@", [dateFormat stringFromDate:[NSDate date]]];
+    return outputTime;
 }
 
 @end

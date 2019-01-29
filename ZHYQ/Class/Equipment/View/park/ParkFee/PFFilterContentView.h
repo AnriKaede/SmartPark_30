@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PFFilterContentView : UIView
 
 @property (nonatomic,weak) id<PopContentDelegate> delegate;
+@property (nonatomic,retain) ParkFeeFilterModel *parkFeeFilterModel;
 
 @end
 

@@ -77,7 +77,7 @@
     [self addSubview:scrollView];
     
     CGFloat itemWidth = contentWidth/4.0;
-    NSArray *msgData = @[@"员工进出总数(人)",@"访客进出总数(人)",@"车辆进出(辆)",@"远程开门(人)"];
+    NSArray *msgData = @[@"员工进出总数(人)",@"陌生人进出总数(人)",@"车辆进出(辆)",@"远程开门(人)"];
     [msgData enumerateObjectsUsingBlock:^(NSString *msg, NSUInteger idx, BOOL * _Nonnull stop) {
         CGRect frame = CGRectMake(itemWidth*idx, 0, itemWidth, scrollView.height);
         UIView *itemView = [self createItemView:frame withMessage:msg withIndex:idx];

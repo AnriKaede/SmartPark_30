@@ -39,7 +39,7 @@
     if(hpFaceModel.NAME != nil && ![hpFaceModel.NAME isKindOfClass:[NSNull class]] && ![hpFaceModel.NAME isEqualToString:@"null"]){
         _nameLabel.text = [NSString stringWithFormat:@"%@", hpFaceModel.NAME];
     }else {
-        _nameLabel.text = [NSString stringWithFormat:@"%@", @"未知"];
+        _nameLabel.text = [NSString stringWithFormat:@"%@", @"陌生人"];
     }
     
     _timeLabel.text = [NSString stringWithFormat:@"%@", [self timeFormat:hpFaceModel.OPEN_TIME]];

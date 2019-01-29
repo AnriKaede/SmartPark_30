@@ -32,6 +32,9 @@
     [super viewDidLoad];
     _consumeData = @[].mutableCopy;
     
+    _page = 1;
+    _length = 8;
+    
     [self initNav];
     
     [self initView];
@@ -73,6 +76,7 @@
     _filterView = [[ParkFeeFilterView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     //显示
     _filterView.delegate = self;
+    _filterView.parkFeeFilterModel = _parkFeeFilterModel;
     [_filterView showInView:_tableView];
     _tableView.scrollEnabled = NO;
 }
@@ -132,7 +136,7 @@
             __block NSMutableArray *monthData = @[].mutableCopy;
             [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 ParkConsumeModel *model = [[ParkConsumeModel alloc] initWithDataDic:obj];
-                if(model.isMonthFirst && monthData.count > 0){
+                if(model.isMonthFirst.boolValue && monthData.count > 0){
                     [_consumeData addObject:monthData];
                     monthData = @[].mutableCopy;
                 }

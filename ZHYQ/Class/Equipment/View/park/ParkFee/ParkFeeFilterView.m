@@ -55,6 +55,11 @@
     [self removeView];
 }
 
+- (void)setParkFeeFilterModel:(ParkFeeFilterModel *)parkFeeFilterModel {
+    _parkFeeFilterModel = parkFeeFilterModel;
+    _contentView.parkFeeFilterModel = _parkFeeFilterModel;
+}
+
 #pragma mark - PopContentDelegate
 -(void)resetBtnCallBackAction
 {

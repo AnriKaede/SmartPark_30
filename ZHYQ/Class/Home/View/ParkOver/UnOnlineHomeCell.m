@@ -34,7 +34,11 @@
     _overCloseListModel = overCloseListModel;
     
     _nameLabel.text = [NSString stringWithFormat:@"%@", overCloseListModel.deviceName];
-    _adressLabel.text = [NSString stringWithFormat:@"%@", overCloseListModel.deviceAddr];
+    if(overCloseListModel.deviceAddr != nil && ![overCloseListModel.deviceAddr isKindOfClass:[NSNull class]] && overCloseListModel.deviceAddr.length > 0){
+        _adressLabel.text = [NSString stringWithFormat:@"%@", overCloseListModel.deviceAddr];
+    }else {
+        _adressLabel.text = [NSString stringWithFormat:@"%@", @"未知"];
+    }
     
     _timeLabel.text = [self timeStrWithInt:overCloseListModel.statusTime];
 }

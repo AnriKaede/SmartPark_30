@@ -143,13 +143,13 @@
     [parkFeeCountModel.items enumerateObjectsUsingBlock:^(ParkFeePayModel *payModel, NSUInteger idx, BOOL * _Nonnull stop) {
         if(payModel.payType != nil && ![payModel.payType isKindOfClass:[NSNull class]]){
             if([payModel.payType isEqualToString:@"010"]){
-                _wechatLabel.text = [NSString stringWithFormat:@"%@", payModel.totalFee];
+                _wechatLabel.text = [NSString stringWithFormat:@"%@ 元", payModel.totalFee];
             }else if([payModel.payType isEqualToString:@"020"]){
-                _alipayLabel.text = [NSString stringWithFormat:@"%@", payModel.totalFee];
+                _alipayLabel.text = [NSString stringWithFormat:@"%@ 元", payModel.totalFee];
             }else if([payModel.payType isEqualToString:@"100"]){
-                _yipayLabel.text = [NSString stringWithFormat:@"%@", payModel.totalFee];
+                _yipayLabel.text = [NSString stringWithFormat:@"%@ 元", payModel.totalFee];
             }else if([payModel.payType isEqualToString:@"000"]){
-                _cashLabel.text = [NSString stringWithFormat:@"%@", payModel.totalFee];
+                _cashLabel.text = [NSString stringWithFormat:@"%@ 元", payModel.totalFee];
             }
         }
     }];

@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 @property (nonatomic,copy) NSString *carNo;
-@property (nonatomic,assign) BOOL isMonthFirst; // 为yes 代表另起一组
+@property (nonatomic,assign) NSNumber *isMonthFirst; // 为yes 代表另起一组
 @property (nonatomic,strong) NSNumber *monthCnt;
 @property (nonatomic,strong) NSNumber *monthTotalFee;
 @property (nonatomic,copy) NSString *orderId;
