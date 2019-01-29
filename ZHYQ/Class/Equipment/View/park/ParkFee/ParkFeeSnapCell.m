@@ -81,7 +81,9 @@
             [timeArr addObject:itemDic[@"period"]];
         }
         if(itemDic[@"totalFee"] != nil){
-            [countAry addObject:itemDic[@"totalFee"]];
+            NSNumber *fee = itemDic[@"totalFee"];
+            NSString *payFee = [NSString stringWithFormat:@"%.2f", fee.floatValue/100];
+            [countAry addObject:[NSNumber numberWithString:payFee]];
         }
         
     }];
@@ -114,7 +116,7 @@
     .yAxisLabelsFontColorSet(@"#000000")    // y轴坐标值颜色
     .seriesSet(@[
                  AAObject(AASeriesElement)
-                 .nameSet(@"停车次数")
+                 .nameSet(@"停车收费")
                  .dataSet(countAry),
                  ]
                )

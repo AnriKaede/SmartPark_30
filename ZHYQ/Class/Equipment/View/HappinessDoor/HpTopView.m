@@ -94,7 +94,15 @@
     
     CGFloat itemWidth = frame.size.width;
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((itemWidth - 27)/2, 12, 27, 27)];
-    imgView.image = [UIImage imageNamed:@"hp_person_icon"];
+    if(index == 0){
+        imgView.image = [UIImage imageNamed:@"hp_person_icon"];
+    }else if(index == 1){
+        imgView.image = [UIImage imageNamed:@"hpDoor_no_icon"];
+    }else if(index == 2){
+        imgView.image = [UIImage imageNamed:@"hpDoor_car_icon"];
+    }else if(index == 3){
+        imgView.image = [UIImage imageNamed:@"hpDoor_door_icon"];
+    }
     [itemView addSubview:imgView];
     
     UILabel *numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, imgView.bottom + 11, itemWidth, 20)];

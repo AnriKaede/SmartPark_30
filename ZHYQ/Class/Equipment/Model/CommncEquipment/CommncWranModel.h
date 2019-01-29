@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 
 @property (nonatomic,copy) NSString *serviceName;
-@property (nonatomic,copy) NSString *alarmLevel;
+@property (nonatomic,strong) NSNumber *alarmLevel;
 @property (nonatomic,copy) NSString *equipName;
 @property (nonatomic,copy) NSString *equipSn;
 @property (nonatomic,copy) NSString *runingStatusName;
@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *triggerDate;
 @property (nonatomic,copy) NSString *reportDate;
 @property (nonatomic,copy) NSString *addressInfo;
+@property (nonatomic,copy) NSString *alarmLevelName;
 
 @end
 

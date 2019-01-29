@@ -15,6 +15,8 @@
     
     __weak IBOutlet UIView *_bgView;
     
+    __weak IBOutlet UILabel *_dateTitleLabel;
+    __weak IBOutlet UILabel *_ratioMsgLabel;
     __weak IBOutlet UILabel *_numLabel;
     __weak IBOutlet UILabel *_ratioLabel;    // %
     __weak IBOutlet UIImageView *_upDownImgView;
@@ -125,13 +127,28 @@
     
     UIButton *bt = [_topBgView viewWithTag:100+filterDateStyle];
     [self changeBtState:bt];
+    
+    switch (filterDateStyle) {
+        case FilterDay:
+            _dateTitleLabel.text = @"今日收入";
+            _ratioMsgLabel.text = @"日环比";
+            break;
+        case FilterWeek:
+            _dateTitleLabel.text = @"本周收入";
+            _ratioMsgLabel.text = @"周环比";
+            break;
+        case FilterMonth:
+            _dateTitleLabel.text = @"本月收入";
+            _ratioMsgLabel.text = @"月环比";
+            break;
+    }
 }
 
 #pragma mark 设置数据
 - (void)setParkFeeCountModel:(ParkFeeCountModel *)parkFeeCountModel {
     _parkFeeCountModel = parkFeeCountModel;
     
-    _numLabel.text = [NSString stringWithFormat:@"%@", parkFeeCountModel.totalFee];
+    _numLabel.text = [NSString stringWithFormat:@"%.2f", parkFeeCountModel.totalFee.floatValue/100];
     
     _ratioLabel.text = [NSString stringWithFormat:@"%@%%", parkFeeCountModel.dodValue];
     
@@ -143,13 +160,13 @@
     [parkFeeCountModel.items enumerateObjectsUsingBlock:^(ParkFeePayModel *payModel, NSUInteger idx, BOOL * _Nonnull stop) {
         if(payModel.payType != nil && ![payModel.payType isKindOfClass:[NSNull class]]){
             if([payModel.payType isEqualToString:@"010"]){
-                _wechatLabel.text = [NSString stringWithFormat:@"%@ 元", payModel.totalFee];
+                _wechatLabel.text = [NSString stringWithFormat:@"%.2f 元", payModel.totalFee.floatValue/100];
             }else if([payModel.payType isEqualToString:@"020"]){
-                _alipayLabel.text = [NSString stringWithFormat:@"%@ 元", payModel.totalFee];
+                _alipayLabel.text = [NSString stringWithFormat:@"%.2f 元", payModel.totalFee.floatValue/100];
             }else if([payModel.payType isEqualToString:@"100"]){
-                _yipayLabel.text = [NSString stringWithFormat:@"%@ 元", payModel.totalFee];
+                _yipayLabel.text = [NSString stringWithFormat:@"%.2f 元", payModel.totalFee.floatValue/100];
             }else if([payModel.payType isEqualToString:@"000"]){
-                _cashLabel.text = [NSString stringWithFormat:@"%@ 元", payModel.totalFee];
+                _cashLabel.text = [NSString stringWithFormat:@"%.2f 元", payModel.totalFee.floatValue/100];
             }
         }
     }];

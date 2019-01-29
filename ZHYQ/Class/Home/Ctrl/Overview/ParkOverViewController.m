@@ -161,7 +161,7 @@
 - (void)roundView:(CarRoundView *)roundView withNumerator:(NSNumber *)numerator withDenominator:(NSNumber *)denominator {
     if(numerator != nil && ![numerator isKindOfClass:[NSNull class]] && denominator != nil && ![denominator isKindOfClass:[NSNull class]] && denominator.integerValue != 0){
         CGFloat proportion = numerator.floatValue/denominator.floatValue;
-        roundView.maintainEndNum = [NSString stringWithFormat:@"%.2f", proportion].floatValue;
+        roundView.maintainEndNum = [NSString stringWithFormat:@"%.4f", proportion].floatValue;
         [roundView setDataTitle:[NSString stringWithFormat:@"%.0f%%", proportion*100]];
     }
 }

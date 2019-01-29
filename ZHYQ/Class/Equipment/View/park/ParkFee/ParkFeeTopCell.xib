@@ -242,8 +242,10 @@
                 <outlet property="_alipayLabel" destination="MW2-5Q-hq3" id="hns-aP-yBm"/>
                 <outlet property="_bgView" destination="fYW-4R-LjR" id="SVX-XQ-fqG"/>
                 <outlet property="_cashLabel" destination="0xP-5u-0fo" id="1eO-jY-yu4"/>
+                <outlet property="_dateTitleLabel" destination="1LP-6I-fld" id="Dkv-rA-KRt"/>
                 <outlet property="_numLabel" destination="ST2-Ie-fC4" id="cok-7g-5gv"/>
                 <outlet property="_ratioLabel" destination="5TV-kg-ZVn" id="YLU-Pw-odm"/>
+                <outlet property="_ratioMsgLabel" destination="GWU-kh-uOf" id="mHO-9c-ryx"/>
                 <outlet property="_ringBgView" destination="xeo-Td-vfP" id="Cuk-31-UMK"/>
                 <outlet property="_topBgView" destination="LbA-AI-694" id="okV-xP-Pq2"/>
                 <outlet property="_upDownImgView" destination="k7X-ZY-nwz" id="l3q-uy-BbG"/>
