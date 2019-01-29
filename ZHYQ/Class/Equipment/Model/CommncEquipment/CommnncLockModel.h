@@ -69,6 +69,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *modelName;
 @property (nonatomic,copy) NSString *manufactureName;
 
+@property (nonatomic,copy) NSString *runingStatusDetail;
+
 @property (nonatomic,copy) NSString *latitude;
 @property (nonatomic,copy) NSString *longitude;
 

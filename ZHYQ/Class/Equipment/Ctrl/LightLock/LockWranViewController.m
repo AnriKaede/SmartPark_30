@@ -19,6 +19,8 @@
     NSMutableArray *_wranData;
     
     UILabel *_allNumLabel;
+    
+    NSNumber *_total;
 }
 @end
 
@@ -100,6 +102,12 @@
             NSDictionary *dic = responseObject[@"responseData"];
             NSArray *arr = dic[@"list"];
             
+            NSNumber *total = dic[@"total"];
+            if(total != nil && ![total isKindOfClass:[NSNull class]]){
+                _allNumLabel.text = [NSString stringWithFormat:@"%@", total];
+                _total = total;
+            }
+            
             if(arr.count > _length-1){
                 _tableView.mj_footer.state = MJRefreshStateIdle;
                 _tableView.mj_footer.hidden = NO;
@@ -174,6 +182,7 @@
     _allNumLabel.textColor = [UIColor colorWithHexString:@"#E60012"];
     _allNumLabel.font = [UIFont systemFontOfSize:16];
     _allNumLabel.textAlignment = NSTextAlignmentLeft;
+    _allNumLabel.text = [NSString stringWithFormat:@"%@", _total];
     [headerView addSubview:_allNumLabel];
     
     return headerView;
@@ -191,7 +200,7 @@
     return 0.1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CommncWranModel *model = _wranData[indexPath.row];
+    CommncWranModel *model = _wranData[indexPath.section];
     
     CommncWranCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommncWranCell" forIndexPath:indexPath];
     

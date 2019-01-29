@@ -133,7 +133,7 @@
     }
     
     _numLabel.text = [NSString stringWithFormat:@"%@", lockModel.equipSn];
-    _wranInfoLabel.text = [NSString stringWithFormat:@"%@", lockModel.stateDetail];
+    _wranInfoLabel.text = [NSString stringWithFormat:@"%@", lockModel.runingStatusDetail];
     _timeLabel.text = [NSString stringWithFormat:@"%@", lockModel.triggerDate];
     _addressLabel.text = [NSString stringWithFormat:@"%@", lockModel.addressInfo];
     _modelLabel.text = [NSString stringWithFormat:@"%@(%@)", lockModel.modelCode, lockModel.manufactureName];

@@ -115,7 +115,7 @@
     }
     
     _numLabel.text = [NSString stringWithFormat:@"%@", model.equipSn];
-    _wranInfoLabel.text = [NSString stringWithFormat:@"%@", model.stateDetail];
+    _wranInfoLabel.text = [NSString stringWithFormat:@"%@", model.runingStatusDetail];
     _timeLabel.text = [NSString stringWithFormat:@"%@", model.triggerDate];
     _addressLabel.text = [NSString stringWithFormat:@"%@", model.addressInfo];
     _modelLabel.text = [NSString stringWithFormat:@"%@(%@)", model.modelCode, model.manufactureName];
