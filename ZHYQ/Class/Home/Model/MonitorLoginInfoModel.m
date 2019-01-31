@@ -23,7 +23,7 @@
         NSString *decAddr = [AESUtil decryptAES:dssAddr key:AESKey];
         NSString *decAdmin = [AESUtil decryptAES:dssAdmin key:AESKey];
         NSString *decPasswd = [AESUtil decryptAES:dssPasswd key:AESKey];
-        NSString *decPort = [AESUtil decryptAES:dssPort key:AESKey];
+        NSString *decPort = dssPort;
         
         self.dssAddr = decAddr;
         self.dssAdmin = decAdmin;
