@@ -7,7 +7,6 @@
 //
 
 #import "WarnCakeView.h"
-#import "WarnCakeView.h"
 
 @implementation WarnCakeView
 {
@@ -46,6 +45,9 @@
 }
 
 - (void)_initView {
+    // 添加渐变色
+    [NavGradient viewAddGradient:self];
+    
     CGFloat circleWidth = 120;
     
     bgRingView = [[UIView alloc] initWithFrame:CGRectMake((KScreenWidth - circleWidth)/2, 50, circleWidth, circleWidth)];
@@ -73,10 +75,10 @@
     titleLlabel.textAlignment = NSTextAlignmentCenter;
     [bgRingView addSubview:titleLlabel];
     
-    valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, titleLlabel.bottom + 8, circleWidth - 40, 35)];
+    valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, titleLlabel.bottom + 8, circleWidth - 30, 35)];
     valueLabel.text = @"0";
     valueLabel.textColor = [UIColor whiteColor];
-    valueLabel.font = [UIFont systemFontOfSize:35];
+    valueLabel.font = [UIFont systemFontOfSize:33];
     valueLabel.textAlignment = NSTextAlignmentCenter;
     [bgRingView addSubview:valueLabel];
     

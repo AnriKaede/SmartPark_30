@@ -88,7 +88,11 @@
     gradientLayer = nil;
     gradientLayer =  [CAGradientLayer layer];
     gradientLayer.frame = CGRectMake(0, 0, self.width, self.width);
-    [gradientLayer setColors:[NSArray arrayWithObjects:(id)[UIColor colorWithHexString:@"#F04CD3"].CGColor, (id)[UIColor colorWithHexString:@"#009CF3"].CGColor, nil]];
+    if(_maintainEndNum >= 1){
+        [gradientLayer setColors:[NSArray arrayWithObjects:(id)[UIColor colorWithHexString:@"#c0f04c"].CGColor, (id)[UIColor colorWithHexString:@"#4af300"].CGColor, nil]];
+    }else {
+        [gradientLayer setColors:[NSArray arrayWithObjects:(id)[UIColor colorWithHexString:@"#F04CD3"].CGColor, (id)[UIColor colorWithHexString:@"#009CF3"].CGColor, nil]];
+    }
     gradientLayer.startPoint = CGPointMake(1, 0);
     gradientLayer.endPoint = CGPointMake(0, 1);
     [self.layer addSublayer:gradientLayer];

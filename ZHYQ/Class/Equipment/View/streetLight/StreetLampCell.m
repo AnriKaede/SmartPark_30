@@ -24,6 +24,12 @@
 - (void)setStreetLampSubModel:(StreetLampSubModel *)streetLampSubModel {
     _streetLampSubModel = streetLampSubModel;
     
+    if(_streetLampSubModel.isColor){
+        self.contentView.backgroundColor = [UIColor colorWithHexString:@"#F5FDFF"];
+    }else {
+        self.contentView.backgroundColor = [UIColor whiteColor];
+    }
+    
     _lampNameLbael.text = streetLampSubModel.DEVICE_NAME;
     
     if(streetLampSubModel.isConSelect){

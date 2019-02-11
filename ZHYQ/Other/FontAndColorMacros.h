@@ -18,7 +18,8 @@
 //主题色 导航栏颜色
 #define CNavBgColor  [UIColor colorWithHexString:@"1B82D1"]
 //导航栏分割线颜色
-#define CNavSepColor  [UIColor colorWithHexString:@"2B9BF1"]
+//#define CNavSepColor  [UIColor colorWithHexString:@"2B9BF1"]
+#define CNavSepColor  [UIColor clearColor]
 
 #define CNavBgFontColor  [UIColor colorWithHexString:@"ffffff"]
 

@@ -42,6 +42,8 @@
 
 @property (nonatomic, strong) NSMutableArray *streetLightArr;
 
+@property (nonatomic, strong) NSMutableArray *commncArr;    // 通信设备光交锁
+
 
 @property (nonatomic, strong) NSMutableArray *parkDownArr;  // 车库点位图数组
 

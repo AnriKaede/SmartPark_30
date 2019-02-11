@@ -56,6 +56,8 @@
     
     // 头部视图
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 60)];
+    // 添加渐变色
+    [NavGradient viewAddGradient:_headerView];
     _headerView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
     [self.view addSubview:_headerView];
     
@@ -185,7 +187,7 @@
     // 初始化查询
     [[PlaybackManager sharedInstance]initPlaybackManager];
     
-    [PlaybackManager sharedInstance].recordResourceValue = 3;
+    [PlaybackManager sharedInstance].recordResourceValue = DPSDK_CORE_PB_RECSOURCE_DEVICE;
     [PlaybackManager sharedInstance].recordTypeValue = 0;
     [PlaybackManager sharedInstance].isPlayBackByFile = YES;
     

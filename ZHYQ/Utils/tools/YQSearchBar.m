@@ -31,7 +31,9 @@ static CGFloat const placeHolderFont = 15.0;
     if(_bgImage){
         [self setBackgroundImage:_bgImage];
     }else {
-        UIImage *backImage = [UIImage imageWithColor:[UIColor colorWithHexString:@"#1B82D1"]];
+        // 添加渐变色
+        UIImage *backImage = [NavGradient searchAddGradient:self];
+//        [UIImage imageWithColor:[UIColor clearColor]];
         [self setBackgroundImage:backImage];
     }
 

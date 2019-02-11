@@ -42,6 +42,13 @@
 		92216EF41FED045A008B09EA /* ECardInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92216EF31FED045A008B09EA /* ECardInfoModel.m */; };
 		92216EF71FEDF629008B09EA /* OpenDoorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92216EF61FEDF629008B09EA /* OpenDoorModel.m */; };
 		92216EFA1FEE0D06008B09EA /* RemoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92216EF91FEE0D06008B09EA /* RemoteModel.m */; };
+		9222431B21CCD2840096EEC8 /* LockMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222431A21CCD2840096EEC8 /* LockMenuView.m */; };
+		9222431E21CCD29B0096EEC8 /* CoverMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222431D21CCD29B0096EEC8 /* CoverMenuView.m */; };
+		9222432021CCD3810096EEC8 /* LockMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222431F21CCD3810096EEC8 /* LockMenuView.xib */; };
+		9222432221CCD3960096EEC8 /* CoverMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222432121CCD3960096EEC8 /* CoverMenuView.xib */; };
+		9222432521CCE3080096EEC8 /* LockWranViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222432421CCE3080096EEC8 /* LockWranViewController.m */; };
+		9222432921CCE4060096EEC8 /* CommunLockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222432721CCE4060096EEC8 /* CommunLockCell.m */; };
+		9222432A21CCE4060096EEC8 /* CommunLockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222432821CCE4060096EEC8 /* CommunLockCell.xib */; };
 		9222CAC9215E532800C519FF /* StopParkMangerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222CAC8215E532800C519FF /* StopParkMangerViewController.m */; };
 		9222CACF215E53EF00C519FF /* LongParkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222CACE215E53EF00C519FF /* LongParkViewController.m */; };
 		9222CAD4215E5B3700C519FF /* ParkTop10Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222CAD2215E5B3700C519FF /* ParkTop10Cell.m */; };
@@ -50,6 +57,17 @@
 		9222CADA215E696800C519FF /* LongParkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9222CAD8215E696800C519FF /* LongParkCell.xib */; };
 		9222CADD215F12CC00C519FF /* StopParkSelDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222CADC215F12CC00C519FF /* StopParkSelDayView.m */; };
 		9222CAE3215FAEE500C519FF /* StopParkListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9222CAE2215FAEE500C519FF /* StopParkListModel.m */; };
+		9223611B21E8439B00E412F4 /* ParkOverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223611A21E8439B00E412F4 /* ParkOverModel.m */; };
+		9223611E21E843D900E412F4 /* OverAlarmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223611D21E843D900E412F4 /* OverAlarmModel.m */; };
+		9223612121E8440F00E412F4 /* OverCheckModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223612021E8440F00E412F4 /* OverCheckModel.m */; };
+		9223612421E8442400E412F4 /* OverOnlineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223612321E8442400E412F4 /* OverOnlineModel.m */; };
+		9223612721E8443800E412F4 /* OverDealModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223612621E8443800E412F4 /* OverDealModel.m */; };
+		9223612A21E8749200E412F4 /* OverLineTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223612921E8749200E412F4 /* OverLineTableView.m */; };
+		9223612E21E874AA00E412F4 /* OverLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223612C21E874AA00E412F4 /* OverLineCell.m */; };
+		9223612F21E874AA00E412F4 /* OverLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9223612D21E874AA00E412F4 /* OverLineCell.xib */; };
+		9223613221E88D8800E412F4 /* OverOffLineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223613121E88D8800E412F4 /* OverOffLineModel.m */; };
+		9223613521E88D9E00E412F4 /* OverDeviceInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223613421E88D9E00E412F4 /* OverDeviceInfoModel.m */; };
+		9223613821E8942A00E412F4 /* OverDetailWranModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9223613721E8942A00E412F4 /* OverDetailWranModel.m */; };
 		9224A2DC2010ABB700AE4FF4 /* WeatherDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9224A2DA2010ABB700AE4FF4 /* WeatherDetailController.m */; };
 		9224A2DF2011C45B00AE4FF4 /* MeetWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9224A2DE2011C45B00AE4FF4 /* MeetWebViewController.m */; };
 		9224A2E22011DE3C00AE4FF4 /* MeetPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9224A2E12011DE3C00AE4FF4 /* MeetPageViewController.m */; };
@@ -170,6 +188,13 @@
 		9241A35E1FDFC7C700D640E6 /* MusicTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9241A35D1FDFC7C600D640E6 /* MusicTimeModel.m */; };
 		9243E836209FDBE0000FD182 /* WranConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9243E835209FDBE0000FD182 /* WranConfirmView.m */; };
 		9243E83A20A02CF7000FD182 /* WranUndealModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9243E83920A02CF7000FD182 /* WranUndealModel.m */; };
+		925348A421D0690C00B05593 /* CommnncLockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348A321D0690C00B05593 /* CommnncLockModel.m */; };
+		925348A721D0692A00B05593 /* CommnncCoverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348A621D0692A00B05593 /* CommnncCoverModel.m */; };
+		925348AB21D0B9B800B05593 /* CommncWranCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348A921D0B9B800B05593 /* CommncWranCell.m */; };
+		925348AC21D0B9B800B05593 /* CommncWranCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 925348AA21D0B9B800B05593 /* CommncWranCell.xib */; };
+		925348AF21D0CE8600B05593 /* CommncQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348AE21D0CE8600B05593 /* CommncQueryViewController.m */; };
+		925348B521D4D20C00B05593 /* EquipmQueryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348B321D4D20C00B05593 /* EquipmQueryCell.m */; };
+		925348B921D6F7E800B05593 /* CommncWranModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925348B821D6F7E700B05593 /* CommncWranModel.m */; };
 		9253BC7720BF9BE500AB4767 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D60262211F9B45DD00A66D5A /* AppDelegate.mm */; };
 		9253BD5220BFA58E00AB4767 /* MonitorTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */; };
 		9253BD5320BFA58E00AB4767 /* PlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9253BCF120BFA58D00AB4767 /* PlayVideoViewController.m */; };
@@ -260,9 +285,40 @@
 		9256C47421A55D9300501014 /* BDSClientResources in Resources */ = {isa = PBXBuildFile; fileRef = 9256C47321A55D9300501014 /* BDSClientResources */; };
 		9256C47A21A639B900501014 /* VoiceRecognitionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256C47921A639B900501014 /* VoiceRecognitionResult.m */; };
 		9256C47D21A6426F00501014 /* VoiceRecognitionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9256C47C21A6426F00501014 /* VoiceRecognitionModel.m */; };
+		9257EEC221C72FCE009C4230 /* HpDoorCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EEC121C72FCE009C4230 /* HpDoorCenViewController.m */; };
+		9257EEC521C730D4009C4230 /* HpFaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EEC421C730D4009C4230 /* HpFaceViewController.m */; };
+		9257EEC821C730E1009C4230 /* HpCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EEC721C730E1009C4230 /* HpCarViewController.m */; };
+		9257EECB21C73B0B009C4230 /* HpMoreCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EECA21C73B0B009C4230 /* HpMoreCenViewController.m */; };
+		9257EECF21C73DCC009C4230 /* HpTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EECE21C73DCC009C4230 /* HpTopView.m */; };
+		9257EED321C74C9A009C4230 /* HpFaceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EED121C74C9A009C4230 /* HpFaceCell.m */; };
+		9257EED421C74C9A009C4230 /* HpFaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9257EED221C74C9A009C4230 /* HpFaceCell.xib */; };
+		9257EED821C74DC7009C4230 /* HpCarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EED621C74DC7009C4230 /* HpCarCell.m */; };
+		9257EED921C74DC7009C4230 /* HpCarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9257EED721C74DC7009C4230 /* HpCarCell.xib */; };
+		9257EEDD21C893F8009C4230 /* NavGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EEDC21C893F8009C4230 /* NavGradient.m */; };
+		9257EF0321C9DBCA009C4230 /* HpFaceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EF0221C9DBCA009C4230 /* HpFaceModel.m */; };
+		9257EF0621C9DC15009C4230 /* HpCarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EF0521C9DC15009C4230 /* HpCarModel.m */; };
+		9257EF2421CCD100009C4230 /* CommunicationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9257EF2321CCD100009C4230 /* CommunicationViewController.m */; };
+		925A8BAC21DE001A0044C8AD /* CommncInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 925A8BAB21DE001A0044C8AD /* CommncInfoModel.m */; };
 		925EEFC91FB04C3B003DB93B /* ShowMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 925EEFC81FB04C3B003DB93B /* ShowMenuView.m */; };
+		9262C75921F9524600DBFFD5 /* ParkFeeFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9262C75821F9524600DBFFD5 /* ParkFeeFilterModel.m */; };
+		9262C78E21FE980800DBFFD5 /* HPFaceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9262C78D21FE980700DBFFD5 /* HPFaceListViewController.m */; };
+		9262C79121FE981300DBFFD5 /* HPCarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9262C79021FE981300DBFFD5 /* HPCarListViewController.m */; };
 		92643D8C201818340007C007 /* VisSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8B201818340007C007 /* VisSearchViewController.m */; };
 		92643D8F201876970007C007 /* VisCountNumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92643D8E201876970007C007 /* VisCountNumModel.m */; };
+		9265606D21E2E1AB006D1FDB /* UnOnlineHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265606C21E2E1AB006D1FDB /* UnOnlineHomeViewController.m */; };
+		9265607021E2E348006D1FDB /* WranHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265606F21E2E348006D1FDB /* WranHomeViewController.m */; };
+		9265607321E2E362006D1FDB /* CloseEqHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265607221E2E362006D1FDB /* CloseEqHomeViewController.m */; };
+		9265607621E2E385006D1FDB /* CheckTaskHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265607521E2E385006D1FDB /* CheckTaskHomeViewController.m */; };
+		9265607B21E2E84D006D1FDB /* UnOnlineHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265607921E2E84D006D1FDB /* UnOnlineHomeCell.m */; };
+		9265607C21E2E84D006D1FDB /* UnOnlineHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9265607A21E2E84D006D1FDB /* UnOnlineHomeCell.xib */; };
+		9265608021E2E86E006D1FDB /* WranHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265607E21E2E86E006D1FDB /* WranHomeCell.m */; };
+		9265608121E2E86E006D1FDB /* WranHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9265607F21E2E86E006D1FDB /* WranHomeCell.xib */; };
+		9265608821E2E8A7006D1FDB /* CloseEqHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265608621E2E8A7006D1FDB /* CloseEqHomeCell.m */; };
+		9265608921E2E8A7006D1FDB /* CloseEqHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9265608721E2E8A7006D1FDB /* CloseEqHomeCell.xib */; };
+		9265608D21E2E8C2006D1FDB /* CheckTaskHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265608B21E2E8C2006D1FDB /* CheckTaskHomeCell.m */; };
+		9265608E21E2E8C2006D1FDB /* CheckTaskHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9265608C21E2E8C2006D1FDB /* CheckTaskHomeCell.xib */; };
+		9265609121E2EF30006D1FDB /* WranHomeCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265609021E2EF30006D1FDB /* WranHomeCenViewController.m */; };
+		9265609421E2EF4E006D1FDB /* CheckHomeCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9265609321E2EF4E006D1FDB /* CheckHomeCenViewController.m */; };
 		92669419219D4FD3004583B2 /* UIWebView+KWHideAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92669407219D4FD1004583B2 /* UIWebView+KWHideAccessoryView.m */; };
 		9266941A219D4FD3004583B2 /* UIWebView+KWWebViewJSTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 92669408219D4FD1004583B2 /* UIWebView+KWWebViewJSTool.m */; };
 		9266941B219D4FD3004583B2 /* UIControl+KWButtonExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 92669409219D4FD1004583B2 /* UIControl+KWButtonExtension.m */; };
@@ -284,6 +340,12 @@
 		9266944D219EA4F4004583B2 /* LEDForworkDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9266944C219EA4F4004583B2 /* LEDForworkDetailViewController.m */; };
 		926748E2213682BF0007BDA1 /* UITextField+Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 926748E1213682BF0007BDA1 /* UITextField+Position.m */; };
 		926748E82136A2840007BDA1 /* VisFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 926748E72136A2840007BDA1 /* VisFilterView.m */; };
+		926A818D21F16706008A46ED /* ParkFeeCountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A818C21F16706008A46ED /* ParkFeeCountModel.m */; };
+		926A819021F1672B008A46ED /* ParkFeePayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A818F21F1672B008A46ED /* ParkFeePayModel.m */; };
+		926A819321F1D035008A46ED /* ParkConsumeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A819221F1D035008A46ED /* ParkConsumeModel.m */; };
+		926A819621F1D2ED008A46ED /* OverColseCenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A819521F1D2ED008A46ED /* OverColseCenViewController.m */; };
+		926A819921F1D312008A46ED /* OverCloseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A819821F1D312008A46ED /* OverCloseListViewController.m */; };
+		926A819C21F1DB59008A46ED /* OverCloseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926A819B21F1DB59008A46ED /* OverCloseListModel.m */; };
 		926B69721FD137B100DEFEDD /* IllegalListTabCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 926B69711FD137B100DEFEDD /* IllegalListTabCell.xib */; };
 		926B69751FD142CA00DEFEDD /* IllegalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926B69741FD142CA00DEFEDD /* IllegalDetailViewController.m */; };
 		926B69791FD24B2F00DEFEDD /* CarIllegeaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 926B69771FD24B2F00DEFEDD /* CarIllegeaCell.m */; };
@@ -301,6 +363,8 @@
 		926DB8DE202A9C3300529BE0 /* OperateLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8DD202A9C3300529BE0 /* OperateLogModel.m */; };
 		926DB8E1202AF59300529BE0 /* LogFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8E0202AF59300529BE0 /* LogFilterViewController.m */; };
 		926DB8E5202BDE1100529BE0 /* LogRecordObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8E4202BDE1100529BE0 /* LogRecordObj.m */; };
+		926EA70821EC13A800BE56F4 /* OverTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA70721EC13A800BE56F4 /* OverTaskModel.m */; };
+		926EA8CB21ED75A100BE56F4 /* OverUseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */; };
 		9273EB0A204E8B3900723C5D /* EvnDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB09204E8B3900723C5D /* EvnDataModel.m */; };
 		9273EB0E204E8D0700723C5D /* EvnDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB0C204E8D0700723C5D /* EvnDataCell.m */; };
 		9273EB0F204E8D0700723C5D /* EvnDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9273EB0D204E8D0700723C5D /* EvnDataCell.xib */; };
@@ -963,6 +1027,17 @@
 		92216EF61FEDF629008B09EA /* OpenDoorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenDoorModel.m; sourceTree = "<group>"; };
 		92216EF81FEE0D06008B09EA /* RemoteModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RemoteModel.h; sourceTree = "<group>"; };
 		92216EF91FEE0D06008B09EA /* RemoteModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RemoteModel.m; sourceTree = "<group>"; };
+		9222431921CCD2840096EEC8 /* LockMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockMenuView.h; sourceTree = "<group>"; };
+		9222431A21CCD2840096EEC8 /* LockMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockMenuView.m; sourceTree = "<group>"; };
+		9222431C21CCD29B0096EEC8 /* CoverMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverMenuView.h; sourceTree = "<group>"; };
+		9222431D21CCD29B0096EEC8 /* CoverMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverMenuView.m; sourceTree = "<group>"; };
+		9222431F21CCD3810096EEC8 /* LockMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LockMenuView.xib; sourceTree = "<group>"; };
+		9222432121CCD3960096EEC8 /* CoverMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CoverMenuView.xib; sourceTree = "<group>"; };
+		9222432321CCE3080096EEC8 /* LockWranViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockWranViewController.h; sourceTree = "<group>"; };
+		9222432421CCE3080096EEC8 /* LockWranViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockWranViewController.m; sourceTree = "<group>"; };
+		9222432621CCE4060096EEC8 /* CommunLockCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommunLockCell.h; sourceTree = "<group>"; };
+		9222432721CCE4060096EEC8 /* CommunLockCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommunLockCell.m; sourceTree = "<group>"; };
+		9222432821CCE4060096EEC8 /* CommunLockCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommunLockCell.xib; sourceTree = "<group>"; };
 		9222CAC7215E532800C519FF /* StopParkMangerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StopParkMangerViewController.h; sourceTree = "<group>"; };
 		9222CAC8215E532800C519FF /* StopParkMangerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StopParkMangerViewController.m; sourceTree = "<group>"; };
 		9222CACD215E53EF00C519FF /* LongParkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LongParkViewController.h; sourceTree = "<group>"; };
@@ -977,6 +1052,27 @@
 		9222CADC215F12CC00C519FF /* StopParkSelDayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StopParkSelDayView.m; sourceTree = "<group>"; };
 		9222CAE1215FAEE500C519FF /* StopParkListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StopParkListModel.h; sourceTree = "<group>"; };
 		9222CAE2215FAEE500C519FF /* StopParkListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StopParkListModel.m; sourceTree = "<group>"; };
+		9223611921E8439B00E412F4 /* ParkOverModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkOverModel.h; sourceTree = "<group>"; };
+		9223611A21E8439B00E412F4 /* ParkOverModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkOverModel.m; sourceTree = "<group>"; };
+		9223611C21E843D900E412F4 /* OverAlarmModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverAlarmModel.h; sourceTree = "<group>"; };
+		9223611D21E843D900E412F4 /* OverAlarmModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverAlarmModel.m; sourceTree = "<group>"; };
+		9223611F21E8440F00E412F4 /* OverCheckModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverCheckModel.h; sourceTree = "<group>"; };
+		9223612021E8440F00E412F4 /* OverCheckModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverCheckModel.m; sourceTree = "<group>"; };
+		9223612221E8442400E412F4 /* OverOnlineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverOnlineModel.h; sourceTree = "<group>"; };
+		9223612321E8442400E412F4 /* OverOnlineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverOnlineModel.m; sourceTree = "<group>"; };
+		9223612521E8443800E412F4 /* OverDealModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverDealModel.h; sourceTree = "<group>"; };
+		9223612621E8443800E412F4 /* OverDealModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverDealModel.m; sourceTree = "<group>"; };
+		9223612821E8749200E412F4 /* OverLineTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverLineTableView.h; sourceTree = "<group>"; };
+		9223612921E8749200E412F4 /* OverLineTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverLineTableView.m; sourceTree = "<group>"; };
+		9223612B21E874AA00E412F4 /* OverLineCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverLineCell.h; sourceTree = "<group>"; };
+		9223612C21E874AA00E412F4 /* OverLineCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverLineCell.m; sourceTree = "<group>"; };
+		9223612D21E874AA00E412F4 /* OverLineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverLineCell.xib; sourceTree = "<group>"; };
+		9223613021E88D8800E412F4 /* OverOffLineModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverOffLineModel.h; sourceTree = "<group>"; };
+		9223613121E88D8800E412F4 /* OverOffLineModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverOffLineModel.m; sourceTree = "<group>"; };
+		9223613321E88D9E00E412F4 /* OverDeviceInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverDeviceInfoModel.h; sourceTree = "<group>"; };
+		9223613421E88D9E00E412F4 /* OverDeviceInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverDeviceInfoModel.m; sourceTree = "<group>"; };
+		9223613621E8942A00E412F4 /* OverDetailWranModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverDetailWranModel.h; sourceTree = "<group>"; };
+		9223613721E8942A00E412F4 /* OverDetailWranModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverDetailWranModel.m; sourceTree = "<group>"; };
 		9224A2DA2010ABB700AE4FF4 /* WeatherDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherDetailController.m; sourceTree = "<group>"; };
 		9224A2DB2010ABB700AE4FF4 /* WeatherDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherDetailController.h; sourceTree = "<group>"; };
 		9224A2DD2011C45B00AE4FF4 /* MeetWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetWebViewController.h; sourceTree = "<group>"; };
@@ -1195,6 +1291,19 @@
 		9243E835209FDBE0000FD182 /* WranConfirmView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranConfirmView.m; sourceTree = "<group>"; };
 		9243E83820A02CF7000FD182 /* WranUndealModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WranUndealModel.h; sourceTree = "<group>"; };
 		9243E83920A02CF7000FD182 /* WranUndealModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranUndealModel.m; sourceTree = "<group>"; };
+		925348A221D0690C00B05593 /* CommnncLockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommnncLockModel.h; sourceTree = "<group>"; };
+		925348A321D0690C00B05593 /* CommnncLockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommnncLockModel.m; sourceTree = "<group>"; };
+		925348A521D0692A00B05593 /* CommnncCoverModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommnncCoverModel.h; sourceTree = "<group>"; };
+		925348A621D0692A00B05593 /* CommnncCoverModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommnncCoverModel.m; sourceTree = "<group>"; };
+		925348A821D0B9B800B05593 /* CommncWranCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommncWranCell.h; sourceTree = "<group>"; };
+		925348A921D0B9B800B05593 /* CommncWranCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommncWranCell.m; sourceTree = "<group>"; };
+		925348AA21D0B9B800B05593 /* CommncWranCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommncWranCell.xib; sourceTree = "<group>"; };
+		925348AD21D0CE8600B05593 /* CommncQueryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommncQueryViewController.h; sourceTree = "<group>"; };
+		925348AE21D0CE8600B05593 /* CommncQueryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommncQueryViewController.m; sourceTree = "<group>"; };
+		925348B221D4D20C00B05593 /* EquipmQueryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EquipmQueryCell.h; sourceTree = "<group>"; };
+		925348B321D4D20C00B05593 /* EquipmQueryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EquipmQueryCell.m; sourceTree = "<group>"; };
+		925348B721D6F7E700B05593 /* CommncWranModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommncWranModel.h; sourceTree = "<group>"; };
+		925348B821D6F7E700B05593 /* CommncWranModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommncWranModel.m; sourceTree = "<group>"; };
 		9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorTimeViewController.m; sourceTree = "<group>"; };
 		9253BCEF20BFA58D00AB4767 /* MonitorLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorLogin.h; sourceTree = "<group>"; };
 		9253BCF020BFA58D00AB4767 /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
@@ -1348,12 +1457,68 @@
 		9256C47921A639B900501014 /* VoiceRecognitionResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoiceRecognitionResult.m; sourceTree = "<group>"; };
 		9256C47B21A6426F00501014 /* VoiceRecognitionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoiceRecognitionModel.h; sourceTree = "<group>"; };
 		9256C47C21A6426F00501014 /* VoiceRecognitionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoiceRecognitionModel.m; sourceTree = "<group>"; };
+		9257EEC021C72FCE009C4230 /* HpDoorCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpDoorCenViewController.h; sourceTree = "<group>"; };
+		9257EEC121C72FCE009C4230 /* HpDoorCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpDoorCenViewController.m; sourceTree = "<group>"; };
+		9257EEC321C730D4009C4230 /* HpFaceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpFaceViewController.h; sourceTree = "<group>"; };
+		9257EEC421C730D4009C4230 /* HpFaceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpFaceViewController.m; sourceTree = "<group>"; };
+		9257EEC621C730E1009C4230 /* HpCarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpCarViewController.h; sourceTree = "<group>"; };
+		9257EEC721C730E1009C4230 /* HpCarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpCarViewController.m; sourceTree = "<group>"; };
+		9257EEC921C73B0B009C4230 /* HpMoreCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpMoreCenViewController.h; sourceTree = "<group>"; };
+		9257EECA21C73B0B009C4230 /* HpMoreCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpMoreCenViewController.m; sourceTree = "<group>"; };
+		9257EECD21C73DCC009C4230 /* HpTopView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpTopView.h; sourceTree = "<group>"; };
+		9257EECE21C73DCC009C4230 /* HpTopView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpTopView.m; sourceTree = "<group>"; };
+		9257EED021C74C9A009C4230 /* HpFaceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpFaceCell.h; sourceTree = "<group>"; };
+		9257EED121C74C9A009C4230 /* HpFaceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpFaceCell.m; sourceTree = "<group>"; };
+		9257EED221C74C9A009C4230 /* HpFaceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HpFaceCell.xib; sourceTree = "<group>"; };
+		9257EED521C74DC7009C4230 /* HpCarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpCarCell.h; sourceTree = "<group>"; };
+		9257EED621C74DC7009C4230 /* HpCarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpCarCell.m; sourceTree = "<group>"; };
+		9257EED721C74DC7009C4230 /* HpCarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HpCarCell.xib; sourceTree = "<group>"; };
+		9257EEDB21C893F8009C4230 /* NavGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavGradient.h; sourceTree = "<group>"; };
+		9257EEDC21C893F8009C4230 /* NavGradient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavGradient.m; sourceTree = "<group>"; };
+		9257EF0121C9DBCA009C4230 /* HpFaceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpFaceModel.h; sourceTree = "<group>"; };
+		9257EF0221C9DBCA009C4230 /* HpFaceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpFaceModel.m; sourceTree = "<group>"; };
+		9257EF0421C9DC15009C4230 /* HpCarModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HpCarModel.h; sourceTree = "<group>"; };
+		9257EF0521C9DC15009C4230 /* HpCarModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HpCarModel.m; sourceTree = "<group>"; };
+		9257EF2221CCD100009C4230 /* CommunicationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommunicationViewController.h; sourceTree = "<group>"; };
+		9257EF2321CCD100009C4230 /* CommunicationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommunicationViewController.m; sourceTree = "<group>"; };
+		925A8BAA21DE001A0044C8AD /* CommncInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommncInfoModel.h; sourceTree = "<group>"; };
+		925A8BAB21DE001A0044C8AD /* CommncInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommncInfoModel.m; sourceTree = "<group>"; };
 		925EEFC71FB04C3A003DB93B /* ShowMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowMenuView.h; sourceTree = "<group>"; };
 		925EEFC81FB04C3B003DB93B /* ShowMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowMenuView.m; sourceTree = "<group>"; };
+		9262C75721F9524600DBFFD5 /* ParkFeeFilterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkFeeFilterModel.h; sourceTree = "<group>"; };
+		9262C75821F9524600DBFFD5 /* ParkFeeFilterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkFeeFilterModel.m; sourceTree = "<group>"; };
+		9262C78C21FE980700DBFFD5 /* HPFaceListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPFaceListViewController.h; sourceTree = "<group>"; };
+		9262C78D21FE980700DBFFD5 /* HPFaceListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPFaceListViewController.m; sourceTree = "<group>"; };
+		9262C78F21FE981300DBFFD5 /* HPCarListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HPCarListViewController.h; sourceTree = "<group>"; };
+		9262C79021FE981300DBFFD5 /* HPCarListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HPCarListViewController.m; sourceTree = "<group>"; };
 		92643D8A201818340007C007 /* VisSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisSearchViewController.h; sourceTree = "<group>"; };
 		92643D8B201818340007C007 /* VisSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisSearchViewController.m; sourceTree = "<group>"; };
 		92643D8D201876970007C007 /* VisCountNumModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisCountNumModel.h; sourceTree = "<group>"; };
 		92643D8E201876970007C007 /* VisCountNumModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisCountNumModel.m; sourceTree = "<group>"; };
+		9265606B21E2E1AB006D1FDB /* UnOnlineHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnOnlineHomeViewController.h; sourceTree = "<group>"; };
+		9265606C21E2E1AB006D1FDB /* UnOnlineHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnOnlineHomeViewController.m; sourceTree = "<group>"; };
+		9265606E21E2E348006D1FDB /* WranHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WranHomeViewController.h; sourceTree = "<group>"; };
+		9265606F21E2E348006D1FDB /* WranHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranHomeViewController.m; sourceTree = "<group>"; };
+		9265607121E2E362006D1FDB /* CloseEqHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloseEqHomeViewController.h; sourceTree = "<group>"; };
+		9265607221E2E362006D1FDB /* CloseEqHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloseEqHomeViewController.m; sourceTree = "<group>"; };
+		9265607421E2E385006D1FDB /* CheckTaskHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckTaskHomeViewController.h; sourceTree = "<group>"; };
+		9265607521E2E385006D1FDB /* CheckTaskHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckTaskHomeViewController.m; sourceTree = "<group>"; };
+		9265607821E2E84D006D1FDB /* UnOnlineHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnOnlineHomeCell.h; sourceTree = "<group>"; };
+		9265607921E2E84D006D1FDB /* UnOnlineHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnOnlineHomeCell.m; sourceTree = "<group>"; };
+		9265607A21E2E84D006D1FDB /* UnOnlineHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnOnlineHomeCell.xib; sourceTree = "<group>"; };
+		9265607D21E2E86E006D1FDB /* WranHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WranHomeCell.h; sourceTree = "<group>"; };
+		9265607E21E2E86E006D1FDB /* WranHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranHomeCell.m; sourceTree = "<group>"; };
+		9265607F21E2E86E006D1FDB /* WranHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WranHomeCell.xib; sourceTree = "<group>"; };
+		9265608521E2E8A7006D1FDB /* CloseEqHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloseEqHomeCell.h; sourceTree = "<group>"; };
+		9265608621E2E8A7006D1FDB /* CloseEqHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CloseEqHomeCell.m; sourceTree = "<group>"; };
+		9265608721E2E8A7006D1FDB /* CloseEqHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloseEqHomeCell.xib; sourceTree = "<group>"; };
+		9265608A21E2E8C2006D1FDB /* CheckTaskHomeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckTaskHomeCell.h; sourceTree = "<group>"; };
+		9265608B21E2E8C2006D1FDB /* CheckTaskHomeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckTaskHomeCell.m; sourceTree = "<group>"; };
+		9265608C21E2E8C2006D1FDB /* CheckTaskHomeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CheckTaskHomeCell.xib; sourceTree = "<group>"; };
+		9265608F21E2EF30006D1FDB /* WranHomeCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WranHomeCenViewController.h; sourceTree = "<group>"; };
+		9265609021E2EF30006D1FDB /* WranHomeCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WranHomeCenViewController.m; sourceTree = "<group>"; };
+		9265609221E2EF4E006D1FDB /* CheckHomeCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckHomeCenViewController.h; sourceTree = "<group>"; };
+		9265609321E2EF4E006D1FDB /* CheckHomeCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckHomeCenViewController.m; sourceTree = "<group>"; };
 		92669405219D4FD1004583B2 /* UIWebView+KWWebViewJSTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+KWWebViewJSTool.h"; sourceTree = "<group>"; };
 		92669406219D4FD1004583B2 /* UIControl+KWButtonExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+KWButtonExtension.h"; sourceTree = "<group>"; };
 		92669407219D4FD1004583B2 /* UIWebView+KWHideAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+KWHideAccessoryView.m"; sourceTree = "<group>"; };
@@ -1388,6 +1553,18 @@
 		926748E1213682BF0007BDA1 /* UITextField+Position.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Position.m"; sourceTree = "<group>"; };
 		926748E62136A2840007BDA1 /* VisFilterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisFilterView.h; sourceTree = "<group>"; };
 		926748E72136A2840007BDA1 /* VisFilterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VisFilterView.m; sourceTree = "<group>"; };
+		926A818B21F16706008A46ED /* ParkFeeCountModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkFeeCountModel.h; sourceTree = "<group>"; };
+		926A818C21F16706008A46ED /* ParkFeeCountModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkFeeCountModel.m; sourceTree = "<group>"; };
+		926A818E21F1672B008A46ED /* ParkFeePayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkFeePayModel.h; sourceTree = "<group>"; };
+		926A818F21F1672B008A46ED /* ParkFeePayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkFeePayModel.m; sourceTree = "<group>"; };
+		926A819121F1D035008A46ED /* ParkConsumeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParkConsumeModel.h; sourceTree = "<group>"; };
+		926A819221F1D035008A46ED /* ParkConsumeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParkConsumeModel.m; sourceTree = "<group>"; };
+		926A819421F1D2ED008A46ED /* OverColseCenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverColseCenViewController.h; sourceTree = "<group>"; };
+		926A819521F1D2ED008A46ED /* OverColseCenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverColseCenViewController.m; sourceTree = "<group>"; };
+		926A819721F1D312008A46ED /* OverCloseListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverCloseListViewController.h; sourceTree = "<group>"; };
+		926A819821F1D312008A46ED /* OverCloseListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverCloseListViewController.m; sourceTree = "<group>"; };
+		926A819A21F1DB59008A46ED /* OverCloseListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverCloseListModel.h; sourceTree = "<group>"; };
+		926A819B21F1DB59008A46ED /* OverCloseListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverCloseListModel.m; sourceTree = "<group>"; };
 		926B69711FD137B100DEFEDD /* IllegalListTabCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IllegalListTabCell.xib; sourceTree = "<group>"; };
 		926B69731FD142CA00DEFEDD /* IllegalDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IllegalDetailViewController.h; sourceTree = "<group>"; };
 		926B69741FD142CA00DEFEDD /* IllegalDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IllegalDetailViewController.m; sourceTree = "<group>"; };
@@ -1430,6 +1607,10 @@
 		926DB8E0202AF59300529BE0 /* LogFilterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogFilterViewController.m; sourceTree = "<group>"; };
 		926DB8E3202BDE1100529BE0 /* LogRecordObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogRecordObj.h; sourceTree = "<group>"; };
 		926DB8E4202BDE1100529BE0 /* LogRecordObj.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogRecordObj.m; sourceTree = "<group>"; };
+		926EA70621EC13A800BE56F4 /* OverTaskModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverTaskModel.h; sourceTree = "<group>"; };
+		926EA70721EC13A800BE56F4 /* OverTaskModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverTaskModel.m; sourceTree = "<group>"; };
+		926EA8C921ED75A100BE56F4 /* OverUseListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverUseListModel.h; sourceTree = "<group>"; };
+		926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverUseListModel.m; sourceTree = "<group>"; };
 		9273EB08204E8B3900723C5D /* EvnDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvnDataModel.h; sourceTree = "<group>"; };
 		9273EB09204E8B3900723C5D /* EvnDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvnDataModel.m; sourceTree = "<group>"; };
 		9273EB0B204E8D0700723C5D /* EvnDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvnDataCell.h; sourceTree = "<group>"; };
@@ -2590,6 +2771,7 @@
 		9213C0461FE60AF4009E7B67 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9223611821E8438500E412F4 /* Overview */,
 				9213C0471FE60B13009E7B67 /* MonitorLoginInfoModel.h */,
 				9213C0481FE60B13009E7B67 /* MonitorLoginInfoModel.m */,
 				92B3BEC61FF5F46000C3AFEC /* PublicModel.h */,
@@ -2786,6 +2968,27 @@
 			path = smartDistributor;
 			sourceTree = "<group>";
 		};
+		9222431821CCD2310096EEC8 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				9222431921CCD2840096EEC8 /* LockMenuView.h */,
+				9222431A21CCD2840096EEC8 /* LockMenuView.m */,
+				9222431F21CCD3810096EEC8 /* LockMenuView.xib */,
+				9222431C21CCD29B0096EEC8 /* CoverMenuView.h */,
+				9222431D21CCD29B0096EEC8 /* CoverMenuView.m */,
+				9222432121CCD3960096EEC8 /* CoverMenuView.xib */,
+				9222432621CCE4060096EEC8 /* CommunLockCell.h */,
+				9222432721CCE4060096EEC8 /* CommunLockCell.m */,
+				9222432821CCE4060096EEC8 /* CommunLockCell.xib */,
+				925348A821D0B9B800B05593 /* CommncWranCell.h */,
+				925348A921D0B9B800B05593 /* CommncWranCell.m */,
+				925348AA21D0B9B800B05593 /* CommncWranCell.xib */,
+				925348B221D4D20C00B05593 /* EquipmQueryCell.h */,
+				925348B321D4D20C00B05593 /* EquipmQueryCell.m */,
+			);
+			path = Communication;
+			sourceTree = "<group>";
+		};
 		9222CAC6215E52FE00C519FF /* StopParkManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2821,6 +3024,35 @@
 				9222CAE2215FAEE500C519FF /* StopParkListModel.m */,
 			);
 			path = StopParkManager;
+			sourceTree = "<group>";
+		};
+		9223611821E8438500E412F4 /* Overview */ = {
+			isa = PBXGroup;
+			children = (
+				9223611921E8439B00E412F4 /* ParkOverModel.h */,
+				9223611A21E8439B00E412F4 /* ParkOverModel.m */,
+				9223611C21E843D900E412F4 /* OverAlarmModel.h */,
+				9223611D21E843D900E412F4 /* OverAlarmModel.m */,
+				9223611F21E8440F00E412F4 /* OverCheckModel.h */,
+				9223612021E8440F00E412F4 /* OverCheckModel.m */,
+				9223612221E8442400E412F4 /* OverOnlineModel.h */,
+				9223612321E8442400E412F4 /* OverOnlineModel.m */,
+				9223612521E8443800E412F4 /* OverDealModel.h */,
+				9223612621E8443800E412F4 /* OverDealModel.m */,
+				9223613021E88D8800E412F4 /* OverOffLineModel.h */,
+				9223613121E88D8800E412F4 /* OverOffLineModel.m */,
+				9223613321E88D9E00E412F4 /* OverDeviceInfoModel.h */,
+				9223613421E88D9E00E412F4 /* OverDeviceInfoModel.m */,
+				9223613621E8942A00E412F4 /* OverDetailWranModel.h */,
+				9223613721E8942A00E412F4 /* OverDetailWranModel.m */,
+				926EA8C921ED75A100BE56F4 /* OverUseListModel.h */,
+				926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */,
+				926A819A21F1DB59008A46ED /* OverCloseListModel.h */,
+				926A819B21F1DB59008A46ED /* OverCloseListModel.m */,
+				926EA70621EC13A800BE56F4 /* OverTaskModel.h */,
+				926EA70721EC13A800BE56F4 /* OverTaskModel.m */,
+			);
+			path = Overview;
 			sourceTree = "<group>";
 		};
 		9224A2E32012F57600AE4FF4 /* Visitor */ = {
@@ -2882,6 +3114,7 @@
 		922770E120BD3AFE009010F7 /* Park */ = {
 			isa = PBXGroup;
 			children = (
+				926A818A21F166A1008A46ED /* parkFee */,
 				9222CAE0215FAEC000C519FF /* StopParkManager */,
 				922770E220BD3B11009010F7 /* CarRecordModel.h */,
 				922770E320BD3B11009010F7 /* CarRecordModel.m */,
@@ -2917,6 +3150,22 @@
 			children = (
 				922B40C4215250F600B9F6E4 /* ParkOverViewController.h */,
 				922B40C5215250F600B9F6E4 /* ParkOverViewController.m */,
+				9265606B21E2E1AB006D1FDB /* UnOnlineHomeViewController.h */,
+				9265606C21E2E1AB006D1FDB /* UnOnlineHomeViewController.m */,
+				9265608F21E2EF30006D1FDB /* WranHomeCenViewController.h */,
+				9265609021E2EF30006D1FDB /* WranHomeCenViewController.m */,
+				9265606E21E2E348006D1FDB /* WranHomeViewController.h */,
+				9265606F21E2E348006D1FDB /* WranHomeViewController.m */,
+				9265607121E2E362006D1FDB /* CloseEqHomeViewController.h */,
+				9265607221E2E362006D1FDB /* CloseEqHomeViewController.m */,
+				926A819421F1D2ED008A46ED /* OverColseCenViewController.h */,
+				926A819521F1D2ED008A46ED /* OverColseCenViewController.m */,
+				926A819721F1D312008A46ED /* OverCloseListViewController.h */,
+				926A819821F1D312008A46ED /* OverCloseListViewController.m */,
+				9265609221E2EF4E006D1FDB /* CheckHomeCenViewController.h */,
+				9265609321E2EF4E006D1FDB /* CheckHomeCenViewController.m */,
+				9265607421E2E385006D1FDB /* CheckTaskHomeViewController.h */,
+				9265607521E2E385006D1FDB /* CheckTaskHomeViewController.m */,
 			);
 			path = Overview;
 			sourceTree = "<group>";
@@ -3086,6 +3335,21 @@
 				9243E83920A02CF7000FD182 /* WranUndealModel.m */,
 			);
 			path = Wran;
+			sourceTree = "<group>";
+		};
+		925348A121D068BB00B05593 /* CommncEquipment */ = {
+			isa = PBXGroup;
+			children = (
+				925348A221D0690C00B05593 /* CommnncLockModel.h */,
+				925348A321D0690C00B05593 /* CommnncLockModel.m */,
+				925348A521D0692A00B05593 /* CommnncCoverModel.h */,
+				925348A621D0692A00B05593 /* CommnncCoverModel.m */,
+				925348B721D6F7E700B05593 /* CommncWranModel.h */,
+				925348B821D6F7E700B05593 /* CommncWranModel.m */,
+				925A8BAA21DE001A0044C8AD /* CommncInfoModel.h */,
+				925A8BAB21DE001A0044C8AD /* CommncInfoModel.m */,
+			);
+			path = CommncEquipment;
 			sourceTree = "<group>";
 		};
 		9253BCED20BFA58D00AB4767 /* playMonitorVideo */ = {
@@ -3309,6 +3573,60 @@
 			path = UIHeaders;
 			sourceTree = "<group>";
 		};
+		9257EEBF21C72E49009C4230 /* HappinessDoor */ = {
+			isa = PBXGroup;
+			children = (
+				9257EEC021C72FCE009C4230 /* HpDoorCenViewController.h */,
+				9257EEC121C72FCE009C4230 /* HpDoorCenViewController.m */,
+				9257EEC321C730D4009C4230 /* HpFaceViewController.h */,
+				9257EEC421C730D4009C4230 /* HpFaceViewController.m */,
+				9257EEC621C730E1009C4230 /* HpCarViewController.h */,
+				9257EEC721C730E1009C4230 /* HpCarViewController.m */,
+				9257EEC921C73B0B009C4230 /* HpMoreCenViewController.h */,
+				9257EECA21C73B0B009C4230 /* HpMoreCenViewController.m */,
+				9262C78C21FE980700DBFFD5 /* HPFaceListViewController.h */,
+				9262C78D21FE980700DBFFD5 /* HPFaceListViewController.m */,
+				9262C78F21FE981300DBFFD5 /* HPCarListViewController.h */,
+				9262C79021FE981300DBFFD5 /* HPCarListViewController.m */,
+			);
+			path = HappinessDoor;
+			sourceTree = "<group>";
+		};
+		9257EECC21C73DB0009C4230 /* HappinessDoor */ = {
+			isa = PBXGroup;
+			children = (
+				9257EECD21C73DCC009C4230 /* HpTopView.h */,
+				9257EECE21C73DCC009C4230 /* HpTopView.m */,
+				9257EED021C74C9A009C4230 /* HpFaceCell.h */,
+				9257EED121C74C9A009C4230 /* HpFaceCell.m */,
+				9257EED221C74C9A009C4230 /* HpFaceCell.xib */,
+				9257EED521C74DC7009C4230 /* HpCarCell.h */,
+				9257EED621C74DC7009C4230 /* HpCarCell.m */,
+				9257EED721C74DC7009C4230 /* HpCarCell.xib */,
+			);
+			path = HappinessDoor;
+			sourceTree = "<group>";
+		};
+		9257EEDA21C893B4009C4230 /* NavGradient */ = {
+			isa = PBXGroup;
+			children = (
+				9257EEDB21C893F8009C4230 /* NavGradient.h */,
+				9257EEDC21C893F8009C4230 /* NavGradient.m */,
+			);
+			path = NavGradient;
+			sourceTree = "<group>";
+		};
+		9257EF0021C9DBAB009C4230 /* HpDoor */ = {
+			isa = PBXGroup;
+			children = (
+				9257EF0121C9DBCA009C4230 /* HpFaceModel.h */,
+				9257EF0221C9DBCA009C4230 /* HpFaceModel.m */,
+				9257EF0421C9DC15009C4230 /* HpCarModel.h */,
+				9257EF0521C9DC15009C4230 /* HpCarModel.m */,
+			);
+			path = HpDoor;
+			sourceTree = "<group>";
+		};
 		925EEFC31FB04B6B003DB93B /* ShowMenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3316,6 +3634,30 @@
 				925EEFC81FB04C3B003DB93B /* ShowMenuView.m */,
 			);
 			path = ShowMenuView;
+			sourceTree = "<group>";
+		};
+		9265607721E2E820006D1FDB /* ParkOver */ = {
+			isa = PBXGroup;
+			children = (
+				9223612821E8749200E412F4 /* OverLineTableView.h */,
+				9223612921E8749200E412F4 /* OverLineTableView.m */,
+				9223612B21E874AA00E412F4 /* OverLineCell.h */,
+				9223612C21E874AA00E412F4 /* OverLineCell.m */,
+				9223612D21E874AA00E412F4 /* OverLineCell.xib */,
+				9265607821E2E84D006D1FDB /* UnOnlineHomeCell.h */,
+				9265607921E2E84D006D1FDB /* UnOnlineHomeCell.m */,
+				9265607A21E2E84D006D1FDB /* UnOnlineHomeCell.xib */,
+				9265607D21E2E86E006D1FDB /* WranHomeCell.h */,
+				9265607E21E2E86E006D1FDB /* WranHomeCell.m */,
+				9265607F21E2E86E006D1FDB /* WranHomeCell.xib */,
+				9265608521E2E8A7006D1FDB /* CloseEqHomeCell.h */,
+				9265608621E2E8A7006D1FDB /* CloseEqHomeCell.m */,
+				9265608721E2E8A7006D1FDB /* CloseEqHomeCell.xib */,
+				9265608A21E2E8C2006D1FDB /* CheckTaskHomeCell.h */,
+				9265608B21E2E8C2006D1FDB /* CheckTaskHomeCell.m */,
+				9265608C21E2E8C2006D1FDB /* CheckTaskHomeCell.xib */,
+			);
+			path = ParkOver;
 			sourceTree = "<group>";
 		};
 		92669403219D4FC1004583B2 /* HtmlEdit */ = {
@@ -3365,6 +3707,21 @@
 				92669418219D4FD3004583B2 /* richText_editor.html */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		926A818A21F166A1008A46ED /* parkFee */ = {
+			isa = PBXGroup;
+			children = (
+				926A818B21F16706008A46ED /* ParkFeeCountModel.h */,
+				926A818C21F16706008A46ED /* ParkFeeCountModel.m */,
+				926A818E21F1672B008A46ED /* ParkFeePayModel.h */,
+				926A818F21F1672B008A46ED /* ParkFeePayModel.m */,
+				926A819121F1D035008A46ED /* ParkConsumeModel.h */,
+				926A819221F1D035008A46ED /* ParkConsumeModel.m */,
+				9262C75721F9524600DBFFD5 /* ParkFeeFilterModel.h */,
+				9262C75821F9524600DBFFD5 /* ParkFeeFilterModel.m */,
+			);
+			path = parkFee;
 			sourceTree = "<group>";
 		};
 		926B69C71FD27DB300DEFEDD /* Bluetooth */ = {
@@ -3630,6 +3987,12 @@
 			children = (
 				9290352820B7BF7D003FDECC /* LightLockWebViewController.h */,
 				9290352920B7BF7D003FDECC /* LightLockWebViewController.m */,
+				9257EF2221CCD100009C4230 /* CommunicationViewController.h */,
+				9257EF2321CCD100009C4230 /* CommunicationViewController.m */,
+				9222432321CCE3080096EEC8 /* LockWranViewController.h */,
+				9222432421CCE3080096EEC8 /* LockWranViewController.m */,
+				925348AD21D0CE8600B05593 /* CommncQueryViewController.h */,
+				925348AE21D0CE8600B05593 /* CommncQueryViewController.m */,
 			);
 			path = LightLock;
 			sourceTree = "<group>";
@@ -3761,6 +4124,7 @@
 		92C8EEC42022B8D100AC6337 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9265607721E2E820006D1FDB /* ParkOver */,
 				92C8EEC52022B8F000AC6337 /* MealIntimeCell.h */,
 				92C8EEC62022B8F000AC6337 /* MealIntimeCell.m */,
 				92C8EEC72022B8F000AC6337 /* MealIntimeCell.xib */,
@@ -4287,6 +4651,7 @@
 		D60262411F9C455600A66D5A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				9257EEDA21C893B4009C4230 /* NavGradient */,
 				92EECFE121A65BF1002ED8CD /* TouchButton.h */,
 				92EECFE221A65BF2002ED8CD /* TouchButton.m */,
 				92669403219D4FC1004583B2 /* HtmlEdit */,
@@ -5355,6 +5720,7 @@
 			isa = PBXGroup;
 			children = (
 				D6B1B27A1FC2DDD900852BE8 /* Equipment */,
+				9257EEBF21C72E49009C4230 /* HappinessDoor */,
 				9289AF16218FE8BA005AC0DC /* smartDistributor */,
 				9289AF05218FD62C005AC0DC /* GetMeal */,
 				928FD4AF2124171D006A653C /* distributor */,
@@ -5391,6 +5757,8 @@
 		D6F556621FA6C02400AFD721 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9222431821CCD2310096EEC8 /* Communication */,
+				9257EECC21C73DB0009C4230 /* HappinessDoor */,
 				9221650C21902A00007CCBCE /* smartDistributor */,
 				9289AF0C218FDC5A005AC0DC /* getMeal */,
 				927DC1FD2008953E005C65FB /* EquipmentFloorCell.h */,
@@ -5427,6 +5795,8 @@
 		D6F556631FA6C02800AFD721 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				925348A121D068BB00B05593 /* CommncEquipment */,
+				9257EF0021C9DBAB009C4230 /* HpDoor */,
 				9225EC6D21B7D9AD007645D2 /* smartDistributor */,
 				92AC03B021A40F65009A73F3 /* LED */,
 				927FA6E5219168E0002CB32C /* Wifi */,
@@ -5716,6 +6086,8 @@
 				9230FF441FD3D663002098A6 /* Main.storyboard in Resources */,
 				92FAC4E3219ACF2200FB1489 /* FaceHistoryCell.xib in Resources */,
 				9253BD6420BFA58E00AB4767 /* playback_progress_n.png in Resources */,
+				9223612F21E874AA00E412F4 /* OverLineCell.xib in Resources */,
+				9265608E21E2E8C2006D1FDB /* CheckTaskHomeCell.xib in Resources */,
 				9253BD5920BFA58E00AB4767 /* playback_mute_n.png in Resources */,
 				D63199A11FCBBC3B00B78805 /* FgUnParkTableViewCell.xib in Resources */,
 				D6A6649E1FCBB6F5001172B2 /* FrontGroundTableViewCell.xib in Resources */,
@@ -5752,6 +6124,7 @@
 				D653D7541FB19D2600798E1F /* ChooseMusicTabCell.xib in Resources */,
 				D6F665511FA1D7A100059931 /* Personal.storyboard in Resources */,
 				9256C47421A55D9300501014 /* BDSClientResources in Resources */,
+				9257EED921C74DC7009C4230 /* HpCarCell.xib in Resources */,
 				929142C9218152B200FFE7C4 /* ParkFeeSnapCell.xib in Resources */,
 				D68A2EF71FBFEB9B00E541A6 /* FTimeCollectionViewCell.xib in Resources */,
 				D6F6654F1FA1C4A200059931 /* Home.storyboard in Resources */,
@@ -5777,6 +6150,7 @@
 				D64454CE1FCD047C005CBD7B /* SingleCtrlTableViewCell.xib in Resources */,
 				D60CA2D91FBC1C1800725389 /* WifiListTableViewCell.xib in Resources */,
 				D63922A01FB3E28800E1A00A /* CarBlackListTabCell.xib in Resources */,
+				9265608121E2E86E006D1FDB /* WranHomeCell.xib in Resources */,
 				D68A2F1A1FC018DE00E541A6 /* VisitedTableViewCell.xib in Resources */,
 				922B41102154950200B9F6E4 /* BillCell.xib in Resources */,
 				92C8EECE2022B90D00AC6337 /* MealCountCell.xib in Resources */,
@@ -5790,12 +6164,14 @@
 				D69A2F5E21815D58001C7571 /* WifiUserBatchAptCell.xib in Resources */,
 				92E87D4A1FB6D9CD0045D2FF /* EnergyConCell.xib in Resources */,
 				92B3BEBE1FF3E73300C3AFEC /* ParkLightTaskCell.xib in Resources */,
+				9222432021CCD3810096EEC8 /* LockMenuView.xib in Resources */,
 				9298ECD22004C6E900A8B270 /* TimeRangeCell.xib in Resources */,
 				921894DF1FA95596001C1A41 /* AAHighchartsLibrary.js in Resources */,
 				922B40EE21548EE800B9F6E4 /* VisitRecordTableViewCell.xib in Resources */,
 				9222CADA215E696800C519FF /* LongParkCell.xib in Resources */,
 				9273EB0F204E8D0700723C5D /* EvnDataCell.xib in Resources */,
 				9276A59B2086CEF200F6667B /* RepairProgressCell.xib in Resources */,
+				9222432A21CCE4060096EEC8 /* CommunLockCell.xib in Resources */,
 				D63922C41FB43E6600E1A00A /* ElevatorTabCell.xib in Resources */,
 				925576CC218299A600B4A1A3 /* WifiStateCell.xib in Resources */,
 				926B697A1FD24B2F00DEFEDD /* CarIllegeaCell.xib in Resources */,
@@ -5825,6 +6201,7 @@
 				D6DD4CA31FB54EC400CFC384 /* LEDmsgTitleTableViewCell.xib in Resources */,
 				D6DD4C9E1FB549CC00CFC384 /* PostTimeTableViewCell.xib in Resources */,
 				D60AC457217EC4A600A22391 /* ClockTimeCell.xib in Resources */,
+				925348AC21D0B9B800B05593 /* CommncWranCell.xib in Resources */,
 				D60CA2E11FBC2D1A00725389 /* ManholeListTableViewCell.xib in Resources */,
 				D68A2F221FC02A6800E541A6 /* YQCommpanyHeadView.xib in Resources */,
 				D6F556651FA6C03800AFD721 /* Equipment.storyboard in Resources */,
@@ -5837,6 +6214,7 @@
 				9225EC6421B69DDC007645D2 /* LEDSendTypeCell.xib in Resources */,
 				9253BD6520BFA58E00AB4767 /* playback_play_n.png in Resources */,
 				D6B1B2571FC27CAB00852BE8 /* MonitorTableViewCell.xib in Resources */,
+				9222432221CCD3960096EEC8 /* CoverMenuView.xib in Resources */,
 				92E87D511FB6E25B0045D2FF /* MonthMeterCell.xib in Resources */,
 				925576D32182BC8500B4A1A3 /* WifiAddUserCell.xib in Resources */,
 				92CD2381209AA04200BDF1AF /* FindCarCell.xib in Resources */,
@@ -5844,7 +6222,9 @@
 				92669420219D4FD4004583B2 /* article_editor.js in Resources */,
 				D629A5BB1F9C58B400FA5EE1 /* image.xcassets in Resources */,
 				9240BB111FC2F0C60019AF07 /* VIsListCell.xib in Resources */,
+				9265608921E2E8A7006D1FDB /* CloseEqHomeCell.xib in Resources */,
 				925576C72182999300B4A1A3 /* WifiSpeedCell.xib in Resources */,
+				9257EED421C74C9A009C4230 /* HpFaceCell.xib in Resources */,
 				9231FDB921AE41A300736A74 /* BatchAddFaceCell.xib in Resources */,
 				D6A2DEF821804A3C00D76AB6 /* PFFilterContentView.xib in Resources */,
 				92E87D601FB6EF510045D2FF /* AuthorityCell.xib in Resources */,
@@ -5857,6 +6237,7 @@
 				92CE43CA1FD4EAAA00ED9F98 /* README.md in Resources */,
 				9213C04E1FE617F9009E7B67 /* AloneConCell.xib in Resources */,
 				921894E01FA95596001C1A41 /* AAHighchartsMore.js in Resources */,
+				9265607C21E2E84D006D1FDB /* UnOnlineHomeCell.xib in Resources */,
 				9240BAF21FC2847E0019AF07 /* ParkCountNumCell.xib in Resources */,
 				92C7D22A1FD938D600650E73 /* appVersion.plist in Resources */,
 				9256C45B21A55D8200501014 /* bds_easr_basic_model.dat in Resources */,
@@ -5951,6 +6332,7 @@
 				9253BD7420BFA58E00AB4767 /* SBJsonParser.m in Sources */,
 				9233330E1FC983AC00664852 /* MusicGroupModel.m in Sources */,
 				92D8B8B0206A1FD50001263F /* AAChart.m in Sources */,
+				9262C78E21FE980800DBFFD5 /* HPFaceListViewController.m in Sources */,
 				D63922D21FB46E0100E1A00A /* WifiMapModel.m in Sources */,
 				9273EB1C2051319E00723C5D /* WaterTimeCell.m in Sources */,
 				92E77D9C20D9FE4500B87F9B /* AptListModel.m in Sources */,
@@ -5979,8 +6361,10 @@
 				D6F556581FA6BE4900AFD721 /* BaseTableViewController.m in Sources */,
 				D60CA2CE1FBBD1AA00725389 /* SingleControlViewController.m in Sources */,
 				92C217091FC57A890072564C /* AboutViewController.m in Sources */,
+				925348B921D6F7E800B05593 /* CommncWranModel.m in Sources */,
 				9253BD6920BFA58E00AB4767 /* LoginManager.mm in Sources */,
 				92E83DEF208EB896006759E7 /* EquipmentInfoViewController.m in Sources */,
+				9257EF0321C9DBCA009C4230 /* HpFaceModel.m in Sources */,
 				92E83DF2208ED758006759E7 /* ScanNoDataView.m in Sources */,
 				D68A2F121FC011BC00E541A6 /* VisitedViewController.m in Sources */,
 				92FC1E9B1FDBBDF5004A3901 /* MusicMenuView.m in Sources */,
@@ -5990,6 +6374,7 @@
 				92A2206D1FFB846800B1A881 /* PlayBackView.m in Sources */,
 				929142C8218152B200FFE7C4 /* ParkFeeSnapCell.m in Sources */,
 				9213C0491FE60B13009E7B67 /* MonitorLoginInfoModel.m in Sources */,
+				9257EEC221C72FCE009C4230 /* HpDoorCenViewController.m in Sources */,
 				D629A5C11F9C5ABD00FA5EE1 /* registerViewController.m in Sources */,
 				D6EAE69E1FB53A3D006E4C2F /* YQEditImageViewController.m in Sources */,
 				D697E0CD1FAB3F6900966B62 /* WifiCenterViewController.m in Sources */,
@@ -6002,6 +6387,7 @@
 				92B90BD3201C7AA100F978A1 /* MonthMeterModel.m in Sources */,
 				D63922B81FB42FBF00E1A00A /* AirConditionViewController.m in Sources */,
 				D60262581F9C493D00A66D5A /* YQTransition.m in Sources */,
+				9257EEDD21C893F8009C4230 /* NavGradient.m in Sources */,
 				9276A5A22088747300F6667B /* WorkListCenViewController.m in Sources */,
 				9273EB2020521BB900723C5D /* WaterTaskEditTableViewController.m in Sources */,
 				9253BD7920BFA58E00AB4767 /* SBJsonStreamWriter.m in Sources */,
@@ -6012,6 +6398,7 @@
 				922770D320BCE7AD009010F7 /* MessageCenViewController.m in Sources */,
 				D697E0D31FAB3FE800966B62 /* OutDoorWifiViewController.m in Sources */,
 				9290352F20B80E1D003FDECC /* NewCoverModel.m in Sources */,
+				9265609421E2EF4E006D1FDB /* CheckHomeCenViewController.m in Sources */,
 				92E87D041FB4387F0045D2FF /* DevelopViewController.m in Sources */,
 				922B410F2154950200B9F6E4 /* BillCell.m in Sources */,
 				927A0D562085F1D300C3F8DE /* RepairProgressView.m in Sources */,
@@ -6020,6 +6407,7 @@
 				D6B1FF291FBEC2350004ED29 /* VisitorTabbarController.m in Sources */,
 				92D8B8B4206A1FD50001263F /* AASpline.m in Sources */,
 				92E87D721FB702B00045D2FF /* ECardEditViewController.m in Sources */,
+				9257EED821C74DC7009C4230 /* HpCarCell.m in Sources */,
 				D639228D1FB32F4A00E1A00A /* IllegalListTabCell.m in Sources */,
 				D64020561FCEDB340028568D /* CarBlackListModel.m in Sources */,
 				921A840F1FA962CC00EE4F41 /* ThreadViewController.m in Sources */,
@@ -6048,9 +6436,13 @@
 				927FA6FA2191B1A1002CB32C /* WifiCountStrongModel.m in Sources */,
 				922B40E621548C6B00B9F6E4 /* BookRecordModel.m in Sources */,
 				92E83DE9208D8D09006759E7 /* ScanViewController.m in Sources */,
+				9257EECF21C73DCC009C4230 /* HpTopView.m in Sources */,
+				925348AF21D0CE8600B05593 /* CommncQueryViewController.m in Sources */,
 				D629A5C41F9C5AD500FA5EE1 /* SetPasWdViewController.m in Sources */,
+				9257EF2421CCD100009C4230 /* CommunicationViewController.m in Sources */,
 				92D8B8C8206B2B350001263F /* SelFaceViewController.m in Sources */,
 				921909301FCE938D002F6270 /* IllegaListModel.m in Sources */,
+				925348A421D0690C00B05593 /* CommnncLockModel.m in Sources */,
 				D60262391F9C406700A66D5A /* AppDelegate+AppService.m in Sources */,
 				D6B34DFA2088742B00DF8DCC /* InquiryDeviceViewController.m in Sources */,
 				D6EAE6A71FB53BC8006E4C2F /* LEDpostMsgTableViewCell.m in Sources */,
@@ -6074,6 +6466,7 @@
 				928426DD214B5D8800C909D4 /* ReservedModel.m in Sources */,
 				922B412E2154CE0900B9F6E4 /* AttDetailOtherTableViewCell.m in Sources */,
 				9240BADC1FC269AB0019AF07 /* TodayParkViewController.m in Sources */,
+				9223612721E8443800E412F4 /* OverDealModel.m in Sources */,
 				D69259A31FC553070077482F /* MusicListModel.m in Sources */,
 				926DB8E1202AF59300529BE0 /* LogFilterViewController.m in Sources */,
 				92E87D341FB5A4DE0045D2FF /* DrainWaterCell.m in Sources */,
@@ -6082,9 +6475,12 @@
 				92E87D141FB4503D0045D2FF /* LEDDetailCell.m in Sources */,
 				92D8B8B2206A1FD50001263F /* AATitle.m in Sources */,
 				92E83DF5208EDD15006759E7 /* ReportAlertView.m in Sources */,
+				9262C79121FE981300DBFFD5 /* HPCarListViewController.m in Sources */,
 				D629A62F1FA16D7400FA5EE1 /* PersonalViewController.m in Sources */,
 				9226845C20AC4463006628B3 /* CompleteConfirmViewController.m in Sources */,
+				926A819621F1D2ED008A46ED /* OverColseCenViewController.m in Sources */,
 				928775401FBC1F7800BF708A /* EnergyCountViewController.m in Sources */,
+				926A819C21F1DB59008A46ED /* OverCloseListModel.m in Sources */,
 				92FAC4E6219AD10E00FB1489 /* FaceHistory.xcdatamodeld in Sources */,
 				9226845620AC1102006628B3 /* RejectBillView.m in Sources */,
 				928775221FBA820000BF708A /* WifiMenuView.m in Sources */,
@@ -6101,6 +6497,7 @@
 				9226846220AED00A006628B3 /* DeviceInfoModel.m in Sources */,
 				9253BD8520BFA58E00AB4767 /* TimeConvert.m in Sources */,
 				D63922BF1FB43CC400E1A00A /* ElevatorViewController.m in Sources */,
+				9265608821E2E8A7006D1FDB /* CloseEqHomeCell.m in Sources */,
 				D6F556751FA701E000AFD721 /* YQButton.m in Sources */,
 				9273EB0A204E8B3900723C5D /* EvnDataModel.m in Sources */,
 				9290353220B82706003FDECC /* NewCoverInfoModel.m in Sources */,
@@ -6123,10 +6520,12 @@
 				927DC2102008AAB0005C65FB /* StreetLightPointViewController.m in Sources */,
 				9266941E219D4FD4004583B2 /* KWEditorBar.m in Sources */,
 				922770E920BD3B79009010F7 /* ParkAllRcordTableViewCell.m in Sources */,
+				9265608021E2E86E006D1FDB /* WranHomeCell.m in Sources */,
 				9298EBAF2003514500A8B270 /* StreLigAllConViewController.m in Sources */,
 				9222CAD4215E5B3700C519FF /* ParkTop10Cell.m in Sources */,
 				9287751C1FBA81E800BF708A /* LightVMenuView.m in Sources */,
 				9298ECD12004C6E900A8B270 /* TimeRangeCell.m in Sources */,
+				9222432521CCE3080096EEC8 /* LockWranViewController.m in Sources */,
 				D68A2F151FC011D600E541A6 /* ReservedViewController.m in Sources */,
 				D629A5CD1F9C5B2100FA5EE1 /* NewPdViewController.m in Sources */,
 				9266941A219D4FD3004583B2 /* UIWebView+KWWebViewJSTool.m in Sources */,
@@ -6161,14 +6560,17 @@
 				92643D8C201818340007C007 /* VisSearchViewController.m in Sources */,
 				D6928CD11FBD763F00CB9C18 /* BgMusicListTabViewCell.m in Sources */,
 				92FC1E9E1FDBBE06004A3901 /* CallMenuView.m in Sources */,
+				9265609121E2EF30006D1FDB /* WranHomeCenViewController.m in Sources */,
 				929AB9B020D3B14B001D9878 /* AptSelAllView.m in Sources */,
 				D65A61A51FBC611A00FE3AA4 /* YQInDoorPointMapView.m in Sources */,
 				926D9B5321250B8B00D6E0C1 /* DistributorModel.m in Sources */,
 				927FA73A2192C288002CB32C /* WifiNewUserModel.m in Sources */,
 				D6A2DEE72180139800D76AB6 /* ParkFeeListViewController.m in Sources */,
+				9265607021E2E348006D1FDB /* WranHomeViewController.m in Sources */,
 				923DBDE61FEA092E00736CAE /* SceneEditCell.m in Sources */,
 				92E87D101FB44EAD0045D2FF /* LightLEDViewController.m in Sources */,
 				92D0E8B22089834A003BC75E /* BillConfirmView.m in Sources */,
+				9257EEC521C730D4009C4230 /* HpFaceViewController.m in Sources */,
 				9253BD8120BFA58E00AB4767 /* DHHudPrecess.m in Sources */,
 				922B41192154962200B9F6E4 /* AESUtil.m in Sources */,
 				D68A2F191FC018DE00E541A6 /* VisitedTableViewCell.m in Sources */,
@@ -6177,12 +6579,14 @@
 				92D8B8DF206B3F0C0001263F /* FaceTraceCell.m in Sources */,
 				9253C4C520F8ABA900985949 /* AirSiwtchCell.m in Sources */,
 				92D8B8AB206A1FD50001263F /* AAItemStyle.m in Sources */,
+				9223612421E8442400E412F4 /* OverOnlineModel.m in Sources */,
 				92216EF71FEDF629008B09EA /* OpenDoorModel.m in Sources */,
 				92CD237C209A9ECD00BDF1AF /* FindCarNoViewController.m in Sources */,
 				92BD4204200DE08700AB303E /* TrainViewController.m in Sources */,
 				92E8207B21AFBBB4002F8325 /* ClientFaceHisViewController.m in Sources */,
 				92D8B8BC206A1FD50001263F /* AASubtitle.m in Sources */,
 				D60262301F9B45DE00A66D5A /* main.m in Sources */,
+				9265607621E2E385006D1FDB /* CheckTaskHomeViewController.m in Sources */,
 				92FC1E951FDB88B2004A3901 /* FlowTraceModel.m in Sources */,
 				9231FDB321AE3DF200736A74 /* AddBatchViewController.m in Sources */,
 				D6928CC41FBD333800CB9C18 /* InDoorMonitorMapModel.m in Sources */,
@@ -6196,13 +6600,16 @@
 				D60CA2BD1FB9BC2C00725389 /* OutDoorBgMusicViewController.m in Sources */,
 				92E87D651FB6FC6A0045D2FF /* OpenRecordCell.m in Sources */,
 				92A308051FF60BA30024538A /* SelWeekView.m in Sources */,
+				926EA8CB21ED75A100BE56F4 /* OverUseListModel.m in Sources */,
 				D6F6655A1FA3062200059931 /* SetFooterView.m in Sources */,
 				D63922DC1FB5352A00E1A00A /* YQTextView.m in Sources */,
+				926A819021F1672B008A46ED /* ParkFeePayModel.m in Sources */,
 				922770D020BCE4A9009010F7 /* MessageTypeViewController.m in Sources */,
 				D63922CF1FB46DAE00E1A00A /* BaseModel.m in Sources */,
 				92D8B8BF206A1FD50001263F /* AAOptions3d.m in Sources */,
 				D68A2EFA1FBFF19200E541A6 /* YQFooterReusableView.m in Sources */,
 				92FC1E4A20C8C36800C8364A /* AppointMentParkFilterViewController.m in Sources */,
+				925348AB21D0B9B800B05593 /* CommncWranCell.m in Sources */,
 				9213C04D1FE617F9009E7B67 /* AloneConCell.m in Sources */,
 				929142C3218069D800FFE7C4 /* ParkFeeTopCell.m in Sources */,
 				922770DD20BD38A5009010F7 /* ParkRecordViewController.m in Sources */,
@@ -6212,10 +6619,12 @@
 				92E83DEC208D8D3E006759E7 /* YQScanView.m in Sources */,
 				D65685621FB0117D00BDFFF3 /* TimeSetTableViewController.m in Sources */,
 				92D8DDB920469A5700E8185A /* WaterConViewController.m in Sources */,
+				9223611B21E8439B00E412F4 /* ParkOverModel.m in Sources */,
 				9224A2EC2012F5F600AE4FF4 /* VisitorViserModel.m in Sources */,
 				92E8207821AE6C6A002F8325 /* AddBatchFaceModel.m in Sources */,
 				922770CC20BBA681009010F7 /* DoorMapListCell.m in Sources */,
 				D63922A61FB3EA6600E1A00A /* FrontGroundViewController.m in Sources */,
+				9223612121E8440F00E412F4 /* OverCheckModel.m in Sources */,
 				D6F3DFFE1FA827BC00DDAE05 /* YQPlayerToolsView.m in Sources */,
 				921A84151FA9654F00EE4F41 /* CalculateHeight.m in Sources */,
 				9240BAE51FC27F390019AF07 /* ParkCountViewController.m in Sources */,
@@ -6293,15 +6702,18 @@
 				92E0B57C20D897630045CA62 /* AptCancelView.m in Sources */,
 				92FAC4FF219BB48000FB1489 /* FaceImgHistory+CoreDataProperties.m in Sources */,
 				D60262531F9C485C00A66D5A /* RootNavigationController.m in Sources */,
+				9222431E21CCD29B0096EEC8 /* CoverMenuView.m in Sources */,
 				92C8EEC82022B8F000AC6337 /* MealIntimeCell.m in Sources */,
 				D68CF4B71FC6876100155E06 /* AirConditionModel.m in Sources */,
 				D60CA2A51FB9487F00725389 /* YQPageContentView.m in Sources */,
 				926B69F91FD294E200DEFEDD /* NSString+HexString.m in Sources */,
 				D6F3E0051FA84DBD00DDAE05 /* YQVideoPlayer.m in Sources */,
 				9253BD7F20BFA58E00AB4767 /* Stack.m in Sources */,
+				9222432921CCE4060096EEC8 /* CommunLockCell.m in Sources */,
 				D6A2DEF3218049EC00D76AB6 /* ParkFeeFilterView.m in Sources */,
 				D6B1B2561FC27CAB00852BE8 /* MonitorTableViewCell.m in Sources */,
 				D639229F1FB3E28800E1A00A /* CarBlackListTabCell.m in Sources */,
+				9257EECB21C73B0B009C4230 /* HpMoreCenViewController.m in Sources */,
 				D60CA2C01FB9C01100725389 /* BgMusicMapModel.m in Sources */,
 				9253BD8620BFA58E00AB4767 /* DHPubfun.m in Sources */,
 				92F8943B20905D30005BDEDD /* WarnRepairIngViewController.m in Sources */,
@@ -6319,9 +6731,11 @@
 				D68A2EF01FBFD46F00E541A6 /* DCSildeBarView.m in Sources */,
 				9253C4BE20F8A75200985949 /* AirSwitchViewController.m in Sources */,
 				92E87D451FB6D7D90045D2FF /* WaterMeterViewController.m in Sources */,
+				9223613821E8942A00E412F4 /* OverDetailWranModel.m in Sources */,
 				9240BAF51FC2B3280019AF07 /* WarnTabbarController.m in Sources */,
 				D639229B1FB3E0D400E1A00A /* CarBlackListViewController.m in Sources */,
 				921A841F1FA9661A00EE4F41 /* UIViewController+HUD.m in Sources */,
+				9265607B21E2E84D006D1FDB /* UnOnlineHomeCell.m in Sources */,
 				92D78B1C2071CC79003596C4 /* FaceQueryCell.m in Sources */,
 				9298EBA920031A7500A8B270 /* EnvInfoModel.m in Sources */,
 				D629A5C71F9C5AF700FA5EE1 /* SetPerMsgViewController.m in Sources */,
@@ -6334,18 +6748,21 @@
 				D60CA2D41FBBE76600725389 /* WifiListTabViewController.m in Sources */,
 				929511D21FB93FC9008FF649 /* ECardListCell.m in Sources */,
 				921A841C1FA9659F00EE4F41 /* NoDataView.m in Sources */,
+				9223612A21E8749200E412F4 /* OverLineTableView.m in Sources */,
 				92FC1E921FDB889E004A3901 /* ParkFlowCountModel.m in Sources */,
 				92E87CFE1FB436ED0045D2FF /* LEDDetailViewController.m in Sources */,
 				92D8B8AE206A1FD50001263F /* AAPlotOptions.m in Sources */,
 				9226845F20AD2BB2006628B3 /* HandLogModel.m in Sources */,
 				D63922D91FB478B100E1A00A /* YQPointAnnotation.m in Sources */,
 				92B3BEBF1FF3E73300C3AFEC /* ParkLightTaskCell.m in Sources */,
+				925348A721D0692A00B05593 /* CommnncCoverModel.m in Sources */,
 				D64020501FCE404F0028568D /* YQSearchBar.m in Sources */,
 				92CD2385209AACA000BDF1AF /* FindCarNoModel.m in Sources */,
 				9230011D2047AA2300088227 /* EnvTimeCell.m in Sources */,
 				92D8DDBC2046A09800E8185A /* EnvDataViewController.m in Sources */,
 				D6928CC11FBD226500CB9C18 /* InDoorWifiModel.m in Sources */,
 				D653D73F1FB1587300798E1F /* BgMusicViewController.m in Sources */,
+				926A819921F1D312008A46ED /* OverCloseListViewController.m in Sources */,
 				D65685701FB0897F00BDFFF3 /* YQHeaderView.m in Sources */,
 				D695D1AC1FB6C5F3005255E9 /* MenuModel.m in Sources */,
 				922B41262154A08C00B9F6E4 /* AttDetailTableViewCell.m in Sources */,
@@ -6368,11 +6785,13 @@
 				9226842E20AA7F3A006628B3 /* BillProgressModel.m in Sources */,
 				9224A2DF2011C45B00AE4FF4 /* MeetWebViewController.m in Sources */,
 				9213C0541FE66B7B009E7B67 /* SceneEquipmentModel.m in Sources */,
+				9257EEC821C730E1009C4230 /* HpCarViewController.m in Sources */,
 				92E77DA520DA30B100B87F9B /* AptParkingSpaceModel.m in Sources */,
 				925576CB218299A600B4A1A3 /* WifiStateCell.m in Sources */,
 				9226845920AC3517006628B3 /* WorkDetailViewController.m in Sources */,
 				D60AC447217EAF6B00A22391 /* NewLEDCell.m in Sources */,
 				D64454CD1FCD047C005CBD7B /* SingleCtrlTableViewCell.m in Sources */,
+				925A8BAC21DE001A0044C8AD /* CommncInfoModel.m in Sources */,
 				9240BB001FC2BFB40019AF07 /* WarnCell.m in Sources */,
 				9240BAE81FC27F6A0019AF07 /* CountParkViewController.m in Sources */,
 				D6DD4C991FB547BD00CFC384 /* MsgPostViewController.m in Sources */,
@@ -6393,6 +6812,7 @@
 				D697E0CA1FA99E2C00966B62 /* NetworkClient.m in Sources */,
 				92343BED20D8A6DA00A28603 /* BatchAptViewController.m in Sources */,
 				928775171FB9A47900BF708A /* LogCell.m in Sources */,
+				9223613221E88D8800E412F4 /* OverOffLineModel.m in Sources */,
 				9253C4BB20F8A72D00985949 /* AirBatchCenViewController.m in Sources */,
 				92F8944120908E40005BDEDD /* WarnBaseViewController.m in Sources */,
 				9226842820A969E4006628B3 /* RepairsManModel.m in Sources */,
@@ -6417,6 +6837,7 @@
 				92FC1EA11FDBBE1A004A3901 /* PowerMenuView.m in Sources */,
 				92C217031FC55EBE0072564C /* VisCountModel.m in Sources */,
 				926B69CD1FD27E3600DEFEDD /* NSData+WHData.m in Sources */,
+				9223611E21E843D900E412F4 /* OverAlarmModel.m in Sources */,
 				9253BD8820BFA58E00AB4767 /* PtzSinglePrepointInfo.m in Sources */,
 				9298ECD520074D7100A8B270 /* EntranceGroupView.m in Sources */,
 				92E87D2C1FB592530045D2FF /* MeetroomSceneCell.m in Sources */,
@@ -6438,6 +6859,7 @@
 				92D8B8EA206B8FC20001263F /* FaceListModel.m in Sources */,
 				922B4122215499E400B9F6E4 /* BookDetailsViewController.m in Sources */,
 				92343BF020D8D50400A28603 /* ParkSpaceModel.m in Sources */,
+				9265606D21E2E1AB006D1FDB /* UnOnlineHomeViewController.m in Sources */,
 				92CE43FE1FD6C32F00ED9F98 /* ParkCardModel.m in Sources */,
 				92D8B8BA206A1FD50001263F /* AALegend.m in Sources */,
 				D60CA2AB1FB98C8500725389 /* FloorModel.m in Sources */,
@@ -6457,7 +6879,9 @@
 				D653D73C1FB14F7000798E1F /* FountainTableViewCell.m in Sources */,
 				921A840C1FA962CC00EE4F41 /* GraphListTableViewController.m in Sources */,
 				922770E420BD3B11009010F7 /* CarRecordModel.m in Sources */,
+				926EA70821EC13A800BE56F4 /* OverTaskModel.m in Sources */,
 				D60CA2A81FB9489800725389 /* YQPageContentScrollView.m in Sources */,
+				925348B521D4D20C00B05593 /* EquipmQueryCell.m in Sources */,
 				D674A8451FD40D4C00E773FD /* ParkAreasModel.m in Sources */,
 				D629A5CA1F9C5B0F00FA5EE1 /* ForgetPdViewController.m in Sources */,
 				92E87D5B1FB6E8D50045D2FF /* EntranceGuardViewController.m in Sources */,
@@ -6470,6 +6894,7 @@
 				928CD905205FAE8000058727 /* LauchViewController.m in Sources */,
 				922B40CD2154899D00B9F6E4 /* AttendanceDetailViewController.m in Sources */,
 				D6B1B27F1FC2DFD600852BE8 /* DCContentItem.m in Sources */,
+				9265607321E2E362006D1FDB /* CloseEqHomeViewController.m in Sources */,
 				929142CD2181BE6F00FFE7C4 /* WifiShareCountViewController.m in Sources */,
 				92669427219D5111004583B2 /* FaceHtmlView.m in Sources */,
 				D60AC45D217F12D000A22391 /* LEDScreenShotViewController.m in Sources */,
@@ -6477,11 +6902,13 @@
 				92B3D7FE20B9591900C6D91D /* NumInputView.m in Sources */,
 				92C21A161FC653960072564C /* MeetRoomModel.m in Sources */,
 				D63922AC1FB3FDA800E1A00A /* YQSecondHeaderView.m in Sources */,
+				9257EED321C74C9A009C4230 /* HpFaceCell.m in Sources */,
 				92D8B8AC206A1FD50001263F /* AAColumn.m in Sources */,
 				92FC1E8F1FDB8866004A3901 /* ParkDayCountModel.m in Sources */,
 				92C8EED4202468F500AC6337 /* LedListModel.m in Sources */,
 				9240BAF11FC2847E0019AF07 /* ParkCountNumCell.m in Sources */,
 				925576CF2182ABA000B4A1A3 /* WifiAddUserCell.m in Sources */,
+				9262C75921F9524600DBFFD5 /* ParkFeeFilterModel.m in Sources */,
 				9240BAE01FC26AB70019AF07 /* SurplusParkCell.m in Sources */,
 				922B41162154956A00B9F6E4 /* BillDetailsViewController.m in Sources */,
 				92D8B875206A1F870001263F /* AAOptions.m in Sources */,
@@ -6510,6 +6937,7 @@
 				92343BFC20D8FE6A00A28603 /* BatchLockCell.m in Sources */,
 				922B40D0215489E500B9F6E4 /* CardRecordViewController.m in Sources */,
 				92E87D301FB59AAE0045D2FF /* DrainWaterViewController.m in Sources */,
+				926A818D21F16706008A46ED /* ParkFeeCountModel.m in Sources */,
 				9253BD7620BFA58E00AB4767 /* SBJsonUTF8Stream.m in Sources */,
 				927DC20420089E8E005C65FB /* MusicGroupViewController.m in Sources */,
 				92D8B8E3206B49620001263F /* FaceFilterViewController.m in Sources */,
@@ -6522,10 +6950,12 @@
 				D653D7391FB14EEA00798E1F /* FountainViewController.m in Sources */,
 				9240BAFC1FC2B3680019AF07 /* WarnCountViewController.m in Sources */,
 				927A0D4620858F2C00C3F8DE /* ReportWarnViewController.m in Sources */,
+				9257EF0621C9DC15009C4230 /* HpCarModel.m in Sources */,
 				92343BEA20D8A60500A28603 /* AptManagerViewController.m in Sources */,
 				922B40FA21548F5100B9F6E4 /* UIScrollView+Empty.m in Sources */,
 				9253C4C120F8A75F00985949 /* AirBatchViewController.m in Sources */,
 				925576E62182BFDD00B4A1A3 /* WifiCountStrongCell.m in Sources */,
+				9222431B21CCD2840096EEC8 /* LockMenuView.m in Sources */,
 				92B3BEC51FF5DE1500C3AFEC /* ParkNightTaskModel.m in Sources */,
 				92FAC4DD219ACE7800FB1489 /* FaceHistoryViewController.m in Sources */,
 				92E87D441FB6D7D90045D2FF /* ElectricMeterViewController.m in Sources */,
@@ -6551,6 +6981,7 @@
 				92E87D5A1FB6E8D50045D2FF /* AuthorityViewController.m in Sources */,
 				9290352A20B7BF7D003FDECC /* LightLockWebViewController.m in Sources */,
 				D63922C81FB444A700E1A00A /* AirConditionCollViewCell.m in Sources */,
+				9265608D21E2E8C2006D1FDB /* CheckTaskHomeCell.m in Sources */,
 				D629A5F81F9F39AC00FA5EE1 /* RootWebViewController.m in Sources */,
 				D60CA2B71FB9BBD600725389 /* BgMusicCenterViewController.m in Sources */,
 				92E87D711FB702B00045D2FF /* ECardViewController.m in Sources */,
@@ -6560,6 +6991,7 @@
 				D6B1B25E1FC2B04600852BE8 /* OpenDoorAreaCltViewCell.m in Sources */,
 				9287751F1FBA81F500BF708A /* MonitorMenuView.m in Sources */,
 				92D8B873206A1F870001263F /* AASeriesElement.m in Sources */,
+				9223612E21E874AA00E412F4 /* OverLineCell.m in Sources */,
 				9266941D219D4FD3004583B2 /* KWFontStyleBar.m in Sources */,
 				92FC1E4D20C8CB0300C8364A /* AppointMentParkDetailViewController.m in Sources */,
 				922770E020BD39F6009010F7 /* ParkDetailMsgController.m in Sources */,
@@ -6586,6 +7018,7 @@
 				927FA6F42191B179002CB32C /* WifiCountTimeModel.m in Sources */,
 				D63199A01FCBBC3B00B78805 /* FgUnParkTableViewCell.m in Sources */,
 				9276A5A5208875D900F6667B /* WorkListViewController.m in Sources */,
+				926A819321F1D035008A46ED /* ParkConsumeModel.m in Sources */,
 				92D96C1420F73784000B8DC4 /* AirMenuView.m in Sources */,
 				928426E8214B976400C909D4 /* ReservedFilterView.m in Sources */,
 				927FA6F72191B185002CB32C /* WifiCountSpeedModel.m in Sources */,
@@ -6608,6 +7041,7 @@
 				92216EEB1FEBD0AB008B09EA /* RecordViewController.m in Sources */,
 				D6B1B2831FC2FD8A00852BE8 /* DoorModel.m in Sources */,
 				92E87D4D1FB6E14E0045D2FF /* MonthMeterViewController.m in Sources */,
+				9223613521E88D9E00E412F4 /* OverDeviceInfoModel.m in Sources */,
 				92D8B8B3206A1FD50001263F /* AACrosshair.m in Sources */,
 				92D8B8AA206A1FD50001263F /* AADataLabels.m in Sources */,
 			);

@@ -295,4 +295,28 @@
     return str;
 }
 
++ (CGFloat)getStringHeightWithText:(NSString *)text fontSize:(float)fontSize viewWidth:(CGFloat)width
+{
+    // 设置文字属性 要和label的一致
+    NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:fontSize]};
+    CGSize maxSize = CGSizeMake(width, MAXFLOAT);
+    
+    NSStringDrawingOptions options = NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading;
+    
+    // 计算文字占据的高度
+    CGSize size = [text boundingRectWithSize:maxSize options:options attributes:attrs context:nil].size;
+    return  ceilf(size.height);
+}
+
++ (NSString *)timeStrWithInt:(NSNumber *)time {
+    if(time == nil || [time isKindOfClass:[NSNull class]]){
+        return @"";
+    }
+    //时间戳转化成时间
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:time.doubleValue/1000.0];
+    return [stampFormatter stringFromDate:stampDate];
+}
+
 @end

@@ -7,7 +7,30 @@
 //
 
 #import "MonitorLoginInfoModel.h"
+#import "AESUtil.h"
 
 @implementation MonitorLoginInfoModel
+
+- (instancetype)initWithDataDic:(NSDictionary *)data {
+    self = [super initWithDataDic:data];
+    if(self){
+
+        NSString *dssAddr = data[@"dssAddr"];
+        NSString *dssAdmin = data[@"dssAdmin"];
+        NSString *dssPasswd = data[@"dssPasswd"];
+        NSString *dssPort = data[@"dssPort"];
+        
+        NSString *decAddr = [AESUtil decryptAES:dssAddr key:AESKey];
+        NSString *decAdmin = [AESUtil decryptAES:dssAdmin key:AESKey];
+        NSString *decPasswd = [AESUtil decryptAES:dssPasswd key:AESKey];
+        NSString *decPort = dssPort;
+        
+        self.dssAddr = decAddr;
+        self.dssAdmin = decAdmin;
+        self.dssPasswd = decPasswd;
+        self.dssPort = decPort;
+    }
+    return self;
+}
 
 @end

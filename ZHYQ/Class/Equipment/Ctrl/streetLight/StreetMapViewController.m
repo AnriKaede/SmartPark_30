@@ -217,6 +217,10 @@
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 StreetLightModel *model = [[StreetLightModel alloc] initWithDataDic:obj];
                 
+                if(idx%2 == 0){
+                    model.isColor = YES;
+                }
+                
                 NSString *graphStr = [NSString stringWithFormat:@"%@,%@",model.LONGITUDE, model.LATITUDE];
                 [self.graphData addObject:graphStr];
                 [self.cameraDataArr addObject:model];
@@ -292,6 +296,13 @@
     }else {
         cell.lampImgView.image = [UIImage imageNamed:@"street_lamp_icon"];
     }
+    
+    if(model.isColor){
+        cell.contentView.backgroundColor = [UIColor colorWithHexString:@"#F5FDFF"];
+    }else {
+        cell.contentView.backgroundColor = [UIColor whiteColor];
+    }
+    
     return cell;
 }
 

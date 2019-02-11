@@ -10,6 +10,7 @@
 #import "YQTransitionProtocol.h"
 #import "YQTransition.h"
 #import "RootViewController.h"
+#import "NavGradient.h"
 
 @interface RootNavigationController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
 
@@ -32,7 +33,8 @@
     [navBar setTintColor:CNavBgFontColor];
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName :CNavBgFontColor, NSFontAttributeName : [UIFont systemFontOfSize:18]}];
     
-    [navBar setBackgroundImage:[UIImage imageWithColor:CNavBgColor] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    UIImage *image = [NavGradient navBgColorImg];
+    [navBar setBackgroundImage:image forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [navBar setShadowImage:[UIImage imageWithColor:CNavSepColor]];//去掉阴影线
 }
 

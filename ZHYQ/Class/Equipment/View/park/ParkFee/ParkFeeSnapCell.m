@@ -9,6 +9,8 @@
 #import "ParkFeeSnapCell.h"
 #import "AAChartView.h"
 
+#define PageLineWidth (KScreenWidth - 60)/7
+
 @interface ParkFeeSnapCell()
 {
     UIScrollView *_chartScrollView;
@@ -66,6 +68,65 @@
     self.snapChartModel.colorsTheme = @[@"#1B82D1"];
 
     [self.snapChartView aa_drawChartWithChartModel:_snapChartModel];
+}
+
+- (void)setItems:(NSArray *)items {
+    _items = items;
+    
+    NSMutableArray *countAry = @[].mutableCopy;
+    NSMutableArray *timeArr = @[].mutableCopy;
+    [items enumerateObjectsUsingBlock:^(NSDictionary *itemDic, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if(itemDic[@"period"] != nil){
+            [timeArr addObject:itemDic[@"period"]];
+        }
+        if(itemDic[@"totalFee"] != nil){
+            NSNumber *fee = itemDic[@"totalFee"];
+            NSString *payFee = [NSString stringWithFormat:@"%.2f", fee.floatValue/100];
+            [countAry addObject:[NSNumber numberWithString:payFee]];
+        }
+        
+    }];
+    
+    if(timeArr.count > 7){
+        // 大于7列 滑动
+        CGFloat snapChartWidth = 60 + PageLineWidth*timeArr.count;
+        _chartScrollView.contentSize = CGSizeMake(snapChartWidth, 0);
+        [_chartScrollView setContentOffset:CGPointMake(_chartScrollView.contentSize.width - KScreenWidth, 0) animated:YES];
+        
+        [self.snapChartView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.snapChartView removeFromSuperview];
+        self.snapChartView = nil;
+        
+        self.snapChartView = [[AAChartView alloc]initWithFrame:CGRectMake(0, 0, snapChartWidth, _chartScrollView.height)];
+        self.snapChartView.contentHeight = _chartScrollView.height - 14;
+        self.snapChartView.isClearBackgroundColor = YES;
+        self.snapChartView.backgroundColor = [UIColor clearColor];
+        [_chartScrollView addSubview:self.snapChartView];
+        
+    }
+    
+    self.snapChartModel= AAObject(AAChartModel)
+    .chartTypeSet(AAChartTypeLine)
+    .titleSet(@"")
+    .subtitleSet(@"")
+    .categoriesSet(timeArr)
+    .yAxisTitleSet(@"")
+    .xAxisLabelsFontColorSet(@"#000000")    // x轴坐标值颜色
+    .yAxisLabelsFontColorSet(@"#000000")    // y轴坐标值颜色
+    .seriesSet(@[
+                 AAObject(AASeriesElement)
+                 .nameSet(@"停车收费")
+                 .dataSet(countAry),
+                 ]
+               )
+    ;
+    
+    self.snapChartModel.symbolStyle = AAChartSymbolStyleTypeDefault;
+    self.snapChartModel.symbol = AAChartSymbolTypeCircle;
+    self.snapChartModel.colorsTheme = @[@"#1B82D1"];
+    
+    [self.snapChartView aa_drawChartWithChartModel:self.snapChartModel];
 }
 
 @end

@@ -22,6 +22,9 @@
 
 -(void)_initView
 {
+    // 添加渐变色
+    [NavGradient viewAddGradient:self];
+    
     //故障设备
     _leftBtn = [YQButton buttonWithType:UIButtonTypeCustom btnFrame:CGRectZero BtnTitle:@"故障设备" BtnImage:[UIImage imageNamed:@"equipment_brokenEquipment"] BtnHandler:^(UIButton *sender) {
         if (self.delegate != nil) {

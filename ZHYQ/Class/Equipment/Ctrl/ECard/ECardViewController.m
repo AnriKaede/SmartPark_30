@@ -45,6 +45,8 @@
 
 - (void)_initView {
 //    self.title = @"一卡通";
+    // 添加渐变色
+    [NavGradient viewAddGradient:_yqHeader];
     
     UIButton *leftBtn = [[UIButton alloc] init];
     leftBtn.frame = CGRectMake(0, 0, 40, 40);

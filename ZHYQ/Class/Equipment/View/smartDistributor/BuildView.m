@@ -63,8 +63,8 @@
     [floorData enumerateObjectsUsingBlock:^(DistributorFloorModel *floorModel, NSUInteger idx, BOOL * _Nonnull stop) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = 4000 + idx;
-        button.frame = CGRectMake(20*wScale, self.height - 30*idx - 90, 70, 26);
-//        button.frame = CGRectMake(20*wScale, self.height - 30*(floorModel.LAYERID.integerValue - 1) - 90, 70, 26);
+//        button.frame = CGRectMake(20*wScale, self.height - 30*idx - 90, 70, 26);
+        button.frame = CGRectMake(20*wScale, self.height - 28*(floorModel.LAYERID.integerValue - 1) - 60, 70, 25);
         button.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
         [button setTitle:[NSString stringWithFormat:@"%ldF", floorModel.LAYERID.integerValue - 1] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

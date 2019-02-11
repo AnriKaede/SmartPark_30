@@ -19,6 +19,9 @@
 #import "SubDeviceModel.h"
 #import "LedListModel.h"
 
+#import "CommnncLockModel.h"
+#import "CommnncCoverModel.h"
+
 #import "DistributorLineModel.h"
 
 #define scal 0.2
@@ -459,6 +462,45 @@
     }];
 }
 
+// 光交锁数据
+- (void)setCommncArr:(NSMutableArray *)commncArr {
+    _commncArr = commncArr;
+    
+    [commncArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        
+        if([obj isKindOfClass:[CommnncCoverModel class]]){
+            imageView.image = [UIImage imageNamed:@"cover_normal_icon"];
+            // 井盖
+            CommnncCoverModel *model = (CommnncCoverModel *)obj;
+            if ([model.runingStatus isEqualToString:@"NORMAL"]) {
+                // 正常
+                imageView.image = [UIImage imageNamed:@"cover_normal_icon"];
+            }else if ([model.runingStatus isEqualToString:@"ABNORMAL"]) {
+                // 异常
+                imageView.image = [UIImage imageNamed:@"cover_wran_icon"];
+            }else if ([model.runingStatus isEqualToString:@"FAULT"]) {
+                // 故障
+                imageView.image = [UIImage imageNamed:@"cover_fail_icon"];
+            }
+        }else {
+            imageView.image = [UIImage imageNamed:@"lock_normal_icon"];
+            CommnncLockModel *model = (CommnncLockModel *)obj;
+            if ([model.runingStatus isEqualToString:@"NORMAL"]) {
+                // 正常
+                imageView.image = [UIImage imageNamed:@"lock_normal_icon"];
+            }else if ([model.runingStatus isEqualToString:@"ABNORMAL"]) {
+                // 异常
+                imageView.image = [UIImage imageNamed:@"lock_wran_icon"];
+            }else if ([model.runingStatus isEqualToString:@"FAULT"]) {
+                // 故障
+                imageView.image = [UIImage imageNamed:@"lock_fail_icon"];
+            }
+        }
+        
+    }];
+}
+
 -(void)setParkDownArr:(NSMutableArray *)parkDownArr
 {
     _parkDownArr = parkDownArr;
@@ -574,54 +616,6 @@
             [YQIndoorMapTransfer initWithCoordinate:graphStr InPoint:aTouchPoint Inview:_mapView WithIdentity:[NSString stringWithFormat:@"%ld",idx] delegate:self];
         }];
     }
-    /*
-     [SKIndoorMapTransfer initWithCoordinate:@"173,451,173,559,299,563,300,590,316,592,321,628,687,632,689,334,581,335,580,447,536,448,535,465,333,464,330,448" InPoint:aTouchPoint Inview:_mapView WithTitle:@"GAP" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"922,445,921,629,1013,628,1051,598,1049,448" InPoint:aTouchPoint Inview:_mapView WithTitle:@"优视一品" delegate:self];
-     [SKIndoorMapTransfer initWithCoordinate:@"1081,444,1078,598,1177,597,1215,532,1276,485,1275,444" InPoint:aTouchPoint Inview:_mapView WithTitle:@"Samanth a Thavasa" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"1289,444,1290,484,1371,466,1451,485,1455,444,1369,421" InPoint:aTouchPoint Inview:_mapView WithTitle:@"SWATCH" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"1466,446,1467,485,1513,525,1562,595,1822,593,1818,573,1855,573,1854,443" InPoint:aTouchPoint Inview:_mapView WithTitle:@"Izzue" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"1823,632,1823,751,1866,746,1867,630" InPoint:aTouchPoint Inview:_mapView WithTitle:@"西城旅游局" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"231,810,229,917,420,915,420,801" InPoint:aTouchPoint Inview:_mapView WithTitle:@"Fred Perry" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"420,915,420,801,580,795,580,917" InPoint:aTouchPoint Inview:_mapView WithTitle:@"CAMPER" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"64,1051,61,1652,333,1648,331,1421,451,1420,451,1500,577,1500,521,1437,498,1375,489,1292,497,1219,526,1147,580,1078,578,1048" InPoint:aTouchPoint Inview:_mapView WithTitle:@"ZARA" delegate:self];
-     
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"680,792,813,786,813,975,680,973" InPoint:aTouchPoint Inview:_mapView WithTitle:@"MAX&CO." delegate:self];
-     [SKIndoorMapTransfer initWithCoordinate:@"917,981,680,973,679,1076,749,1173,916,1173" InPoint:aTouchPoint Inview:_mapView WithTitle:@"LOVE MOSCHINO" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"917,981,916,1173,995,1126,1052,1126,1050,982" InPoint:aTouchPoint Inview:_mapView WithTitle:@"Tissot" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"815,786,815,919,919,923,918,783" InPoint:aTouchPoint Inview:_mapView WithTitle:@"Minnetonk" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"918,783,919,877,1036,776,1037,876" InPoint:aTouchPoint Inview:_mapView WithTitle:@"TENDENCE" delegate:self];
-     [SKIndoorMapTransfer initWithCoordinate:@"1036,776,1179,769,1210,819,1202,1102,1185,1130,1052,1127,1037,876" InPoint:aTouchPoint Inview:_mapView WithTitle:@"SEPHORA" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"1293,808,1438,808,1437,849,1294,850" InPoint:aTouchPoint Inview:_mapView WithTitle:@"手表维修 " delegate:self];
-     
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"1554,799,1585,779,1807,780,1806,932,1559,933" InPoint:aTouchPoint Inview:_mapView WithTitle:@"SWAROVSKI" delegate:self];
-     
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"1559,933,1806,932,1805,1047,1560,1043" InPoint:aTouchPoint Inview:_mapView WithTitle:@"Juicy Couture" delegate:self];
-     
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"1560,1043,1805,1047,1804,1163,1559,1160" InPoint:aTouchPoint Inview:_mapView WithTitle:@"DKNY" delegate:self];
-     [SKIndoorMapTransfer initWithCoordinate:@"1574,1199,1572,1406,1454,1412,1458,1582,1540,1590,1544,1701,1964,1705,1955,1287,1950,1197" InPoint:aTouchPoint Inview:_mapView WithTitle:@"H&M" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"1068,1308,1066,1430,932,1426" InPoint:aTouchPoint Inview:_mapView WithTitle:@"JurLique" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"764,1285,906,1284,906,1425,922,1429,924,1544,795,1544,795,1479,728,1474,726,1444" InPoint:aTouchPoint Inview:_mapView WithTitle:@"GUESS" delegate:self];
-     
-     [SKIndoorMapTransfer initWithCoordinate:@"229,917,580,914,579,1046,232,1047" InPoint:aTouchPoint Inview:_mapView WithTitle:@"CK" delegate:self];
-     */
-    
 }
 
 - (void)selPopWithIdentity:(NSString *)identity {

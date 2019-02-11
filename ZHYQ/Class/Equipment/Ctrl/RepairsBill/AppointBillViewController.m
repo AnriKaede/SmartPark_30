@@ -209,13 +209,13 @@
 #pragma mark 填充故障信息
 - (void)fullWranInfo {
     
-    _nameTF.text = _wranUndealModel.deviceName;
+    _nameTF.text = [NSString stringWithFormat:@"%@",_wranUndealModel.deviceName];
     _nameTF.enabled = NO;
     
-    _locationTF.text = _wranUndealModel.alarmLocation;
+    _locationTF.text = [NSString stringWithFormat:@"%@",_wranUndealModel.alarmLocation];
 //    _locationTF.enabled = NO;
     
-    _describeTV.text = _wranUndealModel.alarmInfo;
+    _describeTV.text = [NSString stringWithFormat:@"%@",_wranUndealModel.alarmInfo];
     _tvMsgLabel.hidden = YES;
 //    _describeTV.editable = NO;
     

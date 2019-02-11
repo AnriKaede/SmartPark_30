@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ParkConsumeModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ParkFeeListCell : UITableViewCell
+
+@property (nonatomic,retain) ParkConsumeModel *parkConsumeModel;
 
 @end
 

@@ -52,6 +52,9 @@
 #import "TrainViewController.h"
 #import "LightViewController.h"
 #import "SmartDistributorViewController.h"
+#import "CommunicationViewController.h"
+
+#import "HpDoorCenViewController.h"
 
 #import "MealCenViewController.h"
 
@@ -490,9 +493,16 @@
                 break;
             case 10:
                 {
+                    /*
                     ManholeCoverViewController *mholeCoverVC = [[ManholeCoverViewController alloc] init];
                     mholeCoverVC.title = model.MENU_NAME;
                     [self.navigationController pushViewController:mholeCoverVC animated:YES];
+                     */
+                    
+                    CommunicationViewController *commncVC = [[CommunicationViewController alloc] init];
+                    commncVC.title = model.MENU_NAME;
+                    [self.navigationController pushViewController:commncVC animated:YES];
+                    break;
                 }
                 break;
             case 11:
@@ -536,10 +546,15 @@
             case 150:
             {
                 // 光交锁
+                /*
                 LightLockWebViewController *lightLockVC = [[LightLockWebViewController alloc] init];
                 lightLockVC.title = model.MENU_NAME;
                 lightLockVC.isHidenNaviBar = YES;
                 [self.navigationController pushViewController:lightLockVC animated:YES];
+                 */
+                CommunicationViewController *commncVC = [[CommunicationViewController alloc] init];
+                commncVC.title = model.MENU_NAME;
+                [self.navigationController pushViewController:commncVC animated:YES];
                 break;
             }
             
@@ -552,12 +567,6 @@
                 break;
             case 17:
                 {
-                    /*
-                    AirViewController *airVC = [[AirViewController alloc] init];
-                    airVC.title = model.MENU_NAME;
-                    [self.navigationController pushViewController:airVC animated:YES];
-                     */
-                    
                     // 低压配电
                     DistributorViewController *disVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"DistributorViewController"];
                     disVC.title = model.MENU_NAME;
@@ -574,10 +583,6 @@
                 break;
             case 19:
                 {
-                    // led
-//                    LEDViewController *ledVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"LEDViewController"];
-//                    ledVC.title = model.MENU_NAME;
-//                    [self.navigationController pushViewController:ledVC animated:YES];
                     LEDMapViewController *ledVC = [[LEDMapViewController alloc] init];
                     ledVC.title = model.MENU_NAME;
                     [self.navigationController pushViewController:ledVC animated:YES];
@@ -586,11 +591,6 @@
             case 20:
                 {
                     // 会议室
-                    /*
-                    MeetPageViewController *meetPageVC = [[MeetPageViewController alloc] init];
-                    meetPageVC.title = model.MENU_NAME;
-                    [self.navigationController pushViewController:meetPageVC animated:YES];
-                     */
                     MeetRoomGroupViewController *meetGroupVC = [[MeetRoomGroupViewController alloc] init];
                     meetGroupVC.title = model.MENU_NAME;
                     [self.navigationController pushViewController:meetGroupVC animated:YES];
@@ -721,6 +721,13 @@
                 SmartDistributorViewController *distributorVC = [[SmartDistributorViewController alloc] init];
                 distributorVC.isHidenNaviBar = YES;
                 [self.navigationController pushViewController:distributorVC animated:YES];
+                break;
+            }
+            case 35:
+            {
+                // 福门
+                HpDoorCenViewController *hpVC = [[HpDoorCenViewController alloc] init];
+                [self.navigationController pushViewController:hpVC animated:YES];
                 break;
             }
                 

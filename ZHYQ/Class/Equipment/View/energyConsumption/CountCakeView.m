@@ -40,7 +40,7 @@
 
 - (void)_initView {
     _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 50)];
-    _topView.backgroundColor = [UIColor clearColor];
+    _topView.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
     [self addSubview:_topView];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 45, KScreenWidth/2, 5)];

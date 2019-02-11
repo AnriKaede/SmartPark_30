@@ -6,21 +6,36 @@
 //  Copyright © 2018年 焦平. All rights reserved.
 //
 
+typedef enum {
+    ParkFeeDay = 0,
+    ParkFeeWeek,
+    ParkFeeMonth
+}ParkFeeType;
+
 #import "ParkFeeViewController.h"
 #import "ParkFeeListViewController.h"
 #import "ParkFeeTopCell.h"
 #import "ParkFeeSnapCell.h"
 
-@interface ParkFeeViewController ()
+#import "ParkFeeCountModel.h"
 
+@interface ParkFeeViewController ()<ParkFeeDateFilterDelegate>
+{
+    ParkFeeCountModel *_parkFeeCountModel;
+    NSMutableArray *_itemsData;
+    FilterDateStyle _filterDateStyle;
+}
 @end
 
 @implementation ParkFeeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _itemsData = @[].mutableCopy;
     
     [self initNav];
+    
+    [self _loadData:ParkFeeDay];
 }
 
 -(void)initNav{
@@ -57,6 +72,67 @@
 {
     ParkFeeListViewController *parkFeeListVc = [[ParkFeeListViewController alloc] init];
     [self.navigationController pushViewController:parkFeeListVc animated:YES];
+}
+
+- (void)_loadData:(ParkFeeType)parkFeeType {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parking/chargeStatistics", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(parkFeeType == ParkFeeDay){
+        [paramDic setObject:@"day" forKey:@"timeType"];
+    }else if(parkFeeType == ParkFeeWeek){
+        [paramDic setObject:@"week" forKey:@"timeType"];
+    }else if(parkFeeType == ParkFeeMonth){
+        [paramDic setObject:@"month" forKey:@"timeType"];
+    }
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"params":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            
+            NSDictionary *responseData = responseObject[@"responseData"];
+            _parkFeeCountModel = [[ParkFeeCountModel alloc] initWithDataDic:responseData];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        }
+        
+    } failure:^(NSError *error) {
+        [self showHint:KRequestFailMsg];
+    }];
+    
+    [self loadSnapData:parkFeeType];
+}
+
+- (void)loadSnapData:(ParkFeeType)parkFeeType {
+    NSString *urlStr = [NSString stringWithFormat:@"%@/parking/periodStatistics", Main_Url];
+    
+    NSMutableDictionary *paramDic = @{}.mutableCopy;
+    if(parkFeeType == ParkFeeDay){
+        [paramDic setObject:@"day" forKey:@"timeType"];
+    }else if(parkFeeType == ParkFeeWeek){
+        [paramDic setObject:@"week" forKey:@"timeType"];
+    }else if(parkFeeType == ParkFeeMonth){
+        [paramDic setObject:@"month" forKey:@"timeType"];
+    }
+    
+    NSString *paramStr = [Utils convertToJsonData:paramDic];
+    NSDictionary *params = @{@"params":paramStr};
+    
+    [[NetworkClient sharedInstance] POST:urlStr dict:params progressFloat:nil succeed:^(id responseObject) {
+        NSString *code = responseObject[@"code"];
+        if(code != nil && ![code isKindOfClass:[NSNull class]] && [code isEqualToString:@"1"]){
+            
+            NSDictionary *responseData = responseObject[@"responseData"];
+            NSArray *items = responseData[@"items"];
+            _itemsData = items.mutableCopy;
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+        }
+        
+    } failure:^(NSError *error) {
+        [self showHint:KRequestFailMsg];
+    }];
 }
 
 #pragma mark UITableView协议
@@ -98,10 +174,36 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == 0){
         ParkFeeTopCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ParkFeeTopCell" forIndexPath:indexPath];
+        cell.parkFeeCountModel = _parkFeeCountModel;
+        cell.filterDelegate = self;
+        cell.filterDateStyle = _filterDateStyle;
         return cell;
     }else {
         ParkFeeSnapCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ParkFeeSnapCell" forIndexPath:indexPath];
+        cell.items = _itemsData;
         return cell;
+    }
+}
+
+#pragma mark 日周月切换协议
+- (void)filterDelegate:(FilterDateStyle)filterDateStyle {
+    _filterDateStyle = filterDateStyle;
+    switch (filterDateStyle) {
+        case FilterDay:
+            {
+                [self _loadData:ParkFeeDay];
+                break;
+            }
+        case FilterWeek:
+        {
+            [self _loadData:ParkFeeWeek];
+            break;
+        }
+        case FilterMonth:
+        {
+            [self _loadData:ParkFeeMonth];
+            break;
+        }
     }
 }
 

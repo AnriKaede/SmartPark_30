@@ -692,7 +692,9 @@ typedef enum {
     [logDic setObject:operate forKey:@"operateName"];//操作动作名 说明
     [logDic setObject:operate forKey:@"operateDes"];//操作描述 说明
     [logDic setObject:@"udpController/sendMsgToUdpSer" forKey:@"operateUrl"];//操作url
-    [logDic setObject:tagId forKey:@"operateDeviceId"];//操作设备ID tagid
+    if(tagId != nil){
+        [logDic setObject:tagId forKey:@"operateDeviceId"];//操作设备ID tagid
+    }
     [logDic setObject:@"LED屏" forKey:@"operateDeviceName"];//操作设备名  模块
     
     [LogRecordObj recordLog:logDic];
