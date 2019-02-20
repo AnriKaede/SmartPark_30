@@ -1521,12 +1521,13 @@
                model.dssPasswd != nil && ![model.dssPasswd isKindOfClass:[NSNull class]]
                ){
                 // 登录视频监控账号
-                BOOL isSuc = [MonitorLogin loginWithAddress:model.dssAddr withPort:model.dssPort withName:model.dssAdmin withPsw:model.dssPasswd];
-                if(isSuc){
-                    // 登录成功
-                    _isLogin = YES;
-                }else {
-                }
+                [MonitorLogin loginWithAddress:model.dssAddr withPort:model.dssPort withName:model.dssAdmin withPsw:model.dssPasswd withResule:^(BOOL isSuc) {
+                    if(isSuc){
+                        // 登录成功
+                        _isLogin = YES;
+                    }else {
+                    }
+                }];
                 
             }
         }

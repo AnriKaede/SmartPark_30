@@ -13,7 +13,7 @@
 
 @implementation MonitorLogin
 
-+ (BOOL)loginWithAddress:(NSString *)address withPort:(NSString *)port withName:(NSString *)name withPsw:(NSString *)psw {
++ (void)loginWithAddress:(NSString *)address withPort:(NSString *)port withName:(NSString *)name withPsw:(NSString *)psw withResule:(LoginResult)loginResult{
     //页面加载时,向平台请求业务数据回调
     int ret = [[GroupManager sharedInstance]attachIssueCallback];
     if ( DPSDK_RET_SUCCESS != ret)
@@ -30,54 +30,45 @@
     logInfo.nProtocol = DPSDK_PROTOCOL_VERSION_II;
     logInfo.iType = 2;
     
-    int nRet = [[LoginManager sharedInstance]loginServer:logInfo];
-    
-    //保存帐户信息
-//    [DHDataCenter sharedInstance].serverIP   = @"113.240.243.212";
-//    [DHDataCenter sharedInstance].serverPort = @"9000";
-//    [DHDataCenter sharedInstance].userName   = @"admin";
-//    [DHDataCenter sharedInstance].passCode   = @"admin1133";
-//    [[DHDataCenter sharedInstance] saveAccount];
-    
-    if ( DPSDK_RET_SUCCESS == nRet)
-    {
-        //加载组织设备信息
-        int ret = [[GroupManager sharedInstance]loadGroupInfo];
-        if (ret != DPSDK_RET_SUCCESS)
-        {
-            MSG(@"", @"加载组织设备信息失败", @"确定");
-            [self logoutServer];
-            return NO;
-        }
-        
-        //一直到数据加载完成
-        NSDate * date = [NSDate dateWithTimeIntervalSinceNow:0];
-        while (TRUE)
-        {
-            Sleep(0.2);//
+    dispatch_queue_t queue2 = dispatch_queue_create("Queue2", DISPATCH_QUEUE_CONCURRENT);
+    dispatch_async(queue2, ^{
+        int nRet = [[LoginManager sharedInstance]loginServer:logInfo];
+        dispatch_async(dispatch_get_main_queue(), ^{
             
-            NSDate * dateNow = [NSDate date];
-            NSTimeInterval t = [dateNow timeIntervalSinceDate:date];
-            
-            if ( t > 30) //超时时间30s
-            {
-                MSG(@"", @"数据加载超时", @"");
-                return NO;
+            if ( DPSDK_RET_SUCCESS == nRet) {
+                //加载组织设备信息
+                int ret = [[GroupManager sharedInstance]loadGroupInfo];
+                if (ret != DPSDK_RET_SUCCESS) {
+                    MSG(@"", @"加载组织设备信息失败", @"确定");
+                    [self logoutServer];
+//                    return NO;
+                    loginResult(NO);
+                }
+                //一直到数据加载完成
+                NSDate * date = [NSDate dateWithTimeIntervalSinceNow:0];
+                while (TRUE) {
+                    Sleep(0.2);//
+                    NSDate * dateNow = [NSDate date];
+                    NSTimeInterval t = [dateNow timeIntervalSinceDate:date];
+                    
+                    //超时时间30s
+                    if ( t > 30) {
+                        MSG(@"", @"数据加载超时", @"");
+//                        return NO;
+                        loginResult(NO);
+                    }
+                    if ([[GroupManager sharedInstance]isLoadComplete]) {
+                        break;
+                    }
+                }
+//                return YES;
+                loginResult(YES);
+            }else {
+//                return NO;
+                loginResult(NO);
             }
-            
-            if ([[GroupManager sharedInstance]isLoadComplete])
-            {
-                break;
-            }
-        }
-        
-        return YES;
-    }
-    else
-    {
-//        [self loginErrorMsg:nRet];
-        return NO;
-    }
+        });
+    });
 }
 
 + (void)logoutServer

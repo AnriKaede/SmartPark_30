@@ -3355,23 +3355,23 @@
 		9253BCED20BFA58D00AB4767 /* playMonitorVideo */ = {
 			isa = PBXGroup;
 			children = (
-				9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */,
-				9253BCEF20BFA58D00AB4767 /* MonitorLogin.h */,
-				9253BCF020BFA58D00AB4767 /* PlaybackViewController.h */,
-				9253BCF120BFA58D00AB4767 /* PlayVideoViewController.m */,
-				9253BCF220BFA58E00AB4767 /* VideoWnd */,
+				9253BD4220BFA58E00AB4767 /* Depend_s */,
 				9253BCF520BFA58E00AB4767 /* DHHudPrecess.h */,
-				9253BCF620BFA58E00AB4767 /* VtCallInfo.h */,
-				9253BCF720BFA58E00AB4767 /* resources */,
-				9253BD0B20BFA58E00AB4767 /* PlaybackViewController.m */,
+				9253BD4120BFA58E00AB4767 /* DHHudPrecess.m */,
 				9253BD0C20BFA58E00AB4767 /* Manager */,
-				9253BD1F20BFA58E00AB4767 /* SBJson */,
+				9253BCEF20BFA58D00AB4767 /* MonitorLogin.h */,
 				9253BD3920BFA58E00AB4767 /* MonitorLogin.m */,
 				9253BD3A20BFA58E00AB4767 /* MonitorTimeViewController.h */,
-				9253BD3B20BFA58E00AB4767 /* XMLParser */,
+				9253BCEE20BFA58D00AB4767 /* MonitorTimeViewController.m */,
+				9253BCF020BFA58D00AB4767 /* PlaybackViewController.h */,
+				9253BD0B20BFA58E00AB4767 /* PlaybackViewController.m */,
 				9253BD4020BFA58E00AB4767 /* PlayVideoViewController.h */,
-				9253BD4120BFA58E00AB4767 /* DHHudPrecess.m */,
-				9253BD4220BFA58E00AB4767 /* Depend_s */,
+				9253BCF120BFA58D00AB4767 /* PlayVideoViewController.m */,
+				9253BCF720BFA58E00AB4767 /* resources */,
+				9253BD1F20BFA58E00AB4767 /* SBJson */,
+				9253BCF220BFA58E00AB4767 /* VideoWnd */,
+				9253BCF620BFA58E00AB4767 /* VtCallInfo.h */,
+				9253BD3B20BFA58E00AB4767 /* XMLParser */,
 			);
 			path = playMonitorVideo;
 			sourceTree = "<group>";

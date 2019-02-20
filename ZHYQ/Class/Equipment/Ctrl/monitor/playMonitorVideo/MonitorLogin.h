@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^LoginResult) (BOOL);
+
 @interface MonitorLogin : NSObject
 
-+ (BOOL)loginWithAddress:(NSString *)address withPort:(NSString *)port withName:(NSString *)name withPsw:(NSString *)psw;
++ (void)loginWithAddress:(NSString *)address withPort:(NSString *)port withName:(NSString *)name withPsw:(NSString *)psw withResule:(LoginResult)loginResult;
 
 + (void)logoutServer;
 
