@@ -10,10 +10,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef enum {
+    RobotMoveTop = 0,
+    RobotMoveLeft,
+    RobotMoveDown,
+    RobotMoveRight
+}RobotMove;
+
 @protocol OperateDelegate <NSObject>
 
 - (void)livePlay;
 - (void)closeMenu;
+- (void)robotMove:(RobotMove)robotMove;
+- (void)changeColor;
+- (void)shakeHeader;
 
 @end
 

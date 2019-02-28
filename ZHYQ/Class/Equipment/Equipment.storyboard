@@ -7374,9 +7374,18 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6zQ-gA-Zpn">
                                 <rect key="frame" x="0.0" y="183" width="414" height="310"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J8j-7p-Pau">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="310"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="6zQ-gA-Zpn" secondAttribute="height" multiplier="207:155" id="MCT-cp-dZ0"/>
+                                    <constraint firstItem="J8j-7p-Pau" firstAttribute="top" secondItem="6zQ-gA-Zpn" secondAttribute="top" id="XMk-kh-zVc"/>
+                                    <constraint firstItem="J8j-7p-Pau" firstAttribute="leading" secondItem="6zQ-gA-Zpn" secondAttribute="leading" id="YlL-7P-oc8"/>
+                                    <constraint firstAttribute="trailing" secondItem="J8j-7p-Pau" secondAttribute="trailing" id="ZT0-Og-hm5"/>
+                                    <constraint firstAttribute="bottom" secondItem="J8j-7p-Pau" secondAttribute="bottom" id="bPG-N3-TvI"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8s-Ce-6cK">
@@ -7471,6 +7480,7 @@
                         <outlet property="_saveLabel" destination="eCi-iY-bcX" id="ghi-Jp-KAi"/>
                         <outlet property="_screenshotBt" destination="C9E-Ic-YDB" id="PCs-QP-3ev"/>
                         <outlet property="_screenshotLabel" destination="AlL-jS-Joc" id="1yM-Pa-9PJ"/>
+                        <outlet property="shootScreenImgView" destination="J8j-7p-Pau" id="8b4-sy-2pM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VXM-gM-CJ4" userLabel="First Responder" sceneMemberID="firstResponder"/>

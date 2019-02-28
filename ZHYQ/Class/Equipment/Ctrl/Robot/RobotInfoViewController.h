@@ -8,10 +8,13 @@
 
 #import "BaseTableViewController.h"
 #import "RootViewController.h"
+#import "RobotInfoModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RobotInfoViewController : RootViewController
+
+@property (nonatomic,retain) RobotInfoModel *infoModel;
 
 @end
 

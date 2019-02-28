@@ -87,7 +87,7 @@
     RobotInfoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RobotInfoCell" forIndexPath:indexPath];
     
     cell.nameLabel.text = [self cellName:indexPath];
-//    cell.valueLabel.text = [self cellName:indexPath];
+    cell.valueLabel.text = [self valueName:indexPath];
     
     return cell;
 }
@@ -128,4 +128,36 @@
     }
 }
 
+- (NSString *)valueName:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 0:
+            return _infoModel.model;
+            break;
+        case 1:
+            return _infoModel.version;
+            break;
+        case 2:
+            return _infoModel.kernelVersion;
+            break;
+        case 3:
+            return _infoModel.numberVersion;
+            break;
+        case 4:
+            return _infoModel.pinboardVersion;
+            break;
+        case 5:
+            return _infoModel.pleuralVersion;
+            break;
+        case 6:
+            return _infoModel.headVersion;
+            break;
+        case 7:
+            return _infoModel.rosVersion;
+            break;
+            
+        default:
+            return @"";
+            break;
+    }
+}
 @end

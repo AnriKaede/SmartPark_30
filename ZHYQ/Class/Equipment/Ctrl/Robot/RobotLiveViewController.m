@@ -7,6 +7,7 @@
 //
 
 #import "RobotLiveViewController.h"
+#import <NodeMediaClient/NodeMediaClient.h>
 
 @interface RobotLiveViewController ()
 {
@@ -19,7 +20,9 @@
     __weak IBOutlet UILabel *_saveLabel;
     __weak IBOutlet UILabel *_screenshotLabel;
     __weak IBOutlet UILabel *_deleteLabel;
+    __weak IBOutlet UIImageView *shootScreenImgView;
 }
+@property (strong,nonatomic) NodePlayer *np;
 @end
 
 @implementation RobotLiveViewController
@@ -28,6 +31,14 @@
     [super viewDidLoad];
     
     [self _initView];
+    
+    [self _initPlay];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [_np stop];
 }
 
 - (void)_initView {
@@ -39,13 +50,36 @@
     _deleteLabel.hidden = YES;
 }
 
+- (void)_initPlay {
+    _np = [[NodePlayer alloc] init];
+    [_np setPlayerView:_liveView];
+    [_np setInputUrl:@"rtmp://demo.easydss.com:10085/hls/lFMYG7riR?k=lFMYG7riR.e87f81e9fd9dc71e6b"];
+    [_np start];
+}
+
 - (IBAction)closeActionn:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)saveActionn:(id)sender {
+    shootScreenImgView.hidden = YES;
     
+    if(shootScreenImgView.image){
+        UIImageWriteToSavedPhotosAlbum(shootScreenImgView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
 }
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    [self showHint:@"截图保存成功"];
+    shootScreenImgView.hidden = YES;
+    
+    _saveBt.hidden = YES;
+    _deleteBt.hidden = YES;
+    _saveLabel.hidden = YES;
+    _deleteLabel.hidden = YES;
+    _screenshotBt.hidden = NO;
+    _screenshotLabel.hidden = NO;
+}
+
 - (IBAction)shootScreen:(id)sender {
     _saveBt.hidden = NO;
     _deleteBt.hidden = NO;
@@ -53,9 +87,32 @@
     _deleteLabel.hidden = NO;
     _screenshotBt.hidden = YES;
     _screenshotLabel.hidden = YES;
+    
+    shootScreenImgView.hidden = NO;
+    
+    shootScreenImgView.image = [self nomalSnapshotImage];
 }
 - (IBAction)deleteAction:(id)sender {
+    shootScreenImgView.hidden = YES;
     
+    _saveBt.hidden = YES;
+    _deleteBt.hidden = YES;
+    _saveLabel.hidden = YES;
+    _deleteLabel.hidden = YES;
+    _screenshotBt.hidden = NO;
+    _screenshotLabel.hidden = NO;
+}
+
+- (UIImage *)nomalSnapshotImage
+{
+    CGSize size = _liveView.bounds.size;
+    UIGraphicsBeginImageContextWithOptions(size, NO, [UIScreen mainScreen].scale);
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    [_liveView drawViewHierarchyInRect:rect afterScreenUpdates:YES];
+    UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return snapshotImage;
 }
 
 @end

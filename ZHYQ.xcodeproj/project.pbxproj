@@ -170,8 +170,10 @@
 		923C33B52226890600031A2D /* RobotMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923C33B42226890600031A2D /* RobotMenuView.xib */; };
 		923C33B922276AD600031A2D /* RobotInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33B722276AD600031A2D /* RobotInfoCell.m */; };
 		923C33BA22276AD600031A2D /* RobotInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923C33B822276AD600031A2D /* RobotInfoCell.xib */; };
+		923C33BD2227716E00031A2D /* MQTTTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33BC2227716E00031A2D /* MQTTTool.m */; };
 		923DBDE61FEA092E00736CAE /* SceneEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 923DBDE41FEA092E00736CAE /* SceneEditCell.m */; };
 		923DBDE71FEA092E00736CAE /* SceneEditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923DBDE51FEA092E00736CAE /* SceneEditCell.xib */; };
+		923FB2C62227B8CB00454AAF /* RobotInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 923FB2C52227B8CB00454AAF /* RobotInfoModel.m */; };
 		9240BADC1FC269AB0019AF07 /* TodayParkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9240BADB1FC269AB0019AF07 /* TodayParkViewController.m */; };
 		9240BAE01FC26AB70019AF07 /* SurplusParkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9240BADE1FC26AB70019AF07 /* SurplusParkCell.m */; };
 		9240BAE11FC26AB70019AF07 /* SurplusParkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9240BADF1FC26AB70019AF07 /* SurplusParkCell.xib */; };
@@ -1268,9 +1270,13 @@
 		923C33B622276AD600031A2D /* RobotInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobotInfoCell.h; sourceTree = "<group>"; };
 		923C33B722276AD600031A2D /* RobotInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobotInfoCell.m; sourceTree = "<group>"; };
 		923C33B822276AD600031A2D /* RobotInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RobotInfoCell.xib; sourceTree = "<group>"; };
+		923C33BB2227716E00031A2D /* MQTTTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MQTTTool.h; sourceTree = "<group>"; };
+		923C33BC2227716E00031A2D /* MQTTTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MQTTTool.m; sourceTree = "<group>"; };
 		923DBDE31FEA092E00736CAE /* SceneEditCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneEditCell.h; sourceTree = "<group>"; };
 		923DBDE41FEA092E00736CAE /* SceneEditCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneEditCell.m; sourceTree = "<group>"; };
 		923DBDE51FEA092E00736CAE /* SceneEditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SceneEditCell.xib; sourceTree = "<group>"; };
+		923FB2C42227B8CB00454AAF /* RobotInfoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobotInfoModel.h; sourceTree = "<group>"; };
+		923FB2C52227B8CB00454AAF /* RobotInfoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobotInfoModel.m; sourceTree = "<group>"; };
 		9240BADA1FC269AB0019AF07 /* TodayParkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayParkViewController.h; sourceTree = "<group>"; };
 		9240BADB1FC269AB0019AF07 /* TodayParkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayParkViewController.m; sourceTree = "<group>"; };
 		9240BADD1FC26AB70019AF07 /* SurplusParkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurplusParkCell.h; sourceTree = "<group>"; };
@@ -3333,6 +3339,15 @@
 			path = Robot;
 			sourceTree = "<group>";
 		};
+		923FB2C32227B8B700454AAF /* Robot */ = {
+			isa = PBXGroup;
+			children = (
+				923FB2C42227B8CB00454AAF /* RobotInfoModel.h */,
+				923FB2C52227B8CB00454AAF /* RobotInfoModel.m */,
+			);
+			path = Robot;
+			sourceTree = "<group>";
+		};
 		9240BAE21FC27EB80019AF07 /* parkCount */ = {
 			isa = PBXGroup;
 			children = (
@@ -4730,6 +4745,8 @@
 				D6F556721FA7018D00AFD721 /* YQButton */,
 				D629A5D11F9D9C1800FA5EE1 /* NetWorkTools */,
 				D60262541F9C48C700A66D5A /* YQTransition */,
+				923C33BB2227716E00031A2D /* MQTTTool.h */,
+				923C33BC2227716E00031A2D /* MQTTTool.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -5842,6 +5859,7 @@
 		D6F556631FA6C02800AFD721 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				923FB2C32227B8B700454AAF /* Robot */,
 				925348A121D068BB00B05593 /* CommncEquipment */,
 				9257EF0021C9DBAB009C4230 /* HpDoor */,
 				9225EC6D21B7D9AD007645D2 /* smartDistributor */,
@@ -6423,6 +6441,7 @@
 				92A2206D1FFB846800B1A881 /* PlayBackView.m in Sources */,
 				929142C8218152B200FFE7C4 /* ParkFeeSnapCell.m in Sources */,
 				9213C0491FE60B13009E7B67 /* MonitorLoginInfoModel.m in Sources */,
+				923FB2C62227B8CB00454AAF /* RobotInfoModel.m in Sources */,
 				9257EEC221C72FCE009C4230 /* HpDoorCenViewController.m in Sources */,
 				D629A5C11F9C5ABD00FA5EE1 /* registerViewController.m in Sources */,
 				D6EAE69E1FB53A3D006E4C2F /* YQEditImageViewController.m in Sources */,
@@ -6516,6 +6535,7 @@
 				922B412E2154CE0900B9F6E4 /* AttDetailOtherTableViewCell.m in Sources */,
 				9240BADC1FC269AB0019AF07 /* TodayParkViewController.m in Sources */,
 				9223612721E8443800E412F4 /* OverDealModel.m in Sources */,
+				923C33BD2227716E00031A2D /* MQTTTool.m in Sources */,
 				D69259A31FC553070077482F /* MusicListModel.m in Sources */,
 				926DB8E1202AF59300529BE0 /* LogFilterViewController.m in Sources */,
 				92E87D341FB5A4DE0045D2FF /* DrainWaterCell.m in Sources */,

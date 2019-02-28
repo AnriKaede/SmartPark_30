@@ -19,17 +19,35 @@
     }
 }
 - (IBAction)_colorAction:(id)sender {
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(changeColor)]){
+        [_operateDelegate changeColor];
+    }
 }
 - (IBAction)_helloAction:(id)sender {
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(shakeHeader)]){
+        [_operateDelegate shakeHeader];
+    }
 }
 
 - (IBAction)_upAction:(id)sender {
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(robotMove:)]){
+        [_operateDelegate robotMove:RobotMoveTop];
+    }
 }
 - (IBAction)_leftAction:(id)sender {
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(robotMove:)]){
+        [_operateDelegate robotMove:RobotMoveLeft];
+    }
 }
 - (IBAction)_downAction:(id)sender {
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(robotMove:)]){
+        [_operateDelegate robotMove:RobotMoveDown];
+    }
 }
 - (IBAction)_rightAction:(id)sender {
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(robotMove:)]){
+        [_operateDelegate robotMove:RobotMoveRight];
+    }
 }
 
 - (IBAction)closeAction:(id)sender {
