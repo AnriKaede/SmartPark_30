@@ -163,6 +163,13 @@
 		92343BF820D8E2DC00A28603 /* ParkSpaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92343BF620D8E2DC00A28603 /* ParkSpaceCell.xib */; };
 		92343BFC20D8FE6A00A28603 /* BatchLockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92343BFA20D8FE6A00A28603 /* BatchLockCell.m */; };
 		92343BFD20D8FE6A00A28603 /* BatchLockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92343BFB20D8FE6A00A28603 /* BatchLockCell.xib */; };
+		923C33A922267A6100031A2D /* RobotHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33A822267A6100031A2D /* RobotHomeViewController.m */; };
+		923C33AC2226844B00031A2D /* RobotInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33AB2226844B00031A2D /* RobotInfoViewController.m */; };
+		923C33AF2226848700031A2D /* RobotLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33AE2226848700031A2D /* RobotLiveViewController.m */; };
+		923C33B3222688E100031A2D /* RobotMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33B2222688E100031A2D /* RobotMenuView.m */; };
+		923C33B52226890600031A2D /* RobotMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923C33B42226890600031A2D /* RobotMenuView.xib */; };
+		923C33B922276AD600031A2D /* RobotInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33B722276AD600031A2D /* RobotInfoCell.m */; };
+		923C33BA22276AD600031A2D /* RobotInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923C33B822276AD600031A2D /* RobotInfoCell.xib */; };
 		923DBDE61FEA092E00736CAE /* SceneEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 923DBDE41FEA092E00736CAE /* SceneEditCell.m */; };
 		923DBDE71FEA092E00736CAE /* SceneEditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 923DBDE51FEA092E00736CAE /* SceneEditCell.xib */; };
 		9240BADC1FC269AB0019AF07 /* TodayParkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9240BADB1FC269AB0019AF07 /* TodayParkViewController.m */; };
@@ -1249,6 +1256,18 @@
 		92343BF920D8FE6A00A28603 /* BatchLockCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BatchLockCell.h; sourceTree = "<group>"; };
 		92343BFA20D8FE6A00A28603 /* BatchLockCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BatchLockCell.m; sourceTree = "<group>"; };
 		92343BFB20D8FE6A00A28603 /* BatchLockCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BatchLockCell.xib; sourceTree = "<group>"; };
+		923C33A722267A6100031A2D /* RobotHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobotHomeViewController.h; sourceTree = "<group>"; };
+		923C33A822267A6100031A2D /* RobotHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobotHomeViewController.m; sourceTree = "<group>"; };
+		923C33AA2226844B00031A2D /* RobotInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobotInfoViewController.h; sourceTree = "<group>"; };
+		923C33AB2226844B00031A2D /* RobotInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobotInfoViewController.m; sourceTree = "<group>"; };
+		923C33AD2226848700031A2D /* RobotLiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobotLiveViewController.h; sourceTree = "<group>"; };
+		923C33AE2226848700031A2D /* RobotLiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobotLiveViewController.m; sourceTree = "<group>"; };
+		923C33B1222688E100031A2D /* RobotMenuView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobotMenuView.h; sourceTree = "<group>"; };
+		923C33B2222688E100031A2D /* RobotMenuView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobotMenuView.m; sourceTree = "<group>"; };
+		923C33B42226890600031A2D /* RobotMenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RobotMenuView.xib; sourceTree = "<group>"; };
+		923C33B622276AD600031A2D /* RobotInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobotInfoCell.h; sourceTree = "<group>"; };
+		923C33B722276AD600031A2D /* RobotInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobotInfoCell.m; sourceTree = "<group>"; };
+		923C33B822276AD600031A2D /* RobotInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RobotInfoCell.xib; sourceTree = "<group>"; };
 		923DBDE31FEA092E00736CAE /* SceneEditCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneEditCell.h; sourceTree = "<group>"; };
 		923DBDE41FEA092E00736CAE /* SceneEditCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneEditCell.m; sourceTree = "<group>"; };
 		923DBDE51FEA092E00736CAE /* SceneEditCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SceneEditCell.xib; sourceTree = "<group>"; };
@@ -3286,6 +3305,32 @@
 				9231FDB721AE41A300736A74 /* BatchAddFaceCell.xib */,
 			);
 			path = face_wran;
+			sourceTree = "<group>";
+		};
+		923C33A622267A3E00031A2D /* Robot */ = {
+			isa = PBXGroup;
+			children = (
+				923C33A722267A6100031A2D /* RobotHomeViewController.h */,
+				923C33A822267A6100031A2D /* RobotHomeViewController.m */,
+				923C33AA2226844B00031A2D /* RobotInfoViewController.h */,
+				923C33AB2226844B00031A2D /* RobotInfoViewController.m */,
+				923C33AD2226848700031A2D /* RobotLiveViewController.h */,
+				923C33AE2226848700031A2D /* RobotLiveViewController.m */,
+			);
+			path = Robot;
+			sourceTree = "<group>";
+		};
+		923C33B0222688C500031A2D /* Robot */ = {
+			isa = PBXGroup;
+			children = (
+				923C33B1222688E100031A2D /* RobotMenuView.h */,
+				923C33B2222688E100031A2D /* RobotMenuView.m */,
+				923C33B42226890600031A2D /* RobotMenuView.xib */,
+				923C33B622276AD600031A2D /* RobotInfoCell.h */,
+				923C33B722276AD600031A2D /* RobotInfoCell.m */,
+				923C33B822276AD600031A2D /* RobotInfoCell.xib */,
+			);
+			path = Robot;
 			sourceTree = "<group>";
 		};
 		9240BAE21FC27EB80019AF07 /* parkCount */ = {
@@ -5719,6 +5764,7 @@
 		D6F556611FA6C01B00AFD721 /* Ctrl */ = {
 			isa = PBXGroup;
 			children = (
+				923C33A622267A3E00031A2D /* Robot */,
 				D6B1B27A1FC2DDD900852BE8 /* Equipment */,
 				9257EEBF21C72E49009C4230 /* HappinessDoor */,
 				9289AF16218FE8BA005AC0DC /* smartDistributor */,
@@ -5757,6 +5803,7 @@
 		D6F556621FA6C02400AFD721 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				923C33B0222688C500031A2D /* Robot */,
 				9222431821CCD2310096EEC8 /* Communication */,
 				9257EECC21C73DB0009C4230 /* HappinessDoor */,
 				9221650C21902A00007CCBCE /* smartDistributor */,
@@ -6158,6 +6205,7 @@
 				D6A2DEED2180163100D76AB6 /* ParkFeeListCell.xib in Resources */,
 				9240BB161FC2F9740019AF07 /* VisCountCell.xib in Resources */,
 				92CE43C91FD4EAAA00ED9F98 /* LICENSE in Resources */,
+				923C33B52226890600031A2D /* RobotMenuView.xib in Resources */,
 				92E87D6B1FB6FED40045D2FF /* AuthorityListCell.xib in Resources */,
 				92D78B1D2071CC79003596C4 /* FaceQueryCell.xib in Resources */,
 				921894DC1FA95596001C1A41 /* AADrilldown.js in Resources */,
@@ -6232,6 +6280,7 @@
 				D6EAE6AF1FB542A7006E4C2F /* ChooseLedTableViewCell.xib in Resources */,
 				92CE43CB1FD4EAAA00ED9F98 /* dpsdk.podspec in Resources */,
 				9287754A1FBC6F1900BF708A /* ConsumPartCell.xib in Resources */,
+				923C33BA22276AD600031A2D /* RobotInfoCell.xib in Resources */,
 				9256C46021A55D8200501014 /* bds_easr_gramm.dat in Resources */,
 				D602622A1F9B45DE00A66D5A /* Assets.xcassets in Resources */,
 				92CE43CA1FD4EAAA00ED9F98 /* README.md in Resources */,
@@ -6495,6 +6544,7 @@
 				D69A2F4721814D56001C7571 /* wifiSticalCenterViewController.m in Sources */,
 				92E87CFB1FB42CF40045D2FF /* LEDCell.m in Sources */,
 				9226846220AED00A006628B3 /* DeviceInfoModel.m in Sources */,
+				923C33B922276AD600031A2D /* RobotInfoCell.m in Sources */,
 				9253BD8520BFA58E00AB4767 /* TimeConvert.m in Sources */,
 				D63922BF1FB43CC400E1A00A /* ElevatorViewController.m in Sources */,
 				9265608821E2E8A7006D1FDB /* CloseEqHomeCell.m in Sources */,
@@ -6531,6 +6581,7 @@
 				9266941A219D4FD3004583B2 /* UIWebView+KWWebViewJSTool.m in Sources */,
 				9221650F21902A39007CCBCE /* DistributorFilterView.m in Sources */,
 				92D8B8ED206C864B0001263F /* FaceDetailViewController.m in Sources */,
+				923C33AC2226844B00031A2D /* RobotInfoViewController.m in Sources */,
 				92E87D1F1FB54B470045D2FF /* SceneEditTableViewController.m in Sources */,
 				928CD9172061FA5A00058727 /* LightGroupCell.m in Sources */,
 				927A0D4D2085DC3600C3F8DE /* RepairsListViewController.m in Sources */,
@@ -6767,6 +6818,7 @@
 				D695D1AC1FB6C5F3005255E9 /* MenuModel.m in Sources */,
 				922B41262154A08C00B9F6E4 /* AttDetailTableViewCell.m in Sources */,
 				928775451FBC646800BF708A /* ConsumptionCircleView.m in Sources */,
+				923C33AF2226848700031A2D /* RobotLiveViewController.m in Sources */,
 				9253BD7C20BFA58E00AB4767 /* SBJsonStreamWriterState.m in Sources */,
 				92E87D0E1FB44EAD0045D2FF /* DevelopProViewController.m in Sources */,
 				D6C554641FDBF59F0038DB0B /* BgMusicTaskCenterViewController.m in Sources */,
@@ -6882,6 +6934,7 @@
 				926EA70821EC13A800BE56F4 /* OverTaskModel.m in Sources */,
 				D60CA2A81FB9489800725389 /* YQPageContentScrollView.m in Sources */,
 				925348B521D4D20C00B05593 /* EquipmQueryCell.m in Sources */,
+				923C33B3222688E100031A2D /* RobotMenuView.m in Sources */,
 				D674A8451FD40D4C00E773FD /* ParkAreasModel.m in Sources */,
 				D629A5CA1F9C5B0F00FA5EE1 /* ForgetPdViewController.m in Sources */,
 				92E87D5B1FB6E8D50045D2FF /* EntranceGuardViewController.m in Sources */,
@@ -6956,6 +7009,7 @@
 				9253C4C120F8A75F00985949 /* AirBatchViewController.m in Sources */,
 				925576E62182BFDD00B4A1A3 /* WifiCountStrongCell.m in Sources */,
 				9222431B21CCD2840096EEC8 /* LockMenuView.m in Sources */,
+				923C33A922267A6100031A2D /* RobotHomeViewController.m in Sources */,
 				92B3BEC51FF5DE1500C3AFEC /* ParkNightTaskModel.m in Sources */,
 				92FAC4DD219ACE7800FB1489 /* FaceHistoryViewController.m in Sources */,
 				92E87D441FB6D7D90045D2FF /* ElectricMeterViewController.m in Sources */,

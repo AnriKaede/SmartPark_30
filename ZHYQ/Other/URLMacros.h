@@ -43,7 +43,7 @@
 //#define Main_Url @"http://192.168.21.45:8080/hntfEsb"   // 梁哥
 //#define Main_Url @"http://192.168.21.73:8060/hntfEsb"   // 方
 //#define Main_Url @"http://192.168.206.23:8081/hntfEsb"
-//#define Main_Url @"http://192.168.21.48:8080/hntfEsb" // 文可为
+//#define Main_Url @"http://192.168.13.23:8080/hntfEsb" // 文可为
 //#define Main_Url @"http://192.168.21.61:8080/hntfEsb"   // 岳昊
 //#define Main_Url @"http://192.168.21.39:8080/hntfEsb" // 奉明保
 //#define Main_Url @"http://192.168.21.33:8080/hntfEsb"   // 家新
