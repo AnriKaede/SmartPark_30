@@ -728,18 +728,11 @@
             case 35:
             {
                 // 福门
-//                HpDoorCenViewController *hpVC = [[HpDoorCenViewController alloc] init];
-//                [self.navigationController pushViewController:hpVC animated:YES];
-                
-                // 机器人
-                RobotHomeViewController *robptVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"RobotHomeViewController"];
-                robptVC.isHidenNaviBar = YES;
-                [self.navigationController pushViewController:robptVC animated:YES];
-                
+                HpDoorCenViewController *hpVC = [[HpDoorCenViewController alloc] init];
+                [self.navigationController pushViewController:hpVC animated:YES];
                 break;
             }
-                /*
-            case 350:
+            case 237813:
             {
                 // 机器人
                 RobotHomeViewController *robptVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"RobotHomeViewController"];
@@ -747,7 +740,6 @@
                 [self.navigationController pushViewController:robptVC animated:YES];
                 break;
             }
-                 */
                 
             default:
                 [self showHint:@"敬请期待"];
