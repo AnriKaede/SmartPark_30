@@ -131,7 +131,7 @@
 
 #pragma mark UITableView 协议
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row == 2 && ![[NSUserDefaults standardUserDefaults] boolForKey:KIsRepairman]){
+    if(indexPath.row == 3 && ![[NSUserDefaults standardUserDefaults] boolForKey:KIsRepairman]){
         return 0.1;
     }
     return 60;

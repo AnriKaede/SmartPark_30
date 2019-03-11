@@ -29,9 +29,17 @@
 @property (nonatomic,copy) NSString *DEVICE_ID;
 @property (nonatomic,copy) NSString *POINT_TYPE;
 
+@property (nonatomic,copy) NSString *LATITUDE;
+@property (nonatomic,copy) NSString *LONGITUDE;
+@property (nonatomic,strong) NSNumber *LAYER_A;
+@property (nonatomic,copy) NSString *LAYER_B;
+@property (nonatomic,copy) NSString *LAYER_C;
+
 @property (nonatomic,strong) NSMutableArray *graphData;
 @property (nonatomic,strong) NSMutableArray *grapArr;
 
 @property (nonatomic,assign) BOOL isConSelect;    // 全部通知的是否选中状态
+
+@property (nonatomic,assign) BOOL isColor;
 
 @end

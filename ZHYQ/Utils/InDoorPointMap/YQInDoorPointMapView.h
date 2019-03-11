@@ -42,9 +42,16 @@
 
 @property (nonatomic, strong) NSMutableArray *streetLightArr;
 
+@property (nonatomic, strong) NSMutableArray *commncArr;    // 通信设备光交锁
+
 
 @property (nonatomic, strong) NSMutableArray *parkDownArr;  // 车库点位图数组
 
+// 路灯数据
+@property (nonatomic, strong) NSMutableArray *streetLightMapArr;
+
+// LED数据
+@property (nonatomic, strong) NSMutableArray *LEDMapArr;
 
 // 小地图
 @property (nonatomic, strong) SmallMapView *smallMapView;
@@ -61,5 +68,8 @@
 // 修改车库点位图图标
 - (void)updateCarIcon:(DownParkMdel *)downParkMdel withIndex:(NSInteger)index;
 - (void)normalCarIcon:(DownParkMdel *)downParkMdel withIndex:(NSInteger)index;
+
+// 画配电线路
+- (void)drawLineMap:(NSArray *)lineData withColor:(UIColor *)lineColor;
 
 @end

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -12,17 +12,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="269" id="KGk-i7-Jjw" customClass="WifiShareTopCell">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="275"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="275"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="274.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="274.66666666666669"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECF-ZV-j63">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="274.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="274.66666666666669"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ni1-IC-EGi">
-                                <rect key="frame" x="117.5" y="5" width="140" height="140"/>
+                                <rect key="frame" x="137" y="5" width="140" height="140"/>
                                 <color key="backgroundColor" red="0.35686274509999999" green="0.82745098039999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="140" id="E50-CE-kcX"/>
@@ -30,7 +30,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g4Q-YS-rVO">
-                                <rect key="frame" x="122.5" y="10" width="130" height="130"/>
+                                <rect key="frame" x="142" y="10" width="130" height="130"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RG3-dX-aDP">
                                         <rect key="frame" x="12" y="64" width="106" height="2"/>
@@ -40,19 +40,19 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1560" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80x-Q2-90g">
-                                        <rect key="frame" x="19" y="57" width="62" height="32.5"/>
+                                        <rect key="frame" x="19" y="56.666666666666671" width="62" height="32.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <color key="textColor" red="0.0" green="1" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在线用户" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6g9-GL-cf2">
-                                        <rect key="frame" x="34" y="37" width="62" height="18"/>
+                                        <rect key="frame" x="34" y="36.666666666666664" width="62" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3o-VD-fEY">
-                                        <rect key="frame" x="29.5" y="74" width="35" height="30"/>
+                                        <rect key="frame" x="29.666666666666657" y="74" width="35" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <color key="textColor" red="0.0" green="1" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -64,14 +64,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="park_fee_up" translatesAutoresizingMaskIntoConstraints="NO" id="4ld-7L-pqV">
-                                        <rect key="frame" x="71.5" y="73" width="19" height="29"/>
+                                        <rect key="frame" x="71.666666666666657" y="73" width="19" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="6jh-11-0Hy"/>
                                             <constraint firstAttribute="width" constant="19" id="uZn-ge-Wak"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBj-64-pNk">
-                                        <rect key="frame" x="91" y="64.5" width="15" height="17"/>
+                                        <rect key="frame" x="91" y="64.666666666666671" width="15" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -99,104 +99,104 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weather_sep" translatesAutoresizingMaskIntoConstraints="NO" id="iBY-VQ-RUd">
-                                <rect key="frame" x="187" y="186.5" width="1" height="60"/>
+                                <rect key="frame" x="206.66666666666666" y="186.66666666666666" width="1" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="kep-OI-3G7"/>
                                     <constraint firstAttribute="width" constant="1" id="zJk-fm-OgV"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weather_sep" translatesAutoresizingMaskIntoConstraints="NO" id="roa-WA-sYY">
-                                <rect key="frame" x="285" y="186.5" width="1" height="60"/>
+                                <rect key="frame" x="304.66666666666669" y="186.66666666666666" width="1" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Mkc-xg-9mE"/>
                                     <constraint firstAttribute="width" constant="1" id="gzk-JY-u9g"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weather_sep" translatesAutoresizingMaskIntoConstraints="NO" id="Lw6-uG-1Jy">
-                                <rect key="frame" x="89" y="186.5" width="1" height="60"/>
+                                <rect key="frame" x="108.66666666666667" y="186.66666666666666" width="1" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Kf9-1j-47O"/>
                                     <constraint firstAttribute="width" constant="1" id="UVu-x0-oc2"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi_Android" translatesAutoresizingMaskIntoConstraints="NO" id="Xxs-tU-MhV">
-                                <rect key="frame" x="126" y="161" width="25" height="25"/>
+                                <rect key="frame" x="145.66666666666666" y="161" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="198-hE-XmY"/>
                                     <constraint firstAttribute="height" constant="25" id="FIe-4r-Loh"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="安卓移动终端" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xu2-sy-Hok">
-                                <rect key="frame" x="108" y="193" width="61.5" height="12"/>
+                                <rect key="frame" x="127.33333333333333" y="193" width="61.666666666666671" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1B-wj-29A">
-                                <rect key="frame" x="133.5" y="215" width="10.5" height="27.5"/>
+                                <rect key="frame" x="153" y="215" width="10.333333333333343" height="27.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi_apple" translatesAutoresizingMaskIntoConstraints="NO" id="d1d-x4-byy">
-                                <rect key="frame" x="28" y="161" width="25" height="25"/>
+                                <rect key="frame" x="47.666666666666664" y="161" width="24.999999999999993" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="8Lc-Ij-dfQ"/>
                                     <constraint firstAttribute="width" constant="25" id="EVa-Jh-LCp"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苹果移动终端" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POY-qI-C4K">
-                                <rect key="frame" x="10" y="193" width="61.5" height="12"/>
+                                <rect key="frame" x="29.333333333333332" y="193" width="61.666666666666671" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kqk-0Z-BX7">
-                                <rect key="frame" x="35.5" y="215" width="10.5" height="27.5"/>
+                                <rect key="frame" x="55" y="215" width="10.333333333333329" height="27.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi_computer" translatesAutoresizingMaskIntoConstraints="NO" id="hxk-He-Nso">
-                                <rect key="frame" x="224" y="161" width="25" height="25"/>
+                                <rect key="frame" x="243.66666666666663" y="161" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="GFg-WN-Pti"/>
                                     <constraint firstAttribute="height" constant="25" id="v2j-e5-atP"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="笔记本" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9H-UC-hYM">
-                                <rect key="frame" x="221" y="193" width="31" height="12"/>
+                                <rect key="frame" x="240.66666666666663" y="193" width="31" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybF-MY-fC8">
-                                <rect key="frame" x="231.5" y="215" width="10.5" height="27.5"/>
+                                <rect key="frame" x="251.00000000000003" y="215" width="10.333333333333343" height="27.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi_other" translatesAutoresizingMaskIntoConstraints="NO" id="RsM-xw-Ejh">
-                                <rect key="frame" x="322" y="161" width="25" height="25"/>
+                                <rect key="frame" x="341.66666666666669" y="161" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="Zci-2b-QYh"/>
                                     <constraint firstAttribute="height" constant="25" id="tjz-kH-gTO"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="其他设备" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqI-4S-RIp">
-                                <rect key="frame" x="314" y="193" width="41" height="12"/>
+                                <rect key="frame" x="333.66666666666669" y="193" width="41" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbq-YC-L5h">
-                                <rect key="frame" x="329.5" y="215" width="10.5" height="27.5"/>
+                                <rect key="frame" x="349" y="215" width="10.333333333333314" height="27.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D2J-ws-dfX">
-                                <rect key="frame" x="344" y="5" width="20" height="20"/>
+                                <rect key="frame" x="383" y="5" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="7wm-nr-Mcf"/>
                                     <constraint firstAttribute="width" constant="20" id="ySi-oM-jFT"/>
@@ -267,12 +267,12 @@
                 <outlet property="_topBgView" destination="ECF-ZV-j63" id="IIL-q9-bmm"/>
                 <outlet property="_upDownImgView" destination="4ld-7L-pqV" id="JGY-I2-3VN"/>
             </connections>
-            <point key="canvasLocation" x="53.600000000000001" y="45.42728635682159"/>
+            <point key="canvasLocation" x="52.898550724637687" y="45.244565217391305"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="park_fee_up" width="19" height="29"/>
-        <image name="weather_sep" width="0.5" height="32.5"/>
+        <image name="weather_sep" width="0.66666668653488159" height="32.666667938232422"/>
         <image name="wifi_Android" width="25" height="25"/>
         <image name="wifi_apple" width="25" height="25"/>
         <image name="wifi_computer" width="25" height="25"/>

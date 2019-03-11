@@ -147,7 +147,8 @@
  */
 - (void)updatePlayProgress:(NSTimeInterval)playedTime
 {
-    if (playedTime < 0 || playedTime > totalTime_)
+//    if (playedTime < 0 || playedTime > totalTime_)
+    if (playedTime > totalTime_)
     {
         playedTime = 0;
         if (_delegate_ && [_delegate_ respondsToSelector:@selector(playControlTimerEnd)])

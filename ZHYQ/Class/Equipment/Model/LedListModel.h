@@ -26,7 +26,11 @@
 @property (nonatomic,strong) NSNumber *layerId;
 @property (nonatomic,copy) NSString *tagid;
 @property (nonatomic,copy) NSString *type;
+@property (nonatomic,copy) NSString *deviceType;
 @property (nonatomic,copy) NSString *status;
+@property (nonatomic,copy) NSString *LATITUDE;
+@property (nonatomic,copy) NSString *LONGITUDE;
+@property (nonatomic,copy) NSString *LAYER_C;
 
 @property (nonatomic,copy) NSString *mainstatus;
 

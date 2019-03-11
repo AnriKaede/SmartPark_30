@@ -36,7 +36,7 @@
  */
 - (void)setupViews {
     // 添加手势，点击背景视图消失
-    UITapGestureRecognizer *tapBackGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeView)];
+    UITapGestureRecognizer *tapBackGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenView)];
     tapBackGesture.delegate = self;
     [self addGestureRecognizer:tapBackGesture];
     
@@ -46,6 +46,18 @@
     [self addSubview:contentView];
     self.contentView = contentView;
     
+}
+
+- (void)hiddenView {
+    if([_delegate respondsToSelector:@selector(hideShowAction)]){
+        [_delegate hideShowAction];
+    }
+    [self removeView];
+}
+
+- (void)setParkFeeFilterModel:(ParkFeeFilterModel *)parkFeeFilterModel {
+    _parkFeeFilterModel = parkFeeFilterModel;
+    _contentView.parkFeeFilterModel = _parkFeeFilterModel;
 }
 
 #pragma mark - PopContentDelegate
@@ -61,14 +73,9 @@
     [self removeView];
 }
 
--(void)completeBtnCallBackAction
-{
-//    _visitName = self.contentView.visitNameTex.text;
-//    _visitCarNum = self.contentView.visitCarNumTex.text;
-//    _arriveTime = self.contentView.arriveTimeLab.text;
-//    _leaveTime = self.contentView.leaveTimeLab.text;
-    if (self.delegate != nil&&[self.delegate respondsToSelector:@selector(completeCallBackAction)]) {
-        [self.delegate completeCallBackAction];
+-(void)completeBtnCallBackAction:(ParkFeeFilterModel *)prkFeeFilterModel {
+    if (self.delegate != nil&&[self.delegate respondsToSelector:@selector(completeCallBackAction:)]) {
+        [self.delegate completeCallBackAction:prkFeeFilterModel];
     }
     [self removeView];
 }
@@ -94,6 +101,10 @@
     _isShow = YES;
     [view addSubview:self];
     __weak typeof(self) _weakSelf = self;
+    
+    UITableView *tableView = (UITableView *)view;
+    
+    self.frame = CGRectMake(0, tableView.contentOffset.y, KScreenWidth, KScreenHeight);
     self.contentView.frame = CGRectMake(0, -kATTR_VIEW_HEIGHT, kWidth, kATTR_VIEW_HEIGHT);
     
     [UIView animateWithDuration:0.3 animations:^{

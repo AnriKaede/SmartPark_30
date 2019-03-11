@@ -23,7 +23,7 @@
 #import "DHDataCenter.h"
 #import "LEDScreenShotViewController.h"
 
-@interface StreetLightPointViewController ()<DidSelInMapPopDelegate, PlayMonitorDelegate, CurrentScreenDelegate>
+@interface StreetLightPointViewController ()<DidSelInMapPopDelegate, PlayMonitorDelegate, CurrentScreenDelegate, MusicOperateDelegate>
 {
     YQInDoorPointMapView *_indoorView;
     
@@ -37,6 +37,8 @@
     PowerMenuView *_powerMenuView;
     
     NSMutableArray *_parkLightArr;
+    
+    UIImageView *_selImgView;
 }
 @end
 
@@ -88,23 +90,42 @@
     }];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 -(void)initPointMapView
 {
+//    self.view.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.6];
+    
     // 顶部名称
-    self.title = _model.DEVICE_NAME;
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, KScreenWidth, 20)];
+    titleLabel.text = _model.DEVICE_NAME;
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.font = [UIFont systemFontOfSize:20];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:titleLabel];
     
-    UIButton *leftBtn = [[UIButton alloc] init];
-    leftBtn.frame = CGRectMake(0, 0, 40, 40);
-    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
-    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
-    self.navigationItem.leftBarButtonItem = leftItem;
+    NSString *imgName;
+    if([_model.DEVICE_TYPE isEqualToString:@"55-2"]){
+        imgName = @"street_lamp_map_flower_bg";
+    }else {
+        imgName = @"street_lamp_map_nor_bg";
+    }
     
-    _indoorView = [[YQInDoorPointMapView alloc]initWithIndoorMapImageName:@"stLight" Frame:CGRectMake(KScreenWidth/2-(320*hScale/2) + 20, 10, 320*hScale, 550*hScale) withScale:1];
+    _indoorView = [[YQInDoorPointMapView alloc]initWithIndoorMapImageName:imgName Frame:CGRectMake(KScreenWidth/2-(330*hScale/2), titleLabel.bottom + 10, 330*hScale, 550*hScale) withScale:1];
     _indoorView.selInMapDelegate = self;
+    _indoorView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_indoorView];
 
+    // 下方返回按钮
+    UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake((KScreenWidth - 60)/2, KScreenHeight - 70, 60, 60);
+    [backButton setImage:[UIImage imageNamed:@"street_lamp_down"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backButton];
+    
     // 创建点击菜单视图
     _eveMenuView = [[EveMenuView alloc] init];
     _lightVMenuView = [[LightVMenuView alloc] init];
@@ -115,22 +136,67 @@
     _adcMenuView = [[AdcMenuView alloc] init];
     _adcMenuView.currentScreenDelegate = self;
     _musicMenuView = [[MusicMenuView alloc] init];
+    _musicMenuView.musicOperateDelegate = self;
     _callMenuView = [[CallMenuView alloc] init];
     _powerMenuView = [[PowerMenuView alloc] init];
     
 }
 
-- (void)_leftBarBtnItemClick {
-    [self.navigationController popViewControllerAnimated:YES];
+- (void)noSuportMsg {
+    [self showHint:@"该设备不支持此操作"];
+}
+
+- (void)closeAction {
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
 }
 
 - (void)selInMapWithId:(NSString *)identity
 {
     NSInteger selIndex = identity.integerValue - 100;
+    
+    UIView *pointView = [_indoorView.mapView viewWithTag:100+selIndex];
+    UIImageView *selImgView = [pointView viewWithTag:1000+selIndex];
+    
+    if(_selImgView != nil){
+        _selImgView.image = [UIImage imageNamed:@"street_lamp_light_01"];
+        [PointViewSelect recoverSelImgView:_selImgView];
+        
+        [_selImgView.layer removeAnimationForKey:@"BaseNormalAnim"];
+        [self addViewBaseAnim:_selImgView withIsSel:NO];
+    }
+    
+    selImgView.image = [UIImage imageNamed:@"street_lamp_light_sel_01"];
+    [PointViewSelect pointImageSelect:selImgView];
+    _selImgView = selImgView;
+    
+    [_selImgView.layer removeAnimationForKey:@"BaseSelectAnim"];
+    [self addViewBaseAnim:_selImgView withIsSel:YES];
+    
     if(_model.grapArr.count > selIndex){
         SubDeviceModel *deviceModel = _model.grapArr[selIndex];
         [self selDevice:deviceModel];
     }
+}
+#pragma mark 添加图片变化 基础动画
+- (void)addViewBaseAnim:(UIView *)view withIsSel:(BOOL)isSel {
+    CABasicAnimation *transformAnima = [CABasicAnimation animationWithKeyPath:@"contents"];
+    NSString *animKeyName;
+    if(isSel){
+        transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_sel_01"].CGImage;
+        transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_sel_02"].CGImage;
+        animKeyName = @"BaseSelectAnim";
+    }else {
+        transformAnima.fromValue = (id)[UIImage imageNamed:@"street_lamp_light_01"].CGImage;
+        transformAnima.toValue = (id)[UIImage imageNamed:@"street_lamp_light_02"].CGImage;
+        animKeyName = @"BaseNormalAnim";
+    }
+    transformAnima.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transformAnima.autoreverses = YES;
+    transformAnima.repeatCount = HUGE_VALF;
+    transformAnima.beginTime = CACurrentMediaTime();
+    transformAnima.duration = 0.5;
+    [view.layer addAnimation:transformAnima forKey:animKeyName];
 }
 
 #pragma mark 选择路灯子设备协议

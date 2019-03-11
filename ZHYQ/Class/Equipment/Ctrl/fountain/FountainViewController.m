@@ -535,7 +535,7 @@
     [param setObject:operateType forKey:@"operateType"];
     [param setObject:@"1" forKey:@"tagValue"];
     
-    [self showHudInView:self.view hint:@""];
+//    [self showHudInView:self.view hint:@""];
     [[NetworkClient sharedInstance] POST:urlStr dict:param progressFloat:nil succeed:^(id responseObject) {
         [self hideHud];
         if ([responseObject[@"code"] isEqualToString:@"1"]) {
@@ -555,10 +555,9 @@
                     fountainModel.isOpen = on;  // 状态成功改变
                 }
             }
-        }else {
-            if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
-                [self showHint:responseObject[@"message"]];
-            }
+        }
+        if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
+            [self showHint:responseObject[@"message"]];
         }
         // 刷新tableView 对应的开关状态
         NSInteger index = [_dataArr indexOfObject:fountainModel];

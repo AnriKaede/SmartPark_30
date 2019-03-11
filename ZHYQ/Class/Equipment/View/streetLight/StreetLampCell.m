@@ -13,6 +13,7 @@
     __weak IBOutlet UILabel *_lampNameLbael;
     __weak IBOutlet UIButton *_selBt;
     
+    __weak IBOutlet UIImageView *_lampImgView;
 }
 
 - (void)awakeFromNib {
@@ -23,12 +24,24 @@
 - (void)setStreetLampSubModel:(StreetLampSubModel *)streetLampSubModel {
     _streetLampSubModel = streetLampSubModel;
     
+    if(_streetLampSubModel.isColor){
+        self.contentView.backgroundColor = [UIColor colorWithHexString:@"#F5FDFF"];
+    }else {
+        self.contentView.backgroundColor = [UIColor whiteColor];
+    }
+    
     _lampNameLbael.text = streetLampSubModel.DEVICE_NAME;
     
     if(streetLampSubModel.isConSelect){
         _selBt.selected = YES;
     }else {
         _selBt.selected = NO;
+    }
+    
+    if([streetLampSubModel.DEVICE_TYPE isEqualToString:@"55-2"]){
+        _lampImgView.image = [UIImage imageNamed:@"street_lamp_flower_icon"];
+    }else {
+        _lampImgView.image = [UIImage imageNamed:@"street_lamp_icon"];
     }
 }
 

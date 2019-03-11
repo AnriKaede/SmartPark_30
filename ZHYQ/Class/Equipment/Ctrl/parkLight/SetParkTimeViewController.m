@@ -14,6 +14,8 @@
 
 @interface SetParkTimeViewController ()<SelCompleteDelegate>
 {
+    __weak IBOutlet UIView *_topBgView;
+    
     __weak IBOutlet UITextField *_nameTF;
     
     __weak IBOutlet UILabel *_typeNameLabel;
@@ -44,6 +46,8 @@
 }
     
 - (void)_initView {
+    [NavGradient viewAddGradient:_topBgView];
+    
     UIButton *leftBtn = [[UIButton alloc] init];
     leftBtn.frame = CGRectMake(0, 0, 40, 40);
     [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];

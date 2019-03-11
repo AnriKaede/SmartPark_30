@@ -7,6 +7,7 @@
 //
 
 #import "BuildView.h"
+#import "DistributorFloorModel.h"
 
 @implementation BuildView
 {
@@ -54,13 +55,18 @@
     // 楼层区域视图
     _floorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, self.height)];
     [self addSubview:_floorView];
-    NSArray *titles = @[@"1F", @"2F", @"3F", @"4F", @"5F", @"6F", @"7F", @"8F", @"9F", @"10F"];
-    [titles enumerateObjectsUsingBlock:^(NSString *floorTitle, NSUInteger idx, BOOL * _Nonnull stop) {
+}
+
+- (void)setFloorData:(NSArray *)floorData {
+    _floorData = floorData;
+    
+    [floorData enumerateObjectsUsingBlock:^(DistributorFloorModel *floorModel, NSUInteger idx, BOOL * _Nonnull stop) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.tag = 4000 + idx;
-        button.frame = CGRectMake(20*wScale, self.height - 30*idx - 90, 70, 26);
+//        button.frame = CGRectMake(20*wScale, self.height - 30*idx - 90, 70, 26);
+        button.frame = CGRectMake(20*wScale, self.height - 28*(floorModel.LAYERID.integerValue - 1) - 60, 70, 25);
         button.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
-        [button setTitle:floorTitle forState:UIControlStateNormal];
+        [button setTitle:[NSString stringWithFormat:@"%ldF", floorModel.LAYERID.integerValue - 1] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [button addTarget:self action:@selector(floorSelAction:) forControlEvents:UIControlEventTouchUpInside];
         [_floorView addSubview:button];

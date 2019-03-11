@@ -108,7 +108,8 @@
     _wifiNameLabel.text = [NSString stringWithFormat:@"%@", _wifiUserModel.wlan];
     _vlanLabel.text = [NSString stringWithFormat:@"%@", _wifiUserModel.vlan];
     _pointNameLabel.text = [NSString stringWithFormat:@"%@", _wifiUserModel.ap];
-    _consultRateLabel.text = [self speedValueStr:_wifiUserModel.consultRate.doubleValue];
+//    _consultRateLabel.text = [self speedValueStr:_wifiUserModel.consultRate.doubleValue];
+    _consultRateLabel.text = [NSString stringWithFormat:@"%@ Mbps", _wifiUserModel.consultRate];
     _sendLabel.text = [self speedValueStr:_wifiUserModel.send.doubleValue];
     _recvLabel.text = [self speedValueStr:_wifiUserModel.recv.doubleValue];
     _onlineLabel.text = [NSString stringWithFormat:@"%@", _wifiUserModel.onlineTime];

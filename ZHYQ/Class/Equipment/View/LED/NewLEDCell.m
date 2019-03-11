@@ -68,6 +68,12 @@
 - (void)setLedListModel:(LedListModel *)ledListModel {
     _ledListModel = ledListModel;
     
+    if(ledListModel.deviceType == nil){
+        if(ledListModel.type != nil && ![ledListModel.type isKindOfClass:[NSNull class]] && [ledListModel.type isEqualToString:@"1"]){
+            ledListModel.deviceType = @"14-1";
+        }
+    }
+    
     ledNameLab.text = [NSString stringWithFormat:@"%@", ledListModel.deviceName];
     
     /*
@@ -88,6 +94,7 @@
         _stateLabel.text = @"已开启";
         _stateLabel.backgroundColor = [UIColor colorWithHexString:@"#009CF3"];
         
+        screenshotView.userInteractionEnabled = YES;
         _playBt.enabled = NO;
         _restartBt.enabled = YES;
         _closeBt.enabled = YES;
@@ -101,6 +108,7 @@
         _stateLabel.text = @"关闭";
         _stateLabel.backgroundColor = [UIColor colorWithHexString:@"#A5A5A5"];
         
+        screenshotView.userInteractionEnabled = NO;
         _playBt.enabled = YES;
         _restartBt.enabled = NO;
         _closeBt.enabled = NO;
@@ -110,10 +118,10 @@
         _resumeBt.enabled = NO;
     }
     
-    if(_ledListModel.program != nil && ![_ledListModel.program isKindOfClass:[NSNull class]]){
+    if(_ledListModel.program != nil && ![_ledListModel.program isKindOfClass:[NSNull class]] && ![_ledListModel.program isEqualToString:@"null"]){
         [_currentProLabel setTitle:[NSString stringWithFormat:@"%@", _ledListModel.program] forState:UIControlStateNormal];
     }else {
-        [_currentProLabel setTitle:[NSString stringWithFormat:@"%@", @""] forState:UIControlStateNormal];
+        [_currentProLabel setTitle:[NSString stringWithFormat:@"%@", @"无"] forState:UIControlStateNormal];
     }
     
 //    _timeLabel.hidden = YES;

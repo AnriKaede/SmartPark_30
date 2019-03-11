@@ -502,11 +502,11 @@
         // 查询固定相机
         //                [DHDataCenter sharedInstance].channelID = @"1000010$1$0$0";
         
-        if(!_isOnline){
-            // 离线
-            [self showHint:@"设备离线"];
-            return;
-        }
+//        if(!_isOnline){
+//            // 离线
+//            [self showHint:@"设备离线"];
+//            return;
+//        }
         
         if(_currentModel.TAGID == nil || [_currentModel.TAGID isKindOfClass:[NSNull class]]){
             [self showHint:@"相机无参数"];

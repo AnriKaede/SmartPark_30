@@ -7,18 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ParkFeeFilterModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol PopContentDelegate <NSObject>
 
 -(void)resetBtnCallBackAction;
--(void)completeBtnCallBackAction;
+-(void)completeBtnCallBackAction:(ParkFeeFilterModel *)prkFeeFilterModel;
 
 @end
 
 @interface PFFilterContentView : UIView
 
 @property (nonatomic,weak) id<PopContentDelegate> delegate;
+@property (nonatomic,retain) ParkFeeFilterModel *parkFeeFilterModel;
 
 @end
 

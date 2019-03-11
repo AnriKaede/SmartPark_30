@@ -39,9 +39,11 @@
 }
 
 - (void)_initView {
+    // 添加渐变色
+    [NavGradient viewAddGradient:_topCountView];
     // 头部日期背景
     UIView *filterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 40)];
-    filterView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+//    filterView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
     [_topCountView addSubview:filterView];
     
     UILabel *elcLabel = [[UILabel alloc] init];
@@ -82,7 +84,7 @@
     self.mixChartView = [[AAChartView alloc] initWithFrame:CGRectMake(0, 40, KScreenWidth, 275)];
     self.mixChartView.contentHeight = 255;
     self.mixChartView.isClearBackgroundColor = YES;
-    self.mixChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+    self.mixChartView.backgroundColor = [UIColor clearColor];
     self.mixChartView.clipsToBounds = YES;
     
     self.mixChartModel= AAObject(AAChartModel)
@@ -178,7 +180,7 @@
     self.mixChartView.contentHeight = 255;
     self.mixChartView.userInteractionEnabled = YES;
     self.mixChartView.isClearBackgroundColor = YES;
-    self.mixChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+    self.mixChartView.backgroundColor = [UIColor clearColor];
     [_topCountView addSubview:self.mixChartView];
     
     self.mixChartModel= AAObject(AAChartModel)

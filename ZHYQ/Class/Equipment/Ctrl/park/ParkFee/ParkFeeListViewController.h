@@ -6,11 +6,11 @@
 //  Copyright © 2018年 焦平. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "RootViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ParkFeeListViewController : BaseTableViewController
+@interface ParkFeeListViewController : RootViewController
 
 @end
 

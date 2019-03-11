@@ -33,9 +33,12 @@
 }
 
 - (void)_initView {
+    // 添加渐变色
+    [NavGradient viewAddGradient:_topCountView];
+    
     // 头部日期背景
     UIView *filterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 80)];
-    filterView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+//    filterView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
     [_topCountView addSubview:filterView];
     
     UILabel *elcLabel = [[UILabel alloc] init];
@@ -88,7 +91,7 @@
     self.mixChartView = [[AAChartView alloc]initWithFrame:CGRectMake(0, 80, KScreenWidth, 275)];
     self.mixChartView.contentHeight = 255;
     self.mixChartView.isClearBackgroundColor = YES;
-    self.mixChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+    self.mixChartView.backgroundColor = [UIColor clearColor];
     self.mixChartView.clipsToBounds = YES;
     
     self.mixChartModel= AAObject(AAChartModel)
@@ -260,21 +263,23 @@
         _chartScrollView.contentSize = CGSizeMake(snapChartWidth, 0);
         [_chartScrollView setContentOffset:CGPointMake(_chartScrollView.contentSize.width - KScreenWidth, 0) animated:YES];
         
+        [self.mixChartView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.mixChartView removeFromSuperview];
         self.mixChartView = nil;
-        [_mixChartView removeFromSuperview];
         
         self.mixChartView = [[AAChartView alloc]initWithFrame:CGRectMake(0, 0, snapChartWidth, 275)];
         self.mixChartView.contentHeight = 255;
         self.mixChartView.userInteractionEnabled = YES;
         self.mixChartView.isClearBackgroundColor = YES;
-        self.mixChartView.backgroundColor = [UIColor colorWithHexString:@"#1B82D1"];
+        self.mixChartView.backgroundColor = [UIColor clearColor];
         [_chartScrollView addSubview:self.mixChartView];
         
     }else {
         _chartScrollView.contentSize = CGSizeMake(0, 0);
         
+        [self.mixChartView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        [self.mixChartView removeFromSuperview];
         self.mixChartView = nil;
-        [_mixChartView removeFromSuperview];
         
         self.mixChartView = [[AAChartView alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, 275)];
         self.mixChartView.contentHeight = 255;

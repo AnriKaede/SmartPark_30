@@ -51,7 +51,11 @@
 
 #import "Utils.h"
 
+#import "ParkOverViewController.h"
+
 //#import "ARSViewController.h"
+
+#import "AESUtil.h"
 
 @interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate>
 {
@@ -458,6 +462,7 @@
             NSDictionary *responseData = responseObject[@"responseData"];
             if(responseData != nil && ![responseData isKindOfClass:[NSNull class]]){
                 NSString *parkIp = responseData[@"parking"];
+//                NSString *parkUrl = [AESUtil decryptAES:parkIp key:AESKey];
                 [[NSUserDefaults standardUserDefaults] setObject:parkIp forKey:KParkResquestIp];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
@@ -905,6 +910,8 @@
     _WeatherBgView.frame = CGRectMake(0,0,KScreenWidth,84.5*hScale);
     _WeatherBgView.backgroundColor = CNavBgColor;
     [bottomBgView addSubview:_WeatherBgView];
+    // 添加渐变色
+    [NavGradient viewAddGradient:_WeatherBgView];
     
     UITapGestureRecognizer *weatherTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(weatherAction)];
     [_WeatherBgView addGestureRecognizer:weatherTap];
@@ -1200,7 +1207,7 @@
     
     _todayVisitorsView.userInteractionEnabled = YES;
     
-    //添加剩余车位跳转事件
+    //添加今日园区跳转事件
     UITapGestureRecognizer *todayVisTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(todayVisTap:)];
     [_todayVisitorsView addGestureRecognizer:todayVisTap];
 }
@@ -1341,9 +1348,32 @@
 }
 
 - (void)todayClick {
-    NSLog(@"todayClickDelegate");
-//    ARSViewController *arsVC = [[ARSViewController alloc] init];
-//    [self.navigationController pushViewController:arsVC animated:YES];
+    NSLog(@"%@", [self getNowTimeTimestamp]);
+    ParkOverViewController *parkOverVC = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"ParkOverViewController"];
+    [self.navigationController pushViewController:parkOverVC animated:YES];
+}
+- (NSString *)getNowTimeTimestamp{
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"]; // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+    
+    //设置时区,这个对于时间的处理有时很重要
+    
+    NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
+    
+    [formatter setTimeZone:timeZone];
+    
+    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970]];
+    
+    return timeSp;
+    
 }
 
 #pragma mark 扫一扫
@@ -1494,12 +1524,13 @@
                model.dssPasswd != nil && ![model.dssPasswd isKindOfClass:[NSNull class]]
                ){
                 // 登录视频监控账号
-                BOOL isSuc = [MonitorLogin loginWithAddress:model.dssAddr withPort:model.dssPort withName:model.dssAdmin withPsw:model.dssPasswd];
-                if(isSuc){
-                    // 登录成功
-                    _isLogin = YES;
-                }else {
-                }
+                [MonitorLogin loginWithAddress:model.dssAddr withPort:model.dssPort withName:model.dssAdmin withPsw:model.dssPasswd withResule:^(BOOL isSuc) {
+                    if(isSuc){
+                        // 登录成功
+                        _isLogin = YES;
+                    }else {
+                    }
+                }];
                 
             }
         }

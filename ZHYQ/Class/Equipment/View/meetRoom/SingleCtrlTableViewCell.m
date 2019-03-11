@@ -87,6 +87,8 @@
     _speedBt.layer.borderColor = [UIColor colorWithHexString:@"#1B82D1"].CGColor;
     _speedBt.layer.borderWidth = 0.8;
     _speedBt.layer.cornerRadius = 4;
+    
+    [self hidAirView:YES];
 }
 
 -(void)setModel:(MeetRoomModel *)model

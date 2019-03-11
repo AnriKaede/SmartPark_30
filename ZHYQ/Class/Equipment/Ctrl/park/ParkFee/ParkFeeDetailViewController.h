@@ -7,10 +7,13 @@
 //
 
 #import "RootViewController.h"
+#import "ParkConsumeModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ParkFeeDetailViewController : RootViewController
+
+@property (nonatomic,retain) ParkConsumeModel *parkConsumeModel;
 
 @end
 
