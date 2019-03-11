@@ -53,7 +53,7 @@
 - (void)_initPlay {
     _np = [[NodePlayer alloc] init];
     [_np setPlayerView:_liveView];
-    [_np setInputUrl:@"rtmp://demo.easydss.com:10085/hls/lFMYG7riR?k=lFMYG7riR.e87f81e9fd9dc71e6b"];
+    [_np setInputUrl:@"rtmp://demo.easydss.com:10085/live/stream_299555?k=stream_299555.27ab2b67a1262f5c07"];
     [_np start];
 }
 

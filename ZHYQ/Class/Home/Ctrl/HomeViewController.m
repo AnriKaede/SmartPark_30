@@ -55,6 +55,8 @@
 
 //#import "ARSViewController.h"
 
+#import "AESUtil.h"
+
 @interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate>
 {
     UIScrollView *bottomBgView;
@@ -460,6 +462,7 @@
             NSDictionary *responseData = responseObject[@"responseData"];
             if(responseData != nil && ![responseData isKindOfClass:[NSNull class]]){
                 NSString *parkIp = responseData[@"parking"];
+//                NSString *parkUrl = [AESUtil decryptAES:parkIp key:AESKey];
                 [[NSUserDefaults standardUserDefaults] setObject:parkIp forKey:KParkResquestIp];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }

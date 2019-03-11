@@ -130,6 +130,10 @@
     }];
     [alertCon addAction:cancelAction];
     [alertCon addAction:removeAction];
+    if (alertCon.popoverPresentationController != nil) {
+        alertCon.popoverPresentationController.sourceView = _showDownBt;
+        alertCon.popoverPresentationController.sourceRect = _showDownBt.bounds;
+    }
     [self presentViewController:alertCon animated:YES completion:^{
     }];
 }
