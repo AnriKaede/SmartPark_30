@@ -17,13 +17,20 @@ typedef enum {
     RobotMoveRight
 }RobotMove;
 
+typedef enum {
+    RobotShakeHeadLeft = 0,
+    RobotShakeHeadRight,
+    RobotShakeHeadCenter
+}RobotShakeHead;
+
 @protocol OperateDelegate <NSObject>
 
 - (void)livePlay;
 - (void)closeMenu;
 - (void)robotMove:(RobotMove)robotMove;
 - (void)changeColor;
-- (void)shakeHeader;
+- (void)shakeHand;
+- (void)shakeHead:(RobotShakeHead)robotShakeHeader;
 
 @end
 

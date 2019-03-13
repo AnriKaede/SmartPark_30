@@ -184,6 +184,13 @@ static MQTTTool *instance = nil;
     }
 }
 
+- (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error
+{
+    if (error != nil) {
+        NSLog(@"error-%@",error);
+    }
+}
+
 // 主动断开
 - (void)disconnect {
     

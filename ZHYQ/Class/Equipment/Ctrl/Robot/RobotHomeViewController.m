@@ -29,6 +29,8 @@
     
     UIButton *_showDownBt;
     UILabel *_showDownLabel;
+    
+    BOOL _isPowerRevice;
 }
 @end
 
@@ -98,7 +100,47 @@
 }
 - (void)achievePower {
     [[MQTTTool shareInstance] sendDataToTopic:@"power" string:@"11"];
+    
+    __block int timeout = 3;
+    dispatch_queue_t global = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, global);
+    // 设置触发的间隔时间
+    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    //1.0 * NSEC_PER_SEC  代表设置定时器触发的时间间隔为1s
+    //0 * NSEC_PER_SEC    代表时间允许的误差是 0s
+    __weak typeof(self)weakSelf = self;
+    //设置定时器的触发事件
+    dispatch_source_set_event_handler(timer, ^{
+        //1. 每调用一次 时间-1s
+        timeout --;
+        //2.对timeout进行判断
+        if (timeout <= 0) {
+            //停止倒计时
+            //关闭定时器
+            dispatch_source_cancel(timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (_isPowerRevice) {
+                    _stateLabel.text = [NSString stringWithFormat:@"正常"];
+                }else{
+                    _stateLabel.textColor = [UIColor colorWithHexString:@"#e2e2e2"];
+                    _stateLabel.text = [NSString stringWithFormat:@"关闭"];
+                }
+            });
+        }else {
+            //处于正在倒计时，在主线程中刷新
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (_isPowerRevice) {
+                    dispatch_source_cancel(timer);
+                }else{
+                    _stateLabel.text = [NSString stringWithFormat:@"正常"];
+                }
+            });
+        }
+    });
+
+    dispatch_resume(timer);
 }
+
 - (void)achieveRobotInfo {
     [[MQTTTool shareInstance] sendDataToTopic:@"systemMessage" string:@"11"];
 }
@@ -106,6 +148,7 @@
 #pragma mark MQTT协议接收数据
 - (void)messageData:(NSData *)data onTopic:(NSString *)topic {
     if([topic isEqualToString:@"RobotMsg"]){
+        _isPowerRevice = YES;
         NSString *jsonData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         _powerValueLabel.text = [NSString stringWithFormat:@"%@%%", jsonData];
     }else if([topic isEqualToString:@"sysMsg"]){
@@ -172,8 +215,31 @@
 - (void)changeColor {
     [[MQTTTool shareInstance] sendDataToTopic:@"eye" string:@"111"];
 }
-- (void)shakeHeader {
-    [[MQTTTool shareInstance] sendDataToTopic:@"bindAction" string:@"111"];
+- (void)shakeHand {
+    [[MQTTTool shareInstance] sendDataToTopic:@"hand" string:@"111"];
+}
+
+-(void)shakeHead:(RobotShakeHead)robotShakeHeader
+{
+    switch (robotShakeHeader) {
+            case RobotShakeHeadLeft:
+                {
+                    
+                }
+                break;
+            case RobotShakeHeadRight:
+                {
+                    
+                }
+                break;
+            case RobotShakeHeadCenter:
+                {
+                    [[MQTTTool shareInstance] sendDataToTopic:@"head" string:@"2"];
+                }
+                break;
+            default:
+                break;
+    }
 }
 
 ///
@@ -191,6 +257,30 @@
     RobotInfoViewController *infoVC = [[RobotInfoViewController alloc] init];
     infoVC.infoModel = _infoModel;
     [self.navigationController pushViewController:infoVC animated:YES];
+}
+
+- (IBAction)speakAction:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"speak" string:@"测试说话"];
+}
+
+- (IBAction)headerLeftAction:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"head" string:@"0"];
+}
+
+- (IBAction)headerRightAction:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"head" string:@"1"];
+}
+
+- (IBAction)eyesChangeColorAction:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"eye" string:@"111"];
+}
+
+- (IBAction)rightHandsAction:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"hand" string:@"111"];
+}
+
+- (IBAction)leftHandsAction:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"hand" string:@"111"];
 }
 
 @end

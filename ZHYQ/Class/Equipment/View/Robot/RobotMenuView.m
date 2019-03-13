@@ -24,8 +24,8 @@
     }
 }
 - (IBAction)_helloAction:(id)sender {
-    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(shakeHeader)]){
-        [_operateDelegate shakeHeader];
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(shakeHand)]){
+        [_operateDelegate shakeHand];
     }
 }
 
@@ -58,6 +58,24 @@
             [_operateDelegate closeMenu];
         }
     }];
+}
+
+- (IBAction)headLeft:(id)sender {
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(shakeHead:)]){
+        [_operateDelegate shakeHead:RobotShakeHeadLeft];
+    }
+}
+
+- (IBAction)headRight:(id)sender {
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(shakeHead:)]){
+        [_operateDelegate shakeHead:RobotShakeHeadRight];
+    }
+}
+
+- (IBAction)headRenew:(id)sender {
+    if(_operateDelegate && [_operateDelegate respondsToSelector:@selector(shakeHead:)]){
+        [_operateDelegate shakeHead:RobotShakeHeadCenter];
+    }
 }
 
 

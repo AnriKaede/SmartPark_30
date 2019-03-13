@@ -8,6 +8,7 @@
 
 #import "RobotLiveViewController.h"
 #import <NodeMediaClient/NodeMediaClient.h>
+#import "MQTTTool.h"
 
 @interface RobotLiveViewController ()
 {
@@ -21,6 +22,7 @@
     __weak IBOutlet UILabel *_screenshotLabel;
     __weak IBOutlet UILabel *_deleteLabel;
     __weak IBOutlet UIImageView *shootScreenImgView;
+    __weak IBOutlet UIView *moveBgView;
 }
 @property (strong,nonatomic) NodePlayer *np;
 @end
@@ -78,6 +80,7 @@
     _deleteLabel.hidden = YES;
     _screenshotBt.hidden = NO;
     _screenshotLabel.hidden = NO;
+    moveBgView.hidden = NO;
 }
 
 - (IBAction)shootScreen:(id)sender {
@@ -87,6 +90,7 @@
     _deleteLabel.hidden = NO;
     _screenshotBt.hidden = YES;
     _screenshotLabel.hidden = YES;
+    moveBgView.hidden = YES;
     
     shootScreenImgView.hidden = NO;
     
@@ -101,6 +105,7 @@
     _deleteLabel.hidden = YES;
     _screenshotBt.hidden = NO;
     _screenshotLabel.hidden = NO;
+    moveBgView.hidden = NO;
 }
 
 - (UIImage *)nomalSnapshotImage
@@ -113,6 +118,22 @@
     UIGraphicsEndImageContext();
     
     return snapshotImage;
+}
+
+- (IBAction)moveRight:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"move" string:@"right"];
+}
+
+- (IBAction)moveTop:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"move" string:@"front"];
+}
+
+- (IBAction)moveDown:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"move" string:@"back"];
+}
+
+- (IBAction)moveLeft:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"move" string:@"left"];
 }
 
 @end
