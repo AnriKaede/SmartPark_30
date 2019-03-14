@@ -22,6 +22,9 @@
 
 #import "DeviceInfoModel.h"
 
+#import <Hyphenate/Hyphenate.h>
+#import "EaseMessageViewController.h"
+
 #define KInputMaxLength 200
 
 @interface AppointBillViewController ()<UITextViewDelegate, SelRepairManDelegate, UIGestureRecognizerDelegate, RejectWindowChooseDelegate, SelDeviceDelegate, UITextFieldDelegate>
@@ -83,6 +86,14 @@
             [self _loadBillInfoData:urlStr];
         }
     }
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(IMChat)];
+}
+- (void)IMChat {
+#warning 环信聊天
+    //聊天类型:EMConversationTypeChat
+    EaseMessageViewController *chatController = [[EaseMessageViewController alloc] initWithConversationChatter:@"hntf" conversationType:EMConversationTypeChat];
+    [self.navigationController pushViewController:chatController animated:YES];
 }
 
 - (void)_initView {

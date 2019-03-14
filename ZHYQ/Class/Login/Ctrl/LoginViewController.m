@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import <Hyphenate/Hyphenate.h>
 
 @interface LoginViewController ()<UITextFieldDelegate>
 
@@ -132,7 +133,21 @@
         [self showHint:@"请输入密码"];
         return;
     }
+    
+    [[EMClient sharedClient] loginWithUsername:@"imuser" password:@"123456" completion:^(NSString *aUsername, EMError *aError) {
+        if (!aError) {
+            NSLog(@"=====%d", [EMClient sharedClient].isAutoLogin);
+            NSLog(@"登录成功");
+            [self loginServer];
+        } else {
+            NSLog(@"登录失败");
+            [self showHint:KRequestFailMsg];
+        }
+    }];
+    
+}
 
+- (void)loginServer {
     NSString *userName = _userNamePwd.text;
     NSString *pwd = [_passwordTxd.text md5String];
     NSString *registrationID = [kUserDefaults objectForKey:@"registrationID"];
@@ -195,7 +210,7 @@
         }else{
             NSString *message = responseObject[@"message"];
             if(message != nil && ![message isKindOfClass:[NSNull class]]){
-                [self showHint:message];                
+                [self showHint:message];
             }
         }
     } failure:^(NSError *error) {

@@ -14,4 +14,8 @@
 //高德地图
 #define AMapKey @"6e432065f872f773b9095418bb7d5935"
 
+#define IMAppKey @"timeson#smarkpark"
+#define IMCertNameDevelop @"admin_aps_develop_push"
+#define IMCertName @"admin_aps_push"
+
 #endif /* ThirdMacros_h */

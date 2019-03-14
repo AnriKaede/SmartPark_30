@@ -9,6 +9,8 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#ifdef __OBJC__
+
 //全局宏
 #import "UtilsMacros.h"
 #import "URLMacros.h"
@@ -65,5 +67,7 @@
 //高德地图
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <MAMapKit/MAMapKit.h>
+
+#endif
 
 #endif /* PrefixHeader_pch */

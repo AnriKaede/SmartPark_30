@@ -57,6 +57,8 @@
 
 #import "AESUtil.h"
 
+#import <Hyphenate/Hyphenate.h>
+
 @interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate>
 {
     UIScrollView *bottomBgView;
@@ -189,6 +191,9 @@
     /* 17版本强制重新登录获取公司角色信息 */
     [self _reloadLoginInfo];
     
+    // 环信登录判断
+    [self IMLogin];
+    
     NSString *username = [[NSUserDefaults standardUserDefaults] objectForKey:KLoginUserName];
     NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:KLoginPasword];
     if(username != nil && username.length > 0 && password != nil && password.length > 0){
@@ -205,6 +210,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showVersionAlert) name:@"EnterForegroundAlert" object:nil];
     // 恢复网络通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeNetworkSel) name:@"ResumeNetworkNotification" object:nil];
+}
+
+- (void)IMLogin {
+    if(![EMClient sharedClient].isLoggedIn){
+        [[EMClient sharedClient] loginWithUsername:@"imuser" password:@"123456" completion:^(NSString *aUsername, EMError *aError) {
+            if (!aError) {
+                NSLog(@"登录成功");
+            } else {
+                NSLog(@"登录失败");
+                [self showHint:KRequestFailMsg];
+            }
+        }];
+    }
 }
 
 #pragma mark 从无网络恢复网络通知

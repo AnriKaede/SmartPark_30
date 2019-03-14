@@ -10,7 +10,8 @@ pod 'MBProgressHUD', '~> 1.0.0'
 pod 'MMDrawerController', '~> 0.6.0'
 pod 'WMPageController', '~> 2.3.0'
 pod 'Masonry', '~> 1.0.2'
-pod 'JPush', '~> 3.0.5'
+#pod 'JPush', '~> 3.0.5'
+pod 'JPush', '~> 3.1.2'
 pod 'TZImagePickerController', '~> 1.8.1'
 pod 'FSScrollContentView', '~> 1.0.1'
 pod 'AMap3DMap-NO-IDFA', '~> 5.2.0'
@@ -34,5 +35,9 @@ pod 'MQTTClient', '~> 0.13.1'
 #pod 'UMengUShare/Social/ReducedWeChat'
 #pod 'UMengUShare/Social/ReducedQQ'
 #pod 'UMengUShare/Social/ReducedSina'
+
+# 环信
+pod 'Hyphenate'
+#pod 'EaseUI', :git => 'https://github.com/easemob/easeui-ios-hyphenate-cocoapods.git'
 
 end

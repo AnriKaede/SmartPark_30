@@ -8,6 +8,7 @@
 
 #import "AppDelegate+AppService.h"
 #import "PersonalViewController.h"
+#import <Hyphenate/Hyphenate.h>
 
 @implementation AppDelegate (AppService)
 
@@ -48,6 +49,16 @@
 -(void)initMap{
     [AMapServices sharedServices].apiKey = AMapKey;
     [AMapServices sharedServices].enableHTTPS = YES;
+}
+
+#pragma mark 初始化环信
+-(void)initIM {
+    //AppKey:注册的AppKey，详细见下面注释。
+    //apnsCertName:推送证书名（不需要加后缀），详细见下面注释。
+    EMOptions *options = [EMOptions optionsWithAppkey:IMAppKey];
+    options.apnsCertName = IMCertNameDevelop;
+    options.isAutoLogin = YES;
+    [[EMClient sharedClient] initializeSDKWithOptions:options];
 }
 
 + (AppDelegate *)shareAppDelegate{
