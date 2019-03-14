@@ -58,8 +58,9 @@
 #import "AESUtil.h"
 
 #import <Hyphenate/Hyphenate.h>
+#import <UserNotifications/UserNotifications.h>
 
-@interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate>
+@interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate, EMChatManagerDelegate>
 {
     UIScrollView *bottomBgView;
     
@@ -212,18 +213,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeNetworkSel) name:@"ResumeNetworkNotification" object:nil];
 }
 
-- (void)IMLogin {
-    if(![EMClient sharedClient].isLoggedIn){
-        [[EMClient sharedClient] loginWithUsername:@"imuser" password:@"123456" completion:^(NSString *aUsername, EMError *aError) {
-            if (!aError) {
-                NSLog(@"登录成功");
-            } else {
-                NSLog(@"登录失败");
-                [self showHint:KRequestFailMsg];
-            }
-        }];
-    }
-}
 
 #pragma mark 从无网络恢复网络通知
 - (void)resumeNetworkSel {
@@ -1573,6 +1562,82 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"EnterForegroundAlert" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ResumeNetworkNotification" object:nil];
 }
+
+- (void)IMLogin {
+    if(![EMClient sharedClient].isLoggedIn){
+        [[EMClient sharedClient] loginWithUsername:@"imuser" password:@"123456" completion:^(NSString *aUsername, EMError *aError) {
+            if (!aError) {
+                NSLog(@"登录成功");
+            } else {
+                NSLog(@"登录失败");
+                [self showHint:KRequestFailMsg];
+            }
+        }];
+    }
+    
+    // 代理环信协议(本地通知)
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
+}
+- (void)messagesDidReceive:(NSArray *)aMessages {
+    for (EMMessage *msg in aMessages) {
+        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+        // App在后台
+        if (state == UIApplicationStateBackground) {
+            //发送本地推送
+            if (NSClassFromString(@"UNUserNotificationCenter")) { // ios 10
+                if (@available(iOS 10.0, *)) {
+                    // 设置触发时间
+                    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:0.01 repeats:NO];
+                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                    content.sound = [UNNotificationSound defaultSound];
+                    
+                    EMMessageBody *body = msg.body;
+                    content.body = [self bodyMsg:body];
+                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:msg.messageId content:content trigger:trigger];
+                    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:nil];
+                }
+            }else {
+                UILocalNotification *notification = [[UILocalNotification alloc] init];
+                notification.fireDate = [NSDate date]; //触发通知的时间
+                notification.alertBody = [self bodyMsg:msg.body];
+                notification.alertAction = @"Open";
+                notification.timeZone = [NSTimeZone defaultTimeZone];
+                notification.soundName = UILocalNotificationDefaultSoundName;
+                [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+            }
+        }else {
+            // 设置触发时间
+            UILocalNotification *notification = [[UILocalNotification alloc] init];
+            notification.fireDate = [NSDate date]; //触发通知的时间
+            notification.alertBody = [self bodyMsg:msg.body];
+            notification.alertAction = @"Open";
+            notification.timeZone = [NSTimeZone defaultTimeZone];
+            notification.soundName = UILocalNotificationDefaultSoundName;
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+        }
+    }
+}
+
+- (NSString *)bodyMsg:(EMMessageBody *)body {
+    NSString *bodyStr = @"您有一条新消息";
+    if(body.type == EMMessageBodyTypeText){
+        EMTextMessageBody *textMsg =  (EMTextMessageBody *)body;
+        bodyStr = [NSString stringWithFormat:@"%@", textMsg.text];
+    }else if (body.type == EMMessageBodyTypeImage) {
+        bodyStr = @"[图片]";
+    }else if (body.type == EMMessageBodyTypeVideo) {
+        bodyStr = @"[视频]";
+    }else if (body.type == EMMessageBodyTypeLocation) {
+        bodyStr = @"[位置信息]";
+    }else if (body.type == EMMessageBodyTypeVoice) {
+        bodyStr = @"[语音]";
+    }else if (body.type == EMMessageBodyTypeFile) {
+        bodyStr = @"[文件]";
+    }
+    
+    return bodyStr;
+}
+
 
 @end
 

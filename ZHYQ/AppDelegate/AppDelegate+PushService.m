@@ -12,6 +12,9 @@
 
 #import <UserNotifications/UserNotifications.h>
 
+#import <Hyphenate/Hyphenate.h>
+#import "EMCDDeviceManager+Remind.h"
+
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
 @end
@@ -36,6 +39,9 @@ static BOOL const JPushIsProduction = TRUE;
     [YQJPushTool setupWithOption:launchOptions appKey:JPushAppKey channel:JPushChannel apsForProduction:JPushIsProduction advertisingIdentifier:nil];
     
     [self initAPServiceWithOptions:launchOptions];
+    
+    // 注册环信推送
+    [self initIMPush];
 }
 
 - (void)initAPServiceWithOptions:(NSDictionary *)launchOptions
@@ -49,7 +55,24 @@ static BOOL const JPushIsProduction = TRUE;
     
     [defaultCenter addObserver:self selector:@selector(networkIsConnecting:) name:kJPFNetworkIsConnectingNotification object:nil];
     
+}
+
+#pragma mark 环信推送
+- (void)initIMPush {
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        //注册推送, 用于iOS8以及iOS8之后的系统
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeBadge | UIUserNotificationTypeSound) categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    } else {
+        //注册推送，用于iOS8之前的系统
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+    }
     
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    [application registerForRemoteNotifications];
 }
 
 -(void)networkIsConnecting:(NSNotification *)notification
@@ -83,6 +106,11 @@ static BOOL const JPushIsProduction = TRUE;
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Required - 注册 DeviceToken
     [YQJPushTool registerDeviceToken:deviceToken];
+    
+#pragma mark 环信推送
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[EMClient sharedClient] bindDeviceToken:deviceToken];
+    });
 }
 
 
@@ -103,11 +131,13 @@ static BOOL const JPushIsProduction = TRUE;
     //    NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         //应用处于后台时的远程推送接受
-        completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
+        completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge);
         [self reviceMsgDeal:[UIApplication sharedApplication]];
         
     }else{
         //应用处于后台时的本地推送接受
+        completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge);
+        [self reviceMsgDeal:[UIApplication sharedApplication]];
     }
 }
 
@@ -121,6 +151,8 @@ static BOOL const JPushIsProduction = TRUE;
         
     }else{
         //应用处于前台时的本地推送接受
+        completionHandler(UNNotificationPresentationOptionSound);
+        [self reviceMsgDeal:[UIApplication sharedApplication]];
     }
 }
 
@@ -137,7 +169,7 @@ static BOOL const JPushIsProduction = TRUE;
     if (application.applicationState == UIApplicationStateActive) {
         // 应用在前台运行时, 直接提示不做处理
         // 收到消息时，震动(系统可自带)
-        //        [self playVibration];
+        [[EMCDDeviceManager sharedInstance] playVibration];
         stateStr = @"UIApplicationStateActive";
         NSLog(@"UIApplicationStateActive");
     }else if (application.applicationState == UIApplicationStateInactive){
