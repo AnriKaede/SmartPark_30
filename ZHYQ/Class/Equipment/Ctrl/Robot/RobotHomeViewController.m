@@ -159,11 +159,17 @@
 }
 
 - (void)livePlay {
+    if(!_isPowerRevice){
+        return;
+    }
     RobotLiveViewController *liveVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"RobotLiveViewController"];
     [self presentViewController:liveVC animated:YES completion:nil];
 }
 
 -(void)showDownRobot {
+    if(!_isPowerRevice){
+        return;
+    }
     UIAlertController *alertCon = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认是否关闭机器人" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -186,6 +192,9 @@
     _showDownLabel.hidden = NO;
 }
 - (void)robotMove:(RobotMove)robotMove {
+    if(!_isPowerRevice){
+        return;
+    }
     switch (robotMove) {
         case RobotMoveTop:
         {
@@ -213,9 +222,15 @@
     }
 }
 - (void)changeColor {
+    if(!_isPowerRevice){
+        return;
+    }
     [[MQTTTool shareInstance] sendDataToTopic:@"eye" string:@"111"];
 }
 - (void)shakeHand {
+    if(!_isPowerRevice){
+        return;
+    }
     [[MQTTTool shareInstance] sendDataToTopic:@"hand" string:@"111"];
 }
 
@@ -260,26 +275,44 @@
 }
 
 - (IBAction)speakAction:(id)sender {
+    if(!_isPowerRevice){
+        return;
+    }
     [[MQTTTool shareInstance] sendDataToTopic:@"speak" string:@"测试说话"];
 }
 
 - (IBAction)headerLeftAction:(id)sender {
+    if(!_isPowerRevice){
+        return;
+    }
     [[MQTTTool shareInstance] sendDataToTopic:@"head" string:@"0"];
 }
 
 - (IBAction)headerRightAction:(id)sender {
+    if(!_isPowerRevice){
+        return;
+    }
     [[MQTTTool shareInstance] sendDataToTopic:@"head" string:@"1"];
 }
 
 - (IBAction)eyesChangeColorAction:(id)sender {
+    if(!_isPowerRevice){
+        return;
+    }
     [[MQTTTool shareInstance] sendDataToTopic:@"eye" string:@"111"];
 }
 
 - (IBAction)rightHandsAction:(id)sender {
+    if(!_isPowerRevice){
+        return;
+    }
     [[MQTTTool shareInstance] sendDataToTopic:@"hand" string:@"111"];
 }
 
 - (IBAction)leftHandsAction:(id)sender {
+    if(!_isPowerRevice){
+        return;
+    }
     [[MQTTTool shareInstance] sendDataToTopic:@"hand" string:@"111"];
 }
 

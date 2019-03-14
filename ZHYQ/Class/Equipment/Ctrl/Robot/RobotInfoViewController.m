@@ -23,6 +23,12 @@
     [self _initView];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [_infoTableView cyl_reloadData];
+}
+
 - (void)_initView {
     _infoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, KScreenHeight) style:UITableViewStyleGrouped];
     _infoTableView.delegate = self;
@@ -66,7 +72,11 @@
 
 #pragma mark UItableView协议
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 8;
+    if(_infoModel != nil){
+        return 8;
+    }else {
+        return 0;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50;
