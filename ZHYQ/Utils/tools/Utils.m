@@ -9,6 +9,7 @@
 #import "Utils.h"
 
 #import "AppDelegate.h"
+#import <Hyphenate/Hyphenate.h>
 
 @implementation Utils
 
@@ -210,6 +211,16 @@
     [kUserDefaults removeObjectForKey:KAdminUserId];
     
     [kUserDefaults removeObjectForKey:KIsRepairman];
+    
+    // 退出环信
+    [self loginIM];
+}
+
++ (void)loginIM {
+    EMError *error = [[EMClient sharedClient] logout:YES];
+    if (!error) {
+        NSLog(@"退出成功");
+    }
 }
 
 + (NSString *)exchWith:(NSNumber *)time WithFormatter:(NSString *)dataformatter

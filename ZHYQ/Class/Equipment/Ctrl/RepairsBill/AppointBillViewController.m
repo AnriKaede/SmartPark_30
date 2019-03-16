@@ -22,8 +22,7 @@
 
 #import "DeviceInfoModel.h"
 
-#import <Hyphenate/Hyphenate.h>
-#import "EaseMessageViewController.h"
+#import "AppointUserListViewController.h"
 
 #define KInputMaxLength 200
 
@@ -87,13 +86,11 @@
         }
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(IMChat)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(appointList)];
 }
-- (void)IMChat {
-#warning 环信聊天
-    //聊天类型:EMConversationTypeChat
-    EaseMessageViewController *chatController = [[EaseMessageViewController alloc] initWithConversationChatter:@"hntf" conversationType:EMConversationTypeChat];
-    [self.navigationController pushViewController:chatController animated:YES];
+- (void)appointList {
+    AppointUserListViewController *listVC = [[AppointUserListViewController alloc] init];
+    [self.navigationController pushViewController:listVC animated:YES];
 }
 
 - (void)_initView {

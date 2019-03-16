@@ -134,14 +134,17 @@
         return;
     }
     
-    [[EMClient sharedClient] loginWithUsername:@"imuser" password:@"123456" completion:^(NSString *aUsername, EMError *aError) {
+    [[EMClient sharedClient] loginWithUsername:_userNamePwd.text password:[NSString stringWithFormat:@"%@%@", _userNamePwd.text, IMPasswordRule] completion:^(NSString *aUsername, EMError *aError) {
         if (!aError) {
-            NSLog(@"=====%d", [EMClient sharedClient].isAutoLogin);
             NSLog(@"登录成功");
             [self loginServer];
         } else {
             NSLog(@"登录失败");
-            [self showHint:KRequestFailMsg];
+            if(aError.code == EMErrorUserNotFound){
+//                [self showHint:KRequestFailMsg];
+            }
+            // 登录失败继续服务器登录
+            [self loginServer];
         }
     }];
     

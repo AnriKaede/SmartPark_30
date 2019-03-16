@@ -2227,5 +2227,14 @@ typedef enum : NSUInteger {
     return targets;
 }
 
+- (id<IMessageModel>)messageViewController:(EaseMessageViewController *)viewController modelForMessage:(EMMessage *)message {
+    //用户可以根据自己的用户体系，根据message设置用户昵称和头像
+    id<IMessageModel> model = nil;
+    model = [[EaseMessageModel alloc] initWithMessage:message];
+    model.avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/user"];//默认头像
+    model.avatarURLPath = @"";//头像网络地址
+    model.nickname = @"昵称";//用户昵称
+    return model;
+}
 
 @end

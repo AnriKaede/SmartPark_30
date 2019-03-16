@@ -245,6 +245,9 @@
 		92343BF820D8E2DC00A28603 /* ParkSpaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92343BF620D8E2DC00A28603 /* ParkSpaceCell.xib */; };
 		92343BFC20D8FE6A00A28603 /* BatchLockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 92343BFA20D8FE6A00A28603 /* BatchLockCell.m */; };
 		92343BFD20D8FE6A00A28603 /* BatchLockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92343BFB20D8FE6A00A28603 /* BatchLockCell.xib */; };
+		923896CF223C845900279113 /* AppointUserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923896CE223C845900279113 /* AppointUserListViewController.m */; };
+		923896D2223C874800279113 /* AppointChatUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 923896D1223C874800279113 /* AppointChatUserModel.m */; };
+		923896D5223CA00700279113 /* HomeViewController+IMChatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 923896D4223CA00700279113 /* HomeViewController+IMChatManager.m */; };
 		923C33A922267A6100031A2D /* RobotHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33A822267A6100031A2D /* RobotHomeViewController.m */; };
 		923C33AC2226844B00031A2D /* RobotInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33AB2226844B00031A2D /* RobotInfoViewController.m */; };
 		923C33AF2226848700031A2D /* RobotLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 923C33AE2226848700031A2D /* RobotLiveViewController.m */; };
@@ -1520,6 +1523,12 @@
 		92343BF920D8FE6A00A28603 /* BatchLockCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BatchLockCell.h; sourceTree = "<group>"; };
 		92343BFA20D8FE6A00A28603 /* BatchLockCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BatchLockCell.m; sourceTree = "<group>"; };
 		92343BFB20D8FE6A00A28603 /* BatchLockCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BatchLockCell.xib; sourceTree = "<group>"; };
+		923896CD223C845900279113 /* AppointUserListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppointUserListViewController.h; sourceTree = "<group>"; };
+		923896CE223C845900279113 /* AppointUserListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppointUserListViewController.m; sourceTree = "<group>"; };
+		923896D0223C874800279113 /* AppointChatUserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppointChatUserModel.h; sourceTree = "<group>"; };
+		923896D1223C874800279113 /* AppointChatUserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppointChatUserModel.m; sourceTree = "<group>"; };
+		923896D3223CA00700279113 /* HomeViewController+IMChatManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HomeViewController+IMChatManager.h"; sourceTree = "<group>"; };
+		923896D4223CA00700279113 /* HomeViewController+IMChatManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HomeViewController+IMChatManager.m"; sourceTree = "<group>"; };
 		923C33A722267A6100031A2D /* RobotHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobotHomeViewController.h; sourceTree = "<group>"; };
 		923C33A822267A6100031A2D /* RobotHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RobotHomeViewController.m; sourceTree = "<group>"; };
 		923C33AA2226844B00031A2D /* RobotInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RobotInfoViewController.h; sourceTree = "<group>"; };
@@ -3386,6 +3395,8 @@
 				9226845E20AD2BB2006628B3 /* HandLogModel.m */,
 				9226846020AED00A006628B3 /* DeviceInfoModel.h */,
 				9226846120AED00A006628B3 /* DeviceInfoModel.m */,
+				923896D0223C874800279113 /* AppointChatUserModel.h */,
+				923896D1223C874800279113 /* AppointChatUserModel.m */,
 			);
 			path = ReportBill;
 			sourceTree = "<group>";
@@ -4585,6 +4596,8 @@
 				D6B34DF92088742B00DF8DCC /* InquiryDeviceViewController.m */,
 				D6B34E0020887E2200DF8DCC /* RepairsPeopleViewController.h */,
 				D6B34E0120887E2200DF8DCC /* RepairsPeopleViewController.m */,
+				923896CD223C845900279113 /* AppointUserListViewController.h */,
+				923896CE223C845900279113 /* AppointUserListViewController.m */,
 			);
 			path = RepairsBill;
 			sourceTree = "<group>";
@@ -6454,6 +6467,8 @@
 				928CD902205FAE5200058727 /* Lauch */,
 				D629A5CE1F9C5D3A00FA5EE1 /* HomeViewController.h */,
 				D629A5CF1F9C5D3A00FA5EE1 /* HomeViewController.m */,
+				923896D3223CA00700279113 /* HomeViewController+IMChatManager.h */,
+				923896D4223CA00700279113 /* HomeViewController+IMChatManager.m */,
 				D6B1B2631FC2CB7F00852BE8 /* HomeBgMusicTabViewController.h */,
 				D6B1B2641FC2CB7F00852BE8 /* HomeBgMusicTabViewController.m */,
 				9298ECD72007714500A8B270 /* WeatherViewController.h */,
@@ -7203,6 +7218,7 @@
 				D6B1FF291FBEC2350004ED29 /* VisitorTabbarController.m in Sources */,
 				92D8B8B4206A1FD50001263F /* AASpline.m in Sources */,
 				92E87D721FB702B00045D2FF /* ECardEditViewController.m in Sources */,
+				923896D5223CA00700279113 /* HomeViewController+IMChatManager.m in Sources */,
 				9257EED821C74DC7009C4230 /* HpCarCell.m in Sources */,
 				D639228D1FB32F4A00E1A00A /* IllegalListTabCell.m in Sources */,
 				D64020561FCEDB340028568D /* CarBlackListModel.m in Sources */,
@@ -7445,6 +7461,7 @@
 				9253BD7A20BFA58E00AB4767 /* SBJsonStreamParserAdapter.m in Sources */,
 				D68A2F1D1FC0258E00E541A6 /* CommpanyVisViewController.m in Sources */,
 				92E77DA220DA309D00B87F9B /* AptParkingAreaModel.m in Sources */,
+				923896D2223C874800279113 /* AppointChatUserModel.m in Sources */,
 				92E83DEC208D8D3E006759E7 /* YQScanView.m in Sources */,
 				D65685621FB0117D00BDFFF3 /* TimeSetTableViewController.m in Sources */,
 				92D8DDB920469A5700E8185A /* WaterConViewController.m in Sources */,
@@ -7583,6 +7600,7 @@
 				D6DD4CA21FB54EC400CFC384 /* LEDmsgTitleTableViewCell.m in Sources */,
 				922B40DF21548AE000B9F6E4 /* BookRecordDetailController.m in Sources */,
 				D60262461F9C45F200A66D5A /* BaseTabbarCtrl.m in Sources */,
+				923896CF223C845900279113 /* AppointUserListViewController.m in Sources */,
 				92D8B874206A1F870001263F /* AAChartView.m in Sources */,
 				92CE44011FD7C7A800ED9F98 /* ImgBrowerViewController.m in Sources */,
 				D60CA2D41FBBE76600725389 /* WifiListTabViewController.m in Sources */,
@@ -8092,6 +8110,7 @@
 					"$(PROJECT_DIR)/ZHYQ/Other/ARS",
 					"$(PROJECT_DIR)/ZHYQ/Other/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ZHYQ/Other/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
+					"$(PROJECT_DIR)/ZHYQ/Other/Call/plugin",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.transfar.smartpark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -8151,6 +8170,7 @@
 					"$(PROJECT_DIR)/ZHYQ/Other/ARS",
 					"$(PROJECT_DIR)/ZHYQ/Other/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrwb",
 					"$(PROJECT_DIR)/ZHYQ/Other/EaseUI/EMUIKit/3rdparty/DeviceHelper/VoiceConvert/opencore-amrnb",
+					"$(PROJECT_DIR)/ZHYQ/Other/Call/plugin",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.transfar.smartpark;
 				PRODUCT_NAME = "$(TARGET_NAME)";

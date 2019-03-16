@@ -144,6 +144,8 @@ return shared##className; \
 #define KLoginUserName @"loginUserName" // 当前登录用户名
 #define KLoginPasword @"loginPasword" // 当前登录密码
 
+#define IMPasswordRule @"abc123"
+
 #define KDeviceModel @"deviceModel" // 手机型号
 #define KDeviceUUID @"deviceUUID" // 手机唯一标示
 
