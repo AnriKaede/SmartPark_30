@@ -61,10 +61,13 @@
 #import <Hyphenate/Hyphenate.h>
 #import <UserNotifications/UserNotifications.h>
 #import "EaseSDKHelper.h"
+#import "DemoCallManager.h"
+#import "EMGlobalVariables.h"
+#import "IMUserQuery.h"
 
 //BOOL gIsCalling = NO;
 
-@interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate, EMChatManagerDelegate, EMCallManagerDelegate>
+@interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate, EMChatManagerDelegate>
 {
     UIScrollView *bottomBgView;
     
@@ -437,6 +440,8 @@
     // 加载地图默认定位经纬度
     [self _loadLocationInfo];
     
+    // 获取环信对应服务器哟用户数据
+    [[IMUserQuery shaerInstance] loadServerUserData];
 }
 #pragma mark 加载大华sdk平台 登录信息
 - (void)_loadMonitorLoginInfo {
@@ -1568,7 +1573,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ResumeNetworkNotification" object:nil];
     
     [[EMClient sharedClient].chatManager removeDelegate:self];
-    [[EMClient sharedClient].callManager removeDelegate:self];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:KNOTIFICATION_MAKE1V1CALL object:nil];
 }
@@ -1589,10 +1593,13 @@
     
     // 代理环信协议(本地通知)
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
-    [[EMClient sharedClient].callManager addDelegate:self delegateQueue:nil];
     
-    // 添加环信语音通话监听
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMake1v1Call:) name:KNOTIFICATION_MAKE1V1CALL object:nil];
+    [DemoCallManager sharedManager];
+    
+    if (gMainController == nil) {
+        [EMGlobalVariables setGlobalMainController:self];
+    }
+    
 }
 #pragma mark 接收消息
 - (void)messagesDidReceive:(NSArray *)aMessages {
@@ -1623,6 +1630,7 @@
                 [[UIApplication sharedApplication] scheduleLocalNotification:notification];
             }
         }else {
+            /*
             // 设置触发时间
             UILocalNotification *notification = [[UILocalNotification alloc] init];
             notification.fireDate = [NSDate date]; //触发通知的时间
@@ -1631,6 +1639,7 @@
             notification.timeZone = [NSTimeZone defaultTimeZone];
             notification.soundName = UILocalNotificationDefaultSoundName;
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+             */
         }
     }
 }
@@ -1653,87 +1662,6 @@
     }
     
     return bodyStr;
-}
-
-#pragma mark - NSNotification
-- (void)handleMake1v1Call:(NSNotification*)notify {
-    if (!notify.object) {
-        return;
-    }
-    
-    if (gIsCalling) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"错误" message:@"有通话正在进行" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alertView show];
-        return;
-    }
-    
-    EMCallType type = (EMCallType)[[notify.object objectForKey:@"type"] integerValue];
-    if (type == EMCallTypeVideo) {
-        [self _makeCallWithUsername:[notify.object valueForKey:@"chatter"] type:type isCustomVideoData:NO];
-    } else {
-        [self _makeCallWithUsername:[notify.object valueForKey:@"chatter"] type:type isCustomVideoData:NO];
-    }
-}
-- (void)_makeCallWithUsername:(NSString *)aUsername
-                         type:(EMCallType)aType
-            isCustomVideoData:(BOOL)aIsCustomVideo
-{
-    if ([aUsername length] == 0) {
-        return;
-    }
-    
-    void (^completionBlock)(EMCallSession *, EMError *) = ^(EMCallSession *aCallSession, EMError *aError) {
-        if (aError || aCallSession == nil) {
-            gIsCalling = NO;
-            
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"call.initFailed", @"Establish call failure") message:aError.errorDescription delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
-            [alertView show];
-            
-            return;
-        } else {
-            gIsCalling = NO;
-            [[EMClient sharedClient].callManager endCall:aCallSession.callId reason:EMCallEndReasonNoResponse];
-        }
-    };
-    
-    gIsCalling = YES;
-    
-    EMCallOptions *options = [[EMClient sharedClient].callManager getCallOptions];
-    options.enableCustomizeVideoData = aIsCustomVideo;
-    
-    [[EMClient sharedClient].callManager startCall:aType remoteName:aUsername ext:@"" completion:^(EMCallSession *aCallSession, EMError *aError) {
-        completionBlock(aCallSession, aError);
-    }];
-}
-
-/*!
- *  \~chinese
- *  用户A拨打用户B，用户B会收到这个回调
- *
- *  @param aSession  会话实例
- *
- *  \~english
- *  User B will receive this callback after user A dial user B
- *
- *  @param aSession  Session instance
- */
-- (void)callDidReceive:(EMCallSession *)aSession {
-    
-}
-
-/*!
- *  \~chinese
- *  通话通道建立完成，用户A和用户B都会收到这个回调
- *
- *  @param aSession  会话实例
- *
- *  \~english
- *  Both user A and B will receive this callback after connection is established
- *
- *  @param aSession  Session instance
- */
-- (void)callDidConnect:(EMCallSession *)aSession {
-    
 }
 
 @end

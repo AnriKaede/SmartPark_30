@@ -10,8 +10,9 @@
 #import <Hyphenate/Hyphenate.h>
 #import "EaseMessageViewController.h"
 #import "AppointChatUserModel.h"
+#import "IMUserQuery.h"
 
-@interface AppointUserListViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface AppointUserListViewController ()<UITableViewDelegate, UITableViewDataSource, EaseMessageViewControllerDataSource>
 {
     UITableView *_tableView;
     NSMutableArray *_traceData;
@@ -26,7 +27,7 @@
     [super viewDidLoad];
     _traceData = @[].mutableCopy;
     _page = 1;
-    _length = 10;
+    _length = 15;
     
     [self _initView];
     
@@ -34,10 +35,12 @@
 }
 
 - (void)_initView {
+    self.title = @"用户列表";
+    
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 10, KScreenWidth, KScreenHeight - kTopHeight) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     _tableView.backgroundColor = [UIColor colorWithHexString:@"#efefef"];
     _tableView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_tableView];
@@ -58,6 +61,18 @@
         [self _loadData];
     }];
     _tableView.mj_footer.hidden = YES;
+    
+    UIButton *leftBtn = [[UIButton alloc] init];
+    leftBtn.frame = CGRectMake(0, 0, 40, 40);
+    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
+- (void)_leftBarBtnItemClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)_loadData {
@@ -123,7 +138,7 @@
     return _traceData.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 50;
+    return 60;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return [UIView new];
@@ -157,7 +172,23 @@
 #warning 环信聊天
     //聊天类型:EMConversationTypeChat
     EaseMessageViewController *chatController = [[EaseMessageViewController alloc] initWithConversationChatter:model.loginName conversationType:EMConversationTypeChat];
+    chatController.title = model.userName;
+    chatController.dataSource = self;
     [self.navigationController pushViewController:chatController animated:YES];
+}
+
+- (id<IMessageModel>)messageViewController:(EaseMessageViewController *)viewController modelForMessage:(EMMessage *)message {
+    //用户可以根据自己的用户体系，根据message设置用户昵称和头像
+    id<IMessageModel> model = nil;
+    model = [[EaseMessageModel alloc] initWithMessage:message];
+    model.avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/user"];//默认头像
+    model.avatarURLPath = @"";//头像网络地址
+    if(message.direction == EMMessageDirectionSend){
+        model.nickname = [[IMUserQuery shaerInstance] queryNickWithId:message.from];//用户昵称
+    }else {
+        model.nickname = [[IMUserQuery shaerInstance] queryNickWithId:message.from];//用户昵称
+    }
+    return model;
 }
 
 @end

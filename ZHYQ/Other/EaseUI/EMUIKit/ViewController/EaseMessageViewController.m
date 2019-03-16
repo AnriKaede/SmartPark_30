@@ -155,6 +155,18 @@ typedef enum : NSUInteger {
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
+    
+    UIButton *leftBtn = [[UIButton alloc] init];
+    leftBtn.frame = CGRectMake(0, 0, 40, 40);
+    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
+- (void)_leftBarBtnItemClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*!
@@ -2225,16 +2237,6 @@ typedef enum : NSUInteger {
         }
     }
     return targets;
-}
-
-- (id<IMessageModel>)messageViewController:(EaseMessageViewController *)viewController modelForMessage:(EMMessage *)message {
-    //用户可以根据自己的用户体系，根据message设置用户昵称和头像
-    id<IMessageModel> model = nil;
-    model = [[EaseMessageModel alloc] initWithMessage:message];
-    model.avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/user"];//默认头像
-    model.avatarURLPath = @"";//头像网络地址
-    model.nickname = @"昵称";//用户昵称
-    return model;
 }
 
 @end

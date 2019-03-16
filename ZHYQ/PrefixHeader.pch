@@ -45,6 +45,9 @@
 
 #import "UIScrollView+Empty.h"
 
+#define DEMO_CALL 1
+#import <Hyphenate/Hyphenate.h>
+
 //基础类
 #import "AppDelegate.h"
 #import "AppDelegate+AppService.h"
