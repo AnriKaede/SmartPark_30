@@ -618,6 +618,7 @@
 		926DB8E5202BDE1100529BE0 /* LogRecordObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8E4202BDE1100529BE0 /* LogRecordObj.m */; };
 		926EA70821EC13A800BE56F4 /* OverTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA70721EC13A800BE56F4 /* OverTaskModel.m */; };
 		926EA8CB21ED75A100BE56F4 /* OverUseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */; };
+		9272BCF2223F800F0048DDD1 /* CA.cer in Resources */ = {isa = PBXBuildFile; fileRef = 9272BCF1223F800E0048DDD1 /* CA.cer */; };
 		9273EB0A204E8B3900723C5D /* EvnDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB09204E8B3900723C5D /* EvnDataModel.m */; };
 		9273EB0E204E8D0700723C5D /* EvnDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB0C204E8D0700723C5D /* EvnDataCell.m */; };
 		9273EB0F204E8D0700723C5D /* EvnDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9273EB0D204E8D0700723C5D /* EvnDataCell.xib */; };
@@ -2259,6 +2260,7 @@
 		926EA70721EC13A800BE56F4 /* OverTaskModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverTaskModel.m; sourceTree = "<group>"; };
 		926EA8C921ED75A100BE56F4 /* OverUseListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverUseListModel.h; sourceTree = "<group>"; };
 		926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverUseListModel.m; sourceTree = "<group>"; };
+		9272BCF1223F800E0048DDD1 /* CA.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = CA.cer; sourceTree = "<group>"; };
 		9273EB08204E8B3900723C5D /* EvnDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvnDataModel.h; sourceTree = "<group>"; };
 		9273EB09204E8B3900723C5D /* EvnDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvnDataModel.m; sourceTree = "<group>"; };
 		9273EB0B204E8D0700723C5D /* EvnDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvnDataCell.h; sourceTree = "<group>"; };
@@ -6001,6 +6003,7 @@
 			children = (
 				923254E9223A5EAF000363C1 /* ZHYQ.entitlements */,
 				92B210C01FD29835001297EB /* libStaticLib.a */,
+				9272BCF1223F800E0048DDD1 /* CA.cer */,
 				D602623D1F9C408600A66D5A /* Class */,
 				D60262361F9B47F300A66D5A /* AppDelegate */,
 				D60262401F9C453500A66D5A /* Other */,
@@ -7542,6 +7545,7 @@
 				D60AC448217EAF6B00A22391 /* NewLEDCell.xib in Resources */,
 				927A0D532085E84200C3F8DE /* RepairListCell.xib in Resources */,
 				923897DF223CA85100279113 /* animate_00076.png in Resources */,
+				9272BCF2223F800F0048DDD1 /* CA.cer in Resources */,
 				923897DC223CA85100279113 /* animate_00063.png in Resources */,
 				92389817223CA85100279113 /* invite_white@2x.png in Resources */,
 				92FC1E5220C8D3C700C8364A /* AppointMentParkCell.xib in Resources */,

@@ -51,7 +51,7 @@
 }
 
 - (void)_initNav {
-    self.title = @"协助消息";
+    self.title = @"远程协助消息";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
     
     UIButton *leftBtn = [[UIButton alloc] init];
