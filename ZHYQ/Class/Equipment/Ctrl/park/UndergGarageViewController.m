@@ -108,7 +108,7 @@
     [searchBar setImage:[UIImage imageNamed:@"park_search_icon_blue"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     searchBar.bgImage = [UIImage imageWithColor:[UIColor whiteColor]];
     searchBar.labelColor = [UIColor colorWithHexString:@"#1A82D1"];
-    [self.view addSubview:searchBar];
+    [self.view insertSubview:searchBar belowSubview:self.msgBgView];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, searchBar.bottom - 0.8, KScreenWidth, 0.8)];
     lineView.backgroundColor = [UIColor colorWithWhite:0.8 alpha:0.8];
