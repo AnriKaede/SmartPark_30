@@ -619,6 +619,7 @@
 		926EA70821EC13A800BE56F4 /* OverTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA70721EC13A800BE56F4 /* OverTaskModel.m */; };
 		926EA8CB21ED75A100BE56F4 /* OverUseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */; };
 		9272BCF2223F800F0048DDD1 /* CA.cer in Resources */ = {isa = PBXBuildFile; fileRef = 9272BCF1223F800E0048DDD1 /* CA.cer */; };
+		9272BCF4223F96A00048DDD1 /* in.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9272BCF3223F969F0048DDD1 /* in.caf */; };
 		9273EB0A204E8B3900723C5D /* EvnDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB09204E8B3900723C5D /* EvnDataModel.m */; };
 		9273EB0E204E8D0700723C5D /* EvnDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB0C204E8D0700723C5D /* EvnDataCell.m */; };
 		9273EB0F204E8D0700723C5D /* EvnDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9273EB0D204E8D0700723C5D /* EvnDataCell.xib */; };
@@ -2261,6 +2262,7 @@
 		926EA8C921ED75A100BE56F4 /* OverUseListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverUseListModel.h; sourceTree = "<group>"; };
 		926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverUseListModel.m; sourceTree = "<group>"; };
 		9272BCF1223F800E0048DDD1 /* CA.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = CA.cer; sourceTree = "<group>"; };
+		9272BCF3223F969F0048DDD1 /* in.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = in.caf; path = Other/EaseUI/resources/EaseUIResource.bundle/in.caf; sourceTree = "<group>"; };
 		9273EB08204E8B3900723C5D /* EvnDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvnDataModel.h; sourceTree = "<group>"; };
 		9273EB09204E8B3900723C5D /* EvnDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvnDataModel.m; sourceTree = "<group>"; };
 		9273EB0B204E8D0700723C5D /* EvnDataCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvnDataCell.h; sourceTree = "<group>"; };
@@ -6012,6 +6014,7 @@
 				D60262261F9B45DE00A66D5A /* Main.storyboard */,
 				D60262291F9B45DE00A66D5A /* Assets.xcassets */,
 				D629A5BA1F9C58B400FA5EE1 /* image.xcassets */,
+				9272BCF3223F969F0048DDD1 /* in.caf */,
 				D602622B1F9B45DE00A66D5A /* LaunchScreen.storyboard */,
 				D602622E1F9B45DE00A66D5A /* Info.plist */,
 				D602622F1F9B45DE00A66D5A /* main.m */,
@@ -7829,6 +7832,7 @@
 				9253BD5520BFA58E00AB4767 /* playback_add_h.png in Resources */,
 				9253BD6020BFA58E00AB4767 /* playback_pause_h.png in Resources */,
 				923897CA223CA85100279113 /* animate_00055.png in Resources */,
+				9272BCF4223F96A00048DDD1 /* in.caf in Resources */,
 				92D8B8CE206B2D300001263F /* SelPhotoCell.xib in Resources */,
 				92D8B8D3206B2D9E0001263F /* SimilarValueCell.xib in Resources */,
 			);

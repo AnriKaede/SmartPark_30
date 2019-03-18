@@ -14,6 +14,7 @@
 
 #import <Hyphenate/Hyphenate.h>
 #import "EMCDDeviceManager+Remind.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 
@@ -169,7 +170,7 @@ static BOOL const JPushIsProduction = TRUE;
     if (application.applicationState == UIApplicationStateActive) {
         // 应用在前台运行时, 直接提示不做处理
         // 收到消息时，震动(系统可自带)
-        [[EMCDDeviceManager sharedInstance] playVibration];
+//        [self playSound];
         stateStr = @"UIApplicationStateActive";
         NSLog(@"UIApplicationStateActive");
     }else if (application.applicationState == UIApplicationStateInactive){
