@@ -12,7 +12,7 @@
 #import "AppointChatUserModel.h"
 #import "IMUserQuery.h"
 
-@interface AppointUserListViewController ()<UITableViewDelegate, UITableViewDataSource, EaseMessageViewControllerDataSource>
+@interface AppointUserListViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     UITableView *_tableView;
     NSMutableArray *_traceData;
@@ -173,22 +173,7 @@
     //聊天类型:EMConversationTypeChat
     EaseMessageViewController *chatController = [[EaseMessageViewController alloc] initWithConversationChatter:model.loginName conversationType:EMConversationTypeChat];
     chatController.title = model.userName;
-    chatController.dataSource = self;
     [self.navigationController pushViewController:chatController animated:YES];
-}
-
-- (id<IMessageModel>)messageViewController:(EaseMessageViewController *)viewController modelForMessage:(EMMessage *)message {
-    //用户可以根据自己的用户体系，根据message设置用户昵称和头像
-    id<IMessageModel> model = nil;
-    model = [[EaseMessageModel alloc] initWithMessage:message];
-    model.avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/user"];//默认头像
-    model.avatarURLPath = @"";//头像网络地址
-    if(message.direction == EMMessageDirectionSend){
-        model.nickname = [[IMUserQuery shaerInstance] queryNickWithId:message.from];//用户昵称
-    }else {
-        model.nickname = [[IMUserQuery shaerInstance] queryNickWithId:message.from];//用户昵称
-    }
-    return model;
 }
 
 @end

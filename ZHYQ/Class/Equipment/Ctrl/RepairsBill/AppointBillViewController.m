@@ -86,7 +86,10 @@
         }
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(appointList)];
+    if(_appointState == AppointRepairing ||
+       _appointState == AppointComplete){
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"远程协助" style:UIBarButtonItemStyleDone target:self action:@selector(appointList)];
+    }
 }
 - (void)appointList {
     AppointUserListViewController *listVC = [[AppointUserListViewController alloc] init];

@@ -19,6 +19,8 @@
 #import "NSDate+Category.h"
 #import "EaseLocalDefine.h"
 
+#import "IMUserQuery.h"
+
 @interface EaseConversationListViewController ()
 
 @end
@@ -30,6 +32,8 @@
     [super viewWillAppear:animated];
     
     [self registerNotifications];
+    
+    [self tableViewDidTriggerHeaderRefresh];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -42,6 +46,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self tableViewDidTriggerHeaderRefresh];
+    
+    [self _initNav];
+}
+
+- (void)_initNav {
+    self.title = @"协助消息";
+    self.view.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
+    
+    UIButton *leftBtn = [[UIButton alloc] init];
+    leftBtn.frame = CGRectMake(0, 0, 40, 40);
+    [leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 0)];
+    [leftBtn setImage:[UIImage imageNamed:@"login_back"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(_leftBarBtnItemClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
+- (void)_leftBarBtnItemClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,10 +89,12 @@
 {
     NSString *CellIdentifier = [EaseConversationCell cellIdentifierWithModel:nil];
     EaseConversationCell *cell = (EaseConversationCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.showAvatar = NO;
     
     // Configure the cell...
     if (cell == nil) {
         cell = [[EaseConversationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.showAvatar = NO;
     }
     
     if ([self.dataArray count] <= indexPath.row) {
@@ -146,19 +170,22 @@
     [[EMClient sharedClient].chatManager deleteConversation:model.conversation.conversationId isDeleteMessages:YES completion:nil];
     [self.dataArray removeObjectAtIndex:aIndexPath.row];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:aIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    [self.tableView reloadRowsAtIndexPaths:@[aIndexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (id)setupCellEditActions:(NSIndexPath *)aIndexPath
 {
     if ([UIDevice currentDevice].systemVersion.floatValue < 11.0) {
-        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:NSLocalizedString(@"delete",@"Delete") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             [self deleteCellAction:indexPath];
         }];
         deleteAction.backgroundColor = [UIColor redColor];
         return @[deleteAction];
     } else {
-        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"delete",@"Delete") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self deleteCellAction:aIndexPath];
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"删除" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self deleteCellAction:aIndexPath];
+            });
         }];
         deleteAction.backgroundColor = [UIColor redColor];
         
@@ -226,6 +253,8 @@
         }
         
         if (model) {
+            // 添加模型中昵称
+            model.title = [[IMUserQuery shaerInstance] queryNickWithId:model.conversation.conversationId];
             [self.dataArray addObject:model];
         }
     }

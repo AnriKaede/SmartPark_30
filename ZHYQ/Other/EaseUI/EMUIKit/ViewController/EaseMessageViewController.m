@@ -28,6 +28,8 @@
 #import "EaseLocalDefine.h"
 #import "EaseSDKHelper.h"
 
+#import "IMUserQuery.h"
+
 #define KHintAdjustY    50
 
 #define IOS_VERSION [[UIDevice currentDevice] systemVersion]>=9.0
@@ -50,7 +52,7 @@ typedef enum : NSUInteger {
 }
 @end
 
-@interface EaseMessageViewController ()<EaseMessageCellDelegate>
+@interface EaseMessageViewController ()<EaseMessageCellDelegate, EaseMessageViewControllerDataSource>
 {
     UIMenuItem *_copyMenuItem;
     UIMenuItem *_deleteMenuItem;
@@ -164,6 +166,8 @@ typedef enum : NSUInteger {
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = leftItem;
+    
+    self.dataSource = self;
 }
 - (void)_leftBarBtnItemClick {
     [self.navigationController popViewControllerAnimated:YES];
@@ -2237,6 +2241,20 @@ typedef enum : NSUInteger {
         }
     }
     return targets;
+}
+
+- (id<IMessageModel>)messageViewController:(EaseMessageViewController *)viewController modelForMessage:(EMMessage *)message {
+    //用户可以根据自己的用户体系，根据message设置用户昵称和头像
+    id<IMessageModel> model = nil;
+    model = [[EaseMessageModel alloc] initWithMessage:message];
+    model.avatarImage = [UIImage imageNamed:@"EaseUIResource.bundle/user"];//默认头像
+    model.avatarURLPath = @"";//头像网络地址
+    if(message.direction == EMMessageDirectionSend){
+        model.nickname = [[IMUserQuery shaerInstance] queryNickWithId:message.from];//用户昵称
+    }else {
+        model.nickname = [[IMUserQuery shaerInstance] queryNickWithId:message.from];//用户昵称
+    }
+    return model;
 }
 
 @end

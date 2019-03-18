@@ -192,6 +192,10 @@ CGFloat const EaseConversationCellPadding = 10;
             [self addConstraint:self.detailWithoutAvatarLeftConstraint];
         }
     }
+    [self removeConstraint:self.titleWithAvatarLeftConstraint];
+    [self removeConstraint:self.detailWithAvatarLeftConstraint];
+    [self addConstraint:self.titleWithoutAvatarLeftConstraint];
+    [self addConstraint:self.detailWithoutAvatarLeftConstraint];
 }
 
 - (void)setModel:(id<IConversationModel>)model
@@ -299,6 +303,13 @@ CGFloat const EaseConversationCellPadding = 10;
     if (_avatarView.badge) {
         _avatarView.badgeBackgroudColor = [UIColor redColor];
     }
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    _avatarView.layer.masksToBounds = YES;
+    _avatarView.layer.cornerRadius = _avatarView.height/2;
 }
 
 @end
