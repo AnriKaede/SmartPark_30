@@ -67,7 +67,7 @@
 
 //BOOL gIsCalling = NO;
 
-@interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate, EMChatManagerDelegate>
+@interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate, EMChatManagerDelegate, EMClientDelegate>
 {
     UIScrollView *bottomBgView;
     
@@ -1592,6 +1592,7 @@
     }
     
     // 代理环信协议(本地通知)
+    [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
     [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
     
     [DemoCallManager sharedManager];
@@ -1676,6 +1677,20 @@ static SystemSoundID shake_sound_male_id = 0;
     AudioServicesPlaySystemSound(shake_sound_male_id);   //播放注册的声音，（此句代码，可以在本类中的任意位置调用，不限于本方法中）
     
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);   //让手机震动
+}
+
+/*!
+ *  当前登录账号在其它设备登录时会接收到该回调
+ */
+- (void)userAccountDidLoginFromOtherDevice {
+    [Utils logoutRemoveDefInfo];
+}
+
+/*!
+ *  当前登录账号已经被从服务器端删除时会收到该回调
+ */
+- (void)userAccountDidRemoveFromServer {
+    [Utils logoutRemoveDefInfo];
 }
 
 @end

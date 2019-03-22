@@ -39,7 +39,13 @@
 
 //#define Main_Url @"https://192.168.206.23:8082/hntfEsb"      // https请求
 
-#define Main_Url @"http://app.wisehn.com/hntfEsb"      // 域名
+//#define Main_Url @"http://app.wisehn.com/hntfEsb"      // 域名
+//#define Main_Url @"https://app.wisehn.com/hntfEsb"      // 域名https
+//#define Main_Url @"https://220.168.59.13:8181/hntfEsb"      // 域名对应ip
+
+#define Main_Url @"https://220.168.59.11:8181/hntfEsb"  // 内测https
+//#define Main_Url @"https://www.wisehn.com:8181/hntfEsb"  // 域名https
+
 //#define Main_Url @"http://220.168.59.11:8081/hntfEsb" // alpha版本
 //#define Main_Url @"http://220.168.59.15:8081/hntfEsb"
 //#define Main_Url @"http://192.168.21.45:8080/hntfEsb"   // 梁哥

@@ -43,6 +43,9 @@
     
     [self _setup1v1CallControllerSubviews];
     
+    // 隐藏
+    self.remoteNameLabel.hidden = YES;
+    
     self.remoteNameLabel.text = self.callSession.remoteName;
     self.timeLabel.hidden = YES;
     self.answerButton.enabled = NO;
