@@ -550,7 +550,7 @@
         UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
         if(_selInMapDelegate && [_selInMapDelegate respondsToSelector:@selector(selInMapWithId:)]){
             // imageView tag 由100 改为 9000
-            [self.selInMapDelegate selInMapWithId:[NSString stringWithFormat:@"%ld",tap.view.tag - 8900]];            
+            [self.selInMapDelegate selInMapWithId:[NSString stringWithFormat:@"%ld",tap.view.tag - 8900]];
         }
     }
 }
