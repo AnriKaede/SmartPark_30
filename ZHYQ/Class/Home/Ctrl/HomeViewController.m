@@ -1683,6 +1683,10 @@ static SystemSoundID shake_sound_male_id = 0;
  *  当前登录账号在其它设备登录时会接收到该回调
  */
 - (void)userAccountDidLoginFromOtherDevice {
+    [self showHint:@"您的账号在其他地方登录"];
+    RootNavigationController *loginVC = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginNavViewController"];
+    [self presentViewController:loginVC animated:YES completion:nil];
+    
     [Utils logoutRemoveDefInfo];
 }
 
@@ -1690,6 +1694,11 @@ static SystemSoundID shake_sound_male_id = 0;
  *  当前登录账号已经被从服务器端删除时会收到该回调
  */
 - (void)userAccountDidRemoveFromServer {
+    
+    [self showHint:@"您的账号在其他地方登录"];
+    RootNavigationController *loginVC = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginNavViewController"];
+    [self presentViewController:loginVC animated:YES completion:nil];
+    
     [Utils logoutRemoveDefInfo];
 }
 

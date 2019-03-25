@@ -618,6 +618,7 @@
 		926DB8DE202A9C3300529BE0 /* OperateLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8DD202A9C3300529BE0 /* OperateLogModel.m */; };
 		926DB8E1202AF59300529BE0 /* LogFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8E0202AF59300529BE0 /* LogFilterViewController.m */; };
 		926DB8E5202BDE1100529BE0 /* LogRecordObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DB8E4202BDE1100529BE0 /* LogRecordObj.m */; };
+		926DFAD12248CAD7005403FE /* NSURLRequest+ForSSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 926DFACF2248CAD7005403FE /* NSURLRequest+ForSSL.m */; };
 		926EA70821EC13A800BE56F4 /* OverTaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA70721EC13A800BE56F4 /* OverTaskModel.m */; };
 		926EA8CB21ED75A100BE56F4 /* OverUseListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 926EA8CA21ED75A100BE56F4 /* OverUseListModel.m */; };
 		9272BCF4223F96A00048DDD1 /* in.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9272BCF3223F969F0048DDD1 /* in.caf */; };
@@ -2260,6 +2261,8 @@
 		926DB8E0202AF59300529BE0 /* LogFilterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogFilterViewController.m; sourceTree = "<group>"; };
 		926DB8E3202BDE1100529BE0 /* LogRecordObj.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogRecordObj.h; sourceTree = "<group>"; };
 		926DB8E4202BDE1100529BE0 /* LogRecordObj.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogRecordObj.m; sourceTree = "<group>"; };
+		926DFACF2248CAD7005403FE /* NSURLRequest+ForSSL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+ForSSL.m"; sourceTree = "<group>"; };
+		926DFAD02248CAD7005403FE /* NSURLRequest+ForSSL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+ForSSL.h"; sourceTree = "<group>"; };
 		926EA70621EC13A800BE56F4 /* OverTaskModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverTaskModel.h; sourceTree = "<group>"; };
 		926EA70721EC13A800BE56F4 /* OverTaskModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OverTaskModel.m; sourceTree = "<group>"; };
 		926EA8C921ED75A100BE56F4 /* OverUseListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverUseListModel.h; sourceTree = "<group>"; };
@@ -6218,6 +6221,8 @@
 				D629A5F71F9F39AC00FA5EE1 /* RootWebViewController.m */,
 				D629A5F91F9F3A4200FA5EE1 /* YQWebViewController.h */,
 				D629A5FA1F9F3A4200FA5EE1 /* YQWebViewController.m */,
+				926DFAD02248CAD7005403FE /* NSURLRequest+ForSSL.h */,
+				926DFACF2248CAD7005403FE /* NSURLRequest+ForSSL.m */,
 			);
 			path = WebViewController;
 			sourceTree = "<group>";
@@ -8303,6 +8308,7 @@
 				D6DD4CA61FB57F4900CFC384 /* FirstMenuModel.m in Sources */,
 				92ACC6522137DEB5006E005E /* MsgFilterView.m in Sources */,
 				928426E4214B5DE000C909D4 /* ReservedCell.m in Sources */,
+				926DFAD12248CAD7005403FE /* NSURLRequest+ForSSL.m in Sources */,
 				9266944D219EA4F4004583B2 /* LEDForworkDetailViewController.m in Sources */,
 				92D8B8B9206A1FD50001263F /* AAStyle.m in Sources */,
 				928775091FB9993700BF708A /* MessageCell.m in Sources */,

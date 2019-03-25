@@ -60,6 +60,8 @@
 
 #import "NavGradient.h"
 
+#import "NSURLRequest+ForSSL.h"
+
 //三方平台接入
 //#import <UMengUShare/UMSocialCore/UMSocialManager.h>
 //#import <UMengUShare/UMSocialCore/UMSocialCore.h>

@@ -50,6 +50,8 @@
     [self queryCache];
     
     [self showVersionAlert];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark 加载更新信息
