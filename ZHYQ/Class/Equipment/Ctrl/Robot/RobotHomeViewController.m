@@ -162,6 +162,9 @@
     if(!_isPowerRevice){
         return;
     }
+    // 发送直播指令
+//    [[MQTTTool shareInstance] sendDataToTopic:@"live" string:@""];
+    
     RobotLiveViewController *liveVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"RobotLiveViewController"];
     [self presentViewController:liveVC animated:YES completion:nil];
 }

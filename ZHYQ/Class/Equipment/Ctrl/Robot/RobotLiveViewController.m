@@ -10,7 +10,7 @@
 #import <NodeMediaClient/NodeMediaClient.h>
 #import "MQTTTool.h"
 
-@interface RobotLiveViewController ()
+@interface RobotLiveViewController ()<NodePlayerDelegate>
 {
     __weak IBOutlet UIView *_liveView;
     
@@ -56,10 +56,15 @@
     _np = [[NodePlayer alloc] init];
     [_np setPlayerView:_liveView];
     [_np setInputUrl:@"rtmp://demo.easydss.com:10085/live/stream_299555?k=stream_299555.27ab2b67a1262f5c07"];
+    _np.nodePlayerDelegate = self;
     [_np start];
+}
+- (void)onEventCallback:(nonnull id)sender event:(int)event msg:(nonnull NSString*)msg {
+    NSLog(@"event: %d,===== %@", event, msg);
 }
 
 - (IBAction)closeActionn:(id)sender {
+    [[MQTTTool shareInstance] sendDataToTopic:@"liveClose" string:@""];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

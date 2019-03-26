@@ -7485,7 +7485,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6zQ-gA-Zpn">
                                 <rect key="frame" x="0.0" y="183" width="414" height="310"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J8j-7p-Pau">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J8j-7p-Pau">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="310"/>
                                     </imageView>
                                 </subviews>
