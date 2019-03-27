@@ -64,7 +64,9 @@
 //#define ParkMain_Url @"http://192.168.21.185:8080/park-service-1.0-SNAPSHOT/hntfEsb"
 //#define ParkMain_Url @"http://www.hnzhangting.cn:9080/park-service/hntfEsb"
 //#define ParkMain_Url @"http://www.hnzhangting.cn:8080/park-service/hntfEsb"
+
 #define ParkMain_Url [NSString stringWithFormat:@"%@/park-service/hntfEsb", [[NSUserDefaults standardUserDefaults] objectForKey:KParkResquestIp]]
+
 //#define ParkMain_Url @"http://192.168.21.186:8082/service/hntfEsb"
 
 //#define ParkMain_Url @"http://192.168.1.134:8082/service/hntfEsb"

@@ -194,7 +194,7 @@
         
         UIView *pointView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 160, 130)];
         pointView.center = CGPointMake([x floatValue], [y floatValue]);
-        pointView.tag = 100 + idx;
+        pointView.tag = 9000 + idx;
         [_mapView addSubview:pointView];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
         [pointView addGestureRecognizer:tap];

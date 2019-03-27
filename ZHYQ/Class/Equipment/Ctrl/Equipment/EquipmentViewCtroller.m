@@ -738,6 +738,7 @@
                 RobotHomeViewController *robptVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"RobotHomeViewController"];
                 robptVC.isHidenNaviBar = YES;
                 [self.navigationController pushViewController:robptVC animated:YES];
+                
                 break;
             }
                 

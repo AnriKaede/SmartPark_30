@@ -7856,7 +7856,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ZHYQ/Pods-ZHYQ-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ZHYQ/Pods-ZHYQ-resources.sh",
 				"${PODS_ROOT}/AMap3DMap-NO-IDFA/MAMapKit.framework/AMap.bundle",
 				"${PODS_ROOT}/CFDropDownMenuView/CFDropDownMenuView/CFDropDownMenuView/CFDropDownMenuView.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
@@ -7875,7 +7875,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZHYQ/Pods-ZHYQ-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZHYQ/Pods-ZHYQ-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		4BCAC66C5BF4FE2FF392D516 /* [CP] Check Pods Manifest.lock */ = {
@@ -7902,16 +7902,18 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ZHYQ/Pods-ZHYQ-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-ZHYQ/Pods-ZHYQ-frameworks.sh",
 				"${PODS_ROOT}/Hyphenate/iOS_Pods_IMFullSDK_V3.5.3/Hyphenate.framework",
+				"${PODS_ROOT}/NodeMediaClient/NodeMediaClient/NodeMediaClient.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hyphenate.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NodeMediaClient.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ZHYQ/Pods-ZHYQ-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ZHYQ/Pods-ZHYQ-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

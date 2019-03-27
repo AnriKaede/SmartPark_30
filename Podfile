@@ -28,7 +28,8 @@ pod 'SAMKeychain', '~> 1.5.2'
 
 pod 'CFDropDownMenuView', '~> 0.0.3'
 
-pod 'NodeMediaClient'
+pod 'NodeMediaClient', '~> 2.4.6'
+#pod 'LFLiveKit', '~> 2.6'
 pod 'MQTTClient', '~> 0.13.1'
 
 #pod 'UMengUShare/UI'
