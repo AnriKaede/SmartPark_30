@@ -337,7 +337,7 @@ static NetworkClient *netWorkClient = nil;
 
 #pragma mark https
 - (AFSecurityPolicy *)customSecurityPolicy{
-    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"192.168.206.50" ofType:@"cer"];
+    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"220.168.59.13" ofType:@"cer"];
     NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
     
     if (cerData == nil) {

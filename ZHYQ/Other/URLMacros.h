@@ -43,8 +43,8 @@
 //#define Main_Url @"https://app.wisehn.com/hntfEsb"      // 域名https
 //#define Main_Url @"https://220.168.59.13:8181/hntfEsb"      // 域名对应ip
 
-#define Main_Url @"https://220.168.59.11:8181/hntfEsb"  // 内测https
-//#define Main_Url @"https://www.wisehn.com:8181/hntfEsb"  // 域名https
+//#define Main_Url @"https://220.168.59.11:8181/hntfEsb"  // 内测https
+#define Main_Url @"https://www.wisehn.com:8181/hntfEsb"  // 域名https
 
 //#define Main_Url @"http://220.168.59.11:8081/hntfEsb" // alpha版本
 //#define Main_Url @"http://220.168.59.15:8081/hntfEsb"
@@ -58,7 +58,7 @@
 //#define Main_Url @"http://192.168.21.141:8080/hntfEsb"    // 佳鑫
 //#define Main_Url @"http://192.168.208.73:8080/hntfEsb"
 
-#define MealMain_Url @"http://220.168.59.11:8083"   // 智慧餐饮、智慧幼儿园
+#define MealMain_Url @"https://220.168.59.11:8183"   // 智慧餐饮、智慧幼儿园
 
 //停车接口调试使用
 //#define ParkMain_Url @"http://192.168.21.185:8080/park-service-1.0-SNAPSHOT/hntfEsb"

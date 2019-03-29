@@ -2919,7 +2919,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="tbi-50-eRa">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="109"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="129"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="设备名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWy-yQ-J9S">
@@ -2938,7 +2938,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="sVL-ji-MB5" customClass="CRSearchBar">
-                                    <rect key="frame" x="0.0" y="60" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="80" width="414" height="44"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="Arw-fZ-4qz"/>
                                     </constraints>
@@ -2952,7 +2952,7 @@
                                     </constraints>
                                 </imageView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hNs-un-QSj">
-                                    <rect key="frame" x="0.0" y="104" width="414" height="5"/>
+                                    <rect key="frame" x="0.0" y="124" width="414" height="5"/>
                                     <color key="backgroundColor" red="0.88628047704696655" green="0.88626384735107422" blue="0.88627511262893677" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </view>
                             </subviews>
@@ -2986,7 +2986,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I6X-gQ-6BC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3866.4000000000001" y="7975.8620689655181"/>
+            <point key="canvasLocation" x="3865.217391304348" y="7975.271739130435"/>
         </scene>
         <!--Repairs People View Controller-->
         <scene sceneID="TMa-7f-moG">

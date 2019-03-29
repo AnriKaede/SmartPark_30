@@ -236,7 +236,7 @@
     
     [streetLightArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         SubDeviceModel *model = (SubDeviceModel *)obj;
-        UIView *pointView = [_mapView viewWithTag:100+idx];
+        UIView *pointView = [_mapView viewWithTag:9000+idx];
         UIImageView *imgView = [pointView viewWithTag:1000+idx];
         // 添加动画
         [self addViewBaseAnim:imgView];

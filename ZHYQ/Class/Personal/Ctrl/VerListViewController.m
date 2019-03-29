@@ -145,24 +145,26 @@
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:webView.request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *tmpresponse = (NSHTTPURLResponse *)response;
         NSLog(@"statusCode:%ld", tmpresponse.statusCode);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (tmpresponse.statusCode != 200) {
-                if (tmpresponse.statusCode == 404) {
-                    _noDataView.hidden = YES;
-                    webLoadFailView.hidden = NO;
-                    _headView.hidden = NO;
+        if(tmpresponse != nil){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (tmpresponse.statusCode != 200) {
+                    if (tmpresponse.statusCode == 404) {
+                        _noDataView.hidden = YES;
+                        webLoadFailView.hidden = NO;
+                        _headView.hidden = NO;
+                    }else{
+                        _noDataView.hidden = NO;
+                        webLoadFailView.hidden = YES;
+                        _headView.hidden = NO;
+                    }
+                    [self.view sendSubviewToBack:_webView];
                 }else{
-                    _noDataView.hidden = NO;
+                    _noDataView.hidden = YES;
                     webLoadFailView.hidden = YES;
-                    _headView.hidden = NO;
+                    _headView.hidden = YES;
                 }
-                [self.view sendSubviewToBack:_webView];
-            }else{
-                _noDataView.hidden = YES;
-                webLoadFailView.hidden = YES;
-                _headView.hidden = YES;
-            }
-        });
+            });
+        }
     }];
     [dataTask resume];
 }
