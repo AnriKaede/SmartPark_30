@@ -2598,7 +2598,7 @@
 		92CE43971FD4EAAA00ED9F98 /* dhplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dhplay.h; sourceTree = "<group>"; };
 		92CE43981FD4EAAA00ED9F98 /* dhplayEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dhplayEx.h; sourceTree = "<group>"; };
 		92CE43991FD4EAAA00ED9F98 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		92CE439A1FD4EAAA00ED9F98 /* dpsdk.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dpsdk.podspec; sourceTree = "<group>"; };
+		92CE439A1FD4EAAA00ED9F98 /* dpsdk.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dpsdk.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		92CE439C1FD4EAAA00ED9F98 /* libDOAXBase.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libDOAXBase.a; sourceTree = "<group>"; };
 		92CE439E1FD4EAAA00ED9F98 /* libosip2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libosip2.a; sourceTree = "<group>"; };
 		92CE439F1FD4EAAA00ED9F98 /* libTVWall.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTVWall.a; sourceTree = "<group>"; };
