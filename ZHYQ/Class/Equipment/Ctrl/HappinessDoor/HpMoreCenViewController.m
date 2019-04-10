@@ -7,8 +7,8 @@
 //
 
 #import "HpMoreCenViewController.h"
-#import "HpFaceListViewController.h"
-#import "HpCarListViewController.h"
+#import "HPFaceListViewController.h"
+#import "HPCarListViewController.h"
 
 #define topMenuCount 2
 

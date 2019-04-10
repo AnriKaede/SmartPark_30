@@ -150,57 +150,59 @@
         return;
     }
     
-    NSString *urlStr = @"http://220.168.59.16:8008";
-    
     NSArray *tags = [model.TAGID componentsSeparatedByString:@","];
     NSMutableArray *tagParams = @[].mutableCopy;
     [tags enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [tagParams addObject:[NSNumber numberWithString:obj]];
     }];
-    
-    NSDictionary *paramDic = @{@"operation":@"getTagValue",
-                              @"tagArray":tagParams
-                              };
-    
-    [[NetworkClient sharedInstance] POSTRaw:urlStr dict:paramDic progressFloat:nil succeed:^(id responseObject) {
-        NSString *resutl = responseObject[@"result"];
-        if(resutl != nil && ![resutl isKindOfClass:[NSNull class]] && [resutl isEqualToString:@"success"]){
-            NSArray *tagArray = responseObject[@"tagArray"];
-            if(tagArray != nil && ![tagArray isKindOfClass:[NSNull class]]){
-                if(tagArray.count > 0){
-                    NSDictionary *tagInfo = tagArray.firstObject;
-                    model.floorNum = [NSString stringWithFormat:@"%@", tagInfo[@"value"]];
-                }
-                if(tagArray.count > 1){
-                    NSDictionary *tagInfo = tagArray[1];
-                    model.runState = [NSString stringWithFormat:@"%@", tagInfo[@"value"]];
-                    // 电梯运行中设置 3s 调用一次更新状态，停止设置3s更新
-                    [self performSelector:@selector(elevatorInfo:) withObject:model afterDelay:3];
-                    /*
-                    if([model.runState isEqualToString:@"4"]){
-                        [self performSelector:@selector(elevatorInfo:) withObject:model afterDelay:3];
-                    }
-                    if([model.runState isEqualToString:@"2"]){
-                        [self performSelector:@selector(elevatorInfo:) withObject:model afterDelay:3];
-                    }
-                    if([model.runState isEqualToString:@"1"]){
-                        [self performSelector:@selector(elevatorInfo:) withObject:model afterDelay:3];
-                    }
-                     */
-                }
-                if(tagArray.count > 2){
-                    NSDictionary *tagInfo = tagArray[2];
-                    model.warnState = [NSString stringWithFormat:@"%@", tagInfo[@"value"]];
-                }
-                
-                [self refreshTopCount];
-                
-                // 刷新cell
-                NSInteger index = [_elevatorData indexOfObject:model];
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];//rowAnimation
+    NSMutableString *tagids = @"".mutableCopy;
+    [tagParams enumerateObjectsUsingBlock:^(NSNumber *tagId, NSUInteger idx, BOOL * _Nonnull stop) {
+        if(tagId != nil && ![tagId isKindOfClass:[NSNull class]]){
+            if(idx >= tagParams.count - 1){
+                [tagids appendFormat:@"%@", tagId];
+            }else {
+                [tagids appendFormat:@"%@,", tagId];
             }
         }
-        
+    }];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/lighting/getIbmsTagValue/%@",Main_Url, tagids];
+    
+    [[NetworkClient sharedInstance] GET:urlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
+        [self.tableView.mj_header endRefreshing];
+        if ([responseObject[@"code"] isEqualToString:@"1"]) {
+            NSString *responseData = responseObject[@"responseData"];
+            NSData *jsonData = [responseData dataUsingEncoding:NSUTF8StringEncoding];
+            
+            NSDictionary *jsonDic = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+            
+            if(jsonDic[@"result"] != nil && ![jsonDic[@"result"] isKindOfClass:[NSNull class]] && [jsonDic[@"result"] isEqualToString:@"success"]){
+                NSArray *tagArray = jsonDic[@"tagArray"];
+                if(tagArray != nil && ![tagArray isKindOfClass:[NSNull class]]){
+                    if(tagArray.count > 0){
+                        NSDictionary *tagInfo = tagArray.firstObject;
+                        model.floorNum = [NSString stringWithFormat:@"%@", tagInfo[@"value"]];
+                    }
+                    if(tagArray.count > 1){
+                        NSDictionary *tagInfo = tagArray[1];
+                        model.runState = [NSString stringWithFormat:@"%@", tagInfo[@"value"]];
+                        // 电梯运行中设置 3s 调用一次更新状态，停止设置3s更新
+                        [self performSelector:@selector(elevatorInfo:) withObject:model afterDelay:3];
+                    }
+                    if(tagArray.count > 2){
+                        NSDictionary *tagInfo = tagArray[2];
+                        model.warnState = [NSString stringWithFormat:@"%@", tagInfo[@"value"]];
+                    }
+                    
+                    [self refreshTopCount];
+                    
+                    // 刷新cell
+                    NSInteger index = [_elevatorData indexOfObject:model];
+                    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];//rowAnimation
+                }
+            }
+        }
+            
     } failure:^(NSError *error) {
         [self performSelector:@selector(elevatorInfo:) withObject:model afterDelay:3];
     }];

@@ -13,6 +13,9 @@
 #import "PtzSinglePrepointInfo.h"
 #import "PlaybackViewController.h"
 
+#import "MonitorLogin.h"
+#import "MonitorLoginInfoModel.h"
+
 @interface PlayVideoViewController ()<UIGestureRecognizerDelegate>
 {
     __weak IBOutlet NSLayoutConstraint *_playViewHeight;
@@ -50,7 +53,23 @@
     
     [[PreviewManager sharedInstance] initData];
     
-    [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
+    int rect = [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
+    if(rect != DPSDK_RET_SUCCESS){
+        [self showHint:@"请检查网络" yOffset:80];
+        NSDictionary *monitorInfo = [[NSUserDefaults standardUserDefaults] objectForKey:KMonitorInfo];
+        if(monitorInfo != nil){
+            MonitorLoginInfoModel *model = [[MonitorLoginInfoModel alloc] initWithDataDic:monitorInfo];
+            if(model.dssAddr != nil && ![model.dssAddr isKindOfClass:[NSNull class]] &&
+               model.dssPort != nil && ![model.dssPort isKindOfClass:[NSNull class]] &&
+               model.dssAdmin != nil && ![model.dssAdmin isKindOfClass:[NSNull class]] &&
+               model.dssPasswd != nil && ![model.dssPasswd isKindOfClass:[NSNull class]]
+               ){
+                // 登录视频监控账号
+                [MonitorLogin loginWithAddress:model.dssAddr withPort:model.dssPort withName:model.dssAdmin withPsw:model.dssPasswd withResule:^(BOOL isSuc) {
+                }];
+            }
+        }
+    }
     
     // 根据摄像机类型显示控制按钮
     if([_deviceType isEqualToString:@"1-2"]){
@@ -135,7 +154,7 @@
         }else if(responseObject[@"message"] != nil && ![responseObject[@"message"] isKindOfClass:[NSNull class]]){
             [self showHint:responseObject[@"message"]];
         }
-        
+        //dpsdk_retval_e
     } failure:^(NSError *error) {
 //        NSLog(@"%@", error);
     }];

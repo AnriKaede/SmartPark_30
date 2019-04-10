@@ -42,7 +42,8 @@
     [button setTitle:@"返回" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:button];
+
+//    [self.view addSubview:button];
 }
 - (void)backAction {
     [self.navigationController popViewControllerAnimated:YES];

@@ -12,6 +12,8 @@
 
 #import "MessageTypeModel.h"
 
+#import "EaseConversationListViewController.h"
+
 @interface MessageTypeViewController ()
 {
     __weak IBOutlet UILabel *_loginTimeLabel;
@@ -25,6 +27,9 @@
     __weak IBOutlet UILabel *_billTimeLabel;
     __weak IBOutlet UILabel *_billNewMsgLabel;
     __weak IBOutlet UILabel *_biullUnReadNumMsgLabel;
+    
+    __weak IBOutlet UILabel *_IMNNewMsgLabel;
+    __weak IBOutlet UILabel *_IMNumMsgLabel;
  
     NSDictionary *_msgResDic;
 }
@@ -38,6 +43,7 @@
     if ([kUserDefaults boolForKey:KLoginState]) {
         [self _loadData];
         [self _loadMsgData];
+        [self updateIMMsg];
     }
 }
 
@@ -69,6 +75,8 @@
     _warnUnReadNumMsgLabel.clipsToBounds = YES;
     _biullUnReadNumMsgLabel.layer.cornerRadius = _biullUnReadNumMsgLabel.height/2;
     _biullUnReadNumMsgLabel.clipsToBounds = YES;
+    _IMNumMsgLabel.layer.cornerRadius = _biullUnReadNumMsgLabel.height/2;
+    _IMNumMsgLabel.clipsToBounds = YES;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self _loadData];
@@ -166,6 +174,12 @@
     } failure:^(NSError *error) {
         [self.tableView.mj_header endRefreshing];
     }];
+    
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    [conversations enumerateObjectsUsingBlock:^(EMConversation *conversation, NSUInteger idx, BOOL * _Nonnull stop) {
+        [conversation markAllMessagesAsRead:nil];
+    }];
+    
 }
 
 #pragma mark 更新视图
@@ -242,6 +256,47 @@
         _biullUnReadNumMsgLabel.text = @"0";
         _biullUnReadNumMsgLabel.hidden = YES;
     }
+    
+    [self updateIMMsg];
+}
+- (void)updateIMMsg {
+    NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+    __block int allUnReads = 0;
+    __block NSString *newMsg = @"";
+    [conversations enumerateObjectsUsingBlock:^(EMConversation *conversation, NSUInteger idx, BOOL * _Nonnull stop) {
+        allUnReads += [conversation unreadMessagesCount];
+        if(idx == 0){
+            EMMessage *msg = [conversation latestMessage];
+            newMsg = [self bodyMsg:msg.body];
+        }
+    }];
+    _IMNNewMsgLabel.hidden = NO;
+    _IMNNewMsgLabel.text = [NSString stringWithFormat:@"%@", newMsg];
+    if(allUnReads > 0){
+        _IMNumMsgLabel.hidden = NO;
+        _IMNumMsgLabel.text = [NSString stringWithFormat:@"%d", allUnReads];
+    }else {
+        _IMNumMsgLabel.hidden = YES;
+    }
+}
+- (NSString *)bodyMsg:(EMMessageBody *)body {
+    NSString *bodyStr = @"您有一条新消息";
+    if(body.type == EMMessageBodyTypeText){
+        EMTextMessageBody *textMsg =  (EMTextMessageBody *)body;
+        bodyStr = [NSString stringWithFormat:@"%@", textMsg.text];
+    }else if (body.type == EMMessageBodyTypeImage) {
+        bodyStr = @"[图片]";
+    }else if (body.type == EMMessageBodyTypeVideo) {
+        bodyStr = @"[视频]";
+    }else if (body.type == EMMessageBodyTypeLocation) {
+        bodyStr = @"[位置信息]";
+    }else if (body.type == EMMessageBodyTypeVoice) {
+        bodyStr = @"[语音]";
+    }else if (body.type == EMMessageBodyTypeFile) {
+        bodyStr = @"[文件]";
+    }
+    
+    return bodyStr;
 }
 
 #pragma mark 加载未读消息
@@ -273,9 +328,26 @@
     [kNotificationCenter removeObserver:self name:@"ResumeNetworkNotification" object:nil];
 }
 
+#pragma mark UITableView协议
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if([EMClient sharedClient].isLoggedIn){
+        NSArray *conversations = [[EMClient sharedClient].chatManager getAllConversations];
+        if(conversations.count > 0){
+            return 4;
+        }
+        return 3;
+    }else {
+        return 3;
+    }
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.navigationController pushViewController:[self messageVC:(int)indexPath.row] animated:YES];
+    if(indexPath.row <= 2){
+        [self.navigationController pushViewController:[self messageVC:(int)indexPath.row] animated:YES];
+    }else {
+        EaseConversationListViewController *converVC = [[EaseConversationListViewController alloc] init];
+        [self.navigationController pushViewController:converVC animated:YES];
+    }
 }
 - (MessageCenViewController *)messageVC:(int)selIndex {
     MessageCenViewController *msgVC = [[MessageCenViewController alloc] init];

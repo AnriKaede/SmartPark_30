@@ -9,6 +9,8 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#ifdef __OBJC__
+
 //全局宏
 #import "UtilsMacros.h"
 #import "URLMacros.h"
@@ -43,6 +45,9 @@
 
 #import "UIScrollView+Empty.h"
 
+#define DEMO_CALL 1
+#import <Hyphenate/Hyphenate.h>
+
 //基础类
 #import "AppDelegate.h"
 #import "AppDelegate+AppService.h"
@@ -55,6 +60,8 @@
 
 #import "NavGradient.h"
 
+#import "NSURLRequest+ForSSL.h"
+
 //三方平台接入
 //#import <UMengUShare/UMSocialCore/UMSocialManager.h>
 //#import <UMengUShare/UMSocialCore/UMSocialCore.h>
@@ -65,5 +72,7 @@
 //高德地图
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <MAMapKit/MAMapKit.h>
+
+#endif
 
 #endif /* PrefixHeader_pch */

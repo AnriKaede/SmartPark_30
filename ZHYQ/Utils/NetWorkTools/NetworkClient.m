@@ -60,6 +60,9 @@ static NetworkClient *netWorkClient = nil;
 #warning 请求头添加统一参数
     NSMutableDictionary *reqParams = [self getHeaderParam];
     
+    // https证书
+    manager.securityPolicy = [self customSecurityPolicy];
+    
     NSString *jsonStr = [Utils convertToJsonData:reqParams];
     
     [manager.requestSerializer setValue:jsonStr forHTTPHeaderField:@"wisehn-param"];
@@ -108,6 +111,9 @@ static NetworkClient *netWorkClient = nil;
 #warning 请求头添加统一参数
     NSMutableDictionary *reqParams = [self getHeaderParam];
     
+    // https证书
+    manager.securityPolicy = [self customSecurityPolicy];
+    
     NSString *jsonStr = [Utils convertToJsonData:reqParams];
     
     [manager.requestSerializer setValue:jsonStr forHTTPHeaderField:@"wisehn-param"];
@@ -150,6 +156,9 @@ static NetworkClient *netWorkClient = nil;
 - (void)POSTRaw:(NSString *)URLString dict:(id)dict progressFloat:(ProgressFloat)progressFloat succeed:(Succeed)succeed failure:(Failure)failure
 {
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    // https证书
+    manager.securityPolicy = [self customSecurityPolicy];
     
     NSMutableURLRequest *request = [[AFJSONRequestSerializer serializer] requestWithMethod:@"POST" URLString:URLString parameters:nil error:nil];
 
@@ -326,6 +335,21 @@ static NetworkClient *netWorkClient = nil;
     return reqParams;
 }
 
+#pragma mark https
+- (AFSecurityPolicy *)customSecurityPolicy{
+    NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"220.168.59.13" ofType:@"cer"];
+    NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
+    
+    if (cerData == nil) {
+        return nil;
+    }
+    NSSet *setData = [NSSet setWithObject:cerData];
+    AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+    securityPolicy.allowInvalidCertificates = YES;
+    securityPolicy.validatesDomainName = NO;
+    [securityPolicy setPinnedCertificates:setData];
+    return securityPolicy;
+}
 
 @end
 

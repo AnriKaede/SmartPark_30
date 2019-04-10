@@ -37,26 +37,36 @@
 
 //#define Main_Url @"http://220.168.59.11:8081/hntfEsb"
 
-#define Main_Url @"http://app.wisehn.com/hntfEsb"      // 域名
+//#define Main_Url @"https://192.168.206.23:8082/hntfEsb"      // https请求
+
+//#define Main_Url @"http://app.wisehn.com/hntfEsb"      // 域名
+//#define Main_Url @"https://app.wisehn.com/hntfEsb"      // 域名https
+//#define Main_Url @"https://220.168.59.13:8181/hntfEsb"      // 域名对应ip
+
+//#define Main_Url @"https://220.168.59.11:8181/hntfEsb"  // 内测https
+#define Main_Url @"https://www.wisehn.com:8181/hntfEsb"  // 域名https
+
 //#define Main_Url @"http://220.168.59.11:8081/hntfEsb" // alpha版本
 //#define Main_Url @"http://220.168.59.15:8081/hntfEsb"
 //#define Main_Url @"http://192.168.21.45:8080/hntfEsb"   // 梁哥
 //#define Main_Url @"http://192.168.21.73:8060/hntfEsb"   // 方
 //#define Main_Url @"http://192.168.206.23:8081/hntfEsb"
-//#define Main_Url @"http://192.168.21.48:8080/hntfEsb" // 文可为
+//#define Main_Url @"http://192.168.13.23:8080/hntfEsb" // 文可为
 //#define Main_Url @"http://192.168.21.61:8080/hntfEsb"   // 岳昊
 //#define Main_Url @"http://192.168.21.39:8080/hntfEsb" // 奉明保
 //#define Main_Url @"http://192.168.21.33:8080/hntfEsb"   // 家新
 //#define Main_Url @"http://192.168.21.141:8080/hntfEsb"    // 佳鑫
 //#define Main_Url @"http://192.168.208.73:8080/hntfEsb"
 
-#define MealMain_Url @"http://220.168.59.11:8083"   // 智慧餐饮、智慧幼儿园
+#define MealMain_Url @"https://220.168.59.11:8183"   // 智慧餐饮、智慧幼儿园
 
 //停车接口调试使用
 //#define ParkMain_Url @"http://192.168.21.185:8080/park-service-1.0-SNAPSHOT/hntfEsb"
 //#define ParkMain_Url @"http://www.hnzhangting.cn:9080/park-service/hntfEsb"
 //#define ParkMain_Url @"http://www.hnzhangting.cn:8080/park-service/hntfEsb"
+
 #define ParkMain_Url [NSString stringWithFormat:@"%@/park-service/hntfEsb", [[NSUserDefaults standardUserDefaults] objectForKey:KParkResquestIp]]
+
 //#define ParkMain_Url @"http://192.168.21.186:8082/service/hntfEsb"
 
 //#define ParkMain_Url @"http://192.168.1.134:8082/service/hntfEsb"

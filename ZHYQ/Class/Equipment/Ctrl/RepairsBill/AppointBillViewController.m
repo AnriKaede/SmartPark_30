@@ -22,6 +22,8 @@
 
 #import "DeviceInfoModel.h"
 
+#import "AppointUserListViewController.h"
+
 #define KInputMaxLength 200
 
 @interface AppointBillViewController ()<UITextViewDelegate, SelRepairManDelegate, UIGestureRecognizerDelegate, RejectWindowChooseDelegate, SelDeviceDelegate, UITextFieldDelegate>
@@ -83,6 +85,15 @@
             [self _loadBillInfoData:urlStr];
         }
     }
+    
+    if(_appointState == AppointRepairing ||
+       _appointState == AppointComplete){
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"远程协助" style:UIBarButtonItemStyleDone target:self action:@selector(appointList)];
+    }
+}
+- (void)appointList {
+    AppointUserListViewController *listVC = [[AppointUserListViewController alloc] init];
+    [self.navigationController pushViewController:listVC animated:YES];
 }
 
 - (void)_initView {

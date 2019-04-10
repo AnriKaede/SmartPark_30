@@ -78,7 +78,7 @@
     valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, titleLlabel.bottom + 8, circleWidth - 30, 35)];
     valueLabel.text = @"0";
     valueLabel.textColor = [UIColor whiteColor];
-    valueLabel.font = [UIFont systemFontOfSize:33];
+    valueLabel.font = [UIFont systemFontOfSize:29];
     valueLabel.textAlignment = NSTextAlignmentCenter;
     [bgRingView addSubview:valueLabel];
     
@@ -225,10 +225,30 @@
     _undealBeginNum = _distributeEndNum;
     [self setNeedsDisplay];
     
-    valueLabel.text = [NSString stringWithFormat:@"%.0f", undealNum + distributeNum + maintainNum];
-    undealFlagLabel.text = [NSString stringWithFormat:@"未处理(%.0f)", undealNum];
-    distributeFlagLabel.text = [NSString stringWithFormat:@"待派单(%.0f)", distributeNum];
-    maintainFlagLabel.text = [NSString stringWithFormat:@"处理中(%.0f)", maintainNum];
+    NSString *valueNum = [NSString stringWithFormat:@"%.0f", undealNum + distributeNum + maintainNum];
+    if(valueNum != nil && valueNum.integerValue > 9999){
+        valueLabel.text = @"9999+";
+    }else {
+        valueLabel.text = valueNum;
+    }
+    NSString *undealValue = [NSString stringWithFormat:@"%.0f", undealNum];
+    if(undealValue != nil && undealValue.integerValue > 99){
+        undealFlagLabel.text = @"未处理(99+)";
+    }else {
+        undealFlagLabel.text = [NSString stringWithFormat:@"未处理(%.0f)", undealNum];
+    }
+    NSString *distributeValue = [NSString stringWithFormat:@"%.0f", distributeNum];
+    if(distributeValue != nil && distributeValue.integerValue > 99){
+        distributeFlagLabel.text = @"待派单(99+)";
+    }else {
+        distributeFlagLabel.text = [NSString stringWithFormat:@"待派单(%.0f)", distributeNum];
+    }
+    NSString *maintainValue = [NSString stringWithFormat:@"%.0f", maintainNum];
+    if(maintainValue != nil && maintainValue.integerValue > 99){
+        maintainFlagLabel.text = @"处理中(99+)";
+    }else {
+        maintainFlagLabel.text = [NSString stringWithFormat:@"处理中(%.0f)", maintainNum];
+    }
 //    equLabel.text = [NSString stringWithFormat:@"设备%.0f", equipmentNum];
 //    safeLabel.text = [NSString stringWithFormat:@"安防%.0f", safeNum];
 }

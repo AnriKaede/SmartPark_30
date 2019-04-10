@@ -171,7 +171,7 @@
         
 //        UIImageView *videoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x.floatValue/2.4f, y.floatValue/2.4f, 20, 20)];
 //        videoImgView.image = [UIImage imageNamed:@"wifi_normal"];
-        videoImgView.tag = 100+idx;
+        videoImgView.tag = 9000+idx;
         bottomImgView.tag = 200+idx;
         bottomImgView.hidden = YES;
         videoImgView.userInteractionEnabled = YES;
@@ -194,7 +194,7 @@
         
         UIView *pointView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 160, 130)];
         pointView.center = CGPointMake([x floatValue], [y floatValue]);
-        pointView.tag = 100 + idx;
+        pointView.tag = 9000 + idx;
         [_mapView addSubview:pointView];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
         [pointView addGestureRecognizer:tap];
@@ -236,7 +236,7 @@
     
     [streetLightArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         SubDeviceModel *model = (SubDeviceModel *)obj;
-        UIView *pointView = [_mapView viewWithTag:100+idx];
+        UIView *pointView = [_mapView viewWithTag:9000+idx];
         UIImageView *imgView = [pointView viewWithTag:1000+idx];
         // 添加动画
         [self addViewBaseAnim:imgView];
@@ -264,7 +264,7 @@
     _streetLightMapArr = streetLightMapArr;
     
     [streetLightMapArr enumerateObjectsUsingBlock:^(StreetLightModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         // 添加动画
         [self addViewBaseAnim:imageView];
         
@@ -290,7 +290,7 @@
 {
     _wifiModelArr = wifiModelArr;
     [wifiModelArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
         InDoorWifiModel *model = (InDoorWifiModel *)obj;
         if ([model.WIFI_STATUS isEqualToString:@"1"]||[model.WIFI_STATUS isEqualToString:@"2"]) {
@@ -305,7 +305,7 @@
     _doorModelArr = doorModelArr;
     
     [doorModelArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
         DoorModel *model = (DoorModel *)obj;
         // 闸机用透明图片
@@ -325,7 +325,7 @@
 {
     _cameraModelArr = cameraModelArr;
     [cameraModelArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
         InDoorMonitorMapModel *model = (InDoorMonitorMapModel *)obj;
         if ([model.CAMERA_STATUS isEqualToString:@"1"]||[model.CAMERA_STATUS isEqualToString:@"2"]) {
@@ -354,7 +354,7 @@
 {
     _bgMusicArr = bgMusicArr;
     [bgMusicArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
         InDoorBgMusicMapModel *model = (InDoorBgMusicMapModel *)obj;
         if ([model.MUSIC_STATUS isEqualToString:@"5"]) {
@@ -389,7 +389,7 @@
 {
     _parkLightArr = parkLightArr;
     [parkLightArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
         ParkLightModel *model = (ParkLightModel *)obj;
         if ([model.EQUIP_STATUS isEqualToString:@"1"]) {
@@ -405,7 +405,7 @@
     _LEDMapArr = LEDMapArr;
     
     [LEDMapArr enumerateObjectsUsingBlock:^(LedListModel *model, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         // 添加动画
         [self addViewBaseAnim:imageView];
         
@@ -443,7 +443,7 @@
     _airConArr = airConArr;
     
     [airConArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
         AirConditionModel *model = (AirConditionModel *)obj;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -467,7 +467,7 @@
     _commncArr = commncArr;
     
     [commncArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         
         if([obj isKindOfClass:[CommnncCoverModel class]]){
             imageView.image = [UIImage imageNamed:@"cover_normal_icon"];
@@ -506,7 +506,7 @@
     _parkDownArr = parkDownArr;
     
     [parkDownArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIImageView *imageView = [_mapView viewWithTag:100+idx];
+        UIImageView *imageView = [_mapView viewWithTag:9000+idx];
         imageView.contentMode = UIViewContentModeScaleToFill;
         DownParkMdel *model = (DownParkMdel *)obj;
         if([model.seatFx isEqualToString:@"1"]){
@@ -520,7 +520,7 @@
 }
 // 修改车库点位图图标
 - (void)updateCarIcon:(DownParkMdel *)downParkMdel withIndex:(NSInteger)index {
-    UIImageView *imageView = [_mapView viewWithTag:100+index];
+    UIImageView *imageView = [_mapView viewWithTag:9000+index];
 //    [PointViewSelect recoverSelImgView:imageView];
     
     if([downParkMdel.seatFx isEqualToString:@"1"]){
@@ -532,7 +532,7 @@
     }
 }
 - (void)normalCarIcon:(DownParkMdel *)downParkMdel withIndex:(NSInteger)index {
-    UIImageView *imageView = [_mapView viewWithTag:100+index];
+    UIImageView *imageView = [_mapView viewWithTag:9000+index];
 //    [PointViewSelect pointImageSelect:imageView];
     
     if([downParkMdel.seatFx isEqualToString:@"1"]){
@@ -549,7 +549,8 @@
     if (self.selInMapDelegate) {
         UITapGestureRecognizer *tap = (UITapGestureRecognizer *)sender;
         if(_selInMapDelegate && [_selInMapDelegate respondsToSelector:@selector(selInMapWithId:)]){
-            [self.selInMapDelegate selInMapWithId:[NSString stringWithFormat:@"%ld",tap.view.tag]];            
+            // imageView tag 由100 改为 9000
+            [self.selInMapDelegate selInMapWithId:[NSString stringWithFormat:@"%ld",tap.view.tag - 8900]];
         }
     }
 }

@@ -266,6 +266,7 @@ typedef enum {
             _headerView.rightNumLab.text = [NSString stringWithFormat:@"%@",dic[@"errorCount"]];
         }
     } failure:^(NSError *error) {
+        NSLog(@"%@", error);
     }];
 }
 

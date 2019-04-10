@@ -11,7 +11,6 @@
 #import "RootNavigationController.h"
 #import "UITabBar+CustomBadge.h"
 
-
 #import "HomeViewController.h"
 #import "EquipmentViewCtroller.h"
 //#import "MessageViewController.h"
@@ -33,6 +32,7 @@
     [self setUpTabBar];
     //添加子控制器
     [self setUpAllChildViewController];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

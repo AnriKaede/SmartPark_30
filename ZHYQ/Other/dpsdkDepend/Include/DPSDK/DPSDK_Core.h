@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Copyright (c) 2012, 浙江大华
  * All rights reserved.
  *

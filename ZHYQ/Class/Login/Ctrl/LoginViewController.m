@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import <Hyphenate/Hyphenate.h>
 
 @interface LoginViewController ()<UITextFieldDelegate>
 
@@ -132,7 +133,24 @@
         [self showHint:@"请输入密码"];
         return;
     }
+    
+    [[EMClient sharedClient] loginWithUsername:_userNamePwd.text password:[NSString stringWithFormat:@"%@%@", _userNamePwd.text, IMPasswordRule] completion:^(NSString *aUsername, EMError *aError) {
+        if (!aError) {
+            NSLog(@"登录成功");
+            [self loginServer];
+        } else {
+            NSLog(@"登录失败");
+            if(aError.code == EMErrorUserNotFound){
+//                [self showHint:KRequestFailMsg];
+            }
+            // 登录失败继续服务器登录
+            [self loginServer];
+        }
+    }];
+    
+}
 
+- (void)loginServer {
     NSString *userName = _userNamePwd.text;
     NSString *pwd = [_passwordTxd.text md5String];
     NSString *registrationID = [kUserDefaults objectForKey:@"registrationID"];
@@ -195,7 +213,7 @@
         }else{
             NSString *message = responseObject[@"message"];
             if(message != nil && ![message isKindOfClass:[NSNull class]]){
-                [self showHint:message];                
+                [self showHint:message];
             }
         }
     } failure:^(NSError *error) {

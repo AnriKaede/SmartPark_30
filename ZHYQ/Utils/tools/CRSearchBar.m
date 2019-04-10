@@ -16,12 +16,14 @@
         self.hasCentredPlaceholder = YES;
         self.leftImage = leftImage;
         self.placeholderColor = placeholderColor;
+        
     }
     return self;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     // 通过遍历self.subviews找到searchField
     UITextField *searchField;
     NSUInteger numViews = [self.subviews count];

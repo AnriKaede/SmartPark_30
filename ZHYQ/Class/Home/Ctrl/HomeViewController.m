@@ -55,7 +55,19 @@
 
 //#import "ARSViewController.h"
 
-@interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate>
+#import "AESUtil.h"
+
+//#import "HomeViewController+IMChatManager.h"
+#import <Hyphenate/Hyphenate.h>
+#import <UserNotifications/UserNotifications.h>
+#import "EaseSDKHelper.h"
+#import "DemoCallManager.h"
+#import "EMGlobalVariables.h"
+#import "IMUserQuery.h"
+
+//BOOL gIsCalling = NO;
+
+@interface HomeViewController ()<todayClickDelegate, YQRemindUpdatedViewDelegate, TZImagePickerControllerDelegate, EMChatManagerDelegate, EMClientDelegate>
 {
     UIScrollView *bottomBgView;
     
@@ -166,6 +178,7 @@
     
     NSInteger _appCodeDifVersion;
 
+    BOOL gIsCalling;
 }
 
 @end
@@ -183,6 +196,9 @@
     [self _loadData];
     
     [self showVersionAlert];
+    
+    // 初始化环信
+    [self IMLogin];
     
     /* 17版本强制重新登录获取公司角色信息 */
     [self _reloadLoginInfo];
@@ -204,6 +220,7 @@
     // 恢复网络通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resumeNetworkSel) name:@"ResumeNetworkNotification" object:nil];
 }
+
 
 #pragma mark 从无网络恢复网络通知
 - (void)resumeNetworkSel {
@@ -423,6 +440,8 @@
     // 加载地图默认定位经纬度
     [self _loadLocationInfo];
     
+    // 获取环信对应服务器哟用户数据
+    [[IMUserQuery shaerInstance] loadServerUserData];
 }
 #pragma mark 加载大华sdk平台 登录信息
 - (void)_loadMonitorLoginInfo {
@@ -460,6 +479,7 @@
             NSDictionary *responseData = responseObject[@"responseData"];
             if(responseData != nil && ![responseData isKindOfClass:[NSNull class]]){
                 NSString *parkIp = responseData[@"parking"];
+//                NSString *parkUrl = [AESUtil decryptAES:parkIp key:AESKey];
                 [[NSUserDefaults standardUserDefaults] setObject:parkIp forKey:KParkResquestIp];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
@@ -1521,12 +1541,13 @@
                model.dssPasswd != nil && ![model.dssPasswd isKindOfClass:[NSNull class]]
                ){
                 // 登录视频监控账号
-                BOOL isSuc = [MonitorLogin loginWithAddress:model.dssAddr withPort:model.dssPort withName:model.dssAdmin withPsw:model.dssPasswd];
-                if(isSuc){
-                    // 登录成功
-                    _isLogin = YES;
-                }else {
-                }
+                [MonitorLogin loginWithAddress:model.dssAddr withPort:model.dssPort withName:model.dssAdmin withPsw:model.dssPasswd withResule:^(BOOL isSuc) {
+                    if(isSuc){
+                        // 登录成功
+                        _isLogin = YES;
+                    }else {
+                    }
+                }];
                 
             }
         }
@@ -1550,6 +1571,135 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"EnterForegroundAlert" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ResumeNetworkNotification" object:nil];
+    
+    [[EMClient sharedClient].chatManager removeDelegate:self];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:KNOTIFICATION_MAKE1V1CALL object:nil];
+}
+
+#pragma mark 环信
+- (void)IMLogin {
+    if(![EMClient sharedClient].isLoggedIn){
+        NSString *loginName = [[NSUserDefaults standardUserDefaults] objectForKey:KLoginUserName];
+        [[EMClient sharedClient] loginWithUsername:loginName password:[NSString stringWithFormat:@"%@%@", loginName, IMPasswordRule] completion:^(NSString *aUsername, EMError *aError) {
+            if (!aError) {
+                NSLog(@"登录成功");
+            } else {
+                NSLog(@"登录失败");
+                //                [self showHint:KRequestFailMsg];
+            }
+        }];
+    }
+    
+    // 代理环信协议(本地通知)
+    [[EMClient sharedClient] addDelegate:self delegateQueue:nil];
+    [[EMClient sharedClient].chatManager addDelegate:self delegateQueue:nil];
+    
+    [DemoCallManager sharedManager];
+    
+    if (gMainController == nil) {
+        [EMGlobalVariables setGlobalMainController:self];
+    }
+    
+}
+#pragma mark 接收消息
+- (void)messagesDidReceive:(NSArray *)aMessages {
+    for (EMMessage *msg in aMessages) {
+        UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+        // App在后台
+        if (state == UIApplicationStateBackground) {
+            //发送本地推送
+            if (NSClassFromString(@"UNUserNotificationCenter")) { // ios 10
+                if (@available(iOS 10.0, *)) {
+                    // 设置触发时间
+                    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:0.01 repeats:NO];
+                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                    content.sound = [UNNotificationSound defaultSound];
+                    
+                    EMMessageBody *body = msg.body;
+                    content.body = [self bodyMsg:body];
+                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:msg.messageId content:content trigger:trigger];
+                    [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:nil];
+                }
+            }else {
+                UILocalNotification *notification = [[UILocalNotification alloc] init];
+                notification.fireDate = [NSDate date]; //触发通知的时间
+                notification.alertBody = [self bodyMsg:msg.body];
+                notification.alertAction = @"Open";
+                notification.timeZone = [NSTimeZone defaultTimeZone];
+                notification.soundName = UILocalNotificationDefaultSoundName;
+                [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+            }
+        }else {
+            /*
+            // 设置触发时间
+            UILocalNotification *notification = [[UILocalNotification alloc] init];
+            notification.fireDate = [NSDate date]; //触发通知的时间
+            notification.alertBody = [self bodyMsg:msg.body];
+            notification.alertAction = @"Open";
+            notification.timeZone = [NSTimeZone defaultTimeZone];
+            notification.soundName = UILocalNotificationDefaultSoundName;
+            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+             */
+            [self playSound];
+        }
+    }
+}
+
+- (NSString *)bodyMsg:(EMMessageBody *)body {
+    NSString *bodyStr = @"您有一条新消息";
+    if(body.type == EMMessageBodyTypeText){
+        EMTextMessageBody *textMsg =  (EMTextMessageBody *)body;
+        bodyStr = [NSString stringWithFormat:@"%@", textMsg.text];
+    }else if (body.type == EMMessageBodyTypeImage) {
+        bodyStr = @"[图片]";
+    }else if (body.type == EMMessageBodyTypeVideo) {
+        bodyStr = @"[视频]";
+    }else if (body.type == EMMessageBodyTypeLocation) {
+        bodyStr = @"[位置信息]";
+    }else if (body.type == EMMessageBodyTypeVoice) {
+        bodyStr = @"[语音]";
+    }else if (body.type == EMMessageBodyTypeFile) {
+        bodyStr = @"[文件]";
+    }
+    
+    return bodyStr;
+}
+static SystemSoundID shake_sound_male_id = 0;
+-(void) playSound {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"in" ofType:@"caf"];
+    if (path) {
+        //注册声音到系统
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&shake_sound_male_id);
+        AudioServicesPlaySystemSound(shake_sound_male_id);
+        //        AudioServicesPlaySystemSound(shake_sound_male_id);//如果无法再下面播放，可以尝试在此播放
+    }
+    AudioServicesPlaySystemSound(shake_sound_male_id);   //播放注册的声音，（此句代码，可以在本类中的任意位置调用，不限于本方法中）
+    
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);   //让手机震动
+}
+
+/*!
+ *  当前登录账号在其它设备登录时会接收到该回调
+ */
+- (void)userAccountDidLoginFromOtherDevice {
+    [self showHint:@"您的账号在其他地方登录"];
+    RootNavigationController *loginVC = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginNavViewController"];
+    [self presentViewController:loginVC animated:YES completion:nil];
+    
+    [Utils logoutRemoveDefInfo];
+}
+
+/*!
+ *  当前登录账号已经被从服务器端删除时会收到该回调
+ */
+- (void)userAccountDidRemoveFromServer {
+    
+    [self showHint:@"您的账号在其他地方登录"];
+    RootNavigationController *loginVC = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"LoginNavViewController"];
+    [self presentViewController:loginVC animated:YES completion:nil];
+    
+    [Utils logoutRemoveDefInfo];
 }
 
 @end

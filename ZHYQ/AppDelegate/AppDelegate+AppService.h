@@ -18,6 +18,8 @@
 -(void)initWindow;
 //初始化高德地图
 -(void)initMap;
+//初始化环信
+-(void)initIM;
 
 //单例
 + (AppDelegate *)shareAppDelegate;

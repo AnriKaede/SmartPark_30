@@ -14,6 +14,8 @@
 #import <sys/sysctl.h>
 #import <SAMKeychain.h>
 
+#import <Hyphenate/Hyphenate.h>
+
 #import "LauchViewController.h"
 
 @interface AppDelegate ()<UITabBarControllerDelegate>
@@ -37,7 +39,9 @@
         [self initWindow];
     }
     
-    //初始化极光推送
+    //初始化环信
+    [self initIM];
+    //初始化极光推送(环信中推送设置在极光中同步初始化)
     [self initJPush:launchOptions];
     //初始化高德地图
     [self initMap];
@@ -67,12 +71,14 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    
+    [[EMClient sharedClient] applicationDidEnterBackground:application];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // 后台到前台
     [[NSNotificationCenter defaultCenter] postNotificationName:@"EnterForegroundAlert" object:nil];
+    
+    [[EMClient sharedClient] applicationWillEnterForeground:application];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

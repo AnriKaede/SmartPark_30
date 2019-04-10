@@ -109,7 +109,7 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     
     UIButton *remindNewVersionBtn = [[UIButton alloc] init];
-    remindNewVersionBtn.frame = CGRectMake(0, CGRectGetMinY(_versionNumLabel.frame)+5, 150, 30);
+    remindNewVersionBtn.frame = CGRectMake(0, _versionNumLabel.bottom+15, 150, 30);
     [remindNewVersionBtn setTitle:@"当前为最新版本" forState:UIControlStateNormal];
     [remindNewVersionBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     [remindNewVersionBtn setTitleColor:[UIColor colorWithHexString:@"#333333"] forState:UIControlStateNormal];
@@ -117,7 +117,7 @@
     [self.view addSubview:remindNewVersionBtn];
     
     if ([_isNeedUpdate isEqualToString:@"1"]) {
-        remindNewVersionBtn.frame = CGRectMake(0, CGRectGetMinY(_versionNumLabel.frame)+5, 90, 30);
+        remindNewVersionBtn.frame = CGRectMake(0, _versionNumLabel.bottom+15, 90, 30);
         [remindNewVersionBtn setTitle:@"发现新版本" forState:UIControlStateNormal];
         [remindNewVersionBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [remindNewVersionBtn setTitleColor:[UIColor colorWithHexString:@"#1B82D1"] forState:UIControlStateNormal];

@@ -1744,6 +1744,65 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="75" id="XEb-Al-N6R">
+                                        <rect key="frame" x="0.0" y="225" width="375" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XEb-Al-N6R" id="fGd-hM-oBR">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message_appoint" translatesAutoresizingMaskIntoConstraints="NO" id="TAX-Ll-Mrg">
+                                                    <rect key="frame" x="10" y="15" width="45" height="45"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="45" id="s3D-gI-wAL"/>
+                                                        <constraint firstAttribute="height" constant="45" id="wOw-l7-KLD"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="远程协助消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L7g-cL-h4J">
+                                                    <rect key="frame" x="71" y="15" width="104" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂无消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DlN-2i-rnR">
+                                                    <rect key="frame" x="71" y="39.5" width="260" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.34518989919999998" green="0.34518280629999998" blue="0.34518763419999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUK-js-00c">
+                                                    <rect key="frame" x="335" y="42" width="24" height="15"/>
+                                                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="8bg-NA-O0J"/>
+                                                        <constraint firstAttribute="height" constant="15" id="USp-e7-VCN"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nE-Pq-YkZ">
+                                                    <rect key="frame" x="365" y="25.5" width="0.0" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TAX-Ll-Mrg" firstAttribute="leading" secondItem="fGd-hM-oBR" secondAttribute="leading" constant="10" id="887-Ax-qKY"/>
+                                                <constraint firstItem="L7g-cL-h4J" firstAttribute="leading" secondItem="TAX-Ll-Mrg" secondAttribute="trailing" constant="16" id="Fjn-md-laS"/>
+                                                <constraint firstItem="3nE-Pq-YkZ" firstAttribute="centerY" secondItem="L7g-cL-h4J" secondAttribute="centerY" id="IEp-iR-R1y"/>
+                                                <constraint firstItem="TAX-Ll-Mrg" firstAttribute="centerY" secondItem="fGd-hM-oBR" secondAttribute="centerY" id="Lb1-cd-SoO"/>
+                                                <constraint firstItem="DlN-2i-rnR" firstAttribute="bottom" secondItem="TAX-Ll-Mrg" secondAttribute="bottom" id="R1C-wL-KPq"/>
+                                                <constraint firstAttribute="trailing" secondItem="oUK-js-00c" secondAttribute="trailing" constant="16" id="Sbk-3v-ena"/>
+                                                <constraint firstItem="oUK-js-00c" firstAttribute="leading" secondItem="DlN-2i-rnR" secondAttribute="trailing" constant="4" id="ac2-PO-bMy"/>
+                                                <constraint firstAttribute="trailing" secondItem="3nE-Pq-YkZ" secondAttribute="trailing" constant="10" id="cVL-XF-8vs"/>
+                                                <constraint firstItem="oUK-js-00c" firstAttribute="centerY" secondItem="DlN-2i-rnR" secondAttribute="centerY" id="epi-X8-Ye6"/>
+                                                <constraint firstItem="L7g-cL-h4J" firstAttribute="top" secondItem="TAX-Ll-Mrg" secondAttribute="top" id="lgc-s2-Th5"/>
+                                                <constraint firstItem="DlN-2i-rnR" firstAttribute="leading" secondItem="L7g-cL-h4J" secondAttribute="leading" id="w4e-lu-0QZ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1753,6 +1812,8 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="_IMNNewMsgLabel" destination="DlN-2i-rnR" id="7gb-G4-ief"/>
+                        <outlet property="_IMNumMsgLabel" destination="oUK-js-00c" id="8da-dJ-Ox1"/>
                         <outlet property="_billNewMsgLabel" destination="AIs-tg-PwJ" id="4GK-qU-82Z"/>
                         <outlet property="_billTimeLabel" destination="gw9-VL-flC" id="Mrv-vn-b22"/>
                         <outlet property="_biullUnReadNumMsgLabel" destination="aha-Zi-UXV" id="CF8-qU-LBK"/>
@@ -2051,6 +2112,7 @@
         <image name="code_top" width="179.5" height="64.5"/>
         <image name="down_code" width="128.25" height="126.75"/>
         <image name="meetroon_add_scene" width="25" height="25"/>
+        <image name="message_appoint" width="45" height="45"/>
         <image name="message_bill_icon" width="45" height="45"/>
         <image name="message_login_icon" width="45" height="45"/>
         <image name="message_wran_icon" width="45" height="45"/>

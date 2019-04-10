@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol FilterTimeDelegate <NSObject>
+@protocol FilterRecordTimeDelegate <NSObject>
 
 - (void)closeFilter;
 - (void)resetFilter;
@@ -18,6 +18,6 @@
 
 @interface ParkRecordFilterView : UIView
 
-@property (nonatomic,assign) id<FilterTimeDelegate> filterTimeDelegate;
+@property (nonatomic,assign) id<FilterRecordTimeDelegate> filterTimeDelegate;
 
 @end

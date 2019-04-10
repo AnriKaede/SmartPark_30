@@ -82,6 +82,8 @@
 
 #import "InDoorWifiViewController.h"
 
+#import "RobotHomeViewController.h"
+
 #define equipmentCellID    @"EquipmentCollectionViewCell"
 #define headViewOne        @"headViewOne"
 #define headViewSeconed    @"headViewSeconed"
@@ -728,6 +730,15 @@
                 // 福门
                 HpDoorCenViewController *hpVC = [[HpDoorCenViewController alloc] init];
                 [self.navigationController pushViewController:hpVC animated:YES];
+                break;
+            }
+            case 237813:
+            {
+                // 机器人
+                RobotHomeViewController *robptVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"RobotHomeViewController"];
+                robptVC.isHidenNaviBar = YES;
+                [self.navigationController pushViewController:robptVC animated:YES];
+                
                 break;
             }
                 
