@@ -21,7 +21,7 @@
 #import "NoDataView.h"
 #import <UITableView+PlaceHolderView.h>
 
-#import "DHDataCenter.h"
+//#import "DHDataCenter.h"
 #import "PlayVideoViewController.h"
 #import "PlaybackViewController.h"
 
@@ -287,6 +287,8 @@
         
         _showMenuView.hidden = NO;
         
+        #warning 大华SDK旧版本
+        /*
         DeviceTreeNode* tasksGroup =  [DHDataCenter sharedInstance].CamerasGroups;
         
         _stateStr = @"";
@@ -309,6 +311,7 @@
             }];
         }
         
+         */
         _menuTitle = model.DEVICE_NAME;
         
         [_showMenuView reloadMenuData]; //  刷新菜单
@@ -512,7 +515,8 @@
             [self showHint:@"相机无参数"];
             return;
         }
-        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
+        #warning 大华SDK旧版本
+//        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
         
         PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
         playVC.deviceType = _currentModel.DEVICE_TYPE;
@@ -523,7 +527,8 @@
             [self showHint:@"相机无参数"];
             return;
         }
-        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
+        #warning 大华SDK旧版本
+//        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
         
         PlaybackViewController *playVC = [[PlaybackViewController alloc] init];
         [self.navigationController pushViewController:playVC animated:YES];

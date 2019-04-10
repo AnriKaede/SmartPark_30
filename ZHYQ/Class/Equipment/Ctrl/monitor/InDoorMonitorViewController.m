@@ -20,7 +20,7 @@
 #import "NoDataView.h"
 #import <UITableView+PlaceHolderView.h>
 
-#import "DHDataCenter.h"
+//#import "DHDataCenter.h"
 #import "PlayVideoViewController.h"
 #import "PlaybackViewController.h"
 
@@ -483,7 +483,8 @@
             [self showHint:@"相机无参数"];
             return;
         }
-        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
+        #warning 大华SDK旧版本
+//        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
         
         [self forceOrientationPortrait];
         
@@ -496,7 +497,8 @@
             [self showHint:@"相机无参数"];
             return;
         }
-        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
+        #warning 大华SDK旧版本
+//        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
         
         [self forceOrientationPortrait];
         
@@ -515,6 +517,8 @@
     InDoorMonitorMapModel *model = self.cameraDataArr[selectIndex];
     _currentModel = model;
     
+    #warning 大华SDK旧版本
+    /*
     DeviceTreeNode* tasksGroup =  [DHDataCenter sharedInstance].CamerasGroups;
     
     _stateStr = @"";
@@ -536,6 +540,7 @@
             }
         }];
     }
+     */
     
     
     _showMenuView.hidden = NO;

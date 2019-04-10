@@ -9,9 +9,9 @@
 #import "MealIntimeCell.h"
 #import "AAChartView.h"
 
-#import "DHVideoWnd.h"
-#import "PreviewManager.h"
-#import "TalkManager.h"
+//#import "DHVideoWnd.h"
+//#import "PreviewManager.h"
+//#import "TalkManager.h"
 
 @interface MealIntimeCell()
 @property (nonatomic, strong) AAChartModel *mixChartModel;
@@ -25,7 +25,7 @@
     __weak IBOutlet UIView *_bottomView;
     __weak IBOutlet NSLayoutConstraint *_playHeight;
     
-    DHVideoWnd  *videoWnd_;
+//    DHVideoWnd  *videoWnd_;
     UIButton *_colseBt;
     BOOL _isHidBar;
 }
@@ -74,10 +74,13 @@
     // 视频监控视图
     [self _initPlayView];
     
+    #warning 大华SDK旧版本
+    /*
     [DHDataCenter sharedInstance].channelID = @"1000229$1$0$0"; // 二楼 1000235$1$0$0
     [[PreviewManager sharedInstance] initData];
     int flag = [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
     NSLog(@"%d", flag);
+     */
 }
 
 - (void)_initChartView {
@@ -117,11 +120,14 @@
 
 #pragma mark 就餐热度 实时视频
 - (void)_initPlayView {
+    #warning 大华SDK旧版本
+    /*
     // 创建视频播放视图
     videoWnd_ = [[DHVideoWnd alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth - 24, _playHeight.constant*wScale)];
     videoWnd_.backgroundColor = [UIColor orangeColor];
     [_bottomView addSubview:videoWnd_];
-    
+    */
+     
     /*
     UITapGestureRecognizer *fullTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullAction)];
     fullTap.numberOfTapsRequired = 2;
@@ -141,6 +147,8 @@
      */
 }
 
+#warning 大华SDK旧版本
+/*
 // 全屏显示
 - (void)fullAction {
     _colseBt.hidden = NO;
@@ -162,7 +170,8 @@
     videoWnd_.transform = CGAffineTransformRotate(videoWnd_.transform, -M_PI_2);
     videoWnd_.frame = CGRectMake(0, 0, KScreenWidth, _bottomView.height);
 }
-
+*/
+ 
 #pragma mark 设置数据
 - (void)setCostData:(NSArray *)costData {
     _costData = costData;
@@ -226,7 +235,8 @@
 {
     //重新进入前台的时候 app重新打开之前后台关闭的视频
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
+        #warning 大华SDK旧版本
+//        [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
     });
     NSLog(@"appHasGoneInForegroundNotification--openRealPlay");
 }
@@ -234,8 +244,9 @@
 {
     //进入后台之后
     //如果当前打开视频的话 需要默认关闭
-    [[PreviewManager sharedInstance]stopRealPlay];
-    [[TalkManager sharedInstance]stopTalk];
+    #warning 大华SDK旧版本
+//    [[PreviewManager sharedInstance]stopRealPlay];
+//    [[TalkManager sharedInstance]stopTalk];
 }
 
 -(void)dealloc

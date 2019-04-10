@@ -12,7 +12,7 @@
 #import "PlayVideoViewController.h"
 #import "PlaybackViewController.h"
 
-#import "DHDataCenter.h"
+//#import "DHDataCenter.h"
 
 @implementation MonitorTableViewCell
 
@@ -25,10 +25,12 @@
 - (IBAction)playBtnAction:(id)sender {
     NSString *deviceType = @"";
     if(_indoorModel != nil && _indoorModel.TAGID != nil && ![_indoorModel.TAGID isKindOfClass:[NSNull class]]){
-        [DHDataCenter sharedInstance].channelID = _indoorModel.TAGID;
+        #warning 大华SDK旧版本
+//        [DHDataCenter sharedInstance].channelID = _indoorModel.TAGID;
         deviceType = _indoorModel.DEVICE_TYPE;
     }else if(_mapModel != nil && _mapModel.TAGID != nil && ![_mapModel.TAGID isKindOfClass:[NSNull class]]){
-        [DHDataCenter sharedInstance].channelID = _mapModel.TAGID;
+        #warning 大华SDK旧版本
+//        [DHDataCenter sharedInstance].channelID = _mapModel.TAGID;
         deviceType = _mapModel.DEVICE_TYPE;
     }else {
         [[self viewController] showHint:@"无相机参数"];
@@ -46,6 +48,8 @@
 }
 
 - (void)DSSPlayDeviceType:(NSString *)deviceType withCareraId:(NSString *)careraID {
+    #warning 大华SDK旧版本
+    /*
     DeviceTreeNode* tasksGroup =  [DHDataCenter sharedInstance].CamerasGroups;
     
     [tasksGroup queryNodeByCareraId:careraID withBlock:^(DeviceTreeNode *node) {
@@ -63,15 +67,18 @@
             _indoorModel.CAMERA_STATUS = @"2";
         }
     }];
+     */
 }
 
 - (IBAction)playBlackBtnAction:(id)sender {
     NSString *deviceType = @"";
     if(_indoorModel != nil && _indoorModel.TAGID != nil && ![_indoorModel.TAGID isKindOfClass:[NSNull class]]){
-        [DHDataCenter sharedInstance].channelID = _indoorModel.TAGID;
+        #warning 大华SDK旧版本
+//        [DHDataCenter sharedInstance].channelID = _indoorModel.TAGID;
         deviceType = _indoorModel.DEVICE_TYPE;
     }else if(_mapModel != nil && _mapModel.TAGID != nil && ![_mapModel.TAGID isKindOfClass:[NSNull class]]){
-        [DHDataCenter sharedInstance].channelID = _mapModel.TAGID;
+        #warning 大华SDK旧版本
+//        [DHDataCenter sharedInstance].channelID = _mapModel.TAGID;
         deviceType = _mapModel.DEVICE_TYPE;
     }else {
         [[self viewController] showHint:@"无相机参数"];

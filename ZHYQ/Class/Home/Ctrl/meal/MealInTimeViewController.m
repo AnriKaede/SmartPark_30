@@ -9,8 +9,8 @@
 #import "MealInTimeViewController.h"
 #import "MealIntimeCell.h"
 
-#import "PreviewManager.h"
-#import "TalkManager.h"
+//#import "PreviewManager.h"
+//#import "TalkManager.h"
 
 @interface MealInTimeViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -131,19 +131,22 @@
 //    [[TalkManager sharedInstance]stopTalk];
 //    [[PreviewManager sharedInstance]initData];
     
-    [[PreviewManager sharedInstance] pauseRealPlay:YES];
+    #warning 大华SDK旧版本
+//    [[PreviewManager sharedInstance] pauseRealPlay:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[PreviewManager sharedInstance] pauseRealPlay:NO];
+    #warning 大华SDK旧版本
+//    [[PreviewManager sharedInstance] pauseRealPlay:NO];
 }
 
 - (void)dealloc {
-    [[PreviewManager sharedInstance]stopRealPlay];
-    [[TalkManager sharedInstance]stopTalk];
-    [[PreviewManager sharedInstance]initData];
+    #warning 大华SDK旧版本
+//    [[PreviewManager sharedInstance]stopRealPlay];
+//    [[TalkManager sharedInstance]stopTalk];
+//    [[PreviewManager sharedInstance]initData];
 }
 
 @end

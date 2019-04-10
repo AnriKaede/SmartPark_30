@@ -13,7 +13,7 @@
 #import "ElevatorModel.h"
 #import "SubElevatorModel.h"
 
-#import "DHDataCenter.h"
+//#import "DHDataCenter.h"
 #import "PlayVideoViewController.h"
 
 @interface ElevatorViewController ()<UITableViewDelegate,UITableViewDataSource, ElevatorMonitorDelegate, CYLTableViewPlaceHolderDelegate>
@@ -288,7 +288,8 @@
                     return;
                 }
                 
-                [DHDataCenter sharedInstance].channelID = subElevatorModel.TAGID;
+                #warning 大华SDK旧版本
+//                [DHDataCenter sharedInstance].channelID = subElevatorModel.TAGID;
 
                 PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
                 playVC.deviceType = subElevatorModel.DEVICE_TYPE;

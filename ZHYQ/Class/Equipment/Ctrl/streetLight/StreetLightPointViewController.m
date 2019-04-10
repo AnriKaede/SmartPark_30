@@ -20,7 +20,7 @@
 
 #import "PlayVideoViewController.h"
 #import "PlaybackViewController.h"
-#import "DHDataCenter.h"
+//#import "DHDataCenter.h"
 #import "LEDScreenShotViewController.h"
 
 @interface StreetLightPointViewController ()<DidSelInMapPopDelegate, PlayMonitorDelegate, CurrentScreenDelegate, MusicOperateDelegate>
@@ -263,7 +263,8 @@
         return;
     }
     
-    [DHDataCenter sharedInstance].channelID = subDeviceModel.TAGID;
+    #warning 大华SDK旧版本
+//    [DHDataCenter sharedInstance].channelID = subDeviceModel.TAGID;
     
     PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
     playVC.deviceType = subDeviceModel.DEVICE_TYPE;
@@ -274,7 +275,8 @@
         [self showHint:@"相机无参数"];
         return;
     }
-    [DHDataCenter sharedInstance].channelID = subDeviceModel.TAGID;
+    #warning 大华SDK旧版本
+//    [DHDataCenter sharedInstance].channelID = subDeviceModel.TAGID;
     
     PlaybackViewController *playVC = [[PlaybackViewController alloc] init];
     [self.navigationController pushViewController:playVC animated:YES];

@@ -15,7 +15,6 @@
 
 #import "UIViewController+WLAlert.h"
 
-#import "DHDataCenter.h"
 #import "WaterMonitorViewController.h"
 
 @interface WaterViewController ()<UITableViewDelegate,UITableViewDataSource, WaterSwitchDelegate>
@@ -150,7 +149,8 @@
 
 #pragma mark 实景视频
 - (void)viewModel {
-    [DHDataCenter sharedInstance].channelID = @"1000243$1$0$0";
+#warning 大华SDK旧版本
+//    [DHDataCenter sharedInstance].channelID = @"1000243$1$0$0";
     
     WaterMonitorViewController *waterMonVC = [[WaterMonitorViewController alloc] init];
     [self.navigationController pushViewController:waterMonVC animated:YES];

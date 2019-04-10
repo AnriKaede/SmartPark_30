@@ -16,8 +16,8 @@
 
 #import "VisotorListViewController.h"
 
-#import "PreviewManager.h"
-#import "TalkManager.h"
+//#import "PreviewManager.h"
+//#import "TalkManager.h"
 
 @interface MealTabBarController ()<UITabBarControllerDelegate>
 {
@@ -74,10 +74,13 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
     
+    #warning 大华SDK旧版本
+    /*
     // 释放视频播放
     [[PreviewManager sharedInstance]stopRealPlay];
     [[TalkManager sharedInstance]stopTalk];
     [[PreviewManager sharedInstance]initData];
+     */
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {

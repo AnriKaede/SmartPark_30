@@ -33,7 +33,7 @@
 
 #import "PlayVideoViewController.h"
 #import "PlaybackViewController.h"
-#import "DHDataCenter.h"
+//#import "DHDataCenter.h"
 
 @interface StreetLightsViewController ()<UIScrollViewDelegate,DidSelInMapPopDelegate,reloadDelegate,UICollectionViewDelegate,UICollectionViewDataSource, StreetSelDeviceDelegate, PlayMonitorDelegate>
 {
@@ -433,7 +433,8 @@
         return;
     }
     
-    [DHDataCenter sharedInstance].channelID = subDeviceModel.TAGID;
+    #warning 大华SDK旧版本
+//    [DHDataCenter sharedInstance].channelID = subDeviceModel.TAGID;
     
     PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
     playVC.deviceType = subDeviceModel.DEVICE_TYPE;

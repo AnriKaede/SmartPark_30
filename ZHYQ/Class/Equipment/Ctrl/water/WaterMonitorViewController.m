@@ -7,13 +7,13 @@
 //
 
 #import "WaterMonitorViewController.h"
-#import "DHVideoWnd.h"
-#import "PreviewManager.h"
-#import "TalkManager.h"
+//#import "PreviewManager.h"
+//#import "TalkManager.h"
 
 @interface WaterMonitorViewController ()
 {
-    DHVideoWnd  *videoWnd_;
+    #warning 大华SDK旧版本
+//    DHVideoWnd  *videoWnd_;
     
     UIButton *_colseBt;
     BOOL _isHidBar;
@@ -32,9 +32,12 @@
     
     [self addNotification];
     
+    #warning 大华SDK旧版本
+    /*
     [[PreviewManager sharedInstance] initData];
     
     [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
+     */
 }
 
 - (void)_initView {
@@ -53,6 +56,8 @@
     UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
     [self.view addGestureRecognizer:pan];
     
+    #warning 大华SDK旧版本
+    /*
     // 创建视频播放视图
     videoWnd_ = [[DHVideoWnd alloc]initWithFrame:CGRectMake(0, (KScreenHeight - 285*wScale - kTopHeight)/2, KScreenWidth, 285*wScale)];
     videoWnd_.backgroundColor = [UIColor orangeColor];
@@ -61,6 +66,7 @@
     UITapGestureRecognizer *fullTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullAction)];
     fullTap.numberOfTapsRequired = 2;
     [videoWnd_ addGestureRecognizer:fullTap];
+     */
     
     _colseBt = [UIButton buttonWithType:UIButtonTypeCustom];
     _colseBt.hidden = YES;
@@ -80,6 +86,8 @@
     return _isHidBar;
 }
 
+#warning 大华SDK旧版本
+/*
 // 全屏显示
 - (void)fullAction {
     _isHidBar = YES;
@@ -109,6 +117,7 @@
     videoWnd_.transform = CGAffineTransformRotate(videoWnd_.transform, -M_PI_2);
     videoWnd_.frame = CGRectMake(0, (KScreenHeight - 285*wScale - kTopHeight)/2, KScreenWidth, 285*wScale);
 }
+ */
 
 - (void)_leftBarBtnItemClick {
     [self.navigationController popViewControllerAnimated:YES];
@@ -127,6 +136,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#warning 大华SDK旧版本
+/*
 -(void)appHasGoneInForegroundNotification
 {
     //重新进入前台的时候 app重新打开之前后台关闭的视频
@@ -151,6 +162,7 @@
     [[TalkManager sharedInstance]stopTalk];
     [[PreviewManager sharedInstance]initData];
 }
+ */
 -(void)dealloc
 {
     [self removeNotification];

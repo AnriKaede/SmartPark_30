@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DSSRealPtzControlView">
+            <connections>
+                <outlet property="ptzTitleBtn" destination="TcA-2N-Up5" id="knI-vd-I66"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="AUc-aD-4sW">
+            <rect key="frame" x="0.0" y="0.0" width="154" height="47"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yz-Ji-yBE">
+                    <rect key="frame" x="0.0" y="0.0" width="40" height="47"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Kkd-TL-ogd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <state key="normal" title="-"/>
+                    <connections>
+                        <action selector="reduceBtnClick:" destination="-1" eventType="touchUpInside" id="FJd-u2-fBi"/>
+                        <action selector="reduceBtnTouchDown:" destination="-1" eventType="touchDown" id="e9h-sl-uCg"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TcA-2N-Up5">
+                    <rect key="frame" x="40" y="0.0" width="75" height="47"/>
+                    <state key="normal">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GTe-PH-gC2">
+                    <rect key="frame" x="114" y="0.0" width="40" height="47"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="7oS-JI-ekr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <state key="normal" title="+"/>
+                    <connections>
+                        <action selector="addBtnClick:" destination="-1" eventType="touchUpInside" id="BAX-s6-HO3"/>
+                        <action selector="addBtnTouchDown:" destination="-1" eventType="touchDown" id="XLi-Ox-QJ5"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="GTe-PH-gC2" secondAttribute="trailing" id="3OP-9U-380"/>
+                <constraint firstAttribute="bottom" secondItem="GTe-PH-gC2" secondAttribute="bottom" id="3hK-8N-b0y"/>
+                <constraint firstItem="TcA-2N-Up5" firstAttribute="centerX" secondItem="AUc-aD-4sW" secondAttribute="centerX" id="AgS-PC-Xfl"/>
+                <constraint firstItem="TcA-2N-Up5" firstAttribute="leading" secondItem="9Yz-Ji-yBE" secondAttribute="trailing" id="FwL-u6-Jhf"/>
+                <constraint firstAttribute="bottom" secondItem="9Yz-Ji-yBE" secondAttribute="bottom" id="I8B-8A-qf5"/>
+                <constraint firstItem="9Yz-Ji-yBE" firstAttribute="leading" secondItem="AUc-aD-4sW" secondAttribute="leading" id="KEe-6x-tyd"/>
+                <constraint firstAttribute="bottom" secondItem="TcA-2N-Up5" secondAttribute="bottom" id="NTk-Md-jLQ"/>
+                <constraint firstItem="GTe-PH-gC2" firstAttribute="top" secondItem="AUc-aD-4sW" secondAttribute="top" id="TAn-x5-hMl"/>
+                <constraint firstItem="TcA-2N-Up5" firstAttribute="top" secondItem="AUc-aD-4sW" secondAttribute="top" id="hub-gk-4nZ"/>
+                <constraint firstItem="9Yz-Ji-yBE" firstAttribute="top" secondItem="AUc-aD-4sW" secondAttribute="top" id="uB2-4d-q75"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-1421" y="-298.5"/>
+        </view>
+    </objects>
+</document>

@@ -20,7 +20,9 @@ pod 'MJExtension', '~> 3.0.13'
 pod 'YHPlaceHolderView', '~> 1.0.0'
 pod 'CYLTableViewPlaceHolder', '~> 1.0.8'
 
-pod 'dpsdk', :path => '../SmartPark_30/ZHYQ/Other/dpsdkDepend'
+#pod 'dpsdk', :path => '../SmartPark_30/ZHYQ/Other/dpsdkDepend'
+# 大华新SDK 已手动导入
+#pod 'DataAdapterSDK', :path => '../SmartPark_30/ZHYQ/Other/DataAdapterSDK'
 
 pod 'SCLAlertView-Objective-C', '~> 1.1.2'
 

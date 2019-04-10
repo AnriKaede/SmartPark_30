@@ -8,9 +8,6 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
-#import "DPSDK_Core.h"
-#import "DHDataCenter.h"
-#import "DPSDK_Core_Error.h"
 #import <sys/sysctl.h>
 #import <SAMKeychain.h>
 
@@ -47,17 +44,10 @@
     [self initMap];
     
     //程序启动后创建DPSDK句柄
+    /// 由于dpsdk是长连接，为防止程序在后台时信号量引发问题
     struct sigaction sa;
     sa.sa_handler = SIG_IGN;
-    sigaction(SIGPIPE, &sa, 0);
-    if ( DPSDK_RET_SUCCESS != DPSDK_Create(DPSDK_CORE_SDK_SERVER,
-                                           &([DHDataCenter sharedInstance]->nDPHandle_)))
-    {
-        //.....
-    }
-    DPSDK_SetCompressType([DHDataCenter sharedInstance]->nDPHandle_, DPSDK_CORE_GET_DEVINFO_BY_COMPRESSED);
-    
-    [[DHDataCenter sharedInstance] loadAccount];
+    sigaction(SIGPIPE, &sa,0);
 
     // 保存信息
     [self saveDeviceModel];

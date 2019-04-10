@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlaybackProgress">
+            <connections>
+                <outlet property="contentView" destination="bTB-rk-GvA" id="Ph5-ZL-VBP"/>
+                <outlet property="endTimeLabel" destination="Yx3-Xl-4ER" id="51l-1x-4Zl"/>
+                <outlet property="progressSlider" destination="Rht-fK-ITZ" id="QEi-CP-Bx9"/>
+                <outlet property="startTimeLabel" destination="wcy-s8-E0T" id="DOo-rs-ubu"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="uzH-eO-6xY">
+            <rect key="frame" x="0.0" y="0.0" width="350" height="68"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTB-rk-GvA" userLabel="ProgressView">
+                    <rect key="frame" x="0.0" y="0.0" width="350" height="68"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcy-s8-E0T" userLabel="startTimeLabel">
+                            <rect key="frame" x="8" y="24" width="70" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="ZFX-cc-4Hz"/>
+                                <constraint firstAttribute="height" constant="21" id="h1w-Mk-Mi5"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Rht-fK-ITZ" userLabel="speedSlider">
+                            <rect key="frame" x="82" y="19" width="191" height="31"/>
+                            <color key="minimumTrackTintColor" red="0.19513615970000001" green="0.60497862099999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="maximumTrackTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="thumbTintColor" red="0.2247495055" green="0.58934062720000002" blue="0.99616104360000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="sliderTouchCancel:" destination="-1" eventType="touchCancel" id="dZa-g2-mRq"/>
+                                <action selector="sliderTouchUp:" destination="-1" eventType="touchUpInside" id="OX1-rL-g1o"/>
+                                <action selector="sliderValueChange:" destination="-1" eventType="valueChanged" id="61w-ja-osU"/>
+                            </connections>
+                        </slider>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yx3-Xl-4ER" userLabel="endTimeLabel">
+                            <rect key="frame" x="279" y="24" width="70" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="nPc-II-XYQ"/>
+                                <constraint firstAttribute="height" constant="21" id="oGq-17-zl4"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="wcy-s8-E0T" firstAttribute="leading" secondItem="bTB-rk-GvA" secondAttribute="leading" constant="8" id="33l-Sc-Eah"/>
+                        <constraint firstItem="Rht-fK-ITZ" firstAttribute="leading" secondItem="wcy-s8-E0T" secondAttribute="trailing" constant="6" id="4BW-QG-WqD"/>
+                        <constraint firstItem="Yx3-Xl-4ER" firstAttribute="centerY" secondItem="bTB-rk-GvA" secondAttribute="centerY" id="5pz-fk-pic"/>
+                        <constraint firstItem="Yx3-Xl-4ER" firstAttribute="leading" secondItem="Rht-fK-ITZ" secondAttribute="trailing" constant="8" id="KYx-cn-c2M"/>
+                        <constraint firstItem="wcy-s8-E0T" firstAttribute="centerY" secondItem="bTB-rk-GvA" secondAttribute="centerY" id="hxt-Xb-Nhd"/>
+                        <constraint firstItem="Rht-fK-ITZ" firstAttribute="centerY" secondItem="bTB-rk-GvA" secondAttribute="centerY" id="kWF-Q8-lbm"/>
+                        <constraint firstAttribute="trailing" secondItem="Yx3-Xl-4ER" secondAttribute="trailing" constant="1" id="qqh-dI-WiQ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="bTB-rk-GvA" secondAttribute="trailing" id="2D0-Zj-z0b"/>
+                <constraint firstItem="bTB-rk-GvA" firstAttribute="top" secondItem="uzH-eO-6xY" secondAttribute="top" id="8Kh-OM-wKq"/>
+                <constraint firstItem="bTB-rk-GvA" firstAttribute="leading" secondItem="uzH-eO-6xY" secondAttribute="leading" id="dPY-Mi-Uyy"/>
+                <constraint firstAttribute="bottom" secondItem="bTB-rk-GvA" secondAttribute="bottom" id="iSL-g8-0kk"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-182" y="-133"/>
+        </view>
+    </objects>
+</document>
