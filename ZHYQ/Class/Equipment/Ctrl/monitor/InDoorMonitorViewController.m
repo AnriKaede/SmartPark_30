@@ -503,10 +503,12 @@
         }
         #warning 大华SDK旧版本
 //        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
+        [MonitorLogin selectNodeWithChanneId:_currentModel.TAGID];
         
         [self forceOrientationPortrait];
         
-        PlaybackViewController *playVC = [[PlaybackViewController alloc] init];
+        PlaybackViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlaybackViewController"];
+        playVC.selChannelId = _currentModel.TAGID;
         [self.navigationController pushViewController:playVC animated:YES];
 
     }

@@ -8,9 +8,17 @@
 
 #import "RootViewController.h"
 
+#import "DHPlaybackManager.h"
+#import "DHLoginManager.h"
+#import "DHDataCenter.h"
+#import "PlaybackProgress.h"
+#import "ZComBoxView.h"
+#import "DHPlayWindow.h"
+#import "DPSPBCamera.h"
+
 @protocol SelTimeDelegate <NSObject>
 
-- (void)selTime:(NSInteger)index withRange:(NSString *)timeRange;
+- (void)selTime:(NSInteger)index withRange:(NSString *)timeRange withDSSRecordInfo:(DSSRecordInfo *)recordInfo;
 
 @end
 

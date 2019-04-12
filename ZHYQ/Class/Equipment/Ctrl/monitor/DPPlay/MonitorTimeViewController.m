@@ -7,12 +7,15 @@
 //
 
 #import "MonitorTimeViewController.h"
-//#import "PlaybackManager.h"
 #import "WSDatePickerView.h"
-//#import "DHVideoWnd.h"
-//#import "DHHudPrecess.h"
 
 #import "TimeRangeCell.h"
+
+#import "DHHudPrecess.h"
+#import "ZComBoxView.h"
+#import "DHPlaybackManager.h"
+#import "DHDataCenter.h"
+#import "DHPlaybackViewController.h"
 
 #define timeRange @"timeRange"
 #define timeIndex @"timeIndex"
@@ -24,6 +27,13 @@
     
     NSMutableArray *_allTimeData;
     NSMutableArray *_timeData;
+    
+    /*
+     RecordSource_all,///<所有录像 All
+     RecordSource_platform,///< 云录像 Platform
+     RecordSource_device,///< 设备录像 Device
+     */
+    RecordSource recordSourceType;  // 录像类型
 }
 @end
 
@@ -34,11 +44,18 @@
     _allTimeData = @[].mutableCopy;
     _timeData = @[].mutableCopy;
     
+    recordSourceType = RecordSource_all;
+    
     [self _initView];
     
     [self _initCollectView];
     
     [self _queryData];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightAC)];
+}
+- (void)rightAC {
+    [_timeDelegate selTime:1 withRange:nil withDSSRecordInfo:_allTimeData.firstObject];
 }
 - (void)_initView {
     self.view.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
@@ -195,6 +212,36 @@
     
     [self onBtnQueryRecord];
     */
+    
+    NSString *beginStr = [_queryDate stringByAppendingString:@" 00:00"];
+    NSString *endStr = [_queryDate stringByAppendingString:@" 23:59"];
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    NSTimeZone* GTMzone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    [dateFormatter setTimeZone:GTMzone];
+    
+    NSDate *queryDate =[dateFormatter dateFromString:beginStr];
+    NSDate *laterDate =[dateFormatter dateFromString:endStr];
+    
+    NSError *error = nil;
+    TreeNode *channelNode = [DHDataCenter sharedInstance].selectNode;
+    NSString *channelid = ((DSSChannelInfo *)channelNode.content).channelid;
+    
+    ((DSSChannelInfo *)channelNode.content).channelid = channelid;
+    
+    NSArray *recordInfos = [[DHPlaybackManager sharedInstance] queryRecord:channelid begin:queryDate end:laterDate source:recordSourceType error:&error];
+    [_allTimeData removeAllObjects];
+    [_allTimeData addObjectsFromArray:recordInfos];
+    
+    if (error.code != 0){
+        NSLog(@"query failed");
+        [self showHint:@"查询失败"];
+    }
+    if (recordInfos.count == 0) {
+        NSLog(@"no records");
+        [self showHint:@"该时间段内没有录像"];
+    }
 }
 
 #pragma mark 查询方法
@@ -305,7 +352,8 @@
     NSDictionary *timeRangeDic = _timeData[indexPath.row];
     NSNumber *indexNum = timeRangeDic[timeIndex];
     if(_timeDelegate){
-        [_timeDelegate selTime:indexNum.integerValue withRange:timeRangeDic[timeRange]];
+#warning 修改为对应点击info
+        [_timeDelegate selTime:indexNum.integerValue withRange:timeRangeDic[timeRange] withDSSRecordInfo:nil];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

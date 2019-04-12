@@ -8556,6 +8556,110 @@
             </objects>
             <point key="canvasLocation" x="8158" y="-259"/>
         </scene>
+        <!--Playback View Controller-->
+        <scene sceneID="C9G-6d-Lfs">
+            <objects>
+                <viewController storyboardIdentifier="PlaybackViewController" id="6ld-7e-uqC" customClass="PlaybackViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SBB-ap-gSb"/>
+                        <viewControllerLayoutGuide type="bottom" id="SSB-R6-6Ia"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="E2X-oB-ei3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bEd-9U-S27" customClass="DHPlayWindow">
+                                <rect key="frame" x="0.0" y="20" width="414" height="310.66666666666669"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bEd-9U-S27" secondAttribute="height" multiplier="4:3" id="GSI-Rz-6sP"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMM-A4-4oC">
+                                <rect key="frame" x="0.0" y="330.66666666666669" width="414" height="70"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7TM-k4-wit" customClass="PlaybackProgress">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="yfH-7w-s0I"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KSB-Zu-6mz">
+                                        <rect key="frame" x="84" y="36" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="Kzw-Qn-eaE"/>
+                                            <constraint firstAttribute="height" constant="30" id="b1W-j2-RmR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="1x"/>
+                                        <connections>
+                                            <action selector="speedBtnClicked:" destination="6ld-7e-uqC" eventType="touchUpInside" id="psw-Vo-KDn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6JU-sG-44L">
+                                        <rect key="frame" x="10" y="36" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="EVw-iB-TJJ"/>
+                                            <constraint firstAttribute="width" constant="30" id="vzM-0h-ySe"/>
+                                        </constraints>
+                                        <state key="normal" title="play" image="playback_play_h"/>
+                                        <state key="selected" image="playback_pause_h"/>
+                                        <connections>
+                                            <action selector="playBtnClicked:" destination="6ld-7e-uqC" eventType="touchUpInside" id="arA-OZ-jcm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRw-U6-Ntl">
+                                        <rect key="frame" x="44" y="36" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="VNg-sK-UIw"/>
+                                            <constraint firstAttribute="width" constant="30" id="oTR-ef-wsV"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="playback_mute_h"/>
+                                        <state key="selected" title="close voice"/>
+                                        <connections>
+                                            <action selector="voiceBtnClicked:" destination="6ld-7e-uqC" eventType="touchUpInside" id="1uz-nR-YaT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="wRw-U6-Ntl" firstAttribute="leading" secondItem="6JU-sG-44L" secondAttribute="trailing" constant="4" id="0IX-eL-S9h"/>
+                                    <constraint firstAttribute="bottom" secondItem="wRw-U6-Ntl" secondAttribute="bottom" constant="4" id="6b6-HB-FEc"/>
+                                    <constraint firstAttribute="height" constant="70" id="HZX-Gy-qY2"/>
+                                    <constraint firstAttribute="bottom" secondItem="6JU-sG-44L" secondAttribute="bottom" constant="4" id="PmY-sO-KJu"/>
+                                    <constraint firstAttribute="bottom" secondItem="KSB-Zu-6mz" secondAttribute="bottom" constant="4" id="VRZ-hW-kI9"/>
+                                    <constraint firstAttribute="trailing" secondItem="7TM-k4-wit" secondAttribute="trailing" id="bCe-rX-97W"/>
+                                    <constraint firstItem="KSB-Zu-6mz" firstAttribute="leading" secondItem="wRw-U6-Ntl" secondAttribute="trailing" constant="10" id="jzf-nW-983"/>
+                                    <constraint firstItem="6JU-sG-44L" firstAttribute="leading" secondItem="bMM-A4-4oC" secondAttribute="leading" constant="10" id="tYI-4L-moZ"/>
+                                    <constraint firstItem="7TM-k4-wit" firstAttribute="leading" secondItem="bMM-A4-4oC" secondAttribute="leading" id="y4G-Si-gEi"/>
+                                    <constraint firstItem="7TM-k4-wit" firstAttribute="top" secondItem="bMM-A4-4oC" secondAttribute="top" id="zAw-YP-iC3"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bMM-A4-4oC" firstAttribute="top" secondItem="bEd-9U-S27" secondAttribute="bottom" id="2WC-pX-P2q"/>
+                            <constraint firstItem="bMM-A4-4oC" firstAttribute="leading" secondItem="E2X-oB-ei3" secondAttribute="leading" id="8fQ-eD-WzX"/>
+                            <constraint firstAttribute="trailing" secondItem="bMM-A4-4oC" secondAttribute="trailing" id="AKW-cS-H42"/>
+                            <constraint firstAttribute="trailing" secondItem="bEd-9U-S27" secondAttribute="trailing" id="b4A-aV-j5w"/>
+                            <constraint firstItem="bEd-9U-S27" firstAttribute="leading" secondItem="E2X-oB-ei3" secondAttribute="leading" id="bRo-dI-i5v"/>
+                            <constraint firstItem="bEd-9U-S27" firstAttribute="top" secondItem="SBB-ap-gSb" secondAttribute="bottom" id="g55-r3-jg7"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dhPlayWindow" destination="bEd-9U-S27" id="bHP-5g-jfQ"/>
+                        <outlet property="playBtn" destination="6JU-sG-44L" id="jHu-Bd-pY5"/>
+                        <outlet property="playbackProgress" destination="7TM-k4-wit" id="XhQ-qf-YF0"/>
+                        <outlet property="speedBtn" destination="KSB-Zu-6mz" id="1be-w3-H3C"/>
+                        <outlet property="toolBgView" destination="bMM-A4-4oC" id="rbu-Qh-jrl"/>
+                        <outlet property="voiceBtn" destination="wRw-U6-Ntl" id="ohr-wf-v3h"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uOR-8s-all" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2393" y="10821"/>
+        </scene>
     </scenes>
     <resources>
         <image name="FullScreen" width="15" height="15"/>
@@ -8608,6 +8712,9 @@
         <image name="play_bt_reduce_nor" width="74.666664123535156" height="74.666664123535156"/>
         <image name="play_bt_reduce_sel" width="74.666664123535156" height="74.666664123535156"/>
         <image name="play_bt_up_nor" width="24" height="18.666666030883789"/>
+        <image name="playback_mute_h" width="100" height="100"/>
+        <image name="playback_pause_h" width="100" height="100"/>
+        <image name="playback_play_h" width="100" height="100"/>
         <image name="rechange_face" width="12.666666984558105" height="12"/>
         <image name="reserve_clock" width="20" height="20"/>
         <image name="robot_bg" width="375" height="667"/>

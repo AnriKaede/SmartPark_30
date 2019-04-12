@@ -7,14 +7,9 @@
 //
 
 #import "RootViewController.h"
-//#import "PlayBackView.h"
-//#import "PlayControlBar.h"
 
 @interface PlaybackViewController : RootViewController
-{
-//    PlayBackView    *playbackView_;
-//    PlayControlBar  *controlBar_;
-    NSTimer         *progressTimer_;   /**< 更新进度条定时器,默认0.2s */
-    UIView          *pView;
-}
+
+@property (nonatomic, copy) NSString *selChannelId;
+
 @end

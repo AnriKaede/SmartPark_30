@@ -12,40 +12,51 @@
 //#import "DHVideoWnd.h"
 //#import "DHHudPrecess.h"
 
+#import "DHPlaybackManager.h"
+#import "DHLoginManager.h"
+#import "DHDataCenter.h"
+#import "PlaybackProgress.h"
+#import "ZComBoxView.h"
+#import "DHPlayWindow.h"
+#import "DPSPBCamera.h"
+
 #import "MonitorTimeViewController.h"
 
-@interface PlaybackViewController ()<SelTimeDelegate>
+@interface PlaybackViewController ()<SelTimeDelegate, MediaPlayListenerProtocol, PlaybackProgressDelegate>
 {
     UILabel *startLabel;
     UILabel *endLabel;
     
     UIView *_startTimeView;
     UIView *_endTimeView;
-    UIButton *_searchBt;
     
-    UIButton *_colseBt;
     BOOL _isHidBar;
     
-    NSInteger _timeIndex;
-    
-    UIPickerView *_speedPicker;
-    UIToolbar *accessoryView;
-    
-    NSMutableArray *_speedData;
-    NSInteger _currentRow;
+    UIButton *_colseBt;
 }
+#pragma mark 大华新SDK
+@property (weak, nonatomic) IBOutlet DHPlayWindow *dhPlayWindow;   //播放窗口 play window
+@property (weak, nonatomic) IBOutlet UIView *toolBgView;
+@property (weak, nonatomic) IBOutlet UIButton *playBtn;            //播放按钮 play button
+@property (weak, nonatomic) IBOutlet UIButton *voiceBtn;           //声音按钮 voice button
+@property (weak, nonatomic) IBOutlet UIButton *speedBtn;           //播放速度 play speed button
+@property (weak, nonatomic) IBOutlet PlaybackProgress *playbackProgress;  //进度条 progress
+@property (copy, nonatomic) NSString *selectChannelId;              //通道id selected channelid
+@property (strong, nonatomic) DSSRecordInfo *selectRecord;             //选中录像 selected recordinfo
+@property (assign, nonatomic) NSTimeInterval timeFileSeeking;    //seek的时间 seek time
+@property (assign, nonatomic) BOOL bSeeking;                 //是否正在定位中 is seeking
+@property (assign, nonatomic) float playSpeed;                //播放速度 play speed
+
 @end
 
 @implementation PlaybackViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _speedData = @[@"正常",@"2倍",@"4倍",@"8倍",@"1/2倍",@"1/4倍",@"1/8倍"].mutableCopy;
-    _timeIndex = 0;
-    
-    [self _initPlayView];
     
     [self _initView];
+    
+    [self setupDP];
     
     // 禁止左滑
     id traget = self.navigationController.interactivePopGestureRecognizer.delegate;
@@ -53,55 +64,79 @@
     [self.view addGestureRecognizer:pan];
 }
 
-- (void)_initPlayView {
-    CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 400*hScale);
-    #warning 大华SDK旧版本
-    /*
-    playbackView_ = [[PlayBackView alloc]initWithFrame:rect delegate:self];
-    [self.view addSubview:playbackView_];
+- (void)setupDP {
+    self.selectChannelId = ((DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content).channelid;
+    //初始化播放窗口数，正常情况下，使用1
+    [self.dhPlayWindow defultwindows:1];
+    //init play window
+    DSSUserInfo *userinfo = [DHLoginManager sharedInstance].userInfo;
+    NSString *host = [[DHDataCenter sharedInstance].coreAdapter getHost];
+    int port = [[DHDataCenter sharedInstance].coreAdapter getPort];
+    [self.dhPlayWindow setHost:host Port:port UserName:userinfo.userName];
+    [self.dhPlayWindow addMediaPlayListener:self];
+    self.dhPlayWindow.hideDefultToolViews = YES;
     
-    rect.origin.y += CGRectGetHeight(playbackView_.frame);
-    controlBar_ = [[PlayControlBar alloc]initWithFrame:rect delegate:self];
-    [self.view addSubview:controlBar_];
-    
-    [[PlaybackManager sharedInstance]initPlaybackManager];
-     */
-    
-    [self startTimer];
-    [self pauseTimer];
-    
-    #warning 大华SDK旧版本
-    /*
-    [PlaybackManager sharedInstance].recordResourceValue = DPSDK_CORE_PB_RECSOURCE_DEVICE;
-    [PlaybackManager sharedInstance].recordTypeValue = 0;
-    [PlaybackManager sharedInstance].isPlayBackByFile = YES;
-    */
-     
-    pView = [[UIApplication sharedApplication] keyWindow];
-    if(NULL == pView)
-    {
+    self.playSpeed = 1.0;
+    self.playbackProgress.delegate = self;
+    self.playBtn.selected = YES;
+    // 初始化
+    // 开始播放
+//    [self startPlayback];
+}
+
+- (void)startPlayback {
+    NSString* channelid = self.selectChannelId;
+    if (!channelid.length || !self.selectRecord) {
         return;
     }
-    
-    //回放设置功能的回调函数
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setTimeText:) name:@"SetTimeNotification" object:nil];
-    
-    UITapGestureRecognizer *fullTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullAction)];
-    fullTap.numberOfTapsRequired = 2;
-    #warning 大华SDK旧版本
-//    [playbackView_ addGestureRecognizer:fullTap];
-    
-    _colseBt = [UIButton buttonWithType:UIButtonTypeCustom];
-    _colseBt.hidden = YES;
-    _colseBt.frame = CGRectMake(KScreenWidth - 80, KScreenHeight - 60, 50, 50);
-    if(KScreenWidth > 440){ // ipad
-        _colseBt.frame = CGRectMake(KScreenWidth - 80, KScreenHeight - 60 - 44, 50, 50);
-    }else {
-        _colseBt.frame = CGRectMake(KScreenWidth - 80, KScreenHeight - 60, 50, 50);
+    RecordSource recordSource = RecordSource_platform;
+    NSMutableArray<DPSPBCameraArg*>* arrDPSPBCameraArg = [[NSMutableArray alloc] initWithCapacity:1];
+    DPSPBCameraArg* arg = [[DPSPBCameraArg alloc] init];
+    arg.fileName = _selectRecord.name;
+    arg.ssId = _selectRecord.dssExtendRecordInfo.ssId;
+    arg.fileHander = _selectRecord.dssExtendRecordInfo.fileHandle;
+    arg.diskId = _selectRecord.dssExtendRecordInfo.diskId;
+    arg.startTime = [NSDate dateWithTimeIntervalSince1970:_selectRecord.startTime];
+    arg.endTime = [NSDate dateWithTimeIntervalSince1970:_selectRecord.endTime];
+    arg.filelen = _selectRecord.length;
+    arg.recordSource = 1;////1-所有 all 2-设备录像 device record 3-平台录像 platform record
+    if (_selectRecord.source == RecordSource_all)
+        arg.recordSource = 1;
+    else if (_selectRecord.source == RecordSource_device)
+        arg.recordSource = 2;
+    else if (_selectRecord.source == RecordSource_platform)
+        arg.recordSource = 3;
+    [arrDPSPBCameraArg addObject:arg];
+    recordSource = _selectRecord.source;
+    if ([arrDPSPBCameraArg count] == 0) {
+        return;
     }
-    [_colseBt setBackgroundImage:[UIImage imageNamed:@"show_menu_close"] forState:UIControlStateNormal];
-    [_colseBt addTarget:self action:@selector(closeFull) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_colseBt];
+    //初始化播放信息
+    // init camera
+    DSSUserInfo *userinfo = [DHLoginManager sharedInstance].userInfo;
+    NSString *host = [[DHDataCenter sharedInstance].coreAdapter getHost];
+    int port = [[DHDataCenter sharedInstance].coreAdapter getPort];
+    NSNumber* handleDPSDKEntity = (NSNumber*)[userinfo getInfoValueForKey:kUserInfoHandleDPSDKEntity];
+    // NSString* handleRestToken = [[DHDataCenter sharedInstance] getLoginToken];
+    DPSPBCamera* ymCamera = [[DPSPBCamera alloc] init];
+    ymCamera.arrayCameraArg = arrDPSPBCameraArg;
+    ymCamera.cameraId = channelid;
+    //录像用按照时间播放， 中心文件 按照 文件播放
+    ymCamera.isPlayBackByTime = (recordSource == RecordSource_device);
+    ymCamera.dpHandle = [handleDPSDKEntity longValue];
+    //  ymCamera.dpRestToken = handleRestToken;
+    ymCamera.server_ip = host;
+    ymCamera.server_port = port;
+    ymCamera.needBeginTime = 0;
+    
+    DSSChannelInfo *channelInfo = (DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content;
+    DSSDeviceInfo *deviceInfo = [[DHDeviceManager sharedInstance] getDeviceInfo:[channelInfo deviceId]];
+    
+    [self.dhPlayWindow playCamera:ymCamera withName:channelInfo.name?:@"" at:0 deviceProvide:deviceInfo.deviceProvide];
+    [self.dhPlayWindow setEnableElectricZoom:0 enable:YES];
+    
+    self.playbackProgress.startTime = _selectRecord.startTime;
+    self.playbackProgress.endTime = _selectRecord.endTime;
 }
 
 - (void)_initView {
@@ -120,7 +155,7 @@
     
     // 开始时间
     #warning 大华SDK旧版本
-//    _startTimeView = [[UIView alloc] initWithFrame:CGRectMake(0, controlBar_.bottom + 5, KScreenWidth, 60)];
+    _startTimeView = [[UIView alloc] initWithFrame:CGRectMake(0, _toolBgView.bottom + 5, KScreenWidth, 60)];
     _startTimeView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_startTimeView];
     UITapGestureRecognizer *startTimeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startTime)];
@@ -173,91 +208,52 @@
     endImgView.image = [UIImage imageNamed:@"door_list_right_narrow"];
     [_endTimeView addSubview:endImgView];
     
-    // 查询按钮
-    _searchBt = [UIButton buttonWithType:UIButtonTypeCustom];
-    _searchBt.hidden = YES;
-    _searchBt.frame = CGRectMake((KScreenWidth - 120)/2, _endTimeView.bottom + 20, 120, 50);
-    _searchBt.layer.borderColor = [UIColor grayColor].CGColor;
-    _searchBt.layer.borderWidth = 0.6;
-    _searchBt.layer.cornerRadius = 4;
-    _searchBt.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
-    [_searchBt setTitle:@"搜索播放" forState:UIControlStateNormal];
-    [_searchBt setImage:[UIImage imageNamed:@"play_search"] forState:UIControlStateNormal];
-    [_searchBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [_searchBt addTarget:self action:@selector(onBtnQueryRecord) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_searchBt];
-    
-    // 速度选择器
-    _speedPicker = [[UIPickerView alloc]init];
-    _speedPicker.hidden = YES;
-    _speedPicker.frame = CGRectMake(0, KScreenHeight - 215 - 64, KScreenWidth, 215);
-    _speedPicker.backgroundColor = [UIColor whiteColor];
-    _speedPicker.delegate = self;
-    _speedPicker.dataSource = self;
-    [self.view addSubview:_speedPicker];
-    
-    accessoryView = [[UIToolbar alloc] init];
-    accessoryView.hidden = YES;
-    accessoryView.frame=CGRectMake(0, _speedPicker.top - 38, KScreenWidth, 38);
-    accessoryView.backgroundColor = [UIColor grayColor];
-    UIBarButtonItem *cancelBtn=[[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(calcelAction)];
-    UIBarButtonItem *doneBtn=[[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(selectDoneAction)];
-    UIBarButtonItem *spaceBtn=[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    accessoryView.items=@[cancelBtn,spaceBtn,doneBtn];
-    [self.view addSubview:accessoryView];
+    _colseBt = [UIButton buttonWithType:UIButtonTypeCustom];
+    _colseBt.hidden = YES;
+    _colseBt.frame = CGRectMake(KScreenWidth - 80, KScreenHeight - 60, 50, 50);
+    if(KScreenWidth > 440){ // ipad
+        _colseBt.frame = CGRectMake(KScreenWidth - 80, KScreenHeight - 60 - 44, 50, 50);
+    }else {
+        _colseBt.frame = CGRectMake(KScreenWidth - 80, KScreenHeight - 60, 50, 50);
+    }
+    [_colseBt setBackgroundImage:[UIImage imageNamed:@"show_menu_close"] forState:UIControlStateNormal];
+    [_colseBt addTarget:self action:@selector(closeFull) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_colseBt];
 }
 - (void)_leftBarBtnItemClick {
     [self.navigationController popViewControllerAnimated:YES];
-    // 释放定时器
-    if ([progressTimer_ isValid])
-    {
-        [progressTimer_ invalidate];
-        progressTimer_ = nil;
-    }
     
+    // 停止播放
     #warning 大华SDK旧版本
 //    [[PlaybackManager sharedInstance] stopPlayback];
 }
 
--(BOOL)prefersStatusBarHidden
-{
-    return _isHidBar;
-}
-
 #warning 大华SDK旧版本
-/*
 #pragma mark 全屏显示
 - (void)fullAction {
     _isHidBar = YES;
     [self setNeedsStatusBarAppearanceUpdate];
     self.navigationController.navigationBar.hidden = YES;
     _colseBt.hidden = NO;
-    playbackView_.userInteractionEnabled = NO;
+    _dhPlayWindow.userInteractionEnabled = NO;
     
     // 隐藏控制按钮放置点击
     _startTimeView.hidden = YES;
     _endTimeView.hidden = YES;
-    _searchBt.hidden = YES;
     
-    controlBar_.hidden = YES;
-    
-    _speedPicker.hidden = YES;
-    accessoryView.hidden = YES;
+    _toolBgView.hidden = YES;
     
     // 改变视频frame
-    playbackView_.transform = CGAffineTransformRotate(playbackView_.transform, M_PI_2);
-//    controlBar_.transform = CGAffineTransformRotate(controlBar_.transform, M_PI_2);
+    _dhPlayWindow.transform = CGAffineTransformRotate(_dhPlayWindow.transform, M_PI_2);
     if(KScreenWidth > 440){ // ipad
 //        playbackView_.frame = CGRectMake(KScreenWidth, -44, -KScreenWidth, KScreenHeight);
     }else {
-        playbackView_.frame = CGRectMake(KScreenWidth, 0, -KScreenWidth, KScreenHeight);
-        playbackView_.backgroundColor = [UIColor orangeColor];
-        playbackView_.videoWnd.frame = CGRectMake(0, 0, KScreenHeight, KScreenWidth);
+        _dhPlayWindow.frame = CGRectMake(KScreenWidth, 0, -KScreenWidth, KScreenHeight);
+        _dhPlayWindow.backgroundColor = [UIColor orangeColor];
+        _dhPlayWindow.frame = CGRectMake(0, 0, KScreenHeight, KScreenWidth);
     
-        UIScrollView *bgScrollView = [playbackView_ viewWithTag:2001];
+        UIScrollView *bgScrollView = [_dhPlayWindow viewWithTag:2001];
         bgScrollView.frame = CGRectMake(0, 0, KScreenHeight, KScreenWidth);
-        
-//        controlBar_.frame = CGRectMake(70, 0, -70, KScreenHeight);
     }
 }
 - (void)closeFull {
@@ -265,25 +261,26 @@
     [self setNeedsStatusBarAppearanceUpdate];
     self.navigationController.navigationBar.hidden = NO;
     _colseBt.hidden = YES;
-    playbackView_.userInteractionEnabled = YES;
+    _dhPlayWindow.userInteractionEnabled = YES;
     
     _startTimeView.hidden = NO;
     _endTimeView.hidden = NO;
-//    _searchBt.hidden = NO;
+
+    _toolBgView.hidden = NO;
     
-    controlBar_.hidden = NO;
-    
-    playbackView_.transform = CGAffineTransformRotate(playbackView_.transform, -M_PI_2);
+    _dhPlayWindow.transform = CGAffineTransformRotate(_dhPlayWindow.transform, -M_PI_2);
     CGRect frame = CGRectMake(0, 0, KScreenWidth, 400*hScale);
     float proportion   = frame.size.width / 718;
     frame.size.height  = 480*proportion;
-    playbackView_.frame = frame;
-    playbackView_.videoWnd.frame = frame;
+    _dhPlayWindow.frame = frame;
     
-    UIScrollView *bgScrollView = [playbackView_ viewWithTag:2001];
+    UIScrollView *bgScrollView = [_dhPlayWindow viewWithTag:2001];
     bgScrollView.frame = frame;
 }
- */
+-(BOOL)prefersStatusBarHidden
+{
+    return _isHidBar;
+}
 
 - (void)startTime {
     #warning 大华SDK旧版本
@@ -311,346 +308,251 @@
     #warning 大华SDK旧版本
 //    [PlaybackManager sharedInstance].isStartTime = NO;
     
-//    endLabel.text = date;
-    
     MonitorTimeViewController *timeVC = [[MonitorTimeViewController alloc] init];
     timeVC.queryDate = startLabel.text;
     timeVC.timeDelegate = self;
     [self.navigationController pushViewController:timeVC animated:YES];
 }
-- (void)selTime:(NSInteger)index withRange:(NSString *)timeRange {
+- (void)selTime:(NSInteger)index withRange:(NSString *)timeRange withDSSRecordInfo:(DSSRecordInfo *)recordInfo {
     endLabel.textColor = [UIColor blackColor];
-    endLabel.text = timeRange;
+//    endLabel.text = timeRange;
     
-    _timeIndex = index;
-    
+//    _timeIndex = index;
+#pragma mark 返回查询的recordInfo
+    self.selectRecord = recordInfo;
     // 直接调用播放
-    [self playControlOpenPlay];
+    [self startPlayback];
 }
 
-#pragma mark 查询方法
-- (void)onBtnQueryRecord {
-    
-    #warning 大华SDK旧版本
-    /*
-    [[DHHudPrecess sharedInstance]showWaiting:@""
-                               WhileExecuting:@selector(threadQueryRecord)
-                                     onTarget:self
-                                   withObject:Nil
-                                     animated:NO
-                                       atView:KEYWINDOW];
-     */
-}
-
-#pragma mark 通知方法
--(void)setTimeText:(NSNotification*) notification {
-    #warning 大华SDK旧版本
-    /*
-    NSDictionary* theData = [notification userInfo];
-    NSDate* theDate = [theData objectForKey:@"timeText"];
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-    if([PlaybackManager sharedInstance].isStartTime == YES)
-    {
-        startLabel.text = [dateFormatter stringFromDate:theDate];
-    }
-    else
-    {
-        endLabel.text = [dateFormatter stringFromDate:theDate];
-    }
-     */
-}
-
-#pragma mark 播放速度
-- (void)playControlSetSpeed {
-    _speedPicker.hidden = NO;
-    accessoryView.hidden = NO;
-}
-
-#pragma mark 视频操作协议
-- (void)timerProcess:(NSTimer *)timer
-{
-    #warning 大华SDK旧版本
-    /*
-    PlaybackManager *pManager = [PlaybackManager sharedInstance];
-    int playedTime = [pManager playedTime];
-    
-    //设置播放进度条(未处于seek状态时才更新)
-//    if (!isSeeking_)
-    // 判断回放是否播放完毕
-    {
-        [controlBar_ updatePlayProgress:playedTime];
-        NSLog(@"----进度已播放时间：%ld", playedTime);
-    }
-     */
-}
-
-- (void)startTimer
-{
-    if (![progressTimer_ isValid])
-    {
-        progressTimer_ = [NSTimer scheduledTimerWithTimeInterval:0.2f
-                                                          target:self
-                                                        selector:@selector(timerProcess:)
-                                                        userInfo:Nil
-                                                         repeats:YES];
-    }
-}
-
-- (void)stopTimer
-{
-    if ([progressTimer_ isValid])
-    {
-        [progressTimer_ invalidate];
-        progressTimer_ = nil;
-    }
-}
-
-- (void)pauseTimer
-{
-    if (![progressTimer_ isValid])
-    {
-        return ;
-    }
-    
-    [progressTimer_ setFireDate:[NSDate distantFuture]];
-}
-
-- (void)resumeTimer
-{
-    if (![progressTimer_ isValid])
-    {
-        return ;
-    }
-    
-    [progressTimer_ setFireDate:[NSDate date]];
-}
-// 回放播放完毕
-- (void)playControlTimerEnd {
-    NSLog(@"+++++++播放完成");
-//    [PlaybackManager sharedInstance].playbackSpeed = DPSDK_CORE_PB_NORMAL;
-    [self playControlStopPlay];
-}
-
-#pragma mark 查询
-- (void)threadQueryRecord
-{
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-    
-    NSTimeZone* localzone = [NSTimeZone localTimeZone];
-    NSTimeZone* GTMzone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    [dateFormatter setTimeZone:GTMzone];
-    
-    NSDate *queryDate =[dateFormatter dateFromString:startLabel.text];
-    NSDate *laterDate =[dateFormatter dateFromString:endLabel.text];
-
-    #warning 大华SDK旧版本
-    /*
-    int nError = [[PlaybackManager sharedInstance]queryRecordByStart:queryDate withEnd:laterDate];
-    
+#pragma mark 大华新SDK协议方法
+#pragma mark - MediaPlayListenerProtocol
+//播放时间回调 play time callback
+- (void) onPlayTime:(int)winIndex time:(long)time stamp:(int)stamp{
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([PlaybackManager sharedInstance].isFileExisted == NO) {
-            [self showHint:@"该时间段内没有录像"];
-        }else if (0 != nError) {
-            [self showHint:@"查询失败"];
-        }
-        // 查询成功 直接播放
-        if(nError == 0) {
-            // 停止
-            [self playControlStopPlay];
-            // 播放
-            [self playControlOpenPlay];
+        if (!_bSeeking) {
+            [self.playbackProgress updateSliderTime:time];
+            [self.playbackProgress setStartTimeText:time];
         }
     });
-    */
 }
-
-#pragma mark - PlayControl Delegate
-- (void)playControlOpenPlay
-{
-    #warning 大华SDK旧版本
-    /*
-    // 回归正常播放速度，停止正在播放
-    NSDictionary* dataDict = [NSDictionary dictionaryWithObject:@"正常" forKey:@"playbackSpeedText"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SetPlaybackSpeedNotification" object:nil userInfo:dataDict];
-    [[PlaybackManager sharedInstance] stopPlayback];
-    
-    if ([PlaybackManager sharedInstance].isFileExisted)
-    {
-        [[DHHudPrecess sharedInstance]showWaiting:@"正在请求码流..."
-                                   WhileExecuting:@selector(threadOpenPlayback)
-                                         onTarget:self
-                                       withObject:Nil
-                                         animated:NO
-                                           atView:KEYWINDOW];
-    }
-    else
-    {
-        [controlBar_ resetOpenFailed];
-    }
-     */
-}
-
-- (void)playControlStopPlay
-{
-    #warning 大华SDK旧版本
-//    [[PlaybackManager sharedInstance]stopPlayback];
-    [self pauseTimer];
-}
-
-- (void)playControlPausePlay:(BOOL)paused
-{
-    #warning 大华SDK旧版本
-//    [[PlaybackManager sharedInstance]pausePlayback:paused];
-    paused ? [self pauseTimer] : [self resumeTimer];
-}
-
-- (void)playControlMuted:(BOOL)muted{
-    #warning 大华SDK旧版本
-    /*
-    if (muted) {
-        [[PlaybackManager sharedInstance] closeVoice];
-    }else{
-        [[PlaybackManager sharedInstance] openVoice];
-    }
-     */
-}
-
-- (void)playControlSliderValueChanged:(NSTimeInterval)value{
-    #warning 大华SDK旧版本
-    /*
-    [[PlaybackManager sharedInstance] pausePlayback:YES];
-    [self pauseTimer];
-    [[PlaybackManager sharedInstance ] seekByTime:value];
-    [[PlaybackManager sharedInstance] pausePlayback:NO];
-    sleep(1);
-    [self resumeTimer];
-     
-    NSDictionary* dataDict = [NSDictionary dictionaryWithObject:@"正常" forKey:@"playbackSpeedText"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SetPlaybackSpeedNotification" object:nil userInfo:dataDict];
-     */
-}
-
-#warning 大华SDK旧版本
-/*
-static NSDate * extracted(PlaybackManager *pManager) {
-    return [pManager endTimeOfFile:0];
-}
- */
-
-- (void)threadOpenPlayback
-{
+//播放状态回调 play status Callback
+- (void) onPlayeStatusCallback:(int)winIndex status:(PlayStatusType)status {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self showHudInView:self.view hint:@""];
+        self.voiceBtn.selected = [self.dhPlayWindow isAudioOpened:0];
+        
+        switch (status) {
+            case ePlayFirstFrame:
+            {
+                _bSeeking = NO;
+                _timeFileSeeking = 0;
+                self.playBtn.selected = YES;
+                [self.dhPlayWindow setPlaySpeed:self.playSpeed atWinIndex:0];
+            }
+                break;
+            case ePlayDataOver:
+            {
+                [self stopPlay];
+            }
+                break;
+            case eNetworkaAbort:
+            {
+                NSLog(@"Network error");
+                [self stopPlay];
+            }
+                break;
+            case ePlayFailed:
+            {
+                NSLog(@"Play error");
+                [self stopPlay];
+            }
+                break;
+            case eBadFile:
+            {
+                NSLog(@"Play file error");
+                [self stopPlay];
+            }
+                break;
+            case eSeekSuccess:
+            {
+                _bSeeking = NO;
+                _timeFileSeeking = 0;
+                self.playBtn.selected = YES;
+            }
+                break;
+            case eSeekFailed:
+            {
+                NSLog(@"Failed to drag");
+                _bSeeking = NO;
+                _timeFileSeeking = 0;
+                [self pausePlay];
+            }
+                break;
+            case eSeekCrossBorder:
+            {
+                NSLog(@"No record");
+                _bSeeking = NO;
+                _timeFileSeeking = 0;
+                [self pausePlay];
+            }
+                break;
+            case ePlayNoAuthority:
+            {
+                NSLog(@"No video play right");
+                [self stopPlay];
+            }
+                break;
+            default:
+                break;
+        }
     });
+}
+
+/** 转化为以时钟开始的字符串 起始时间为当前时间 */
+// transform time
+-(NSString *)stringBeginWithHourOfTimeNow:(NSTimeInterval)time
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    [formatter setDateFormat:@"HH:mm:ss"];
     
-    #warning 大华SDK旧版本
-    /*
-    int nRet;
-    if(![PlaybackManager sharedInstance].isPlayBackByFile)
-    {
-        nRet = [[PlaybackManager sharedInstance]playBackByTimeOnWindow:(__bridge void *)playbackView_.videoWnd];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
+    
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday |
+    NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    NSDateComponents *components = [calendar components:unitFlags fromDate:date];
+    
+    NSInteger year = components.year;
+    if (year <= 1970) {
+        return [NSString stringWithFormat:@"%02d:%02d:%02d", (int)time/3600, ((int)time/60)%60, (int)time%60];
     }
     else
     {
-        nRet = [[PlaybackManager sharedInstance]playBackByFile:_timeIndex onWindow:(__bridge void *)(playbackView_.videoWnd)];
+        NSString *strTime = [formatter stringFromDate:date];
+        return strTime;
     }
-    
-    if (0 != nRet)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showHint:@"播放失败"];
-        });
-        [controlBar_ resetOpenFailed];
-    }
-    PlaybackManager *pManager = [PlaybackManager sharedInstance];
-    if(![PlaybackManager sharedInstance].isPlayBackByFile){
-        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-        NSDate *begin = [dateFormatter dateFromString:startLabel.text];
-        NSDate *end = [dateFormatter dateFromString:endLabel.text];
-        NSTimeInterval interval =[end timeIntervalSince1970] - [begin timeIntervalSince1970];
-        [controlBar_ setTimeInterval:interval];
-        [controlBar_ setBeginTime:begin
-                       andEndTime:end];
-        
-    }
-    else{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [controlBar_ setTimeInterval:[pManager timeIntervalOfFile:_timeIndex]];
-            [controlBar_ setBeginTime:[pManager beginTimeOfFile:_timeIndex] andEndTime:[pManager endTimeOfFile:_timeIndex]];
-        
-            [self hideHud];
-        });
-    }
-    
-    [controlBar_ openPlay];
-    [self resumeTimer];
-     */
 }
 
-#pragma mark UIPickView协议
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+#pragma mark--PlaybackProgressDelegate 进度条
+-(void)playbackProgressSeekAtTime:(NSTimeInterval)seekTime
 {
-    return 1;
-}
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
-    return _speedData.count;
-}
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
-    return _speedData[row];
-}
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    _currentRow = row;
+    [self seek:seekTime];
 }
 
-#pragma mark datepicker tool方法
-- (void)calcelAction {
-    _speedPicker.hidden = YES;
-    accessoryView.hidden = YES;
+-(void)seek:(NSTimeInterval)seekTime
+{
+    _timeFileSeeking = (int)seekTime;
+    Camera *camera = [_dhPlayWindow getCamera:0];
+    if (camera == nil) {
+        return;
+    } else {
+        _bSeeking = YES;  //定位中
+        [_dhPlayWindow seek:0 byTime:seekTime];
+        sleep(1);
+        [_dhPlayWindow setPlaySpeed:self.playSpeed atWinIndex:0];
+    }
 }
 
-- (void)selectDoneAction {
-    _speedPicker.hidden = YES;
-    accessoryView.hidden = YES;
+- (IBAction)playBtnClicked:(id)sender {
+    if ([self.dhPlayWindow getCamera:0] == nil){
+        ((UIButton *)sender).selected = YES;
+        [self startPlayback];
+    }else if (![self.dhPlayWindow isPause:0]) {
+        ((UIButton *)sender).selected = NO;
+        [self pausePlay];
+    } else if ([self.dhPlayWindow isPause:0]) {
+        ((UIButton *)sender).selected = YES;
+        [self resumePlay];
+    }
+}
+- (IBAction)voiceBtnClicked:(id)sender {
+    if ([self.dhPlayWindow getCamera:0] == nil){
+        ((UIButton *)sender).selected = NO;
+    }else if ([self.dhPlayWindow isAudioOpened:0]) {
+        ((UIButton *)sender).selected = NO;
+        [self.dhPlayWindow closeAudio:0];
+    } else if (![self.dhPlayWindow isAudioOpened:0]) {
+        ((UIButton *)sender).selected = YES;
+        [self.dhPlayWindow openAudio:0];
+    }
+}
+
+- (IBAction)speedBtnClicked:(id)sender {
+    ZComBoxView* comBox = [[ZComBoxView alloc] initFrameSetPlaybackSpeed:[[UIApplication sharedApplication] keyWindow].frame];
+    comBox.delegate = self;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:comBox];
+}
+
+//停止播放
+- (void)stopPlay {
+    [self.dhPlayWindow stop:0];
+    [self resetBtnStatus];
+}
+//暂停播放
+- (void)pausePlay {
+    [self.dhPlayWindow pause:0];
+}
+//恢复播放
+- (void)resumePlay {
+    [self.dhPlayWindow resume:0];
+}
+//重置按钮状态
+- (void)resetBtnStatus {
+    self.playBtn.selected = NO;
+    self.voiceBtn.selected = NO;
+    [self.playbackProgress resetTimeSlider];
     
-    /*
-    NSString* playbackSpeed = [_speedData objectAtIndex:_currentRow];
-    switch (_currentRow) {
+}
+
+#pragma mark - zcombox
+- (void)setPlaybackSpeed:(int)type {
+    switch (type) {
         case 0:
-            [PlaybackManager sharedInstance].playbackSpeed = DPSDK_CORE_PB_NORMAL;
+        {
+            self.playSpeed = 1.0/8;
+            [self.speedBtn setTitle:@"1/8X" forState:UIControlStateNormal];
+            
+        }
             break;
         case 1:
-            [PlaybackManager sharedInstance].playbackSpeed = DPSDK_CORE_PB_FAST2;
+        {
+            self.playSpeed = 1.0/4;
+            [self.speedBtn setTitle:@"1/4X" forState:UIControlStateNormal];
+        }
             break;
         case 2:
-            [PlaybackManager sharedInstance].playbackSpeed = DPSDK_CORE_PB_FAST4;
+        {
+            self.playSpeed = 1.0/2;
+            [self.speedBtn setTitle:@"1/2X" forState:UIControlStateNormal];
+        }
             break;
         case 3:
-            [PlaybackManager sharedInstance].playbackSpeed = DPSDK_CORE_PB_FAST8;
-            break;
-//        case 4:
-//            [PlaybackManager sharedInstance].playbackSpeed = DPSDK_CORE_PB_FAST16;
+        {
+            self.playSpeed = 1.0;
+            [self.speedBtn setTitle:@"1X" forState:UIControlStateNormal];
+        }
             break;
         case 4:
-            [PlaybackManager sharedInstance].playbackSpeed = DPSDK_CORE_PB_SLOW2;
+        {
+            self.playSpeed = 2.0;
+            [self.speedBtn setTitle:@"2X" forState:UIControlStateNormal];
+        }
             break;
         case 5:
-            [PlaybackManager sharedInstance].playbackSpeed = DPSDK_CORE_PB_SLOW4;
+        {
+            self.playSpeed = 4.0;
+            [self.speedBtn setTitle:@"4X" forState:UIControlStateNormal];
+        }
             break;
         case 6:
-            [PlaybackManager sharedInstance].playbackSpeed = DPSDK_CORE_PB_SLOW8;
+        {
+            self.playSpeed = 8.0;
+            [self.speedBtn setTitle:@"8X" forState:UIControlStateNormal];
+        }
             break;
         default:
             break;
     }
-    NSDictionary* dataDict = [NSDictionary dictionaryWithObject:playbackSpeed forKey:@"playbackSpeedText"];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SetPlaybackSpeedNotification" object:nil userInfo:dataDict];
-     */
+    [self.dhPlayWindow setPlaySpeed:self.playSpeed atWinIndex:0];
 }
 
 @end

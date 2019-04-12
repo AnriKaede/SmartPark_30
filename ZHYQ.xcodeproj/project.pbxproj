@@ -5615,10 +5615,10 @@
 				92B9AB05225DC802001B23AD /* MonitorLogin.m */,
 				92B9AB06225DC802001B23AD /* MonitorTimeViewController.h */,
 				92B9AB00225DC802001B23AD /* MonitorTimeViewController.m */,
-				92B9AB02225DC802001B23AD /* PlaybackViewController.h */,
-				92B9AB04225DC802001B23AD /* PlaybackViewController.m */,
 				92B9AB07225DC802001B23AD /* PlayVideoViewController.h */,
 				92B9AB03225DC802001B23AD /* PlayVideoViewController.m */,
+				92B9AB02225DC802001B23AD /* PlaybackViewController.h */,
+				92B9AB04225DC802001B23AD /* PlaybackViewController.m */,
 			);
 			path = DPPlay;
 			sourceTree = "<group>";
