@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -3384,12 +3384,26 @@
                                     <action selector="_reduceDownAction:" destination="U1v-cl-gkl" eventType="touchDown" id="or6-po-nCn"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mrC-5p-N7h">
+                                <rect key="frame" x="386" y="289" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="6Rb-ND-Bym"/>
+                                    <constraint firstAttribute="width" constant="20" id="WUW-Cn-2aM"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="FullScreen">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="fullPlay:" destination="U1v-cl-gkl" eventType="touchUpInside" id="iQY-nb-af5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.88629591460000001" green="0.88627922530000003" blue="0.88629049059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ce9-Gn-QX7" secondAttribute="trailing" id="EBp-zu-B4s"/>
                             <constraint firstItem="Mad-Os-MAI" firstAttribute="top" secondItem="alS-qj-xYf" secondAttribute="top" id="T9W-pb-0aS"/>
                             <constraint firstItem="Mad-Os-MAI" firstAttribute="centerX" secondItem="bJF-dW-MOI" secondAttribute="centerX" constant="42" id="V25-sw-EO2"/>
+                            <constraint firstItem="mrC-5p-N7h" firstAttribute="bottom" secondItem="ce9-Gn-QX7" secondAttribute="bottom" constant="-4" id="aDy-r5-c8v"/>
                             <constraint firstItem="zJu-a1-5DL" firstAttribute="top" secondItem="alS-qj-xYf" secondAttribute="top" id="ce3-T9-Gt9"/>
                             <constraint firstItem="ce9-Gn-QX7" firstAttribute="top" secondItem="Eih-cf-HL4" secondAttribute="bottom" id="e6m-8m-g0u"/>
                             <constraint firstItem="zJu-a1-5DL" firstAttribute="leading" secondItem="alS-qj-xYf" secondAttribute="trailing" constant="10" id="eYh-x4-630"/>
@@ -3397,6 +3411,7 @@
                             <constraint firstItem="X1p-ed-qCb" firstAttribute="top" secondItem="ce9-Gn-QX7" secondAttribute="bottom" constant="35" id="hHj-n0-J8z"/>
                             <constraint firstItem="X1p-ed-qCb" firstAttribute="centerX" secondItem="bJF-dW-MOI" secondAttribute="centerX" id="k38-9a-I4i"/>
                             <constraint firstItem="zJu-a1-5DL" firstAttribute="top" secondItem="X1p-ed-qCb" secondAttribute="bottom" constant="25" id="kXA-1k-7CJ"/>
+                            <constraint firstItem="mrC-5p-N7h" firstAttribute="trailing" secondItem="ce9-Gn-QX7" secondAttribute="trailing" constant="-8" id="p94-aZ-xTq"/>
                             <constraint firstItem="zJu-a1-5DL" firstAttribute="centerX" secondItem="bJF-dW-MOI" secondAttribute="centerX" constant="-42" id="pRZ-XI-SrA"/>
                             <constraint firstItem="O9M-Vc-vmF" firstAttribute="leading" secondItem="Mad-Os-MAI" secondAttribute="trailing" constant="10" id="xB3-JW-3kx"/>
                             <constraint firstItem="O9M-Vc-vmF" firstAttribute="top" secondItem="alS-qj-xYf" secondAttribute="top" id="xjT-ez-pS3"/>
@@ -3406,6 +3421,7 @@
                         <outlet property="_addBt" destination="Mad-Os-MAI" id="QJY-rm-XJS"/>
                         <outlet property="_btBgView" destination="X1p-ed-qCb" id="MC6-xf-Icr"/>
                         <outlet property="_cameraBt" destination="zJu-a1-5DL" id="cOP-v4-Dum"/>
+                        <outlet property="_fullBt" destination="mrC-5p-N7h" id="1eO-Ln-IXR"/>
                         <outlet property="_playBtDown" destination="IWB-fK-RL2" id="oUp-ww-rMq"/>
                         <outlet property="_playBtLeft" destination="JaM-k7-FgC" id="LlQ-OC-uZ1"/>
                         <outlet property="_playBtRight" destination="aVX-2a-w3j" id="C7T-NU-fHK"/>
@@ -3418,7 +3434,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Krp-27-d4G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1558" y="10822"/>
+            <point key="canvasLocation" x="1557.9710144927537" y="10821.195652173914"/>
         </scene>
         <!--Find Car No View Controller-->
         <scene sceneID="NPA-bp-8uD">
@@ -8542,6 +8558,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="FullScreen" width="15" height="15"/>
         <image name="_list_right_narrow" width="20" height="20"/>
         <image name="alipay" width="25" height="25"/>
         <image name="apt_park_overrun" width="106" height="106"/>

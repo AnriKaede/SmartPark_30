@@ -790,6 +790,7 @@
 		92B9AB53225DEB53001B23AD /* DHDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB4D225DEB52001B23AD /* DHDataCenter.m */; };
 		92B9AB54225DEB53001B23AD /* ZComBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB4F225DEB52001B23AD /* ZComBoxView.m */; };
 		92B9AB55225DEB53001B23AD /* DHHudPrecess.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB52225DEB52001B23AD /* DHHudPrecess.m */; };
+		92B9AB57225ED521001B23AD /* DPClass.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92B9AB56225ED521001B23AD /* DPClass.storyboard */; };
 		92BB46FF2107FD9900D7130D /* MeetRoomGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BB46FE2107FD9900D7130D /* MeetRoomGroupModel.m */; };
 		92BD1EA6210AA20600D84330 /* AirCompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BD1EA5210AA20600D84330 /* AirCompanyModel.m */; };
 		92BD1EA9210AA22100D84330 /* AirLayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BD1EA8210AA22100D84330 /* AirLayerModel.m */; };
@@ -2578,6 +2579,7 @@
 		92B9AB50225DEB52001B23AD /* DHDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHDataCenter.h; sourceTree = "<group>"; };
 		92B9AB51225DEB52001B23AD /* ZComBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZComBoxView.h; sourceTree = "<group>"; };
 		92B9AB52225DEB52001B23AD /* DHHudPrecess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHHudPrecess.m; sourceTree = "<group>"; };
+		92B9AB56225ED521001B23AD /* DPClass.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DPClass.storyboard; sourceTree = "<group>"; };
 		92BB46FD2107FD9900D7130D /* MeetRoomGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetRoomGroupModel.h; sourceTree = "<group>"; };
 		92BB46FE2107FD9900D7130D /* MeetRoomGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetRoomGroupModel.m; sourceTree = "<group>"; };
 		92BD1EA4210AA20600D84330 /* AirCompanyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirCompanyModel.h; sourceTree = "<group>"; };
@@ -5624,6 +5626,7 @@
 		92B9AB0C225DC888001B23AD /* dpClass */ = {
 			isa = PBXGroup;
 			children = (
+				92B9AB56225ED521001B23AD /* DPClass.storyboard */,
 				92B9AB12225DC888001B23AD /* DHPlaybackViewController.h */,
 				92B9AB14225DC888001B23AD /* DHPlaybackViewController.m */,
 				92B9AB0D225DC888001B23AD /* DHPreviewViewController.h */,
@@ -7778,6 +7781,7 @@
 				926B697A1FD24B2F00DEFEDD /* CarIllegeaCell.xib in Resources */,
 				923897D2223CA85100279113 /* animate_00059.png in Resources */,
 				9222CAD5215E5B3700C519FF /* ParkTop10Cell.xib in Resources */,
+				92B9AB57225ED521001B23AD /* DPClass.storyboard in Resources */,
 				D6B34E0720887F7C00DF8DCC /* RepairsPeopleCell.xib in Resources */,
 				D653D7471FB1929F00798E1F /* inDoorMusicTabCell.xib in Resources */,
 				925576E22182BFB700B4A1A3 /* WifiCountSpeedCell.xib in Resources */,

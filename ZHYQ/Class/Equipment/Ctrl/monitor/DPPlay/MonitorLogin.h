@@ -16,4 +16,6 @@ typedef void (^LoginResult) (BOOL);
 
 + (void)logoutServer;
 
++ (void)selectNodeWithChanneId:(NSString *)channeId;
+
 @end

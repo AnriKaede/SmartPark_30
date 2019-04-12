@@ -11,5 +11,6 @@
 @interface PlayVideoViewController : RootViewController
 
 @property (nonatomic, copy) NSString *deviceType;
+@property (nonatomic, copy) NSString *selChannelId;
 
 @end

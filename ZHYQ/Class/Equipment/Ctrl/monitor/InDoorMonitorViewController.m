@@ -24,6 +24,8 @@
 #import "PlayVideoViewController.h"
 #import "PlaybackViewController.h"
 
+#import "MonitorLogin.h"
+
 @interface InDoorMonitorViewController ()<UIScrollViewDelegate, MenuControlDelegate,SGPageTitleViewDelegate,DidSelInMapPopDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 {    
     // 弹窗
@@ -485,10 +487,12 @@
         }
         #warning 大华SDK旧版本
 //        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
+        [MonitorLogin selectNodeWithChanneId:_currentModel.TAGID];
         
         [self forceOrientationPortrait];
         
         PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
+        playVC.selChannelId = _currentModel.TAGID;
         playVC.deviceType = _currentModel.DEVICE_TYPE;
         [self.navigationController pushViewController:playVC animated:YES];
          
