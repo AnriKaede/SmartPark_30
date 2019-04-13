@@ -185,17 +185,6 @@
 
 #pragma mark 查询大华sdk 是当天时间段
 - (void)_queryData {
-    #warning 大华SDK旧版本
-    /*
-    // 初始化查询
-    [[PlaybackManager sharedInstance]initPlaybackManager];
-    
-    [PlaybackManager sharedInstance].recordResourceValue = DPSDK_CORE_PB_RECSOURCE_DEVICE;
-    [PlaybackManager sharedInstance].recordTypeValue = 0;
-    [PlaybackManager sharedInstance].isPlayBackByFile = YES;
-    
-    [self onBtnQueryRecord];
-    */
     
     NSString *beginStr = [_queryDate stringByAppendingString:@" 00:00"];
     NSString *endStr = [_queryDate stringByAppendingString:@" 23:59"];

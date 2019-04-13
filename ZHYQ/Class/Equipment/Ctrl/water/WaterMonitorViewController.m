@@ -10,11 +10,17 @@
 //#import "PreviewManager.h"
 //#import "TalkManager.h"
 
+#import "DHPlayWindow.h"
+#import "DPSRTCamera.h"
+#import "DHLoginManager.h"
+#import "DHDataCenter.h"
+#import "DSSPlayWndToolBar.h"
+
 @interface WaterMonitorViewController ()
 {
-    #warning 大华SDK旧版本
-//    DHVideoWnd  *videoWnd_;
+    DHPlayWindow *_playWindow;
     
+    UIButton *_fullBt;
     UIButton *_colseBt;
     BOOL _isHidBar;
     
@@ -30,14 +36,8 @@
     
     [self _initView];
     
-    [self addNotification];
-    
-    #warning 大华SDK旧版本
-    /*
-    [[PreviewManager sharedInstance] initData];
-    
-    [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
-     */
+    NSString *channelId = ((DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content).channelid;
+    [self startToplay:channelId winIndex:0 streamType:0];
 }
 
 - (void)_initView {
@@ -56,17 +56,21 @@
     UIPanGestureRecognizer * pan = [[UIPanGestureRecognizer alloc]initWithTarget:traget action:nil];
     [self.view addGestureRecognizer:pan];
     
-    #warning 大华SDK旧版本
-    /*
     // 创建视频播放视图
-    videoWnd_ = [[DHVideoWnd alloc]initWithFrame:CGRectMake(0, (KScreenHeight - 285*wScale - kTopHeight)/2, KScreenWidth, 285*wScale)];
-    videoWnd_.backgroundColor = [UIColor orangeColor];
-    [self.view addSubview:videoWnd_];
+    _playWindow = [[DHPlayWindow alloc] initWithFrame:CGRectMake(0, (KScreenHeight - 285*wScale - kTopHeight)/2, KScreenWidth, 285*wScale)];
+    [_playWindow defultwindows:1];
+    DSSUserInfo* userinfo = [DHLoginManager sharedInstance].userInfo;
+    NSString *host = [[DHDataCenter sharedInstance] getHost];
+    int port = [[DHDataCenter sharedInstance] getPort];
+    [_playWindow setHost:host Port:port UserName:userinfo.userName];
+    _playWindow.hideDefultToolViews = YES;
+    [self.view addSubview:_playWindow];
     
-    UITapGestureRecognizer *fullTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullAction)];
-    fullTap.numberOfTapsRequired = 2;
-    [videoWnd_ addGestureRecognizer:fullTap];
-     */
+    _fullBt = [UIButton buttonWithType:UIButtonTypeCustom];
+    _fullBt.frame = CGRectMake(KScreenWidth - 33, _playWindow.bottom - 29, 25, 25);
+    [_fullBt setBackgroundImage:[UIImage imageNamed:@"FullScreen"] forState:UIControlStateNormal];
+    [_fullBt addTarget:self action:@selector(fullAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_fullBt];
     
     _colseBt = [UIButton buttonWithType:UIButtonTypeCustom];
     _colseBt.hidden = YES;
@@ -81,30 +85,58 @@
     [self.view addSubview:_colseBt];
 }
 
+#pragma mark 新版大华SDK播放
+- (void)startToplay:(NSString *)local_channelId winIndex:(int)winIndex streamType:(int)streamType{
+    DSSUserInfo* userinfo = [DHLoginManager sharedInstance].userInfo;
+    NSNumber* handleDPSDKEntity = (NSNumber*)[userinfo getInfoValueForKey:kUserInfoHandleDPSDKEntity];
+    //  NSString* handleRestToken = [[DHDataCenter sharedInstance] getLoginToken];
+    DPSRTCamera* ymCamera = [[DPSRTCamera alloc] init];
+    ymCamera.dpHandle = [handleDPSDKEntity longValue];
+    ymCamera.cameraID = local_channelId;
+    //  ymCamera.dpRestToken = handleRestToken;
+    ymCamera.server_ip = [[DHDataCenter sharedInstance] getHost];
+    ymCamera.server_port = [[DHDataCenter sharedInstance] getPort];
+    ymCamera.isCheckPermission = YES;
+    ymCamera.mediaType = 1;
+    //如果支持三码流，就默认播放辅码流，只有在用户主动选择三码流时才会去播放三码流
+    //default stream ：subStream
+    DSSChannelInfo* channelInfo = (DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content;
+    DSSDeviceInfo *deviceInfo = [[DHDeviceManager sharedInstance] getDeviceInfo:[channelInfo deviceId]];
+    if ([self isThirdStreamSupported:local_channelId]) {
+        ymCamera.streamType = 2;
+    } else {
+        if ([self isSubStreamSupported:local_channelId]) {
+            ymCamera.streamType = 2;
+        } else {
+            ymCamera.streamType = 1;
+        }
+    }
+    [_playWindow playCamera:ymCamera withName:channelInfo.name at:winIndex deviceProvide:deviceInfo.deviceProvide];
+    
+}
+
 -(BOOL)prefersStatusBarHidden
 {
     return _isHidBar;
 }
 
-#warning 大华SDK旧版本
-/*
 // 全屏显示
 - (void)fullAction {
     _isHidBar = YES;
     [self setNeedsStatusBarAppearanceUpdate];
     self.navigationController.navigationBar.hidden = YES;
     _colseBt.hidden = NO;
-    videoWnd_.userInteractionEnabled = NO;
+    _playWindow.userInteractionEnabled = NO;
     
     // 隐藏控制按钮放置点击
-    
+    _fullBt.hidden = YES;
     
     // 改变视频frame
-    videoWnd_.transform = CGAffineTransformRotate(videoWnd_.transform, M_PI_2);
+    _playWindow.transform = CGAffineTransformRotate(_playWindow.transform, M_PI_2);
     if(KScreenWidth > 440){ // ipad
-        videoWnd_.frame = CGRectMake(KScreenWidth, -44, -KScreenWidth, KScreenHeight);
+        _playWindow.frame = CGRectMake(KScreenWidth, -44, -KScreenWidth, KScreenHeight);
     }else {
-        videoWnd_.frame = CGRectMake(KScreenWidth, 0, -KScreenWidth, KScreenHeight);
+        _playWindow.frame = CGRectMake(KScreenWidth, 0, -KScreenWidth, KScreenHeight);
     }
 }
 - (void)closeFull {
@@ -112,60 +144,37 @@
     [self setNeedsStatusBarAppearanceUpdate];
     self.navigationController.navigationBar.hidden = NO;
     _colseBt.hidden = YES;
-    videoWnd_.userInteractionEnabled = YES;
+    _playWindow.userInteractionEnabled = YES;
     
-    videoWnd_.transform = CGAffineTransformRotate(videoWnd_.transform, -M_PI_2);
-    videoWnd_.frame = CGRectMake(0, (KScreenHeight - 285*wScale - kTopHeight)/2, KScreenWidth, 285*wScale);
+    _fullBt.hidden = NO;
+    
+    _playWindow.transform = CGAffineTransformRotate(_playWindow.transform, -M_PI_2);
+    _playWindow.frame = CGRectMake(0, (KScreenHeight - 285*wScale - kTopHeight)/2, KScreenWidth, 285*wScale);
 }
- */
 
 - (void)_leftBarBtnItemClick {
     [self.navigationController popViewControllerAnimated:YES];
+    [_playWindow stopAll];
 }
 
-#pragma mark - Notification process
--(void)addNotification
-{
-    NSNotificationCenter *notfiyCenter = [NSNotificationCenter defaultCenter];
-    
-    [notfiyCenter addObserver:self selector:@selector(appHasGoneInForegroundNotification) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [notfiyCenter addObserver:self selector:@selector(appEnterBackgroundNotification) name:UIApplicationDidEnterBackgroundNotification object:nil];
+- (BOOL)isThirdStreamSupported:(NSString *)channelIDStr{
+    if (channelIDStr != nil || ![channelIDStr isEqualToString:@""]) {
+        DSSChannelInfo* channelInfo = (DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content;
+        if(channelInfo.encChannelInfo.streamtypeSupported == 3){
+            return YES;
+        }
+        return NO;
+    }
+    return NO;
 }
--(void)removeNotification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (BOOL)isSubStreamSupported:(NSString *)channelIDStr{
+    if (channelIDStr != nil || ![channelIDStr isEqualToString:@""]) {
+        DSSChannelInfo* channelInfo = (DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content;
+        if(channelInfo.encChannelInfo.streamtypeSupported == 2){
+            return YES;
+        }
+        return NO;
+    }
+    return NO;
 }
-
-#warning 大华SDK旧版本
-/*
--(void)appHasGoneInForegroundNotification
-{
-    //重新进入前台的时候 app重新打开之前后台关闭的视频
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
-    });
-    NSLog(@"appHasGoneInForegroundNotification--openRealPlay");
-}
--(void)appEnterBackgroundNotification
-{
-    //进入后台之后
-    //如果当前打开视频的话 需要默认关闭
-    [[PreviewManager sharedInstance]stopRealPlay];
-    [[TalkManager sharedInstance]stopTalk];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [[PreviewManager sharedInstance]stopRealPlay];
-    [[TalkManager sharedInstance]stopTalk];
-    [[PreviewManager sharedInstance]initData];
-}
- */
--(void)dealloc
-{
-    [self removeNotification];
-}
-
 @end

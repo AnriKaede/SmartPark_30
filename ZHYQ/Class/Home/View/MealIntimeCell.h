@@ -14,4 +14,6 @@
 @property (nonatomic,copy) NSArray *numData;
 @property (nonatomic,copy) NSArray *costData;
 
+- (void)stopWinPlay;
+
 @end

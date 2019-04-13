@@ -9,9 +9,12 @@
 #import "MealIntimeCell.h"
 #import "AAChartView.h"
 
-//#import "DHVideoWnd.h"
-//#import "PreviewManager.h"
-//#import "TalkManager.h"
+#import "DHPlayWindow.h"
+#import "DPSRTCamera.h"
+#import "DHLoginManager.h"
+#import "DHDataCenter.h"
+#import "DHStreamSelectView.h"
+#import "DHHudPrecess.h"
 
 @interface MealIntimeCell()
 @property (nonatomic, strong) AAChartModel *mixChartModel;
@@ -25,17 +28,13 @@
     __weak IBOutlet UIView *_bottomView;
     __weak IBOutlet NSLayoutConstraint *_playHeight;
     
-//    DHVideoWnd  *videoWnd_;
-    UIButton *_colseBt;
-    BOOL _isHidBar;
+    DHPlayWindow *_playWindow;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
     [self _initView];
-    
-    [self addNotification];
 }
 
 - (void)_initView {
@@ -74,13 +73,19 @@
     // 视频监控视图
     [self _initPlayView];
     
-    #warning 大华SDK旧版本
-    /*
-    [DHDataCenter sharedInstance].channelID = @"1000229$1$0$0"; // 二楼 1000235$1$0$0
-    [[PreviewManager sharedInstance] initData];
-    int flag = [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
-    NSLog(@"%d", flag);
-     */
+    NSString *channelId = @"1000229$1$0$0";
+    [MonitorLogin selectNodeWithChanneId:channelId withNode:^(TreeNode *node) {
+        if(node != nil){
+            DSSChannelInfo *info = (DSSChannelInfo *)node.content;
+            if(info.isOnline){
+                [self startToplay:channelId winIndex:0 streamType:0];
+            }else {
+                [[self viewController] showHint:@"设备离线"];
+            }
+        }else {
+            [[self viewController] showHint:@"未找到此设备"];
+        }
+    }];
 }
 
 - (void)_initChartView {
@@ -120,58 +125,16 @@
 
 #pragma mark 就餐热度 实时视频
 - (void)_initPlayView {
-    #warning 大华SDK旧版本
-    /*
-    // 创建视频播放视图
-    videoWnd_ = [[DHVideoWnd alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth - 24, _playHeight.constant*wScale)];
-    videoWnd_.backgroundColor = [UIColor orangeColor];
-    [_bottomView addSubview:videoWnd_];
-    */
-     
-    /*
-    UITapGestureRecognizer *fullTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullAction)];
-    fullTap.numberOfTapsRequired = 2;
-    [videoWnd_ addGestureRecognizer:fullTap];
-    
-    _colseBt = [UIButton buttonWithType:UIButtonTypeCustom];
-    _colseBt.hidden = YES;
-    _colseBt.frame = CGRectMake(KScreenWidth - 80, KScreenHeight - 60, 50, 50);
-    if(KScreenWidth > 440){ // ipad
-        _colseBt.frame = CGRectMake(KScreenWidth - 80, KScreenHeight - 60 - 44, 50, 50);
-    }else {
-        _colseBt.frame = CGRectMake(KScreenWidth - 80, KScreenHeight - 60, 50, 50);
-    }
-    [_colseBt setBackgroundImage:[UIImage imageNamed:@"show_menu_close"] forState:UIControlStateNormal];
-    [_colseBt addTarget:self action:@selector(closeFull) forControlEvents:UIControlEventTouchUpInside];
-    [_bottomView addSubview:_colseBt];
-     */
+    _playWindow = [[DHPlayWindow alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth - 24, _playHeight.constant*wScale)];
+    [_playWindow defultwindows:1];
+    DSSUserInfo* userinfo = [DHLoginManager sharedInstance].userInfo;
+    NSString *host = [[DHDataCenter sharedInstance] getHost];
+    int port = [[DHDataCenter sharedInstance] getPort];
+    [_playWindow setHost:host Port:port UserName:userinfo.userName];
+    _playWindow.hideDefultToolViews = YES;
+    [_bottomView addSubview:_playWindow];
 }
 
-#warning 大华SDK旧版本
-/*
-// 全屏显示
-- (void)fullAction {
-    _colseBt.hidden = NO;
-    videoWnd_.userInteractionEnabled = NO;
-    
-    // 改变视频frame
-    videoWnd_.transform = CGAffineTransformRotate(videoWnd_.transform, M_PI_2);
-    if(KScreenWidth > 440){ // ipad
-        videoWnd_.frame = CGRectMake(KScreenWidth, -44, -KScreenWidth, KScreenHeight);
-    }else {
-        videoWnd_.frame = CGRectMake(KScreenWidth, 0, -KScreenWidth, KScreenHeight);
-    }
-}
-- (void)closeFull {
-    _isHidBar = NO;
-    _colseBt.hidden = YES;
-    videoWnd_.userInteractionEnabled = YES;
-    
-    videoWnd_.transform = CGAffineTransformRotate(videoWnd_.transform, -M_PI_2);
-    videoWnd_.frame = CGRectMake(0, 0, KScreenWidth, _bottomView.height);
-}
-*/
- 
 #pragma mark 设置数据
 - (void)setCostData:(NSArray *)costData {
     _costData = costData;
@@ -218,40 +181,58 @@
     [self.mixChartView aa_drawChartWithChartModel:_mixChartModel];
 }
 
-#pragma mark - 视频播放Notification process
--(void)addNotification
-{
-    NSNotificationCenter *notfiyCenter = [NSNotificationCenter defaultCenter];
+#pragma mark 新版大华SDK播放
+- (void)startToplay:(NSString *)local_channelId winIndex:(int)winIndex streamType:(int)streamType{
+    DSSUserInfo* userinfo = [DHLoginManager sharedInstance].userInfo;
+    NSNumber* handleDPSDKEntity = (NSNumber*)[userinfo getInfoValueForKey:kUserInfoHandleDPSDKEntity];
+    //  NSString* handleRestToken = [[DHDataCenter sharedInstance] getLoginToken];
+    DPSRTCamera* ymCamera = [[DPSRTCamera alloc] init];
+    ymCamera.dpHandle = [handleDPSDKEntity longValue];
+    ymCamera.cameraID = local_channelId;
+    //  ymCamera.dpRestToken = handleRestToken;
+    ymCamera.server_ip = [[DHDataCenter sharedInstance] getHost];
+    ymCamera.server_port = [[DHDataCenter sharedInstance] getPort];
+    ymCamera.isCheckPermission = YES;
+    ymCamera.mediaType = 1;
+    //如果支持三码流，就默认播放辅码流，只有在用户主动选择三码流时才会去播放三码流
+    //default stream ：subStream
+    DSSChannelInfo* channelInfo = (DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content;
+    DSSDeviceInfo *deviceInfo = [[DHDeviceManager sharedInstance] getDeviceInfo:[channelInfo deviceId]];
+    if ([self isThirdStreamSupported:local_channelId]) {
+        ymCamera.streamType = 2;
+    } else {
+        if ([self isSubStreamSupported:local_channelId]) {
+            ymCamera.streamType = 2;
+        } else {
+            ymCamera.streamType = 1;
+        }
+    }
+    [_playWindow playCamera:ymCamera withName:channelInfo.name at:winIndex deviceProvide:deviceInfo.deviceProvide];
     
-    [notfiyCenter addObserver:self selector:@selector(appHasGoneInForegroundNotification) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [notfiyCenter addObserver:self selector:@selector(appEnterBackgroundNotification) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
--(void)removeNotification
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (BOOL)isThirdStreamSupported:(NSString *)channelIDStr{
+    if (channelIDStr != nil || ![channelIDStr isEqualToString:@""]) {
+        DSSChannelInfo* channelInfo = (DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content;
+        if(channelInfo.encChannelInfo.streamtypeSupported == 3){
+            return YES;
+        }
+        return NO;
+    }
+    return NO;
 }
-
--(void)appHasGoneInForegroundNotification
-{
-    //重新进入前台的时候 app重新打开之前后台关闭的视频
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        #warning 大华SDK旧版本
-//        [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
-    });
-    NSLog(@"appHasGoneInForegroundNotification--openRealPlay");
-}
--(void)appEnterBackgroundNotification
-{
-    //进入后台之后
-    //如果当前打开视频的话 需要默认关闭
-    #warning 大华SDK旧版本
-//    [[PreviewManager sharedInstance]stopRealPlay];
-//    [[TalkManager sharedInstance]stopTalk];
+- (BOOL)isSubStreamSupported:(NSString *)channelIDStr{
+    if (channelIDStr != nil || ![channelIDStr isEqualToString:@""]) {
+        DSSChannelInfo* channelInfo = (DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content;
+        if(channelInfo.encChannelInfo.streamtypeSupported == 2){
+            return YES;
+        }
+        return NO;
+    }
+    return NO;
 }
 
--(void)dealloc
-{
-    [self removeNotification];
+- (void)stopWinPlay {
+    [_playWindow stopAll];
 }
 
 @end

@@ -7,10 +7,6 @@
 //
 
 #import "MonitorLogin.h"
-#import "DHDataCenter.h"
-#import "DHLoginManager.h"
-#import "DHHudPrecess.h"
-#import "WeikitErrorCode.h"
 
 @implementation MonitorLogin
 
@@ -53,78 +49,11 @@
         loginResult(YES);
     });
     
-    #warning 大华SDK旧版本
-    /*
-    //页面加载时,向平台请求业务数据回调
-    int ret = [[GroupManager sharedInstance]attachIssueCallback];
-    if ( DPSDK_RET_SUCCESS != ret)
-    {
-        printf("SetDPSDKIssueCallback fail");
-    }
-    
-    Login_Info_t logInfo =  {0};
-    
-    logInfo.nPort = [port intValue];
-    strcpy(logInfo.szIp, [address UTF8String]);
-    strcpy(logInfo.szUsername, [name UTF8String]);
-    strcpy(logInfo.szPassword, [psw UTF8String]);
-    logInfo.nProtocol = DPSDK_PROTOCOL_VERSION_II;
-    logInfo.iType = 2;
-    
-    dispatch_queue_t queue2 = dispatch_queue_create("Queue2", DISPATCH_QUEUE_CONCURRENT);
-    dispatch_async(queue2, ^{
-        int nRet = [[LoginManager sharedInstance]loginServer:logInfo];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            if ( DPSDK_RET_SUCCESS == nRet) {
-                //加载组织设备信息
-                int ret = [[GroupManager sharedInstance]loadGroupInfo];
-                if (ret != DPSDK_RET_SUCCESS) {
-                    MSG(@"", @"加载组织设备信息失败", @"确定");
-                    [self logoutServer];
-//                    return NO;
-                    loginResult(NO);
-                }
-                //一直到数据加载完成
-                NSDate * date = [NSDate dateWithTimeIntervalSinceNow:0];
-                while (TRUE) {
-                    Sleep(0.2);//
-                    NSDate * dateNow = [NSDate date];
-                    NSTimeInterval t = [dateNow timeIntervalSinceDate:date];
-                    
-                    //超时时间30s
-                    if ( t > 30) {
-                        MSG(@"", @"数据加载超时", @"");
-//                        return NO;
-                        loginResult(NO);
-                    }
-                    if ([[GroupManager sharedInstance]isLoadComplete]) {
-                        break;
-                    }
-                }
-//                return YES;
-                loginResult(YES);
-            }else {
-//                return NO;
-                loginResult(NO);
-            }
-        });
-    });
-     */
 }
 
 + (void)logoutServer {
     NSError *error = nil;
     [[DHLoginManager sharedInstance] logout:&error];
-    
-    #warning 大华SDK旧版本
-    /*
-    int nRet = [[LoginManager sharedInstance]logoutServer];
-    if ( DPSDK_RET_SUCCESS == nRet)
-    {
-        NSLog(@"因数据加载超时或者失败退出平台登陆");
-    }
-     */
 }
 + (void)loginErrorMsg:(int)nError
 {
@@ -153,12 +82,13 @@
     }
 }
 
-+ (void)selectNodeWithChanneId:(NSString *)channeId {
++ (void)selectNodeWithChanneId:(NSString *)channeId withNode:(QueryNode)queryNode {
     NSMutableDictionary *treeNodeDic = [DHDeviceManager sharedInstance].treeNodeDic;
     if([treeNodeDic containsObjectForKey:channeId]){
         NSLog(@"%@", treeNodeDic[channeId]);
         TreeNode *node = (TreeNode *)treeNodeDic[channeId];
         [DHDataCenter sharedInstance].selectNode = node;
+        queryNode(node);
     }else {
         NSLog(@"%@", @"未找到此设备");
     }

@@ -10,4 +10,6 @@
 
 @interface MealInTimeViewController : RootViewController
 
+- (void)stopDPPlay;
+
 @end

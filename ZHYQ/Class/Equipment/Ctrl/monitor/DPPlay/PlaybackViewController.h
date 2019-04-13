@@ -10,6 +10,4 @@
 
 @interface PlaybackViewController : RootViewController
 
-@property (nonatomic, copy) NSString *selChannelId;
-
 @end

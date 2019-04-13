@@ -149,8 +149,9 @@
 
 #pragma mark 实景视频
 - (void)viewModel {
-#warning 大华SDK旧版本
 //    [DHDataCenter sharedInstance].channelID = @"1000243$1$0$0";
+    [MonitorLogin selectNodeWithChanneId:@"1000243$1$0$0" withNode:^(TreeNode *node) {
+    }];
     
     WaterMonitorViewController *waterMonVC = [[WaterMonitorViewController alloc] init];
     [self.navigationController pushViewController:waterMonVC animated:YES];

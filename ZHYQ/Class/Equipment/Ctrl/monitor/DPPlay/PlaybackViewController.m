@@ -162,7 +162,6 @@
     self.navigationItem.leftBarButtonItem = leftItem;
     
     // 开始时间
-    #warning 大华SDK旧版本
     _startTimeView = [[UIView alloc] initWithFrame:CGRectMake(0, _playBgView.bottom + 60, KScreenWidth, 60)];
     _startTimeView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_startTimeView];
@@ -233,12 +232,8 @@
     
     // 停止播放
     [_dhPlayWindow stopAll];
-    
-    #warning 大华SDK旧版本
-//    [[PlaybackManager sharedInstance] stopPlayback];
 }
 
-#warning 大华SDK旧版本
 - (IBAction)fullPlay:(id)sender {
     [self fullAction];
 }
@@ -287,8 +282,6 @@
 }
 
 - (void)startTime {
-    #warning 大华SDK旧版本
-//    [PlaybackManager sharedInstance].isStartTime = YES;
     
     WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay scrollToDate:[NSDate date] CompleteBlock:^(NSDate *selectDate) {
         NSString *date = [selectDate stringWithFormat:@"yyyy-MM-dd"];
@@ -309,9 +302,6 @@
         return;
     }
     
-    #warning 大华SDK旧版本
-//    [PlaybackManager sharedInstance].isStartTime = NO;
-    
     MonitorTimeViewController *timeVC = [[MonitorTimeViewController alloc] init];
     timeVC.queryDate = startLabel.text;
     timeVC.timeDelegate = self;
@@ -324,6 +314,11 @@
 //    _timeIndex = index;
 #pragma mark 返回查询的recordInfo
     self.selectRecord = recordInfo;
+    
+    if(recordInfo != nil){
+        [self showHint:@"查询成功"];
+    }
+    
     // 直接调用播放
     [self startPlayback];
 }

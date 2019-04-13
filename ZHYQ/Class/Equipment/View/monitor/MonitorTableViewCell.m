@@ -12,6 +12,8 @@
 #import "PlayVideoViewController.h"
 #import "PlaybackViewController.h"
 
+#import "MonitorLogin.h"
+
 //#import "DHDataCenter.h"
 
 @implementation MonitorTableViewCell
@@ -25,12 +27,12 @@
 - (IBAction)playBtnAction:(id)sender {
     NSString *deviceType = @"";
     if(_indoorModel != nil && _indoorModel.TAGID != nil && ![_indoorModel.TAGID isKindOfClass:[NSNull class]]){
-        #warning 大华SDK旧版本
-//        [DHDataCenter sharedInstance].channelID = _indoorModel.TAGID;
+        [MonitorLogin selectNodeWithChanneId:_indoorModel.TAGID withNode:^(TreeNode *node) {
+        }];
         deviceType = _indoorModel.DEVICE_TYPE;
     }else if(_mapModel != nil && _mapModel.TAGID != nil && ![_mapModel.TAGID isKindOfClass:[NSNull class]]){
-        #warning 大华SDK旧版本
-//        [DHDataCenter sharedInstance].channelID = _mapModel.TAGID;
+        [MonitorLogin selectNodeWithChanneId:_indoorModel.TAGID withNode:^(TreeNode *node) {
+        }];
         deviceType = _mapModel.DEVICE_TYPE;
     }else {
         [[self viewController] showHint:@"无相机参数"];
@@ -48,45 +50,58 @@
 }
 
 - (void)DSSPlayDeviceType:(NSString *)deviceType withCareraId:(NSString *)careraID {
-    #warning 大华SDK旧版本
-    /*
-    DeviceTreeNode* tasksGroup =  [DHDataCenter sharedInstance].CamerasGroups;
+    NSString *channelid = ((DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content).channelid;
     
-    [tasksGroup queryNodeByCareraId:careraID withBlock:^(DeviceTreeNode *node) {
-        NSLog(@"在线离线状态：------- %d", node.bOnline);
-        if(node.bOnline){
-            // 在线
-            PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
-            playVC.deviceType = deviceType;
-            [[self viewController].navigationController pushViewController:playVC animated:YES];
+    [MonitorLogin selectNodeWithChanneId:channelid withNode:^(TreeNode *node) {
+        if(node != nil){
+            DSSChannelInfo *info = (DSSChannelInfo *)node.content;
+            if(info.isOnline){
+                PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
+                playVC.deviceType = deviceType;
+                [[self viewController].navigationController pushViewController:playVC animated:YES];
+            }else {
+                // 离线
+                [[self viewController] showHint:@"设备离线"];
+                _statusLab.text = @"离线";
+                _statusLab.textColor = [UIColor grayColor];
+                _indoorModel.CAMERA_STATUS = @"2";
+            }
         }else {
-            // 离线
-            [[self viewController] showHint:@"设备离线"];
-            _statusLab.text = @"离线";
-            _statusLab.textColor = [UIColor grayColor];
-            _indoorModel.CAMERA_STATUS = @"2";
+            [[self viewController] showHint:@"未找到此设备"];
         }
     }];
-     */
+    
 }
 
 - (IBAction)playBlackBtnAction:(id)sender {
     NSString *deviceType = @"";
     if(_indoorModel != nil && _indoorModel.TAGID != nil && ![_indoorModel.TAGID isKindOfClass:[NSNull class]]){
-        #warning 大华SDK旧版本
-//        [DHDataCenter sharedInstance].channelID = _indoorModel.TAGID;
+        [MonitorLogin selectNodeWithChanneId:_indoorModel.TAGID withNode:^(TreeNode *node) {
+        }];
         deviceType = _indoorModel.DEVICE_TYPE;
     }else if(_mapModel != nil && _mapModel.TAGID != nil && ![_mapModel.TAGID isKindOfClass:[NSNull class]]){
-        #warning 大华SDK旧版本
-//        [DHDataCenter sharedInstance].channelID = _mapModel.TAGID;
+        [MonitorLogin selectNodeWithChanneId:_mapModel.TAGID withNode:^(TreeNode *node) {
+        }];
         deviceType = _mapModel.DEVICE_TYPE;
     }else {
         [[self viewController] showHint:@"无相机参数"];
         return;
     }
     
-    PlaybackViewController *playVC = [[PlaybackViewController alloc] init];
-    [[self viewController].navigationController pushViewController:playVC animated:YES];
+    NSString *channelid = ((DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content).channelid;
+    [MonitorLogin selectNodeWithChanneId:channelid withNode:^(TreeNode *node) {
+        if(node != nil){
+            DSSChannelInfo *info = (DSSChannelInfo *)node.content;
+            if(info.isOnline){
+                PlaybackViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlaybackViewController"];
+                [[self viewController].navigationController pushViewController:playVC animated:YES];
+            }else {
+                [[self viewController] showHint:@"设备离线"];
+            }
+        }else {
+            [[self viewController] showHint:@"未找到此设备"];
+        }
+    }];
 }
 
 -(void)setIndoorModel:(InDoorMonitorMapModel *)indoorModel

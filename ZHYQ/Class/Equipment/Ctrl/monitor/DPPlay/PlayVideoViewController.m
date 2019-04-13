@@ -65,33 +65,8 @@
     
     [self _initView];
     
-    [self addNotification];
-    
     self.selectChannelId = ((DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content).channelid;
     [self startToplay:self.selectChannelId winIndex:0 streamType:0];
-    
-    #warning 大华SDK旧版本
-    /*
-    [[PreviewManager sharedInstance] initData];
-    
-    int rect = [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
-    if(rect != DPSDK_RET_SUCCESS){
-        [self showHint:@"请检查网络" yOffset:80];
-        NSDictionary *monitorInfo = [[NSUserDefaults standardUserDefaults] objectForKey:KMonitorInfo];
-        if(monitorInfo != nil){
-            MonitorLoginInfoModel *model = [[MonitorLoginInfoModel alloc] initWithDataDic:monitorInfo];
-            if(model.dssAddr != nil && ![model.dssAddr isKindOfClass:[NSNull class]] &&
-               model.dssPort != nil && ![model.dssPort isKindOfClass:[NSNull class]] &&
-               model.dssAdmin != nil && ![model.dssAdmin isKindOfClass:[NSNull class]] &&
-               model.dssPasswd != nil && ![model.dssPasswd isKindOfClass:[NSNull class]]
-               ){
-                // 登录视频监控账号
-                [MonitorLogin loginWithAddress:model.dssAddr withPort:model.dssPort withName:model.dssAdmin withPsw:model.dssPasswd withResule:^(BOOL isSuc) {
-                }];
-            }
-        }
-    }
-     */
     
     // 根据摄像机类型显示控制按钮
     if([_deviceType isEqualToString:@"1-2"]){
@@ -140,20 +115,6 @@
     _playBtLeft.transform = CGAffineTransformMakeRotation(M_PI_2*3);
     _playBtDown.transform = CGAffineTransformMakeRotation(M_PI_2*2);
     _playBtRight.transform = CGAffineTransformMakeRotation(M_PI_2);
-    
-    #warning 大华SDK旧版本
-    /*
-    // 创建视频播放视图
-    videoWnd_ = [[DHVideoWnd alloc]initWithFrame:CGRectMake(0, 0, KScreenWidth, _playViewHeight.constant)];
-    videoWnd_.backgroundColor = [UIColor orangeColor];
-    [self.view addSubview:videoWnd_];
-     */
-    
-//    UITapGestureRecognizer *fullTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullAction)];
-//    fullTap.numberOfTapsRequired = 2;
-//    [_playWindow addGestureRecognizer:fullTap];
-    
-//    fullAction
     
     _colseBt = [UIButton buttonWithType:UIButtonTypeCustom];
     _colseBt.hidden = YES;
@@ -214,12 +175,10 @@
 }
 
 - (void)_controllLoad {
-#warning 测试打开权限
     // 默认无权限
-//    [self controlBtClick:NO];
+    [self controlBtClick:NO];
     
-    #warning 大华SDK旧版本
-    NSString *videoUrlStr = [NSString stringWithFormat:@"%@/camera/cameraOperate?tagId=%@", Main_Url, _selChannelId];
+    NSString *videoUrlStr = [NSString stringWithFormat:@"%@/camera/cameraOperate?tagId=%@", Main_Url, self.selectChannelId];
     [[NetworkClient sharedInstance] GET:videoUrlStr dict:nil progressFloat:nil succeed:^(id responseObject) {
         if(responseObject[@"code"] != nil && ![responseObject[@"code"] isKindOfClass:[NSNull class]] && [responseObject[@"code"] isEqualToString:@"1"]){
             // 有权限
@@ -241,7 +200,7 @@
 - (IBAction)fullPlay:(id)sender {
     [self fullAction];
 }
-#warning 大华SDK旧版本
+
 // 全屏显示
 - (void)fullAction {
     _isHidBar = YES;
@@ -289,7 +248,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#warning 大华SDK旧版本
 #pragma mark 视频操作
 // 方向
 - (IBAction)directionUpInsildAction:(id)sender {
@@ -313,7 +271,7 @@
     }
 
     NSError *error = nil;
-    [[DHDeviceManager sharedInstance] ptz:_selChannelId direction:direction step:2 stop:YES error:&error];
+    [[DHDeviceManager sharedInstance] ptz:self.selectChannelId direction:direction step:2 stop:YES error:&error];
 }
 - (IBAction)directionDownAction:(id)sender {
     // 根据摄像机类型显示控制按钮
@@ -335,7 +293,7 @@
     }
     
     NSError *error = nil;
-    [[DHDeviceManager sharedInstance] ptz:_selChannelId direction:direction step:2 stop:NO error:&error];
+    [[DHDeviceManager sharedInstance] ptz:self.selectChannelId direction:direction step:2 stop:NO error:&error];
 }
 - (void)threadPtzControl:(NSDictionary *)dicPtz
 {
@@ -417,30 +375,6 @@
     [[DHDeviceManager sharedInstance] ptz:self.selectChannelId operation:MBL_PTZ_OPERATION_REDUCE_ZOOM step:2 stop:NO error:nil];
 }
 
-#warning 大华SDK旧版本
-/*
-- (void)addWithDic:(dpsdk_camera_operation_e)dpsdk_camera_operation_e withStop:(BOOL)stop {
-    NSMutableDictionary *dicOperation = [NSMutableDictionary dictionary];
-    [dicOperation setObject:[NSNumber numberWithInt:dpsdk_camera_operation_e] forKey:@"operation"];
-    [dicOperation setObject:[NSNumber numberWithInt:5] forKey:@"step"];
-    [dicOperation setObject:[NSNumber numberWithBool:stop] forKey:@"stop"];
-    
-    [self performSelectorInBackground:@selector(threadPtzCamera:)
-                           withObject:dicOperation];
-}
-
-
-- (void)threadPtzCamera:(NSDictionary *)dicOperation
-{
-    dpsdk_camera_operation_e operation = [[dicOperation valueForKey:@"operation"]intValue];
-    int step = [[dicOperation valueForKey:@"step"]intValue];
-    BOOL stop = [[dicOperation valueForKey:@"stop"]boolValue];
-    [[PreviewManager sharedInstance]ptzCamara:operation
-                                       byStep:step
-                                         stop:stop];
-}
- */
-
 #pragma mark - Notification process
 -(void)addNotification
 {
@@ -453,26 +387,6 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
-#warning 大华SDK旧版本
-/*
--(void)appHasGoneInForegroundNotification
-{
-    //重新进入前台的时候 app重新打开之前后台关闭的视频
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[PreviewManager sharedInstance]openRealPlay:(__bridge void *)(videoWnd_)];
-    });
-    NSLog(@"appHasGoneInForegroundNotification--openRealPlay");
-}
--(void)appEnterBackgroundNotification
-{
-    //进入后台之后
-    //如果当前打开视频的话 需要默认关闭
-    [[PreviewManager sharedInstance]stopRealPlay];
-    [[TalkManager sharedInstance]stopTalk];
-    [_playStopBt setSelected:NO];
-}
- */
 
 - (void)viewWillDisappear:(BOOL)animated
 {

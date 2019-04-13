@@ -485,31 +485,45 @@
             [self showHint:@"相机无参数"];
             return;
         }
-        #warning 大华SDK旧版本
-//        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
-        [MonitorLogin selectNodeWithChanneId:_currentModel.TAGID];
         
-        [self forceOrientationPortrait];
-        
-        PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
-        playVC.selChannelId = _currentModel.TAGID;
-        playVC.deviceType = _currentModel.DEVICE_TYPE;
-        [self.navigationController pushViewController:playVC animated:YES];
+        [MonitorLogin selectNodeWithChanneId:_currentModel.TAGID withNode:^(TreeNode *node) {
+            if(node != nil){
+                DSSChannelInfo *info = (DSSChannelInfo *)node.content;
+                if(info.isOnline){
+                    [self forceOrientationPortrait];
+                    
+                    PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
+                    playVC.deviceType = _currentModel.DEVICE_TYPE;
+                    [self.navigationController pushViewController:playVC animated:YES];
+                }else {
+                    [self showHint:@"设备离线"];
+                }
+            }else {
+                [self showHint:@"未找到此设备"];
+            }
+        }];
          
     }else if(index == 2) {
         if(_currentModel.TAGID == nil || [_currentModel.TAGID isKindOfClass:[NSNull class]]){
             [self showHint:@"相机无参数"];
             return;
         }
-        #warning 大华SDK旧版本
-//        [DHDataCenter sharedInstance].channelID = _currentModel.TAGID;
-        [MonitorLogin selectNodeWithChanneId:_currentModel.TAGID];
-        
-        [self forceOrientationPortrait];
-        
-        PlaybackViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlaybackViewController"];
-        playVC.selChannelId = _currentModel.TAGID;
-        [self.navigationController pushViewController:playVC animated:YES];
+
+        [MonitorLogin selectNodeWithChanneId:_currentModel.TAGID withNode:^(TreeNode *node) {
+            if(node != nil){
+                DSSChannelInfo *info = (DSSChannelInfo *)node.content;
+                if(info.isOnline){
+                    [self forceOrientationPortrait];
+                    
+                    PlaybackViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlaybackViewController"];
+                    [self.navigationController pushViewController:playVC animated:YES];
+                }else {
+                    [self showHint:@"设备离线"];
+                }
+            }else {
+                [self showHint:@"未找到此设备"];
+            }
+        }];
 
     }
 }
@@ -523,17 +537,10 @@
     InDoorMonitorMapModel *model = self.cameraDataArr[selectIndex];
     _currentModel = model;
     
-    #warning 大华SDK旧版本
-    /*
-    DeviceTreeNode* tasksGroup =  [DHDataCenter sharedInstance].CamerasGroups;
-    
-    _stateStr = @"";
-    
-    if(model.TAGID != nil && model.TAGID.length > 6){
-        NSString *careraID = [model.TAGID substringWithRange:NSMakeRange(0, model.TAGID.length - 6)];
-        [tasksGroup queryNodeByCareraId:careraID withBlock:^(DeviceTreeNode *node) {
-            NSLog(@"在线离线状态：------- %d", node.bOnline);
-            if(node.bOnline){
+    [MonitorLogin selectNodeWithChanneId:model.TAGID withNode:^(TreeNode *node) {
+        if(node != nil){
+            DSSChannelInfo *info = (DSSChannelInfo *)node.content;
+            if(info.isOnline){
                 // 在线
                 _isOnline = YES;
                 _stateStr = @"正常开启中";
@@ -544,10 +551,10 @@
                 _stateStr = @"离线";
                 _stateColor = [UIColor grayColor];
             }
-        }];
-    }
-     */
-    
+        }else {
+            [self showHint:@"未找到此设备"];
+        }
+    }];
     
     _showMenuView.hidden = NO;
     /*

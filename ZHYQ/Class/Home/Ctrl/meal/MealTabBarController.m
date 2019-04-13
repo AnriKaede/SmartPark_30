@@ -74,13 +74,8 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
     
-    #warning 大华SDK旧版本
-    /*
-    // 释放视频播放
-    [[PreviewManager sharedInstance]stopRealPlay];
-    [[TalkManager sharedInstance]stopTalk];
-    [[PreviewManager sharedInstance]initData];
-     */
+    MealInTimeViewController *inTimeVC = (MealInTimeViewController *)self.viewControllers.firstObject;
+    [inTimeVC stopDPPlay];
 }
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {

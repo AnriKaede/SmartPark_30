@@ -7,8 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DHDataCenter.h"
+#import "DHLoginManager.h"
+#import "DHHudPrecess.h"
+#import "WeikitErrorCode.h"
 
 typedef void (^LoginResult) (BOOL);
+typedef void (^QueryNode) (TreeNode *node);
 
 @interface MonitorLogin : NSObject
 
@@ -16,6 +21,6 @@ typedef void (^LoginResult) (BOOL);
 
 + (void)logoutServer;
 
-+ (void)selectNodeWithChanneId:(NSString *)channeId;
++ (void)selectNodeWithChanneId:(NSString *)channeId withNode:(QueryNode)queryNode;
 
 @end

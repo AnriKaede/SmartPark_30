@@ -433,8 +433,8 @@
         return;
     }
     
-    #warning 大华SDK旧版本
-//    [DHDataCenter sharedInstance].channelID = subDeviceModel.TAGID;
+    [MonitorLogin selectNodeWithChanneId:subDeviceModel.TAGID withNode:^(TreeNode *node) {
+    }];
     
     PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
     playVC.deviceType = subDeviceModel.DEVICE_TYPE;

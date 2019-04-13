@@ -263,8 +263,8 @@
         return;
     }
     
-    #warning 大华SDK旧版本
-//    [DHDataCenter sharedInstance].channelID = subDeviceModel.TAGID;
+    [MonitorLogin selectNodeWithChanneId:subDeviceModel.TAGID withNode:^(TreeNode *node) {
+    }];
     
     PlayVideoViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayVideoViewController"];
     playVC.deviceType = subDeviceModel.DEVICE_TYPE;
@@ -275,10 +275,11 @@
         [self showHint:@"相机无参数"];
         return;
     }
-    #warning 大华SDK旧版本
-//    [DHDataCenter sharedInstance].channelID = subDeviceModel.TAGID;
     
-    PlaybackViewController *playVC = [[PlaybackViewController alloc] init];
+    [MonitorLogin selectNodeWithChanneId:subDeviceModel.TAGID withNode:^(TreeNode *node) {
+    }];
+    
+    PlaybackViewController *playVC = [[UIStoryboard storyboardWithName:@"Equipment" bundle:nil] instantiateViewControllerWithIdentifier:@"PlaybackViewController"];
     [self.navigationController pushViewController:playVC animated:YES];
 }
 

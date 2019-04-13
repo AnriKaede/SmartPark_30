@@ -127,26 +127,15 @@
 {
     [super viewWillDisappear:animated];
     
-//    [[PreviewManager sharedInstance]stopRealPlay];
-//    [[TalkManager sharedInstance]stopTalk];
-//    [[PreviewManager sharedInstance]initData];
-    
-    #warning 大华SDK旧版本
-//    [[PreviewManager sharedInstance] pauseRealPlay:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    #warning 大华SDK旧版本
-//    [[PreviewManager sharedInstance] pauseRealPlay:NO];
 }
 
-- (void)dealloc {
-    #warning 大华SDK旧版本
-//    [[PreviewManager sharedInstance]stopRealPlay];
-//    [[TalkManager sharedInstance]stopTalk];
-//    [[PreviewManager sharedInstance]initData];
+- (void)stopDPPlay {
+    [_mealCell stopWinPlay];
 }
 
 @end
