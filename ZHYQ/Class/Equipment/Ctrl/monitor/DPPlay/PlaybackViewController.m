@@ -33,9 +33,12 @@
     BOOL _isHidBar;
     
     UIButton *_colseBt;
+    __weak IBOutlet UIButton *_fullBt;
+    __weak IBOutlet NSLayoutConstraint *_playViewHeight;
 }
 #pragma mark 大华新SDK
-@property (weak, nonatomic) IBOutlet DHPlayWindow *dhPlayWindow;   //播放窗口 play window
+@property (weak, nonatomic) IBOutlet UIView *playBgView; 
+@property (nonatomic, strong) DHPlayWindow *dhPlayWindow;   //播放窗口 play window
 @property (weak, nonatomic) IBOutlet UIView *toolBgView;
 @property (weak, nonatomic) IBOutlet UIButton *playBtn;            //播放按钮 play button
 @property (weak, nonatomic) IBOutlet UIButton *voiceBtn;           //声音按钮 voice button
@@ -65,6 +68,11 @@
 }
 
 - (void)setupDP {
+    _playViewHeight.constant = _playViewHeight.constant*hScale;
+    
+    _dhPlayWindow = [[DHPlayWindow alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, _playViewHeight.constant)];
+    [_playBgView addSubview:_dhPlayWindow];
+    
     self.selectChannelId = ((DSSChannelInfo *)[DHDataCenter sharedInstance].selectNode.content).channelid;
     //初始化播放窗口数，正常情况下，使用1
     [self.dhPlayWindow defultwindows:1];
@@ -155,7 +163,7 @@
     
     // 开始时间
     #warning 大华SDK旧版本
-    _startTimeView = [[UIView alloc] initWithFrame:CGRectMake(0, _toolBgView.bottom + 5, KScreenWidth, 60)];
+    _startTimeView = [[UIView alloc] initWithFrame:CGRectMake(0, _playBgView.bottom + 60, KScreenWidth, 60)];
     _startTimeView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_startTimeView];
     UITapGestureRecognizer *startTimeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startTime)];
@@ -224,11 +232,16 @@
     [self.navigationController popViewControllerAnimated:YES];
     
     // 停止播放
+    [_dhPlayWindow stopAll];
+    
     #warning 大华SDK旧版本
 //    [[PlaybackManager sharedInstance] stopPlayback];
 }
 
 #warning 大华SDK旧版本
+- (IBAction)fullPlay:(id)sender {
+    [self fullAction];
+}
 #pragma mark 全屏显示
 - (void)fullAction {
     _isHidBar = YES;
@@ -242,18 +255,14 @@
     _endTimeView.hidden = YES;
     
     _toolBgView.hidden = YES;
+    _fullBt.hidden = YES;
     
     // 改变视频frame
     _dhPlayWindow.transform = CGAffineTransformRotate(_dhPlayWindow.transform, M_PI_2);
     if(KScreenWidth > 440){ // ipad
-//        playbackView_.frame = CGRectMake(KScreenWidth, -44, -KScreenWidth, KScreenHeight);
+        _dhPlayWindow.frame = CGRectMake(KScreenWidth, -44, -KScreenWidth, KScreenHeight);
     }else {
         _dhPlayWindow.frame = CGRectMake(KScreenWidth, 0, -KScreenWidth, KScreenHeight);
-        _dhPlayWindow.backgroundColor = [UIColor orangeColor];
-        _dhPlayWindow.frame = CGRectMake(0, 0, KScreenHeight, KScreenWidth);
-    
-        UIScrollView *bgScrollView = [_dhPlayWindow viewWithTag:2001];
-        bgScrollView.frame = CGRectMake(0, 0, KScreenHeight, KScreenWidth);
     }
 }
 - (void)closeFull {
@@ -267,15 +276,10 @@
     _endTimeView.hidden = NO;
 
     _toolBgView.hidden = NO;
+    _fullBt.hidden = NO;
     
     _dhPlayWindow.transform = CGAffineTransformRotate(_dhPlayWindow.transform, -M_PI_2);
-    CGRect frame = CGRectMake(0, 0, KScreenWidth, 400*hScale);
-    float proportion   = frame.size.width / 718;
-    frame.size.height  = 480*proportion;
-    _dhPlayWindow.frame = frame;
-    
-    UIScrollView *bgScrollView = [_dhPlayWindow viewWithTag:2001];
-    bgScrollView.frame = frame;
+    _dhPlayWindow.frame = CGRectMake(0, 0, KScreenWidth, _playViewHeight.constant);
 }
 -(BOOL)prefersStatusBarHidden
 {
@@ -315,7 +319,7 @@
 }
 - (void)selTime:(NSInteger)index withRange:(NSString *)timeRange withDSSRecordInfo:(DSSRecordInfo *)recordInfo {
     endLabel.textColor = [UIColor blackColor];
-//    endLabel.text = timeRange;
+    endLabel.text = timeRange;
     
 //    _timeIndex = index;
 #pragma mark 返回查询的recordInfo

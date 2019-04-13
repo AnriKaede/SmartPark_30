@@ -8,6 +8,7 @@
 #import "DHHudPrecess.h"
 #import <pthread.h>
 
+//主线程运行
 #define RunOnMainThread(code)   {dispatch_async(dispatch_get_main_queue(), ^{code;});}
 
 static DHHudPrecess * __shareHudPrecess = nil;

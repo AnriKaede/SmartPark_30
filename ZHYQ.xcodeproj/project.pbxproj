@@ -576,6 +576,25 @@
 		9273EB1C2051319E00723C5D /* WaterTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB1A2051319E00723C5D /* WaterTimeCell.m */; };
 		9273EB1D2051319E00723C5D /* WaterTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9273EB1B2051319E00723C5D /* WaterTimeCell.xib */; };
 		9273EB2020521BB900723C5D /* WaterTaskEditTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9273EB1F20521BB900723C5D /* WaterTaskEditTableViewController.m */; };
+		9274819122617850000525C7 /* DHLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274817222617850000525C7 /* DHLoginManager.m */; };
+		9274819222617850000525C7 /* DHDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274817422617850000525C7 /* DHDeviceManager.m */; };
+		9274819322617850000525C7 /* DHTVWallManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274817522617850000525C7 /* DHTVWallManager.m */; };
+		9274819422617850000525C7 /* DHPlaybackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274817622617850000525C7 /* DHPlaybackManager.m */; };
+		9274819522617850000525C7 /* DHDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274817B22617850000525C7 /* DHDataCenter.m */; };
+		9274819622617850000525C7 /* ZComBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274817D22617850000525C7 /* ZComBoxView.m */; };
+		9274819722617850000525C7 /* DHHudPrecess.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274818022617850000525C7 /* DHHudPrecess.m */; };
+		9274819822617850000525C7 /* DSSPtzToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9274818222617850000525C7 /* DSSPtzToolBar.xib */; };
+		9274819922617850000525C7 /* DSSPtzToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274818322617850000525C7 /* DSSPtzToolBar.m */; };
+		9274819A22617850000525C7 /* DSSRealPtzControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274818422617850000525C7 /* DSSRealPtzControlView.m */; };
+		9274819B22617850000525C7 /* DHStreamSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274818522617850000525C7 /* DHStreamSelectView.m */; };
+		9274819C22617850000525C7 /* DSSPlayWndToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274818722617850000525C7 /* DSSPlayWndToolBar.m */; };
+		9274819D22617850000525C7 /* DSSMainToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9274818822617850000525C7 /* DSSMainToolBar.xib */; };
+		9274819E22617850000525C7 /* DSSPlayWndToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9274818A22617850000525C7 /* DSSPlayWndToolBar.xib */; };
+		9274819F22617850000525C7 /* DSSMainToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 9274818C22617850000525C7 /* DSSMainToolBar.m */; };
+		927481A022617850000525C7 /* DHStreamSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9274818E22617850000525C7 /* DHStreamSelectView.xib */; };
+		927481A122617850000525C7 /* DSSRealPtzControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9274819022617850000525C7 /* DSSRealPtzControlView.xib */; };
+		927481A622617894000525C7 /* PlaybackProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 927481A322617893000525C7 /* PlaybackProgress.m */; };
+		927481A722617894000525C7 /* PlaybackProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 927481A422617894000525C7 /* PlaybackProgress.xib */; };
 		9276A59A2086CEF200F6667B /* RepairProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276A5982086CEF200F6667B /* RepairProgressCell.m */; };
 		9276A59B2086CEF200F6667B /* RepairProgressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9276A5992086CEF200F6667B /* RepairProgressCell.xib */; };
 		9276A59E2086EE6000F6667B /* AppointBillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9276A59D2086EE6000F6667B /* AppointBillViewController.m */; };
@@ -763,34 +782,12 @@
 		92B9AB09225DC802001B23AD /* PlayVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB03225DC802001B23AD /* PlayVideoViewController.m */; };
 		92B9AB0A225DC802001B23AD /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB04225DC802001B23AD /* PlaybackViewController.m */; };
 		92B9AB0B225DC802001B23AD /* MonitorLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB05225DC802001B23AD /* MonitorLogin.m */; };
-		92B9AB25225DC888001B23AD /* PlaybackProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB0F225DC888001B23AD /* PlaybackProgress.m */; };
-		92B9AB26225DC888001B23AD /* PlaybackProgress.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B9AB10225DC888001B23AD /* PlaybackProgress.xib */; };
-		92B9AB27225DC888001B23AD /* DHPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB13225DC888001B23AD /* DHPreviewViewController.m */; };
-		92B9AB28225DC889001B23AD /* DHPlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB14225DC888001B23AD /* DHPlaybackViewController.m */; };
-		92B9AB29225DC889001B23AD /* DSSPtzToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B9AB16225DC888001B23AD /* DSSPtzToolBar.xib */; };
-		92B9AB2A225DC889001B23AD /* DSSPtzToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB17225DC888001B23AD /* DSSPtzToolBar.m */; };
-		92B9AB2B225DC889001B23AD /* DSSRealPtzControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB18225DC888001B23AD /* DSSRealPtzControlView.m */; };
-		92B9AB2C225DC889001B23AD /* DHStreamSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB19225DC888001B23AD /* DHStreamSelectView.m */; };
-		92B9AB2D225DC889001B23AD /* DSSPlayWndToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB1B225DC888001B23AD /* DSSPlayWndToolBar.m */; };
-		92B9AB2E225DC889001B23AD /* DSSMainToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B9AB1C225DC888001B23AD /* DSSMainToolBar.xib */; };
-		92B9AB2F225DC889001B23AD /* DSSPlayWndToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B9AB1E225DC888001B23AD /* DSSPlayWndToolBar.xib */; };
-		92B9AB30225DC889001B23AD /* DSSMainToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB20225DC888001B23AD /* DSSMainToolBar.m */; };
-		92B9AB31225DC889001B23AD /* DHStreamSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B9AB22225DC888001B23AD /* DHStreamSelectView.xib */; };
-		92B9AB32225DC889001B23AD /* DSSRealPtzControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B9AB24225DC888001B23AD /* DSSRealPtzControlView.xib */; };
 		92B9AB34225DD4C9001B23AD /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B9AB33225DD4C9001B23AD /* VideoToolbox.framework */; };
 		92B9AB36225DD4D3001B23AD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B9AB35225DD4D3001B23AD /* AudioToolbox.framework */; };
 		92B9AB38225DD4DA001B23AD /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B9AB37225DD4DA001B23AD /* CoreMedia.framework */; };
 		92B9AB3A225DD86D001B23AD /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B9AB39225DD86D001B23AD /* libxml2.tbd */; };
 		92B9AB3C225DD8AB001B23AD /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B9AB3B225DD8AA001B23AD /* libc++.tbd */; };
 		92B9AB3E225DD8B8001B23AD /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B9AB3D225DD8B8001B23AD /* libresolv.tbd */; };
-		92B9AB48225DDF80001B23AD /* DHLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB40225DDF80001B23AD /* DHLoginManager.m */; };
-		92B9AB49225DDF80001B23AD /* DHDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB42225DDF80001B23AD /* DHDeviceManager.m */; };
-		92B9AB4A225DDF80001B23AD /* DHTVWallManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB43225DDF80001B23AD /* DHTVWallManager.m */; };
-		92B9AB4B225DDF80001B23AD /* DHPlaybackManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB44225DDF80001B23AD /* DHPlaybackManager.m */; };
-		92B9AB53225DEB53001B23AD /* DHDataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB4D225DEB52001B23AD /* DHDataCenter.m */; };
-		92B9AB54225DEB53001B23AD /* ZComBoxView.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB4F225DEB52001B23AD /* ZComBoxView.m */; };
-		92B9AB55225DEB53001B23AD /* DHHudPrecess.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B9AB52225DEB52001B23AD /* DHHudPrecess.m */; };
-		92B9AB57225ED521001B23AD /* DPClass.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92B9AB56225ED521001B23AD /* DPClass.storyboard */; };
 		92BB46FF2107FD9900D7130D /* MeetRoomGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BB46FE2107FD9900D7130D /* MeetRoomGroupModel.m */; };
 		92BD1EA6210AA20600D84330 /* AirCompanyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BD1EA5210AA20600D84330 /* AirCompanyModel.m */; };
 		92BD1EA9210AA22100D84330 /* AirLayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BD1EA8210AA22100D84330 /* AirLayerModel.m */; };
@@ -2174,6 +2171,38 @@
 		9273EB1B2051319E00723C5D /* WaterTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaterTimeCell.xib; sourceTree = "<group>"; };
 		9273EB1E20521BB900723C5D /* WaterTaskEditTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WaterTaskEditTableViewController.h; sourceTree = "<group>"; };
 		9273EB1F20521BB900723C5D /* WaterTaskEditTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WaterTaskEditTableViewController.m; sourceTree = "<group>"; };
+		9274817222617850000525C7 /* DHLoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHLoginManager.m; sourceTree = "<group>"; };
+		9274817322617850000525C7 /* DHPlaybackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHPlaybackManager.h; sourceTree = "<group>"; };
+		9274817422617850000525C7 /* DHDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHDeviceManager.m; sourceTree = "<group>"; };
+		9274817522617850000525C7 /* DHTVWallManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHTVWallManager.m; sourceTree = "<group>"; };
+		9274817622617850000525C7 /* DHPlaybackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHPlaybackManager.m; sourceTree = "<group>"; };
+		9274817722617850000525C7 /* DHLoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHLoginManager.h; sourceTree = "<group>"; };
+		9274817822617850000525C7 /* DHTVWallManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHTVWallManager.h; sourceTree = "<group>"; };
+		9274817922617850000525C7 /* DHDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHDeviceManager.h; sourceTree = "<group>"; };
+		9274817B22617850000525C7 /* DHDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHDataCenter.m; sourceTree = "<group>"; };
+		9274817C22617850000525C7 /* DHHudPrecess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHHudPrecess.h; sourceTree = "<group>"; };
+		9274817D22617850000525C7 /* ZComBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZComBoxView.m; sourceTree = "<group>"; };
+		9274817E22617850000525C7 /* DHDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHDataCenter.h; sourceTree = "<group>"; };
+		9274817F22617850000525C7 /* ZComBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZComBoxView.h; sourceTree = "<group>"; };
+		9274818022617850000525C7 /* DHHudPrecess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHHudPrecess.m; sourceTree = "<group>"; };
+		9274818222617850000525C7 /* DSSPtzToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSPtzToolBar.xib; sourceTree = "<group>"; };
+		9274818322617850000525C7 /* DSSPtzToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSPtzToolBar.m; sourceTree = "<group>"; };
+		9274818422617850000525C7 /* DSSRealPtzControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSRealPtzControlView.m; sourceTree = "<group>"; };
+		9274818522617850000525C7 /* DHStreamSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHStreamSelectView.m; sourceTree = "<group>"; };
+		9274818622617850000525C7 /* DSSMainToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSMainToolBar.h; sourceTree = "<group>"; };
+		9274818722617850000525C7 /* DSSPlayWndToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSPlayWndToolBar.m; sourceTree = "<group>"; };
+		9274818822617850000525C7 /* DSSMainToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSMainToolBar.xib; sourceTree = "<group>"; };
+		9274818922617850000525C7 /* DSSPtzToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSPtzToolBar.h; sourceTree = "<group>"; };
+		9274818A22617850000525C7 /* DSSPlayWndToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSPlayWndToolBar.xib; sourceTree = "<group>"; };
+		9274818B22617850000525C7 /* DHStreamSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHStreamSelectView.h; sourceTree = "<group>"; };
+		9274818C22617850000525C7 /* DSSMainToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSMainToolBar.m; sourceTree = "<group>"; };
+		9274818D22617850000525C7 /* DSSRealPtzControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSRealPtzControlView.h; sourceTree = "<group>"; };
+		9274818E22617850000525C7 /* DHStreamSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DHStreamSelectView.xib; sourceTree = "<group>"; };
+		9274818F22617850000525C7 /* DSSPlayWndToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSPlayWndToolBar.h; sourceTree = "<group>"; };
+		9274819022617850000525C7 /* DSSRealPtzControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSRealPtzControlView.xib; sourceTree = "<group>"; };
+		927481A322617893000525C7 /* PlaybackProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackProgress.m; sourceTree = "<group>"; };
+		927481A422617894000525C7 /* PlaybackProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaybackProgress.xib; sourceTree = "<group>"; };
+		927481A522617894000525C7 /* PlaybackProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackProgress.h; sourceTree = "<group>"; };
 		9276A5972086CEF200F6667B /* RepairProgressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RepairProgressCell.h; sourceTree = "<group>"; };
 		9276A5982086CEF200F6667B /* RepairProgressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RepairProgressCell.m; sourceTree = "<group>"; };
 		9276A5992086CEF200F6667B /* RepairProgressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepairProgressCell.xib; sourceTree = "<group>"; };
@@ -2537,49 +2566,12 @@
 		92B9AB05225DC802001B23AD /* MonitorLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonitorLogin.m; sourceTree = "<group>"; };
 		92B9AB06225DC802001B23AD /* MonitorTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonitorTimeViewController.h; sourceTree = "<group>"; };
 		92B9AB07225DC802001B23AD /* PlayVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayVideoViewController.h; sourceTree = "<group>"; };
-		92B9AB0D225DC888001B23AD /* DHPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHPreviewViewController.h; sourceTree = "<group>"; };
-		92B9AB0F225DC888001B23AD /* PlaybackProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackProgress.m; sourceTree = "<group>"; };
-		92B9AB10225DC888001B23AD /* PlaybackProgress.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlaybackProgress.xib; sourceTree = "<group>"; };
-		92B9AB11225DC888001B23AD /* PlaybackProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackProgress.h; sourceTree = "<group>"; };
-		92B9AB12225DC888001B23AD /* DHPlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHPlaybackViewController.h; sourceTree = "<group>"; };
-		92B9AB13225DC888001B23AD /* DHPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHPreviewViewController.m; sourceTree = "<group>"; };
-		92B9AB14225DC888001B23AD /* DHPlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHPlaybackViewController.m; sourceTree = "<group>"; };
-		92B9AB16225DC888001B23AD /* DSSPtzToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSPtzToolBar.xib; sourceTree = "<group>"; };
-		92B9AB17225DC888001B23AD /* DSSPtzToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSPtzToolBar.m; sourceTree = "<group>"; };
-		92B9AB18225DC888001B23AD /* DSSRealPtzControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSRealPtzControlView.m; sourceTree = "<group>"; };
-		92B9AB19225DC888001B23AD /* DHStreamSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHStreamSelectView.m; sourceTree = "<group>"; };
-		92B9AB1A225DC888001B23AD /* DSSMainToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSMainToolBar.h; sourceTree = "<group>"; };
-		92B9AB1B225DC888001B23AD /* DSSPlayWndToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSPlayWndToolBar.m; sourceTree = "<group>"; };
-		92B9AB1C225DC888001B23AD /* DSSMainToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSMainToolBar.xib; sourceTree = "<group>"; };
-		92B9AB1D225DC888001B23AD /* DSSPtzToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSPtzToolBar.h; sourceTree = "<group>"; };
-		92B9AB1E225DC888001B23AD /* DSSPlayWndToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSPlayWndToolBar.xib; sourceTree = "<group>"; };
-		92B9AB1F225DC888001B23AD /* DHStreamSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHStreamSelectView.h; sourceTree = "<group>"; };
-		92B9AB20225DC888001B23AD /* DSSMainToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSMainToolBar.m; sourceTree = "<group>"; };
-		92B9AB21225DC888001B23AD /* DSSRealPtzControlView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSRealPtzControlView.h; sourceTree = "<group>"; };
-		92B9AB22225DC888001B23AD /* DHStreamSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DHStreamSelectView.xib; sourceTree = "<group>"; };
-		92B9AB23225DC888001B23AD /* DSSPlayWndToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSPlayWndToolBar.h; sourceTree = "<group>"; };
-		92B9AB24225DC888001B23AD /* DSSRealPtzControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DSSRealPtzControlView.xib; sourceTree = "<group>"; };
 		92B9AB33225DD4C9001B23AD /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		92B9AB35225DD4D3001B23AD /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		92B9AB37225DD4DA001B23AD /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		92B9AB39225DD86D001B23AD /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		92B9AB3B225DD8AA001B23AD /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		92B9AB3D225DD8B8001B23AD /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
-		92B9AB40225DDF80001B23AD /* DHLoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHLoginManager.m; sourceTree = "<group>"; };
-		92B9AB41225DDF80001B23AD /* DHPlaybackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHPlaybackManager.h; sourceTree = "<group>"; };
-		92B9AB42225DDF80001B23AD /* DHDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHDeviceManager.m; sourceTree = "<group>"; };
-		92B9AB43225DDF80001B23AD /* DHTVWallManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHTVWallManager.m; sourceTree = "<group>"; };
-		92B9AB44225DDF80001B23AD /* DHPlaybackManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHPlaybackManager.m; sourceTree = "<group>"; };
-		92B9AB45225DDF80001B23AD /* DHLoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHLoginManager.h; sourceTree = "<group>"; };
-		92B9AB46225DDF80001B23AD /* DHTVWallManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHTVWallManager.h; sourceTree = "<group>"; };
-		92B9AB47225DDF80001B23AD /* DHDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHDeviceManager.h; sourceTree = "<group>"; };
-		92B9AB4D225DEB52001B23AD /* DHDataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHDataCenter.m; sourceTree = "<group>"; };
-		92B9AB4E225DEB52001B23AD /* DHHudPrecess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHHudPrecess.h; sourceTree = "<group>"; };
-		92B9AB4F225DEB52001B23AD /* ZComBoxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZComBoxView.m; sourceTree = "<group>"; };
-		92B9AB50225DEB52001B23AD /* DHDataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHDataCenter.h; sourceTree = "<group>"; };
-		92B9AB51225DEB52001B23AD /* ZComBoxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZComBoxView.h; sourceTree = "<group>"; };
-		92B9AB52225DEB52001B23AD /* DHHudPrecess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHHudPrecess.m; sourceTree = "<group>"; };
-		92B9AB56225ED521001B23AD /* DPClass.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DPClass.storyboard; sourceTree = "<group>"; };
 		92BB46FD2107FD9900D7130D /* MeetRoomGroupModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeetRoomGroupModel.h; sourceTree = "<group>"; };
 		92BB46FE2107FD9900D7130D /* MeetRoomGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeetRoomGroupModel.m; sourceTree = "<group>"; };
 		92BD1EA4210AA20600D84330 /* AirCompanyModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AirCompanyModel.h; sourceTree = "<group>"; };
@@ -5079,6 +5071,77 @@
 			path = water;
 			sourceTree = "<group>";
 		};
+		9274817022617850000525C7 /* dpClass */ = {
+			isa = PBXGroup;
+			children = (
+				9274817122617850000525C7 /* Manager */,
+				9274817A22617850000525C7 /* Common */,
+				9274818122617850000525C7 /* PreviewView */,
+				927481A222617893000525C7 /* PlaybackView */,
+			);
+			path = dpClass;
+			sourceTree = "<group>";
+		};
+		9274817122617850000525C7 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9274817922617850000525C7 /* DHDeviceManager.h */,
+				9274817422617850000525C7 /* DHDeviceManager.m */,
+				9274817722617850000525C7 /* DHLoginManager.h */,
+				9274817222617850000525C7 /* DHLoginManager.m */,
+				9274817322617850000525C7 /* DHPlaybackManager.h */,
+				9274817622617850000525C7 /* DHPlaybackManager.m */,
+				9274817822617850000525C7 /* DHTVWallManager.h */,
+				9274817522617850000525C7 /* DHTVWallManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		9274817A22617850000525C7 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				9274817E22617850000525C7 /* DHDataCenter.h */,
+				9274817B22617850000525C7 /* DHDataCenter.m */,
+				9274817C22617850000525C7 /* DHHudPrecess.h */,
+				9274818022617850000525C7 /* DHHudPrecess.m */,
+				9274817F22617850000525C7 /* ZComBoxView.h */,
+				9274817D22617850000525C7 /* ZComBoxView.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		9274818122617850000525C7 /* PreviewView */ = {
+			isa = PBXGroup;
+			children = (
+				9274818B22617850000525C7 /* DHStreamSelectView.h */,
+				9274818522617850000525C7 /* DHStreamSelectView.m */,
+				9274818E22617850000525C7 /* DHStreamSelectView.xib */,
+				9274818622617850000525C7 /* DSSMainToolBar.h */,
+				9274818C22617850000525C7 /* DSSMainToolBar.m */,
+				9274818822617850000525C7 /* DSSMainToolBar.xib */,
+				9274818F22617850000525C7 /* DSSPlayWndToolBar.h */,
+				9274818722617850000525C7 /* DSSPlayWndToolBar.m */,
+				9274818A22617850000525C7 /* DSSPlayWndToolBar.xib */,
+				9274818922617850000525C7 /* DSSPtzToolBar.h */,
+				9274818322617850000525C7 /* DSSPtzToolBar.m */,
+				9274818222617850000525C7 /* DSSPtzToolBar.xib */,
+				9274818D22617850000525C7 /* DSSRealPtzControlView.h */,
+				9274818422617850000525C7 /* DSSRealPtzControlView.m */,
+				9274819022617850000525C7 /* DSSRealPtzControlView.xib */,
+			);
+			path = PreviewView;
+			sourceTree = "<group>";
+		};
+		927481A222617893000525C7 /* PlaybackView */ = {
+			isa = PBXGroup;
+			children = (
+				927481A522617894000525C7 /* PlaybackProgress.h */,
+				927481A322617893000525C7 /* PlaybackProgress.m */,
+				927481A422617894000525C7 /* PlaybackProgress.xib */,
+			);
+			path = PlaybackView;
+			sourceTree = "<group>";
+		};
 		9276A59F2088742800F6667B /* WorkList */ = {
 			isa = PBXGroup;
 			children = (
@@ -5621,82 +5684,6 @@
 				92B9AB04225DC802001B23AD /* PlaybackViewController.m */,
 			);
 			path = DPPlay;
-			sourceTree = "<group>";
-		};
-		92B9AB0C225DC888001B23AD /* dpClass */ = {
-			isa = PBXGroup;
-			children = (
-				92B9AB56225ED521001B23AD /* DPClass.storyboard */,
-				92B9AB12225DC888001B23AD /* DHPlaybackViewController.h */,
-				92B9AB14225DC888001B23AD /* DHPlaybackViewController.m */,
-				92B9AB0D225DC888001B23AD /* DHPreviewViewController.h */,
-				92B9AB13225DC888001B23AD /* DHPreviewViewController.m */,
-				92B9AB4C225DEB52001B23AD /* Common */,
-				92B9AB3F225DDF80001B23AD /* Manager */,
-				92B9AB0E225DC888001B23AD /* PlaybackView */,
-				92B9AB15225DC888001B23AD /* PreviewView */,
-			);
-			path = dpClass;
-			sourceTree = "<group>";
-		};
-		92B9AB0E225DC888001B23AD /* PlaybackView */ = {
-			isa = PBXGroup;
-			children = (
-				92B9AB11225DC888001B23AD /* PlaybackProgress.h */,
-				92B9AB0F225DC888001B23AD /* PlaybackProgress.m */,
-				92B9AB10225DC888001B23AD /* PlaybackProgress.xib */,
-			);
-			path = PlaybackView;
-			sourceTree = "<group>";
-		};
-		92B9AB15225DC888001B23AD /* PreviewView */ = {
-			isa = PBXGroup;
-			children = (
-				92B9AB1F225DC888001B23AD /* DHStreamSelectView.h */,
-				92B9AB19225DC888001B23AD /* DHStreamSelectView.m */,
-				92B9AB22225DC888001B23AD /* DHStreamSelectView.xib */,
-				92B9AB1A225DC888001B23AD /* DSSMainToolBar.h */,
-				92B9AB20225DC888001B23AD /* DSSMainToolBar.m */,
-				92B9AB1C225DC888001B23AD /* DSSMainToolBar.xib */,
-				92B9AB23225DC888001B23AD /* DSSPlayWndToolBar.h */,
-				92B9AB1B225DC888001B23AD /* DSSPlayWndToolBar.m */,
-				92B9AB1E225DC888001B23AD /* DSSPlayWndToolBar.xib */,
-				92B9AB1D225DC888001B23AD /* DSSPtzToolBar.h */,
-				92B9AB17225DC888001B23AD /* DSSPtzToolBar.m */,
-				92B9AB16225DC888001B23AD /* DSSPtzToolBar.xib */,
-				92B9AB21225DC888001B23AD /* DSSRealPtzControlView.h */,
-				92B9AB18225DC888001B23AD /* DSSRealPtzControlView.m */,
-				92B9AB24225DC888001B23AD /* DSSRealPtzControlView.xib */,
-			);
-			path = PreviewView;
-			sourceTree = "<group>";
-		};
-		92B9AB3F225DDF80001B23AD /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				92B9AB47225DDF80001B23AD /* DHDeviceManager.h */,
-				92B9AB42225DDF80001B23AD /* DHDeviceManager.m */,
-				92B9AB45225DDF80001B23AD /* DHLoginManager.h */,
-				92B9AB40225DDF80001B23AD /* DHLoginManager.m */,
-				92B9AB41225DDF80001B23AD /* DHPlaybackManager.h */,
-				92B9AB44225DDF80001B23AD /* DHPlaybackManager.m */,
-				92B9AB46225DDF80001B23AD /* DHTVWallManager.h */,
-				92B9AB43225DDF80001B23AD /* DHTVWallManager.m */,
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
-		92B9AB4C225DEB52001B23AD /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				92B9AB50225DEB52001B23AD /* DHDataCenter.h */,
-				92B9AB4D225DEB52001B23AD /* DHDataCenter.m */,
-				92B9AB4E225DEB52001B23AD /* DHHudPrecess.h */,
-				92B9AB52225DEB52001B23AD /* DHHudPrecess.m */,
-				92B9AB51225DEB52001B23AD /* ZComBoxView.h */,
-				92B9AB4F225DEB52001B23AD /* ZComBoxView.m */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		92BB46FC2107FD7600D7130D /* MeetRoom */ = {
@@ -6631,7 +6618,7 @@
 				D695D20D1FB70201005255E9 /* InDoorMonitorViewController.m */,
 				D695D20F1FB7020D005255E9 /* OutDoorMonitorViewController.h */,
 				D695D2101FB7020D005255E9 /* OutDoorMonitorViewController.m */,
-				92B9AB0C225DC888001B23AD /* dpClass */,
+				9274817022617850000525C7 /* dpClass */,
 				92B9AAFF225DC802001B23AD /* DPPlay */,
 			);
 			path = monitor;
@@ -7632,7 +7619,6 @@
 				923897DC223CA85100279113 /* animate_00063.png in Resources */,
 				92389817223CA85100279113 /* invite_white@2x.png in Resources */,
 				92FC1E5220C8D3C700C8364A /* AppointMentParkCell.xib in Resources */,
-				92B9AB29225DC889001B23AD /* DSSPtzToolBar.xib in Resources */,
 				92669424219D4FD4004583B2 /* richText_editor.html in Resources */,
 				923897AC223CA85100279113 /* animate_00027.png in Resources */,
 				928426E5214B5DE000C909D4 /* ReservedCell.xib in Resources */,
@@ -7659,7 +7645,6 @@
 				9238981A223CA85100279113 /* speaker_gray@3x.png in Resources */,
 				923897A5223CA85100279113 /* bg_micro@3x.png in Resources */,
 				D63922C91FB444A700E1A00A /* AirConditionCollViewCell.xib in Resources */,
-				92B9AB2F225DC889001B23AD /* DSSPlayWndToolBar.xib in Resources */,
 				92389820223CA85100279113 /* minimize_white@3x.png in Resources */,
 				9266944A219EA1E3004583B2 /* LedFormworkCell.xib in Resources */,
 				923897EA223CA85100279113 /* animate_00029.png in Resources */,
@@ -7718,6 +7703,7 @@
 				92E87D2B1FB592530045D2FF /* MeetroomSceneCell.xib in Resources */,
 				92789774219C18E800792EFF /* FaceWranCell.xib in Resources */,
 				9240BB0C1FC2F0830019AF07 /* SnapCountCell.xib in Resources */,
+				927481A122617850000525C7 /* DSSRealPtzControlView.xib in Resources */,
 				92389804223CA85100279113 /* unchecked@3x.png in Resources */,
 				9225EC6C21B7B463007645D2 /* LEDMenuView.xib in Resources */,
 				9238980B223CA85100279113 /* grid_white@3x.png in Resources */,
@@ -7732,7 +7718,6 @@
 				D60CA2D91FBC1C1800725389 /* WifiListTableViewCell.xib in Resources */,
 				923897DE223CA85100279113 /* animate_00088.png in Resources */,
 				923897C6223CA85100279113 /* animate_00081.png in Resources */,
-				92B9AB31225DC889001B23AD /* DHStreamSelectView.xib in Resources */,
 				D63922A01FB3E28800E1A00A /* CarBlackListTabCell.xib in Resources */,
 				923897F1223CA85100279113 /* answer@3x.png in Resources */,
 				9265608121E2E86E006D1FDB /* WranHomeCell.xib in Resources */,
@@ -7756,6 +7741,7 @@
 				921894DC1FA95596001C1A41 /* AADrilldown.js in Resources */,
 				923897DD223CA85100279113 /* animate_00077.png in Resources */,
 				D69A2F5E21815D58001C7571 /* WifiUserBatchAptCell.xib in Resources */,
+				927481A722617894000525C7 /* PlaybackProgress.xib in Resources */,
 				92E87D4A1FB6D9CD0045D2FF /* EnergyConCell.xib in Resources */,
 				92B3BEBE1FF3E73300C3AFEC /* ParkLightTaskCell.xib in Resources */,
 				9222432021CCD3810096EEC8 /* LockMenuView.xib in Resources */,
@@ -7781,7 +7767,6 @@
 				926B697A1FD24B2F00DEFEDD /* CarIllegeaCell.xib in Resources */,
 				923897D2223CA85100279113 /* animate_00059.png in Resources */,
 				9222CAD5215E5B3700C519FF /* ParkTop10Cell.xib in Resources */,
-				92B9AB57225ED521001B23AD /* DPClass.storyboard in Resources */,
 				D6B34E0720887F7C00DF8DCC /* RepairsPeopleCell.xib in Resources */,
 				D653D7471FB1929F00798E1F /* inDoorMusicTabCell.xib in Resources */,
 				925576E22182BFB700B4A1A3 /* WifiCountSpeedCell.xib in Resources */,
@@ -7811,11 +7796,11 @@
 				92669422219D4FD4004583B2 /* normalize.css in Resources */,
 				9240BAE11FC26AB70019AF07 /* SurplusParkCell.xib in Resources */,
 				925576C22182997200B4A1A3 /* WifiShareTopCell.xib in Resources */,
-				92B9AB26225DC888001B23AD /* PlaybackProgress.xib in Resources */,
 				D6DD4CA31FB54EC400CFC384 /* LEDmsgTitleTableViewCell.xib in Resources */,
 				D6DD4C9E1FB549CC00CFC384 /* PostTimeTableViewCell.xib in Resources */,
 				D60AC457217EC4A600A22391 /* ClockTimeCell.xib in Resources */,
 				925348AC21D0B9B800B05593 /* CommncWranCell.xib in Resources */,
+				9274819822617850000525C7 /* DSSPtzToolBar.xib in Resources */,
 				923897BB223CA85100279113 /* animate_00045.png in Resources */,
 				923897D6223CA85100279113 /* animate_00070.png in Resources */,
 				D60CA2E11FBC2D1A00725389 /* ManholeListTableViewCell.xib in Resources */,
@@ -7826,7 +7811,6 @@
 				D6F6654D1FA1C49300059931 /* Login.storyboard in Resources */,
 				923897B0223CA85100279113 /* animate_00031.png in Resources */,
 				922B41092154919B00B9F6E4 /* PopContentView.xib in Resources */,
-				92B9AB2E225DC889001B23AD /* DSSMainToolBar.xib in Resources */,
 				921A840B1FA962CC00EE4F41 /* Graph.storyboard in Resources */,
 				92669421219D4FD4004583B2 /* style.css in Resources */,
 				923897E0223CA85100279113 /* animate_00062.png in Resources */,
@@ -7839,10 +7823,12 @@
 				923897E1223CA85100279113 /* animate_00074.png in Resources */,
 				9225EC6421B69DDC007645D2 /* LEDSendTypeCell.xib in Resources */,
 				923897EE223CA85100279113 /* recorder_white@2x.png in Resources */,
+				9274819D22617850000525C7 /* DSSMainToolBar.xib in Resources */,
 				D6B1B2571FC27CAB00852BE8 /* MonitorTableViewCell.xib in Resources */,
 				923897F2223CA85100279113 /* answer@2x.png in Resources */,
 				92389811223CA85100279113 /* video_white@3x.png in Resources */,
 				923897D1223CA85100279113 /* animate_00054.png in Resources */,
+				927481A022617850000525C7 /* DHStreamSelectView.xib in Resources */,
 				9222432221CCD3960096EEC8 /* CoverMenuView.xib in Resources */,
 				923897B3223CA85100279113 /* animate_00034.png in Resources */,
 				92E87D511FB6E25B0045D2FF /* MonthMeterCell.xib in Resources */,
@@ -7885,12 +7871,12 @@
 				925576E72182BFDD00B4A1A3 /* WifiCountStrongCell.xib in Resources */,
 				92B3BE991FF0D8C800C3AFEC /* EntranceCell.xib in Resources */,
 				923897F8223CA85100279113 /* grid_gray@3x.png in Resources */,
-				92B9AB32225DC889001B23AD /* DSSRealPtzControlView.xib in Resources */,
 				926B69721FD137B100DEFEDD /* IllegalListTabCell.xib in Resources */,
 				923897C4223CA85100279113 /* animate_00042.png in Resources */,
 				923897C5223CA85100279113 /* animate_00056.png in Resources */,
 				9238980C223CA85100279113 /* role_white@3x.png in Resources */,
 				928CD9182061FA5A00058727 /* LightGroupCell.xib in Resources */,
+				9274819E22617850000525C7 /* DSSPlayWndToolBar.xib in Resources */,
 				9238981E223CA85100279113 /* video_white@2x.png in Resources */,
 				9256C45F21A55D8200501014 /* bds_easr_mfe_dnn.dat in Resources */,
 				92389816223CA85100279113 /* speaker_gray@2x.png in Resources */,
@@ -8039,6 +8025,7 @@
 				92C217091FC57A890072564C /* AboutViewController.m in Sources */,
 				925348B921D6F7E800B05593 /* CommncWranModel.m in Sources */,
 				92E83DEF208EB896006759E7 /* EquipmentInfoViewController.m in Sources */,
+				9274819A22617850000525C7 /* DSSRealPtzControlView.m in Sources */,
 				9257EF0321C9DBCA009C4230 /* HpFaceModel.m in Sources */,
 				92E83DF2208ED758006759E7 /* ScanNoDataView.m in Sources */,
 				92B9AACF225DC62E001B23AD /* DDXMLElementAdditions.m in Sources */,
@@ -8060,6 +8047,7 @@
 				928EFF92210734FD00B49DC6 /* MeetRoomGroupViewController.m in Sources */,
 				92E87D0F1FB44EAD0045D2FF /* EatHallOneViewController.m in Sources */,
 				927A0D4A2085DB7E00C3F8DE /* RepairsCenViewController.m in Sources */,
+				9274819922617850000525C7 /* DSSPtzToolBar.m in Sources */,
 				92325476223A3745000363C1 /* MWGridCell.m in Sources */,
 				92B90BD3201C7AA100F978A1 /* MonthMeterModel.m in Sources */,
 				D63922B81FB42FBF00E1A00A /* AirConditionViewController.m in Sources */,
@@ -8098,6 +8086,7 @@
 				D6FE63901FB28CEB005CEE99 /* MD5.m in Sources */,
 				9289AF08218FD65B005AC0DC /* MealCenViewController.m in Sources */,
 				D674A8421FD403B000E773FD /* HourFlowCountModel.m in Sources */,
+				9274819622617850000525C7 /* ZComBoxView.m in Sources */,
 				92389849223CA96D00279113 /* BaseViewController.m in Sources */,
 				926DB8DB20256F0800529BE0 /* MealDayModel.m in Sources */,
 				9287753D1FBC1D3800BF708A /* EnergyTabbarController.m in Sources */,
@@ -8108,7 +8097,6 @@
 				9298ECD82007714500A8B270 /* WeatherViewController.m in Sources */,
 				92D8B8D7206B30190001263F /* SelTimeCell.m in Sources */,
 				D63922C31FB43E6600E1A00A /* ElevatorTabCell.m in Sources */,
-				92B9AB54225DEB53001B23AD /* ZComBoxView.m in Sources */,
 				D68CF4B41FC66BC000155E06 /* ParkLightModel.m in Sources */,
 				D63922DF1FB5363200E1A00A /* UIView+YQ.m in Sources */,
 				92D8DDC22046A57300E8185A /* EnvDetDataViewController.m in Sources */,
@@ -8196,7 +8184,6 @@
 				922B40C6215250F600B9F6E4 /* ParkOverViewController.m in Sources */,
 				D69A2F4721814D56001C7571 /* wifiSticalCenterViewController.m in Sources */,
 				92B9AB09225DC802001B23AD /* PlayVideoViewController.m in Sources */,
-				92B9AB2B225DC889001B23AD /* DSSRealPtzControlView.m in Sources */,
 				92E87CFB1FB42CF40045D2FF /* LEDCell.m in Sources */,
 				9226846220AED00A006628B3 /* DeviceInfoModel.m in Sources */,
 				923C33B922276AD600031A2D /* RobotInfoCell.m in Sources */,
@@ -8218,6 +8205,7 @@
 				9232544B223A3744000363C1 /* EaseEmotionManager.m in Sources */,
 				9296D54620FC31550037EE83 /* AirBatchCell.m in Sources */,
 				926B69CA1FD27DE000DEFEDD /* LockBluetool.m in Sources */,
+				9274819222617850000525C7 /* DHDeviceManager.m in Sources */,
 				D69A2F4A21814D77001C7571 /* WifiUserInfoViewController.m in Sources */,
 				D629A5D01F9C5D3A00FA5EE1 /* HomeViewController.m in Sources */,
 				92BD1EA9210AA22100D84330 /* AirLayerModel.m in Sources */,
@@ -8286,6 +8274,7 @@
 				D6A2DEE72180139800D76AB6 /* ParkFeeListViewController.m in Sources */,
 				9265607021E2E348006D1FDB /* WranHomeViewController.m in Sources */,
 				923DBDE61FEA092E00736CAE /* SceneEditCell.m in Sources */,
+				9274819722617850000525C7 /* DHHudPrecess.m in Sources */,
 				92E87D101FB44EAD0045D2FF /* LightLEDViewController.m in Sources */,
 				92D0E8B22089834A003BC75E /* BillConfirmView.m in Sources */,
 				9257EEC521C730D4009C4230 /* HpFaceViewController.m in Sources */,
@@ -8294,6 +8283,7 @@
 				D68A2F191FC018DE00E541A6 /* VisitedTableViewCell.m in Sources */,
 				92C8EED12024072700AC6337 /* YQRemindUpdatedView.m in Sources */,
 				D6B1B2651FC2CB7F00852BE8 /* HomeBgMusicTabViewController.m in Sources */,
+				9274819422617850000525C7 /* DHPlaybackManager.m in Sources */,
 				92D8B8DF206B3F0C0001263F /* FaceTraceCell.m in Sources */,
 				92325467223A3745000363C1 /* EMCDDeviceManager+Remind.m in Sources */,
 				9253C4C520F8ABA900985949 /* AirSiwtchCell.m in Sources */,
@@ -8341,12 +8331,12 @@
 				9213C04D1FE617F9009E7B67 /* AloneConCell.m in Sources */,
 				929142C3218069D800FFE7C4 /* ParkFeeTopCell.m in Sources */,
 				922770DD20BD38A5009010F7 /* ParkRecordViewController.m in Sources */,
-				92B9AB2D225DC889001B23AD /* DSSPlayWndToolBar.m in Sources */,
 				D68A2F1D1FC0258E00E541A6 /* CommpanyVisViewController.m in Sources */,
 				92E77DA220DA309D00B87F9B /* AptParkingAreaModel.m in Sources */,
 				923896D2223C874800279113 /* AppointChatUserModel.m in Sources */,
 				92E83DEC208D8D3E006759E7 /* YQScanView.m in Sources */,
 				D65685621FB0117D00BDFFF3 /* TimeSetTableViewController.m in Sources */,
+				927481A622617894000525C7 /* PlaybackProgress.m in Sources */,
 				92D8DDB920469A5700E8185A /* WaterConViewController.m in Sources */,
 				9223611B21E8439B00E412F4 /* ParkOverModel.m in Sources */,
 				9224A2EC2012F5F600AE4FF4 /* VisitorViserModel.m in Sources */,
@@ -8360,7 +8350,6 @@
 				923254B1223A3745000363C1 /* EaseBubbleView+Voice.m in Sources */,
 				92325470223A3745000363C1 /* MWZoomingScrollView.m in Sources */,
 				9240BAE51FC27F390019AF07 /* ParkCountViewController.m in Sources */,
-				92B9AB4B225DDF80001B23AD /* DHPlaybackManager.m in Sources */,
 				D60CA2CB1FBBD16E00725389 /* MeetRoomCenterViewController.m in Sources */,
 				9273EB12204E968B00723C5D /* EvnDelModel.m in Sources */,
 				92389796223CA85100279113 /* EMVideoInfoViewController.m in Sources */,
@@ -8398,6 +8387,7 @@
 				D602624C1F9C46C900A66D5A /* UITabBar+CustomBadge.m in Sources */,
 				9225EC7321B7D9E7007645D2 /* DistributorDeviceModel.m in Sources */,
 				92B9AABE225DC62E001B23AD /* XMLDictionary.m in Sources */,
+				9274819122617850000525C7 /* DHLoginManager.m in Sources */,
 				92B90BDC201DD85200F978A1 /* EnergyWaterUseModel.m in Sources */,
 				92D8B8B5206A1FD50001263F /* AAAreaspline.m in Sources */,
 				926B69751FD142CA00DEFEDD /* IllegalDetailViewController.m in Sources */,
@@ -8523,7 +8513,6 @@
 				922B40FF2154908F00B9F6E4 /* VisitHistoryModel.m in Sources */,
 				92B9AAB8225DC62E001B23AD /* NSObject+SBJSON.m in Sources */,
 				92325499223A3745000363C1 /* EaseConversationListViewController.m in Sources */,
-				92B9AB48225DDF80001B23AD /* DHLoginManager.m in Sources */,
 				92CC9D99207C982B005E39A6 /* WarnCakeView.m in Sources */,
 				9219093B1FCF8E47002F6270 /* MessageModel.m in Sources */,
 				D695D2111FB7020D005255E9 /* OutDoorMonitorViewController.m in Sources */,
@@ -8531,7 +8520,6 @@
 				92325468223A3745000363C1 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				D6EAE6AE1FB542A7006E4C2F /* ChooseLedTableViewCell.m in Sources */,
 				D6EAE6A41FB53B43006E4C2F /* YQPhotoPickerView.m in Sources */,
-				92B9AB25225DC888001B23AD /* PlaybackProgress.m in Sources */,
 				D695D1AF1FB6CC58005255E9 /* TopMenuModel.m in Sources */,
 				9226842E20AA7F3A006628B3 /* BillProgressModel.m in Sources */,
 				92B9AABA225DC62E001B23AD /* SBJSON.m in Sources */,
@@ -8543,7 +8531,6 @@
 				9226845920AC3517006628B3 /* WorkDetailViewController.m in Sources */,
 				92389795223CA85100279113 /* EM1v1CallViewController.m in Sources */,
 				D60AC447217EAF6B00A22391 /* NewLEDCell.m in Sources */,
-				92B9AB2C225DC889001B23AD /* DHStreamSelectView.m in Sources */,
 				D64454CD1FCD047C005CBD7B /* SingleCtrlTableViewCell.m in Sources */,
 				925A8BAC21DE001A0044C8AD /* CommncInfoModel.m in Sources */,
 				92B9AAD4225DC62E001B23AD /* OAStackView+Hiding.m in Sources */,
@@ -8561,6 +8548,7 @@
 				92B3BEB91FF3E71C00C3AFEC /* SetParkTimeViewController.m in Sources */,
 				D6928CCD1FBD6FE000CB9C18 /* BgMusicTabViewController.m in Sources */,
 				922B40CA2154886D00B9F6E4 /* BookRecordViewController.m in Sources */,
+				9274819C22617850000525C7 /* DSSPlayWndToolBar.m in Sources */,
 				923897A2223CA85100279113 /* ConfInviteUsersViewController.m in Sources */,
 				927A0D522085E84200C3F8DE /* RepairListCell.m in Sources */,
 				928775051FB9969F00BF708A /* MessageViewController.m in Sources */,
@@ -8604,17 +8592,17 @@
 				9223611E21E843D900E412F4 /* OverAlarmModel.m in Sources */,
 				92325447223A3744000363C1 /* EaseChineseToPinyin.m in Sources */,
 				9298ECD520074D7100A8B270 /* EntranceGroupView.m in Sources */,
-				92B9AB53225DEB53001B23AD /* DHDataCenter.m in Sources */,
 				92E87D2C1FB592530045D2FF /* MeetroomSceneCell.m in Sources */,
 				D68A2EE91FBFD46F00E541A6 /* DCFiltrateViewController.m in Sources */,
 				D6A2DEE421800C5300D76AB6 /* ParkFeeViewController.m in Sources */,
-				92B9AB49225DDF80001B23AD /* DHDeviceManager.m in Sources */,
 				9225EC7021B7D9D3007645D2 /* DistributorFloorModel.m in Sources */,
 				9287753A1FBC1B0800BF708A /* InTimeConsumptionViewController.m in Sources */,
+				9274819F22617850000525C7 /* DSSMainToolBar.m in Sources */,
 				92E87D221FB586480045D2FF /* MeetRoomViewController.m in Sources */,
 				9266941B219D4FD3004583B2 /* UIControl+KWButtonExtension.m in Sources */,
 				92669445219E988D004583B2 /* LEDSendSucView.m in Sources */,
 				922770F020BD46A7009010F7 /* MessageTypeModel.m in Sources */,
+				9274819522617850000525C7 /* DHDataCenter.m in Sources */,
 				92B3BEB41FF3D19300C3AFEC /* FoodViewController.m in Sources */,
 				D6B1B25A1FC2A90B00852BE8 /* OpenDoorAreaViewController.m in Sources */,
 				92389847223CA96D00279113 /* EMRemarkImageView.m in Sources */,
@@ -8635,10 +8623,10 @@
 				D692599E1FC514380077482F /* WSDatePickerView.m in Sources */,
 				92643D8F201876970007C007 /* VisCountNumModel.m in Sources */,
 				D629A5FB1F9F3A4200FA5EE1 /* YQWebViewController.m in Sources */,
+				9274819322617850000525C7 /* DHTVWallManager.m in Sources */,
 				D6B34E0620887F7C00DF8DCC /* RepairsPeopleCell.m in Sources */,
 				92D8B8E7206B83B00001263F /* FaceQueryModel.m in Sources */,
 				92E0233B219C1167002342AE /* VerListViewController.m in Sources */,
-				92B9AB55225DEB53001B23AD /* DHHudPrecess.m in Sources */,
 				9225EC6A21B7B270007645D2 /* LEDMenuView.m in Sources */,
 				922B411C2154986B00B9F6E4 /* BookRecordParkAreaModel.m in Sources */,
 				D6920CF11FA98B65006E65F1 /* YQJPushTool.m in Sources */,
@@ -8651,7 +8639,6 @@
 				921A840C1FA962CC00EE4F41 /* GraphListTableViewController.m in Sources */,
 				922770E420BD3B11009010F7 /* CarRecordModel.m in Sources */,
 				926EA70821EC13A800BE56F4 /* OverTaskModel.m in Sources */,
-				92B9AB28225DC889001B23AD /* DHPlaybackViewController.m in Sources */,
 				D60CA2A81FB9489800725389 /* YQPageContentScrollView.m in Sources */,
 				925348B521D4D20C00B05593 /* EquipmQueryCell.m in Sources */,
 				923C33B3222688E100031A2D /* RobotMenuView.m in Sources */,
@@ -8701,7 +8688,6 @@
 				922788402117E63D00D8430C /* UIImage+Zip.m in Sources */,
 				9224A2DC2010ABB700AE4FF4 /* WeatherDetailController.m in Sources */,
 				D60CA2E01FBC2D1A00725389 /* ManholeListTableViewCell.m in Sources */,
-				92B9AB2A225DC889001B23AD /* DSSPtzToolBar.m in Sources */,
 				D65685681FB04EC400BDFFF3 /* YQSwitch.m in Sources */,
 				92E87D5C1FB6E8D50045D2FF /* OpenRecordViewController.m in Sources */,
 				92E87D6A1FB6FED40045D2FF /* AuthorityListCell.m in Sources */,
@@ -8728,7 +8714,6 @@
 				D653D7391FB14EEA00798E1F /* FountainViewController.m in Sources */,
 				9240BAFC1FC2B3680019AF07 /* WarnCountViewController.m in Sources */,
 				927A0D4620858F2C00C3F8DE /* ReportWarnViewController.m in Sources */,
-				92B9AB27225DC888001B23AD /* DHPreviewViewController.m in Sources */,
 				9257EF0621C9DC15009C4230 /* HpCarModel.m in Sources */,
 				92343BEA20D8A60500A28603 /* AptManagerViewController.m in Sources */,
 				922B40FA21548F5100B9F6E4 /* UIScrollView+Empty.m in Sources */,
@@ -8736,7 +8721,6 @@
 				9253C4C120F8A75F00985949 /* AirBatchViewController.m in Sources */,
 				925576E62182BFDD00B4A1A3 /* WifiCountStrongCell.m in Sources */,
 				9222431B21CCD2840096EEC8 /* LockMenuView.m in Sources */,
-				92B9AB4A225DDF80001B23AD /* DHTVWallManager.m in Sources */,
 				923C33A922267A6100031A2D /* RobotHomeViewController.m in Sources */,
 				92B3BEC51FF5DE1500C3AFEC /* ParkNightTaskModel.m in Sources */,
 				92FAC4DD219ACE7800FB1489 /* FaceHistoryViewController.m in Sources */,
@@ -8771,7 +8755,6 @@
 				928615EE214F9D420009FD7F /* ParkRecordFilterView.m in Sources */,
 				928775101FB9A23A00BF708A /* EditInfoTableViewController.m in Sources */,
 				D6B1B25E1FC2B04600852BE8 /* OpenDoorAreaCltViewCell.m in Sources */,
-				92B9AB30225DC889001B23AD /* DSSMainToolBar.m in Sources */,
 				9287751F1FBA81F500BF708A /* MonitorMenuView.m in Sources */,
 				92D8B873206A1F870001263F /* AASeriesElement.m in Sources */,
 				9223612E21E874AA00E412F4 /* OverLineCell.m in Sources */,
@@ -8813,6 +8796,7 @@
 				92AC03B321A40FA1009A73F3 /* LEDFormworkModel.m in Sources */,
 				9225EC6321B69DDC007645D2 /* LEDSendTypeCell.m in Sources */,
 				92E87D3F1FB6D7730045D2FF /* EnergyConViewController.m in Sources */,
+				9274819B22617850000525C7 /* DHStreamSelectView.m in Sources */,
 				923897A4223CA85100279113 /* ConfInviteUserCell.m in Sources */,
 				D69A2F52218154C9001C7571 /* WifiUserInfoCell.m in Sources */,
 				9273EB182051303900723C5D /* WaterTimeViewController.m in Sources */,

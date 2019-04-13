@@ -15,7 +15,6 @@
 #import "ZComBoxView.h"
 #import "DHPlaybackManager.h"
 #import "DHDataCenter.h"
-#import "DHPlaybackViewController.h"
 
 #define timeRange @"timeRange"
 #define timeIndex @"timeIndex"
@@ -52,11 +51,8 @@
     
     [self _queryData];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(rightAC)];
 }
-- (void)rightAC {
-    [_timeDelegate selTime:1 withRange:nil withDSSRecordInfo:_allTimeData.firstObject];
-}
+
 - (void)_initView {
     self.view.backgroundColor = [UIColor colorWithHexString:@"#e2e2e2"];
     
@@ -159,26 +155,19 @@
     }
     
     [_timeData removeAllObjects];
-    [_allTimeData enumerateObjectsUsingBlock:^(NSDictionary *rangeDic, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *fileTimeRange = rangeDic[timeRange];
-        NSArray *ranges = [fileTimeRange componentsSeparatedByString:@"-"];
-        if(ranges.count > 1){
-            NSString *beginTime = ranges.firstObject;
-            NSString *endTime = ranges.lastObject;
-            
-            NSDateFormatter *format = [[NSDateFormatter alloc] init];
-            [format setDateFormat:@"HH:mm"];
-            
-            NSDate *standBeginDate = [format dateFromString:rangeBegin];
-            NSDate *standEndDate = [format dateFromString:rangeEnd];
-            
-            NSDate *beginDate = [format dateFromString:beginTime];
-            NSDate *endDate = [format dateFromString:endTime];
-            
-            BOOL isRange = [self judgeTimeByStartAndEnd:rangeBegin withExpireTime:rangeEnd withSelTime:endTime];
-            if(isRange){
-                [_timeData addObject:rangeDic];
-            }
+    [_allTimeData enumerateObjectsUsingBlock:^(DSSRecordInfo *recordInfo, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        NSInteger startTime = recordInfo.startTime;
+        NSInteger endTime = recordInfo.endTime;
+        
+        NSLog(@"%ld %ld", startTime, endTime);
+        
+        NSDate *beginDate = [NSDate dateWithTimeIntervalSince1970:startTime];
+        NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:endTime];
+        
+        BOOL isRange = [self judgeTimeByStartAndEnd:[self dateWithHM:rangeBegin] withExpireTime:[self dateWithHM:rangeEnd] withSelBeginTime:beginDate withSelEndTime:endDate];
+        if(isRange){
+            [_timeData addObject:recordInfo];
         }
     }];
     
@@ -186,16 +175,11 @@
 }
 
 // 当前时间是否在时间段内 (忽略年月日)
-- (BOOL)judgeTimeByStartAndEnd:(NSString *)startTime withExpireTime:(NSString *)expireTime withSelTime:(NSString *)selTime {
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"HH:mm"];
-    NSDate *today = [dateFormat dateFromString:selTime];
-    NSDate *start = [dateFormat dateFromString:startTime];
-    NSDate *expire = [dateFormat dateFromString:expireTime];
-    
-    if ([today compare:start] == NSOrderedDescending && ([today compare:expire] == NSOrderedAscending || [today compare:expire] == NSOrderedSame)) {
+- (BOOL)judgeTimeByStartAndEnd:(NSDate *)start withExpireTime:(NSDate *)expire withSelBeginTime:(NSDate *)selStartDate withSelEndTime:(NSDate *)selEndDate {
+    if(([selStartDate compare:start] == NSOrderedDescending || [selStartDate compare:start] == NSOrderedSame) && ([selEndDate compare:expire] == NSOrderedAscending || [selEndDate compare:expire] == NSOrderedSame)){
         return YES;
     }
+    
     return NO;
 }
 
@@ -218,8 +202,8 @@
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-    NSTimeZone* GTMzone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-    [dateFormatter setTimeZone:GTMzone];
+//    NSTimeZone* GTMzone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+//    [dateFormatter setTimeZone:GTMzone];
     
     NSDate *queryDate =[dateFormatter dateFromString:beginStr];
     NSDate *laterDate =[dateFormatter dateFromString:endStr];
@@ -244,55 +228,6 @@
     }
 }
 
-#pragma mark 查询方法
-- (void)onBtnQueryRecord {
-    #warning 大华SDK旧版本
-    /*
-    [[DHHudPrecess sharedInstance]showWaiting:@""
-                               WhileExecuting:@selector(threadQueryRecord)
-                                     onTarget:self
-                                   withObject:Nil
-                                     animated:NO
-                                       atView:KEYWINDOW];
-     */
-}
-
-#pragma mark 查询
-- (void)threadQueryRecord
-{
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-    
-//    NSTimeZone* localzone = [NSTimeZone localTimeZone];
-//    NSTimeZone* GTMzone = [NSTimeZone timeZoneForSecondsFromGMT:0];
-//    [dateFormatter setTimeZone:GTMzone];
-    
-    #warning 大华SDK旧版本
-    /*
-    [PlaybackManager sharedInstance].isStartTime = YES;
-    NSString *beginStr = [_queryDate stringByAppendingString:@" 00:00"];
-    [PlaybackManager sharedInstance].isStartTime = NO;
-    NSString *endStr = [_queryDate stringByAppendingString:@" 23:59"];
-    
-    NSDate *queryDate =[dateFormatter dateFromString:beginStr];
-    NSDate *laterDate =[dateFormatter dateFromString:endStr];
-    
-    int nError = [[PlaybackManager sharedInstance]queryRecordByStart:queryDate withEnd:laterDate];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([PlaybackManager sharedInstance].isFileExisted == NO) {
-            [self showHint:@"该时间段内没有录像"];
-        }else if (0 != nError) {
-            [self showHint:@"查询失败"];
-        }
-        // 查询成功
-        if(nError == 0) {
-            _allTimeData = [[PlaybackManager sharedInstance]queryFileList];
-        }
-    });
-    */
-}
-
 #pragma mark collectionView代理方法
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
@@ -305,10 +240,10 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     TimeRangeCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TimeRangeCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-    NSDictionary *timeRangeDic = _timeData[indexPath.row];
-    cell.cellTimeRange = timeRangeDic[timeRange];
-    NSNumber *indexNum = timeRangeDic[timeIndex];
-    cell.cellTimeIndex = indexNum.integerValue;
+    DSSRecordInfo *recordInfo = _timeData[indexPath.row];
+    cell.cellTimeRange = [self timeRangeWithDate:recordInfo.startTime withEnd:recordInfo.endTime];
+//    NSNumber *indexNum = timeRangeDic[timeIndex];
+//    cell.cellTimeIndex = indexNum.integerValue;
     return cell;
 }
 
@@ -349,13 +284,34 @@
 
 //点击item方法
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *timeRangeDic = _timeData[indexPath.row];
-    NSNumber *indexNum = timeRangeDic[timeIndex];
+    DSSRecordInfo *recordInfo = _timeData[indexPath.row];
     if(_timeDelegate){
-#warning 修改为对应点击info
-        [_timeDelegate selTime:indexNum.integerValue withRange:timeRangeDic[timeRange] withDSSRecordInfo:nil];
+        [_timeDelegate selTime:0 withRange:[self timeRangeWithDate:recordInfo.startTime withEnd:recordInfo.endTime] withDSSRecordInfo:recordInfo];
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (NSString *)timeRangeWithDate:(NSInteger)startTime withEnd:(NSInteger)endTime {
+    NSDate *beginDate = [NSDate dateWithTimeIntervalSince1970:startTime];
+    NSDate *endDate = [NSDate dateWithTimeIntervalSince1970:endTime];
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"HH:mm"];
+//    NSTimeZone* GTMzone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+//    [dateFormat setTimeZone:GTMzone];
+    NSString *comStr = [NSString stringWithFormat:@"%@-%@", [dateFormat stringFromDate:beginDate], [dateFormat stringFromDate:endDate]];
+    return comStr;
+}
+
+- (NSDate *)dateWithHM:(NSString *)hm {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+//    NSTimeZone* GTMzone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+//    [dateFormat setTimeZone:GTMzone];
+    NSString *nowDay = [_queryDate stringByAppendingFormat:@" %@",hm];
+    
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+    return [dateFormat dateFromString:nowDay];
 }
 
 @end
